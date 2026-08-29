@@ -1,0 +1,61 @@
+# One-command build → push → deploy to Cloud Run (the same flow as greenfield).
+#
+#   gcloud builds submit --substitutions=_GA_ID=G-XXXXXXXXXX
+#
+# Prereqs (one-time):
+#   • an Artifact Registry docker repo (default name below: "web")
+#       gcloud artifacts repositories create web --repository-format=docker --location=us-east1
+#   • the Resend key in Secret Manager
+#       printf '%s' 're_xxx' | gcloud secrets create RESEND_API_KEY --data-file=-
+#   • grant the Cloud Run runtime SA access to that secret (Secret Manager Secret Accessor)
+
+substitutions:
+  _REGION: us-east1
+  _SERVICE: conductor-website
+  _REPO: web
+  _GA_ID: "" # pass at submit time: --substitutions=_GA_ID=G-XXXXXXXXXX
+
+steps:
+  # 1 · build the image (GA id is baked in here — NEXT_PUBLIC_* is build-time)
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --build-arg
+      - NEXT_PUBLIC_GA_ID=${_GA_ID}
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:latest
+      - .
+
+  # 2 · push
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - --all-tags
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}
+
+  # 3 · deploy to Cloud Run (runtime env + secrets)
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:latest
+      - --region=${_REGION}
+      - --platform=managed
+      - --allow-unauthenticated
+      - --port=8080
+      - --cpu=1
+      - --memory=512Mi
+      - --min-instances=0
+      - --max-instances=3
+      - --set-env-vars=CONTACT_TO_EMAIL=support@conductor.ng,CONTACT_FROM_EMAIL=Conductor site <noreply@conductor.ng>
+      - --set-secrets=RESEND_API_KEY=RESEND_API_KEY:latest
+
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:latest
+
+options:
+  logging: CLOUD_LOGGING_ONLY
