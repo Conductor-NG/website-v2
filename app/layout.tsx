@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@/components/Analytics";
 import { SITE, SOCIALS } from "@/lib/site";
-import "./globals.css";
+// Export design system, then the app-theme re-skin (must load last).
+import "./design-css/colors_and_type.css";
+import "./design-css/site.css";
+import "./design-css/pages.css";
+import "./design-css/theme-override.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -32,6 +37,9 @@ export const metadata: Metadata = {
     description: "A seat on a car already going your way.",
   },
   alternates: { canonical: "/" },
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {
@@ -81,6 +89,7 @@ export default function RootLayout({
       <body>
         <OrgSchema />
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );

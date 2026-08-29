@@ -30,3 +30,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# dev-only scratch artifacts (not part of the shipped site)
+/public/_live/
+/public/_logos.html
+/public/_montage.html
+/public/images/screens/_orig/
+/design/mockups/
