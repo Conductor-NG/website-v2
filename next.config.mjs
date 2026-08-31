@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   // Slim, self-contained server bundle for a container (Cloud Run / Firebase App Hosting).
-  output: "standalone",
+  // Vercel builds its own output and its Next 16 adapter is incompatible with
+  // standalone (the standalone step reads a build trace Vercel's build never
+  // writes), so leave `output` unset there. VERCEL=1 is set on Vercel builds.
+  output: process.env.VERCEL ? undefined : "standalone",
   // Old WordPress URLs → new IA. Preserves SEO equity on cutover.
   // (Passenger page is now the root; /passengers 301s home.)
   async redirects() {
