@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@/components/Analytics";
 import { MetaPixel } from "@/components/MetaPixel";
+import { TikTokPixel } from "@/components/TikTokPixel";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE, SOCIALS } from "@/lib/site";
@@ -94,6 +95,7 @@ export default function RootLayout({
         {children}
         <GoogleAnalytics />
         <MetaPixel />
+        <TikTokPixel />
         <Analytics />
         <SpeedInsights />
       </body>
