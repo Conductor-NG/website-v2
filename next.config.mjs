@@ -6,6 +6,29 @@ const nextConfig = {
   // standalone (the standalone step reads a build trace Vercel's build never
   // writes), so leave `output` unset there. VERCEL=1 is set on Vercel builds.
   output: process.env.VERCEL ? undefined : "standalone",
+  // Baseline security headers. No Content-Security-Policy here — the site
+  // loads GA / Meta / TikTok / Vercel + Google Fonts, so a strict CSP needs
+  // its own careful allowlist and testing; add it as a dedicated follow-up.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+        ],
+      },
+    ];
+  },
   // Old WordPress URLs → new IA. Preserves SEO equity on cutover.
   // (Passenger page is now the root; /passengers 301s home.)
   async redirects() {

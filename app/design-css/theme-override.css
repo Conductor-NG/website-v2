@@ -1145,7 +1145,8 @@
   gap: clamp(30px, 5vw, 68px);
   align-items: center;
 }
-.illusplit__art img {
+.illusplit__art img,
+.illusplit__art video {
   width: 100%;
   height: auto;
   display: block;
