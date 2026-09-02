@@ -37,8 +37,30 @@ const APPLE='M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9
 const PLAY='M4.3 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l.1.1 9-9v-.2l-9-8.7ZM16.4 15.5l-3-3v-.2l3-3 .1.1 3.6 2c1 .6 1 1.5 0 2.1l-3.7 2ZM16.5 15.6 13.4 12.5l-9.1 9.1c.3.4.9.4 1.5.1l10.7-6.1';
 // Fire a GA4 event (no-op until NEXT_PUBLIC_GA_ID is set). Used for
 // site→app conversions: open_webapp, download_intent, store_click.
+// One place for all outbound analytics. Fires GA4, and maps high-intent
+// actions to standard Meta/TikTok conversion events so ad platforms can
+// optimise delivery. All calls are guarded — Meta/TikTok no-op until their
+// pixels are configured (NEXT_PUBLIC_*_PIXEL_ID), so this is always safe.
+const CONV_EVENTS={
+  // internal name : [Meta standard event, TikTok standard event]
+  open_webapp:['Lead','ClickButton'],
+  download_intent:['Lead','Download'],
+  store_click:['Lead','ClickButton'],
+  calc_estimate:['ViewContent','ViewContent'],
+};
 function track(name,params){
-  if(typeof window!=='undefined'&&typeof window.gtag==='function')window.gtag('event',name,params||{});
+  if(typeof window==='undefined')return;
+  const w=window;
+  if(typeof w.gtag==='function')w.gtag('event',name,params||{});
+  const std=CONV_EVENTS[name];
+  if(typeof w.fbq==='function'){
+    if(std)w.fbq('track',std[0],params||{});
+    w.fbq('trackCustom',name,params||{});
+  }
+  if(w.ttq&&typeof w.ttq.track==='function'){
+    if(std)w.ttq.track(std[1],params||{});
+    w.ttq.track(name,params||{});
+  }
 }
 const appOf=(s)=>/driver|owner|car/i.test(s||'')?'owner':'passenger';
 
@@ -1120,108 +1142,6 @@ const CORRIDORS=[
 
 
 
-/* ============ Quote ============ */
-const FREQS=[['daily','Daily',1],['weekly','Weekly',5],['monthly','Monthly',20]];
-const ILLO={passenger:'public/images/campaign.passenger.car.user.svg',driver:'public/images/campaign.driver.coined.user.svg'};
-
-function FreqSlider({value,onChange}){
-  const idx=FREQS.findIndex(f=>f[0]===value);
-  return React.createElement('div',{className:'freq'},
-    React.createElement('input',{type:'range',min:0,max:2,step:1,value:idx,'aria-label':'How often you travel',
-      onChange:e=>onChange(FREQS[+e.target.value][0]),
-      style:{'--p':(idx/2*100)+'%'}}),
-    React.createElement('div',{className:'freq__lb'},FREQS.map(([k,l],i)=>
-      React.createElement('button',{key:k,type:'button','aria-pressed':value===k,onClick:()=>onChange(k)},l))));
-}
-
-function Quote({mode='passenger',compact}){
-  const [city,setCity]=React.useState('lagos');
-  const c=CITIES[city];
-  const [from,setFrom]=React.useState(c.popular[0][0]);
-  const [to,setTo]=React.useState(c.popular[0][1]);
-  const [seats,setSeats]=React.useState(2);
-  const [freq,setFreq]=React.useState('weekly');
-  const [trip,setTrip]=React.useState('one-way');
-  const [q,setQ]=React.useState(null);
-  const [asked,setAsked]=React.useState(false);
-  const km=distance(city,from,to);
-  const isP=mode==='passenger';
-  const reset=()=>{setQ(null);setAsked(false)};
-  const swap=nc=>{const n=CITIES[nc];setCity(nc);setFrom(n.popular[0][0]);setTo(n.popular[0][1]);reset()};
-  const pick=(f,t)=>{setFrom(f);setTo(t);reset()};
-  const mult=FREQS.find(f=>f[0]===freq)[2]*(trip==='round-trip'?2:1);
-  const legs=mult;
-  const ask=async()=>{setAsked(true);setQ(await fetchQuote({city,from,to,seats:isP?1:seats}))};
-  const mins=km?Math.round(km*2.6):null;
-  const freqLabel=FREQS.find(f=>f[0]===freq)[1].toLowerCase();
-  return React.createElement('div',{className:'quote'+(compact?' quote--compact':'')},
-    React.createElement('div',{className:'quote__l'},
-      React.createElement('div',{className:'quote__hd'},
-        React.createElement('span',{className:'tiny'},isP?'Your commute':'Your daily drive'),
-        React.createElement('div',{className:'seg seg--sm'},Object.keys(CITIES).map(k=>
-          React.createElement('button',{key:k,onClick:()=>swap(k),'aria-pressed':city===k,type:'button'},CITIES[k].label)))),
-      React.createElement('div',{className:'field'},
-        React.createElement('label',{htmlFor:'qf'},'From'),
-        React.createElement('select',{id:'qf',value:from,onChange:e=>pick(e.target.value,to)},
-          c.pickups.map(([id,n,a])=>React.createElement('option',{key:id,value:id},n+' · '+a)))),
-      React.createElement('div',{className:'field'},
-        React.createElement('label',{htmlFor:'qt'},'To'),
-        React.createElement('select',{id:'qt',value:to,onChange:e=>pick(from,e.target.value)},
-          c.dests.map(([id,n,a])=>React.createElement('option',{key:id,value:id},n+' · '+a)))),
-      React.createElement('div',{className:'quote__pop'},
-        React.createElement('span',{className:'tiny'},'Popular'),
-        React.createElement('div',{className:'chips'},c.popular.map(([f,t])=>
-          React.createElement('button',{key:f+t,className:'chip chip--sm',type:'button',onClick:()=>pick(f,t)},
-            shortName(city,f)+' → '+shortName(city,t))))),
-      React.createElement('div',{className:'quote__ctl'},
-        React.createElement('div',{className:'field'},
-          React.createElement('label',null,'Trip'),
-          React.createElement('div',{className:'seg'},[['one-way','One way'],['round-trip','Return']].map(([k,l])=>
-            React.createElement('button',{key:k,type:'button','aria-pressed':trip===k,onClick:()=>{setTrip(k);reset()}},l)))),
-        !isP&&React.createElement('div',{className:'field'},
-          React.createElement('label',null,'Seats you would share'),
-          React.createElement('div',{className:'chips'},[1,2,3].map(s=>
-            React.createElement('button',{key:s,className:'chip',type:'button','aria-pressed':seats===s,onClick:()=>{setSeats(s);reset()}},s+(s>1?' seats':' seat'))))),
-        React.createElement('div',{className:'field'},
-          React.createElement('label',null,'How often'),
-          React.createElement(FreqSlider,{value:freq,onChange:f=>{setFreq(f);reset()}})))),
-    React.createElement('div',{className:'quote__r'},
-      React.createElement('div',{className:'quote__route'},
-        React.createElement('span',{className:'quote__rn'},place(city,from).name),
-        React.createElement('span',{className:'dotline'},React.createElement('i'),React.createElement('u'),React.createElement('i',{style:{background:'var(--pink-base)'}})),
-        React.createElement('span',{className:'quote__rn'},place(city,to).name)),
-      React.createElement('div',{className:'quote__facts'},
-        React.createElement('div',null,React.createElement('dt',{className:'num'},km?km.toFixed(1):'—'),React.createElement('dd',null,'km each way')),
-        React.createElement('div',null,React.createElement('dt',{className:'num'},mins||'—'),React.createElement('dd',null,'minutes, typical')),
-        React.createElement('div',null,React.createElement('dt',{className:'num'},legs),React.createElement('dd',null,legs===1?'leg a day':'legs a '+freqLabel.replace('ly','')))),
-      React.createElement('div',{className:'quote__body'},
-        React.createElement('img',{className:'quote__ill',src:ILLO[isP?'passenger':'driver'],alt:'',loading:'lazy'}),
-        React.createElement('div',{className:'quote__fare'},
-          !asked&&React.createElement(React.Fragment,null,
-            React.createElement('span',{className:'tiny'},isP?'What a seat costs':'What the seats collect'),
-            React.createElement('p',{className:'quote__ph'},isP
-              ?'Fares are quoted live in the app, so what you see is what you pay — never a number that went stale on a web page.'
-              :'Your figure is quoted live in the app, against the seats you choose to share.'),
-            React.createElement('button',{className:'btn btn--primary',type:'button',onClick:ask,style:{height:48,justifySelf:'start'}},
-              isP?'Get today\u2019s fare':'Get today\u2019s figure',React.createElement(Icon,{name:'arrow',size:17}))),
-          asked&&q&&q.state==='ok'&&React.createElement(React.Fragment,null,
-            React.createElement('span',{className:'tiny'},freqLabel==='daily'?'Today, this route':'Per '+freqLabel.replace('ly','')+', this route'),
-            React.createElement('span',{className:'bigfig num'},naira(q.amount*mult*(isP?1:seats))),
-            React.createElement('p',{className:'small'},'Quoted by the app just now — the same figure you will see at booking.')),
-          asked&&q&&q.state!=='ok'&&React.createElement(React.Fragment,null,
-            React.createElement('span',{className:'tiny'},'Live fare'),
-            React.createElement('p',{className:'quote__ph'},'Open the app for today\u2019s figure on this route. Pricing is quoted there so it is never out of date here.'),
-            React.createElement('div',{className:'storerow'},
-              React.createElement(StoreBtn,{kind:'ios',href:isP?LINKS.pIos:LINKS.dIos,label:isP?'Passenger app':'Car owner app'}),
-              React.createElement(StoreBtn,{kind:'play',href:isP?LINKS.pAnd:LINKS.dAnd,label:isP?'Passenger app':'Car owner app',light:true}))))),
-      React.createElement('ul',{className:'checks checks--sm'},
-        (isP?['The fare is agreed before you get in','No surge, at any hour or in any weather','You choose the vehicle, and the car owner']
-            :['The app prices each seat for your route','You choose which passengers ride with you','Your share is released after each trip'])
-          .map(t=>React.createElement('li',{key:t},React.createElement(Icon,{name:'check',size:15}),t)))));
-}
-
-
-
 /* ============ Calculator ============ */
 const WEEKS=4.33, RUN_PER_KM=165;
 
@@ -1325,7 +1245,7 @@ function Calculator({lock,start}){
           React.createElement('button',{type:'button',className:'calc__swap','aria-label':'Swap starting point and destination',
             onClick:()=>{const a=from;setFrom(to);setTo(a)}},React.createElement(Icon,{name:'route',size:16})),
           React.createElement(PlaceSearch,{label:'Destination',value:to||null,onChange:v=>setTo(v||''),placeholder:'Select destination route',exclude:from,accent:'var(--pink-base)'})),
-        React.createElement('button',{type:'button',className:'btn btn--primary calc2__cta',onClick:()=>{if(priced){setTrip('one-way');setFreq('daily');setModal('calc');}},disabled:!priced},cp.cta),
+        React.createElement('button',{type:'button',className:'btn btn--primary calc2__cta',onClick:()=>{if(priced){setTrip('one-way');setFreq('daily');setModal('calc');track('calc_estimate',{mode,from,to,location:'calculator'});}},disabled:!priced},cp.cta),
         overCap&&React.createElement('p',{className:'small',style:{margin:'2px 0 0'}},'That route is beyond the '+MAX_KM+' km a shared commute covers — pick two points closer together.'))),
 
     modal==='calc'&&overlay(
@@ -1349,52 +1269,6 @@ function Calculator({lock,start}){
             React.createElement(OpenAppBtn,{href:isP?LINKS.pWeb:LINKS.dWeb,label:'Open the web app',loc:'calculator'}),
             React.createElement(DownloadButton,{ios:isP?LINKS.pIos:LINKS.dIos,android:isP?LINKS.pAnd:LINKS.dAnd,variant:'dark',loc:'calculator'}))))));
 }
-function Bar({label,val,max,color}){
-  return React.createElement('div',{className:'bar'},
-    React.createElement('div',{className:'bar__t'},React.createElement('span',null,label),React.createElement('b',{className:'num'},naira(val))),
-    React.createElement('div',{className:'bar__r'},React.createElement('div',{className:'bar__f',style:{width:Math.max(4,val/max*100)+'%',background:color}})));
-}
-
-
-
-/* ============ Routes ============ */
-const CITIES={
-  lagos:{
-    label:'Mainland ↔ Island',
-    pickups:[['6','Abule Egba Bus Stop','Abule Egba'],['7','Super Bus Stop','Abule Egba'],['8','U-Turn Bus Stop','Abule Egba'],['9','Ahmadiyya Bus Stop','Abule Egba'],['10','Pleasure Bus Stop','Abule Egba'],['11','Ikorodu Garage','Ikorodu'],['12','Agric Bus Stop','Ikorodu'],['13','Ogolonto Bus Stop','Ikorodu'],['14','Sabo Market','Ikorodu'],['15','Benson Bus Stop','Ikorodu'],['16','Majidun Bus Stop','Ikorodu'],['17','Ajah Under Bridge','Ajah'],['18','Abraham Adesanya Roundabout','Ajah'],['19','Sangotedo, Novare Mall','Ajah'],['20','VGC Bus Stop','Lekki-Ajah'],['21','Ilaje Bus Stop','Ajah'],['22','Business School Roundabout','Ajah']],
-    dests:[['101','CMS Bus Stop','Island'],['102','Obalende Bus Stop','Island'],['103','Marina Bus Stop','Island'],['104','Tafawa Balewa Square','Island'],['105','Sandgrouse Market','Island'],['106','Broad Street','Island'],['107','Outer Marina','Island'],['108','Simpson Bus Stop','Island'],['109','Idumota','Island'],['110','Sura Bus Stop','Island'],['111','Adetokunbo Ademola','Victoria Island'],['112','Maroko, Sandfill','VI / Lekki'],['113','Falomo Roundabout','Ikoyi'],['114','Admiralty Gate','Lekki Phase 1']],
-    km:{6:[29,30.2,29.3,29.8,30.5,29.5,29.4,30.3,30.5,30.8,32.5,33.8,31,35.2],7:[27.5,28.7,27.8,28.3,29,28,27.9,28.8,29,29.3,31,32.3,29.5,33.7],8:[29.8,31,30.1,30.6,31.3,30.3,30.2,31.1,31.3,31.6,33.3,34.6,31.8,36],9:[31.6,32.8,31.9,32.4,33.1,32.1,32,32.9,33.1,33.4,35.1,36.4,33.6,37.8],10:[25.5,26.7,25.8,26.3,27,26,25.9,26.8,27,27.3,29,30.3,27.5,31.7],11:[36,37.2,36.3,36.8,37.5,36.5,36.4,37.3,37.5,37.8,39.5,40.8,37,42.2],12:[35,36.2,35.3,35.8,36.5,35.5,35.4,36.3,36.5,36.8,38.5,39.8,36,41.2],13:[32.5,33.7,32.8,33.3,34,33,32.9,33.8,34,34.3,36,37.3,33.5,38.7],14:[36.5,37.7,36.8,37.3,38,37,36.9,37.8,38,38.3,40,41.3,37.5,42.7],15:[35.8,37,36.1,36.6,37.3,36.3,36.2,37.1,37.3,37.6,39.3,40.6,36.8,42],16:[30.3,31.5,30.6,31.1,31.8,30.8,30.7,31.6,31.8,32.1,33.8,35.1,31.3,36.5],17:[24.5,25.7,24.8,25.3,26,25,24.9,25.8,26,26.3,18,16,20,14],18:[29,30.2,29.3,29.8,30.5,29.5,29.4,30.3,30.5,30.8,22.5,20.5,24.5,18.5],19:[38.7,39.9,39,39.5,40.2,39.2,39.1,40,40.2,40.5,32.2,30.2,34.2,28.2],20:[20.5,21.7,20.8,21.3,22,21,20.9,21.8,22,22.3,14,12,16,10],21:[23,24.2,23.3,23.8,24.5,23.5,23.4,24.3,24.5,24.8,16.5,14.5,18.5,12.5],22:[32,33.2,32.3,32.8,33.5,32.5,32.4,33.3,33.5,33.8,25.5,23.5,27.5,21.5]},
-    popular:[['6','101'],['11','103'],['17','111']]
-  },
-  abuja:{
-    label:'Suburbs ↔ Central',
-    pickups:[['30','Kubwa NNPC Junction','Kubwa'],['31','Kubwa FHA','Kubwa'],['32','Lugbe FHA','Lugbe'],['33','Berger Junction','Lugbe'],['34','Gwarimpa 1st Avenue','Gwarimpa'],['35','Gwarimpa 3rd Avenue','Gwarimpa']],
-    dests:[['201','Federal Secretariat','Central Business District'],['202','NNPC Towers','Central Business District'],['203','Wuse Market','Wuse Zone 5'],['204','Aminu Kano Crescent','Wuse II']],
-    km:{30:[28.5,27.2,25,23.5],31:[26,24.5,22.5,21],32:[20.5,18.5,19,22],33:[23,21,21.5,24.5],34:[16.5,15,13.5,11.5],35:[18,16.5,15,13]},
-    popular:[['34','203'],['32','201'],['30','204']]
-  }
-};
-const place=(city,id)=>{const c=CITIES[city];const r=c.pickups.concat(c.dests).find(x=>x[0]===id);return r?{name:r[1],area:r[2]}:null};
-const shortName=(city,id)=>{const p=place(city,id);return p?(p.area==='Island'||p.area==='Central Business District'?p.name.replace(' Bus Stop',''):p.area):id};
-function distance(city,from,to){
-  const c=CITIES[city],row=c.km[from];if(!row)return null;
-  const i=c.dests.findIndex(d=>d[0]===to);return i<0?null:row[i];
-}
-/* Fares are never stored here. The app's pricing service is the only source.
-   Set QUOTE_ENDPOINT once it exists: it should accept from/to/seats and return { amount, currency }. */
-const QUOTE_ENDPOINT=null;
-async function fetchQuote({city,from,to,seats}){
-  if(!QUOTE_ENDPOINT)return{state:'unwired'};
-  try{
-    const r=await fetch(`${QUOTE_ENDPOINT}?city=${city}&from=${from}&to=${to}&seats=${seats}`);
-    if(!r.ok)return{state:'error'};
-    const d=await r.json();
-    return typeof d.amount==='number'?{state:'ok',amount:d.amount}:{state:'error'};
-  }catch(e){return{state:'error'}}
-}
-
-
-
 /* ============ PaxHome ============ */
 const PAX_STEPS=[
   {n:'Step one',t:'Find the trips going your way',b:'Enter where you travel from and to, and see every car owner already driving that route — real journeys scheduled in advance, laid out on the map around you, not a car summoned in the rain.',screen:1},
@@ -2807,4 +2681,4 @@ function PressPage(){
 
 
 
-export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Quote, Header, Footer, PrivacyPage, TermsPage, ConductPage, DeletePage, CareersPage, PressPage };
+export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, ConductPage, DeletePage, CareersPage, PressPage };
