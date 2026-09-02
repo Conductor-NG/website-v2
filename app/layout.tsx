@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@/components/Analytics";
+import { MetaPixel } from "@/components/MetaPixel";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE, SOCIALS } from "@/lib/site";
 // Export design system, then the app-theme re-skin (must load last).
 import "./design-css/colors_and_type.css";
@@ -90,6 +93,9 @@ export default function RootLayout({
         <OrgSchema />
         {children}
         <GoogleAnalytics />
+        <MetaPixel />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
