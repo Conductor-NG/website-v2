@@ -74,6 +74,369 @@
   color: var(--cream-100) !important;
 }
 
+/* Passenger + Car-owner app groups: ALWAYS side by side. `nowrap` keeps them
+   on one row; each group can shrink (min-width:0) and its own buttons wrap
+   inside it as space tightens, so the two apps stay beside each other. Only a
+   genuinely small screen (that can't fit both) stacks them. */
+.band__apps {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: clamp(20px, 4vw, 56px);
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+.band__appgrp {
+  flex: 0 1 auto;
+}
+@media (max-width: 520px) {
+  .band__apps {
+    flex-wrap: wrap;
+  }
+}
+
+/* Footer social channels — circular icon links, on every page's bottom. */
+.socrow {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.socrow__a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  color: var(--fg-2);
+  background: var(--bg-2, rgba(0, 0, 0, 0.04));
+  border: 1px solid var(--rule, rgba(0, 0, 0, 0.08));
+  transition: color 0.16s ease, background 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+}
+.socrow__a:hover {
+  color: #fff;
+  background: var(--orange-base);
+  border-color: var(--orange-base);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   Campaign-style calculator (Option A) + pop-ups
+   ============================================================ */
+.calc2 {
+  display: flex;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--surface, #fff);
+  border: 1px solid var(--rule, rgba(0, 0, 0, 0.08));
+  border-radius: 24px;
+  padding: clamp(22px, 3vw, 40px);
+  box-shadow: var(--shadow-1, 0 1px 2px rgba(0, 0, 0, 0.05));
+}
+.calc2__ill {
+  flex: 1 1 40%;
+  min-width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Fixed-height box so switching passenger/car-owner (illustrations differ in
+   aspect ratio) keeps the section height constant — the shorter art is centred. */
+.calc2__ill img {
+  width: 100%;
+  height: clamp(300px, 32vw, 420px);
+  object-fit: contain;
+  display: block;
+}
+@media (max-width: 640px) {
+  .calc2__ill img { height: clamp(220px, 52vw, 300px); }
+}
+.calc2__form {
+  flex: 1 1 48%;
+  min-width: 290px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.calc2__h {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(21px, 2.6vw, 26px);
+  line-height: 1.18;
+  color: var(--fg-1);
+}
+.calc2__sub {
+  margin: 2px 0 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(17px, 2.1vw, 21px);
+  line-height: 1.22;
+  color: var(--fg-1);
+}
+.calc2__lede {
+  margin: 7px 0 4px;
+  color: var(--fg-2);
+  font-size: 15px;
+}
+.calc2__h {
+  margin: 0;
+  font-family: var(--font-display, "Instrument Serif", Georgia, serif);
+  font-size: clamp(24px, 3vw, 30px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--fg-1);
+}
+.calc2__lede {
+  margin: 6px 0 0;
+  color: var(--fg-2);
+  font-size: 14.5px;
+}
+.csel {
+  position: relative;
+}
+.csel select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--bg-2, #f7f5f0);
+  border: 1px solid var(--rule, rgba(0, 0, 0, 0.1));
+  border-radius: 14px;
+  padding: 14px 42px 14px 15px;
+  font: inherit;
+  font-size: 14.5px;
+  color: var(--fg-1);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.csel select:focus {
+  border-color: var(--orange-base);
+}
+.csel svg {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.calc2__cta {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+  padding: 13px 20px;
+  font-size: 15px;
+  border-radius: 14px;
+}
+.calc2__cta:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+/* pop-up: web app + download buttons (same components as other pages), stacked */
+.cmodal__dl {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.cmodal__dl .btn,
+.cmodal__dl .dlwrap,
+.cmodal__dl .dlbtn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* pop-up overlay + card */
+.cov {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(4px);
+  animation: covIn 0.16s ease;
+}
+@keyframes covIn { from { opacity: 0; } to { opacity: 1; } }
+.cmodal {
+  width: 100%;
+  max-width: 520px;
+  background: #fff;
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  animation: cmIn 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.cmodal--reg { max-width: 440px; }
+@keyframes cmIn { from { transform: translateY(14px) scale(0.98); opacity: 0; } to { transform: none; opacity: 1; } }
+.cmodal__head {
+  position: relative;
+  min-height: 140px;
+  background: #050505;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+}
+.cmodal__headbg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+.cmodal__head--plain {
+  min-height: 0;
+  background: #1b1b1b;
+  background-image: radial-gradient(120% 150% at 12% -30%, rgba(233, 139, 32, 0.5), transparent 60%);
+}
+.cmodal__htext {
+  position: relative;
+  z-index: 1;
+  padding: 24px 24px 22px;
+  max-width: 62%;
+  color: #fff;
+}
+.cmodal__head--plain .cmodal__htext { max-width: 78%; }
+.cmodal__htext h3 {
+  margin: 0;
+  font-family: var(--font-display, "Instrument Serif", Georgia, serif);
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+.cmodal__htext p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+.cmodal__x {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s ease;
+}
+.cmodal__x:hover { background: rgba(255, 255, 255, 0.28); }
+.cmodal__body { padding: 22px 24px 26px; }
+.cmodal__body--reg { display: grid; gap: 12px; }
+.cmodal__body--reg .btn { width: 100%; justify-content: center; }
+
+/* trip-type toggle */
+.ctt { display: flex; justify-content: center; margin-bottom: 18px; }
+.ctt__in {
+  display: inline-flex;
+  gap: 6px;
+  padding: 5px;
+  background: #f2f2f1;
+  border-radius: 999px;
+}
+.ctt__in button {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--fg-2);
+  padding: 9px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.16s ease;
+}
+.ctt__in button[aria-pressed="true"] {
+  background: var(--orange-base);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(238, 70, 67, 0.3);
+}
+
+/* estimate */
+.cest-l { text-align: center; margin: 0; font-size: 13px; color: var(--fg-2); }
+.cest-v {
+  text-align: center;
+  margin: 4px 0 2px;
+  font-family: var(--font-display, "Instrument Serif", Georgia, serif);
+  font-size: clamp(38px, 7vw, 46px);
+  line-height: 1.05;
+  color: var(--fg-1);
+}
+.cest-f { text-align: center; margin: 0; font-size: 13px; color: var(--fg-3); text-transform: lowercase; }
+
+/* frequency slider */
+.cslider { margin: 22px 2px 4px; }
+.cslider__track { position: relative; height: 34px; display: flex; align-items: center; }
+.cslider__bg { position: absolute; left: 2px; right: 2px; height: 3px; border-radius: 99px; background: #e6e5e3; }
+.cslider__fill { position: absolute; left: 2px; height: 3px; border-radius: 99px; background: var(--orange-base, #ee4643); }
+.cslider__dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #d1d0ce;
+  background: #fff;
+  transform: translateX(-6px);
+}
+.cslider__dot.on { border-color: var(--orange-base, #ee4643); }
+.cslider__thumb {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.28);
+  display: grid;
+  place-items: center;
+  transform: translateX(-16px);
+  transition: left 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+.cslider input[type="range"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 34px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.cslider__labels { display: flex; justify-content: space-between; margin-top: 12px; font-size: 12.5px; }
+.cslider__labels span { color: var(--fg-2); }
+.cslider__labels span.on { color: var(--fg-1); font-weight: 600; }
+
+/* register pop-up bits */
+.creg-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--fg-3);
+  font-size: 12px;
+  margin: 2px 0;
+}
+.creg-or::before, .creg-or::after { content: ""; height: 1px; flex: 1; background: var(--rule, rgba(0, 0, 0, 0.1)); }
+.creg-stores { display: flex; gap: 12px; }
+.creg-stores .storebadge { flex: 1; }
+.creg-stores .storebadge__img { width: 100%; height: auto; display: block; }
+.creg-tc { margin: 8px 0 0; text-align: center; font-size: 11.5px; color: var(--fg-3); }
+.creg-tc a { color: var(--fg-1); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .calc2 { flex-direction: column; }
+  .cmodal__htext { max-width: 70%; }
+}
+
 /* "Open the web app" — the zero-download primary path we lead with. */
 .openapp--band {
   background: #fff;
@@ -119,7 +482,8 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 50;
-  width: 216px;
+  width: max-content;
+  max-width: min(320px, 88vw);
   padding: 14px;
   background: #fff;
   border: 1px solid var(--outline);
@@ -127,6 +491,36 @@
   box-shadow: var(--elev-3);
   display: grid;
   gap: 10px;
+}
+.dlpop__grid {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+.dlpop__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.dlpop__qr {
+  width: 118px;
+  height: 118px;
+  display: block;
+  background: #fff;
+  border: 1px solid var(--outline);
+  border-radius: 10px;
+  padding: 6px;
+}
+.dlpop .dlpop__col .storebadge__img {
+  height: 38px;
+  width: auto;
+}
+@media (max-width: 520px) {
+  .dlpop__qr { display: none; }
+  .dlpop__grid { flex-direction: column; gap: 10px; }
+  .dlpop { width: 200px; }
+  .dlpop .dlpop__col .storebadge__img { height: 44px; width: 100%; }
 }
 .dlpop::after {
   content: "";

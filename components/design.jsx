@@ -3,6 +3,7 @@
    Do not edit here — edit the source and re-run design/port.cjs.
    Re-skinned to the app theme via app/design-css/theme-override.css. */
 import React from "react";
+import { createPortal } from "react-dom";
 const ReactDOM = { createRoot: () => ({ render() {} }) };
 
 
@@ -78,9 +79,14 @@ function DownloadButton({ios,android,variant='dark',size='lg',label='Download th
       React.createElement('span',null,label),
       React.createElement(Icon,{name:'chevronD',size:15,style:{transition:'transform .2s',transform:open?'rotate(180deg)':'none'}})),
     open&&React.createElement('div',{className:'dlpop',role:'menu'},
-      React.createElement('p',{className:'dlpop__t'},'Get the app'),
-      React.createElement(StoreBtn,{kind:'ios',href:ios,label:'app',loc:loc}),
-      React.createElement(StoreBtn,{kind:'play',href:android,label:'app',loc:loc})));
+      React.createElement('p',{className:'dlpop__t'},'Scan or tap to download'),
+      React.createElement('div',{className:'dlpop__grid'},
+        React.createElement('div',{className:'dlpop__col'},
+          React.createElement('img',{className:'dlpop__qr',src:'/images/qr.googleplay.svg',alt:'Google Play QR code',width:120,height:120,loading:'lazy'}),
+          React.createElement(StoreBtn,{kind:'play',href:android,label:'app',loc:loc})),
+        React.createElement('div',{className:'dlpop__col'},
+          React.createElement('img',{className:'dlpop__qr',src:'/images/qr.appstore.svg',alt:'App Store QR code',width:120,height:120,loading:'lazy'}),
+          React.createElement(StoreBtn,{kind:'ios',href:ios,label:'app',loc:loc})))));
 }
 
 function useReveal(){
@@ -847,7 +853,7 @@ function Carpool({role}){
 
 
 /* ============ Shell ============ */
-const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',del:'/delete-profile',careers:'/careers',press:'/press'};
+const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
 const NAVS={
   passenger:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]],
   owner:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]]
@@ -922,7 +928,7 @@ function Faq({items,eyebrow='Questions',title}){
 }
 
 function Band({title,lede,mode='both'}){
-  const grp=(logo,cap,webHref,ios,android)=>React.createElement('div',{key:cap,style:{display:'flex',flexDirection:'column',alignItems:'center',gap:14}},
+  const grp=(logo,cap,webHref,ios,android)=>React.createElement('div',{key:cap,className:'band__appgrp',style:{display:'flex',flexDirection:'column',alignItems:'center',gap:14,minWidth:0}},
     React.createElement('img',{src:'/images/logos/'+logo+'.png',alt:cap,style:{height:86,width:'auto'}}),
     React.createElement('span',{className:'eyebrow',style:{color:'rgba(255,255,255,.8)',margin:0}},cap),
     React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:10,justifyContent:'center'}},
@@ -937,22 +943,43 @@ function Band({title,lede,mode='both'}){
         React.createElement('p',{className:'eyebrow',style:{color:'rgba(255,255,255,.8)',margin:0}},'Get started'),
         React.createElement('h2',{className:'h2'},title),
         React.createElement('p',{className:'lede',style:{color:'rgba(255,255,255,.88)'}},lede),
-        React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:'clamp(24px,5vw,64px)',justifyContent:'center',marginTop:16}},
+        React.createElement('div',{className:'band__apps'},
           mode==='owner'?[drvGrp]:mode==='passenger'?[paxGrp]:[paxGrp,drvGrp]))));
 }
 
+/* Social channels — single source for the footer + contact page. */
+const SOCIALS=[
+  ['Instagram','https://www.instagram.com/conductornaija','M12 2c2.7 0 3 0 4.1.1 1 .1 1.7.2 2.3.5.6.2 1.1.5 1.6 1 .5.5.8 1 1 1.6.3.6.4 1.3.5 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c-.1 1-.2 1.7-.5 2.3a4.4 4.4 0 0 1-1 1.6c-.5.5-1 .8-1.6 1-.6.3-1.3.4-2.3.5-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1-.1-1.7-.2-2.3-.5a4.4 4.4 0 0 1-1.6-1 4.4 4.4 0 0 1-1-1.6c-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c.1-1 .2-1.7.5-2.3.2-.6.5-1.1 1-1.6.5-.5 1-.8 1.6-1 .6-.3 1.3-.4 2.3-.5C9 2 9.3 2 12 2Zm0 1.8c-2.7 0-3 0-4 .1-.8 0-1.2.2-1.5.3-.4.1-.7.3-1 .6-.3.3-.5.6-.6 1-.1.3-.3.7-.3 1.5-.1 1-.1 1.3-.1 4s0 3 .1 4c0 .8.2 1.2.3 1.5.1.4.3.7.6 1 .3.3.6.5 1 .6.3.1.7.3 1.5.3 1 .1 1.3.1 4 .1s3 0 4-.1c.8 0 1.2-.2 1.5-.3.4-.1.7-.3 1-.6.3-.3.5-.6.6-1 .1-.3.3-.7.3-1.5.1-1 .1-1.3.1-4s0-3-.1-4c0-.8-.2-1.2-.3-1.5a2.7 2.7 0 0 0-.6-1 2.7 2.7 0 0 0-1-.6c-.3-.1-.7-.3-1.5-.3-1-.1-1.3-.1-4-.1Zm0 3.1a5.1 5.1 0 1 1 0 10.2 5.1 5.1 0 0 1 0-10.2Zm0 1.8a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6Zm5.3-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z'],
+  ['Facebook','https://www.facebook.com/conductornaija','M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z'],
+  ['X','https://x.com/conductorng_','M18.9 2H22l-7.3 8.3L23 22h-6.8l-5.3-6.9L4.8 22H1.7l7.8-8.9L1 2h7l4.8 6.4L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z'],
+  ['TikTok','https://www.tiktok.com/@conductorng','M16.2 3c.3 2 1.5 3.6 3.4 4 .4.1.8.1 1.2.1v3c-1.5 0-2.9-.5-4.1-1.3v6.5a5.8 5.8 0 1 1-5.8-5.8c.3 0 .6 0 .9.1v3.1c-.3-.1-.6-.2-.9-.2a2.8 2.8 0 1 0 2.8 2.8V3h2.6Z'],
+  ['LinkedIn','https://www.linkedin.com/company/conductor-nigeria/','M6.9 5a1.95 1.95 0 1 1-3.9 0 1.95 1.95 0 0 1 3.9 0ZM3.4 8.5h3v12h-3v-12Zm5 0h2.9v1.6h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7v7.3h-3v-6.5c0-1.5 0-3.5-2.1-3.5s-2.5 1.7-2.5 3.4v6.6h-3v-12Z'],
+];
+function SocialIcon({d,size=17}){
+  return React.createElement('svg',{width:size,height:size,viewBox:'0 0 24 24',fill:'currentColor','aria-hidden':true},
+    React.createElement('path',{d}));
+}
+function SocialRow({tone='light'}){
+  return React.createElement('div',{className:'socrow'},
+    SOCIALS.map(([label,href,d])=>React.createElement('a',{key:label,href,target:'_blank',rel:'noreferrer',className:'socrow__a','aria-label':label,title:label},
+      React.createElement(SocialIcon,{d}))));
+}
 function Footer(){
   const C=[['Ride',[['Open the web app',LINKS.pWeb],['For passengers',P.home],['For car owners',P.own],['How it works',P.how],['Safety',P.safety]]],
-    ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact','mailto:support@conductor.ng']]],
+    ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact us',P.contact]]],
     ['Company',[['About',P.about],['Communities',P.how+'#walk'],['Careers',P.careers],['Press',P.press]]],
     ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
   return React.createElement('footer',{className:'ftr'},
     React.createElement('div',{className:'wrap'},
       React.createElement('div',{className:'ftr__grid',style:{gridTemplateColumns:'1.4fr repeat(4,1fr)'}},
-        React.createElement('div',{style:{display:'grid',gap:16,alignContent:'start',maxWidth:'30ch'}},
+        React.createElement('div',{style:{display:'grid',gap:16,alignContent:'start',maxWidth:'32ch'}},
           React.createElement('a',{href:P.home,className:'mark','aria-label':'Conductor.ng home'},React.createElement('img',{src:'/images/logos/logo2.png',alt:'Conductor.ng',style:{height:74,width:'auto',display:'block'}})),
           React.createElement('p',{className:'small'},'A carpooling scheduling platform. Publish the journey you are already making, or take a seat on one that is already happening.'),
-          React.createElement('p',{className:'small'},'8A Olayinka Balogun Crescent, Magodo Phase 2 · support@conductor.ng')),
+          React.createElement('p',{className:'small',style:{lineHeight:1.7}},
+            '8A Olayinka Balogun Crescent, Magodo Phase 2',React.createElement('br'),
+            React.createElement('a',{href:'mailto:support@conductor.ng'},'support@conductor.ng'),' · ',
+            React.createElement('a',{href:'tel:+2348131500124'},'+234 813 150 0124')),
+          React.createElement(SocialRow,null)),
         C.map(([t,ls])=>React.createElement('div',{key:t},React.createElement('h6',null,t),
           React.createElement('ul',null,ls.map(([l,h])=>React.createElement('li',{key:l},React.createElement('a',{href:h},l))))))),
       React.createElement('div',{className:'ftr__base'},
@@ -1218,83 +1245,109 @@ function useCount(target,ms=700){
   return v;
 }
 
+/* Campaign calculator: illustration + route selects + CTA → estimate pop-up
+   (trip toggle + frequency slider) → register pop-up (web app + store downloads).
+   Recoloured to v2's brand. Priced with v2's routeKm + fareFromKm engine.
+   Passenger frequency is Daily·Weekly; car owner adds Monthly. */
+const CALC_OWNER_SEATS=3; // typical empty seats a car owner shares
+const CALC_COPY={
+  passenger:{ill:'/images/campaign.passenger.car.user.svg',
+    title:'Route Cost Calculator',sub:'Enter your route and see how much it costs',lede:'Estimate what you spend on your daily route',cta:'Estimated Cost',
+    mTitle:'Ride safe, spend less',mDesc:"We've priced your route. Turn your journey into a comfy, shared ride.",
+    estLabel:'Estimated cost',mCta:'Register',regTitle:'Join in and enjoy amazing trips',
+    regDesc:'Start on the web app right now, or grab it from your store.'},
+  owner:{ill:'/images/campaign.driver.coined.user.svg',
+    title:'Earnings Calculator',sub:'Enter your route and see how much you can earn',lede:'Estimate what you can earn on your daily route',cta:'Estimated Earning',
+    mTitle:'Unlock your daily capital',mDesc:"We've priced your route. Turn your empty seats into a steady paycheck.",
+    estLabel:'Estimated earning',mCta:'Claim my route',regTitle:'Your journey starts here',
+    regDesc:'Start on the web app right now, or grab it from your store.'},
+};
+const CALC_FREQ={passenger:[['daily','Daily',1],['weekly','Weekly',5]],
+  owner:[['daily','Daily',1],['weekly','Weekly',5],['monthly','Monthly',20]]};
+function CalcFreqSlider({list,freq,onChange}){
+  const n=list.length;
+  let idx=list.findIndex(f=>f[0]===freq); if(idx<0)idx=Math.min(1,n-1);
+  const pct=n>1?idx/(n-1)*100:0;
+  return React.createElement('div',{className:'cslider'},
+    React.createElement('div',{className:'cslider__track'},
+      React.createElement('div',{className:'cslider__bg'}),
+      React.createElement('div',{className:'cslider__fill',style:{width:'calc('+pct+'% - 4px)'}}),
+      list.map((f,i)=>{const pos=n>1?i/(n-1)*100:0;return React.createElement('span',{key:f[0],className:'cslider__dot'+(i<=idx?' on':''),style:{left:pos+'%'}});}),
+      React.createElement('div',{className:'cslider__thumb',style:{left:pct+'%'}},
+        React.createElement('svg',{width:14,height:10,viewBox:'0 0 14 10',fill:'none'},
+          React.createElement('path',{d:'M5 1L1.5 5L5 9',stroke:'#fff',strokeWidth:1.5,strokeLinecap:'round',strokeLinejoin:'round'}),
+          React.createElement('path',{d:'M9 1L12.5 5L9 9',stroke:'#fff',strokeWidth:1.5,strokeLinecap:'round',strokeLinejoin:'round'}))),
+      React.createElement('input',{type:'range',min:0,max:n-1,step:1,value:idx,'aria-label':'Frequency',
+        onChange:e=>onChange(list[+e.target.value][0])})),
+    React.createElement('div',{className:'cslider__labels'},
+      list.map(f=>React.createElement('span',{key:f[0],className:f[0]===freq?'on':''},f[1]))));
+}
 function Calculator({lock,start}){
   const [mode,setMode]=React.useState(lock||'passenger');
-  const [from,setFrom]=React.useState('ikeja');
-  const [to,setTo]=React.useState('vi');
-  const [days,setDays]=React.useState(5);
-  const [seats,setSeats]=React.useState(2);
+  const [from,setFrom]=React.useState('');
+  const [to,setTo]=React.useState('');
+  const [trip,setTrip]=React.useState('one-way');
+  const [freq,setFreq]=React.useState('weekly');
+  const [modal,setModal]=React.useState(null);
   const isP=mode==='passenger';
+  const cp=CALC_COPY[mode];
+  const freqList=CALC_FREQ[mode];
+  React.useEffect(()=>{if(!freqList.some(f=>f[0]===freq))setFreq('weekly');},[mode]); // eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(()=>{const onKey=e=>{if(e.key==='Escape')setModal(null);};document.addEventListener('keydown',onKey);return()=>document.removeEventListener('keydown',onKey);},[]);
 
-  const km=routeKm(from,to);
+  const km=(from&&to)?routeKm(from,to):null;
   const overCap=km!=null&&km>MAX_KM;
   const priced=km!=null&&!overCap;
-  const c=priced?fareFromKm(km):{km:0,seat:0,hail:0,mins:0};
+  const perLeg=priced?(isP?fareFromKm(km).seat:fareFromKm(km).seat*CALC_OWNER_SEATS):0;
+  const fmul=(freqList.find(f=>f[0]===freq)||freqList[0])[2];
+  const estimate=Math.round(perLeg*fmul*(trip==='round-trip'?2:1)/100)*100; // nearest ₦100
+  const freqWord=(freqList.find(f=>f[0]===freq)||freqList[0])[1].toLowerCase();
 
-  const legs=2*days*WEEKS;
-  const hailMonth=c.hail*legs, condMonth=c.seat*legs;
-  const runMonth=c.km*legs*RUN_PER_KM, earnMonth=c.seat*seats*legs;
-  const headline=useCount(priced?(isP?hailMonth-condMonth:earnMonth):0);
-  const pct=runMonth?Math.round(earnMonth/runMonth*100):0;
+  const closeModal=()=>setModal(null);
+  // Portal to <body> so the fixed overlay isn't trapped by the reveal wrapper's transform.
+  const overlay=(inner)=>createPortal(
+    React.createElement('div',{className:'cov',onClick:e=>{if(e.target===e.currentTarget)closeModal();}},inner),document.body);
 
-  return React.createElement('div',{className:'calc'},
-    React.createElement('div',{className:'calc__l'},
-      !lock&&React.createElement('div',{className:'seg',role:'group'},
-        [['passenger',"I'm a passenger"],['owner',"I'm a car owner"]].map(([k,l])=>
-          React.createElement('button',{key:k,onClick:()=>setMode(k),'aria-pressed':mode===k},l))),
-      React.createElement('div',{className:'calc__route2'},
-        React.createElement(PlaceSearch,{label:'Pick-up',value:from,onChange:v=>setFrom(v),placeholder:'Where you start',exclude:to,accent:'var(--orange-base)'}),
-        React.createElement('button',{type:'button',className:'calc__swap','aria-label':'Swap pick-up and drop-off',
-          onClick:()=>{const a=from;setFrom(to);setTo(a)}},React.createElement(Icon,{name:'route',size:16})),
-        React.createElement(PlaceSearch,{label:'Drop-off',value:to,onChange:v=>setTo(v),placeholder:'Where you are headed',exclude:from,accent:'var(--pink-base)'})),
-      React.createElement('div',{className:'field'},
-        React.createElement('label',null,'Days you commute'),
-        React.createElement('div',{className:'chips'},[3,4,5,6].map(d=>
-          React.createElement('button',{key:d,className:'chip',onClick:()=>setDays(d),'aria-pressed':days===d},d+' days')))),
-      !isP&&React.createElement('div',{className:'field'},
-        React.createElement('label',null,'Empty seats you share'),
-        React.createElement('div',{className:'chips'},[1,2,3].map(s=>
-          React.createElement('button',{key:s,className:'chip',onClick:()=>setSeats(s),'aria-pressed':seats===s},s+(s>1?' seats':' seat'))))),
-      React.createElement('div',{style:{display:'grid',gap:10,paddingTop:4}},
-        priced&&React.createElement(Row,{style:{gap:8}},React.createElement(Icon,{name:'route',size:16,color:'var(--fg-3)'}),
-          React.createElement(T,{s:13.5},c.km.toFixed(1)+' km · '+c.mins+' min average, both ways · '+Math.round(legs)+' legs a month')),
-        !isP&&priced&&React.createElement(Row,{style:{gap:8}},React.createElement(Icon,{name:'car',size:16,color:'var(--fg-3)'}),
-          React.createElement(T,{s:13.5},'Running cost reckoned at ₦165 a km — fuel, wear and servicing.')),
-        React.createElement(Row,{style:{gap:8}},React.createElement(Icon,{name:'shield',size:16,color:'var(--fg-3)'}),
-          React.createElement(T,{s:13.5},'Fare agreed up front, locked at booking. No surge.')))),
-    React.createElement('div',{className:'calc__r'},
-      overCap
-        ?React.createElement('div',{className:'calc__cap'},
-            React.createElement(Icon,{name:'pin',size:22,color:'var(--orange-base)'}),
-            React.createElement('div',{className:'bigfig num',style:{fontSize:'clamp(30px,4vw,44px)'}},Math.round(km)+' km'),
-            React.createElement('p',{className:'small',style:{maxWidth:'32ch'}},'That is beyond the '+MAX_KM+' km a shared commute covers. Pick two points closer together — Conductor is built for the daily run across the city, not intercity trips.'))
-        :!priced
-        ?React.createElement('div',{className:'calc__cap'},
-            React.createElement(Icon,{name:'route',size:22,color:'var(--fg-3)'}),
-            React.createElement('p',{className:'small',style:{maxWidth:'30ch'}},'Search a pick-up and a drop-off to see what the route costs.'))
-        :React.createElement(React.Fragment,null,
-      React.createElement('div',{className:'tiny'},isP?'You keep, every month':'You collect, every month'),
-      React.createElement('div',{className:'bigfig num'},naira(headline)),
-      React.createElement(T,{s:14,style:{marginTop:-6}},isP
-        ?'against '+naira(hailMonth)+' on a hailing app for the same '+Math.round(legs)+' legs'
-        :'from '+seats+(seats>1?' seats':' seat')+' on trips you already make, against '+naira(runMonth)+' of fuel and wear'),
-      isP
-        ?React.createElement('div',{className:'bars'},
-            React.createElement(Bar,{label:'Ride-hailing',val:hailMonth,max:hailMonth,color:'var(--cream-80)'}),
-            React.createElement(Bar,{label:'Conductor seat',val:condMonth,max:hailMonth,color:'var(--orange-base)'}))
-        :React.createElement('div',{className:'bars'},
-            React.createElement(Bar,{label:'Your fuel, wear & servicing',val:runMonth,max:Math.max(runMonth,earnMonth),color:'var(--cream-80)'}),
-            React.createElement(Bar,{label:'Covered by passengers',val:earnMonth,max:Math.max(runMonth,earnMonth),color:'var(--success-base)'})),
-      React.createElement('div',{className:'ledger'},
-        isP
-          ?[['Per leg',naira(c.hail)+' → '+naira(c.seat)],['Every week',naira((c.hail-c.seat)*2*days)],['Over a year',naira((hailMonth-condMonth)*12)]]
-              .map(([a,b])=>React.createElement('div',{key:a},a,React.createElement('b',{className:'num'},b)))
-          :[['Per leg, per seat',naira(c.seat)],['Every week',naira(c.seat*seats*2*days)],['Running cost covered',pct+'%'],[pct>=100?'Left over each month':'Still on you each month',naira(Math.abs(earnMonth-runMonth))]]
-              .map(([a,b])=>React.createElement('div',{key:a},a,React.createElement('b',{className:'num'},b)))),
-      React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:10,marginTop:4}},
-        React.createElement(OpenAppBtn,{href:isP?LINKS.pWeb:LINKS.dWeb,label:'Open the web app',size:'sm',loc:'calculator'}),
-        React.createElement(DownloadButton,{ios:isP?LINKS.pIos:LINKS.dIos,android:isP?LINKS.pAnd:LINKS.dAnd,variant:'dark',size:'sm',loc:'calculator'})),
-      React.createElement(T,{s:11.5,c:'var(--fg-3)'},'Estimate from typical 2026 Lagos fares. Your exact figure is priced live in the app at booking.'))));
+  return React.createElement(React.Fragment,null,
+    React.createElement('div',{className:'calc2'},
+      React.createElement('div',{className:'calc2__ill'},
+        React.createElement('img',{src:cp.ill,alt:'',width:453,height:423})),
+      React.createElement('div',{className:'calc2__form'},
+        !lock&&React.createElement('div',{className:'seg',role:'group'},
+          [['passenger',"I'm a passenger"],['owner',"I'm a car owner"]].map(([k,l])=>
+            React.createElement('button',{key:k,onClick:()=>setMode(k),'aria-pressed':mode===k},l))),
+        React.createElement('div',null,
+          React.createElement('h2',{className:'calc2__h'},cp.title),
+          React.createElement('p',{className:'calc2__sub'},cp.sub),
+          React.createElement('p',{className:'calc2__lede'},cp.lede)),
+        React.createElement('div',{className:'calc__route2'},
+          React.createElement(PlaceSearch,{label:'Starting point',value:from||null,onChange:v=>setFrom(v||''),placeholder:'Select starting point route',exclude:to,accent:'var(--orange-base)'}),
+          React.createElement('button',{type:'button',className:'calc__swap','aria-label':'Swap starting point and destination',
+            onClick:()=>{const a=from;setFrom(to);setTo(a)}},React.createElement(Icon,{name:'route',size:16})),
+          React.createElement(PlaceSearch,{label:'Destination',value:to||null,onChange:v=>setTo(v||''),placeholder:'Select destination route',exclude:from,accent:'var(--pink-base)'})),
+        React.createElement('button',{type:'button',className:'btn btn--primary calc2__cta',onClick:()=>{if(priced){setTrip('one-way');setFreq('daily');setModal('calc');}},disabled:!priced},cp.cta),
+        overCap&&React.createElement('p',{className:'small',style:{margin:'2px 0 0'}},'That route is beyond the '+MAX_KM+' km a shared commute covers — pick two points closer together.'))),
+
+    modal==='calc'&&overlay(
+      React.createElement('div',{className:'cmodal',role:'dialog','aria-modal':true},
+        React.createElement('div',{className:'cmodal__head'},
+          React.createElement('img',{className:'cmodal__headbg',src:'/images/campaign-modal-header-bg.svg',alt:''}),
+          React.createElement('div',{className:'cmodal__htext'},
+            React.createElement('h3',null,cp.mTitle),
+            React.createElement('p',null,cp.mDesc)),
+          React.createElement('button',{type:'button',className:'cmodal__x',onClick:closeModal,'aria-label':'Close'},React.createElement(Icon,{name:'x',size:16}))),
+        React.createElement('div',{className:'cmodal__body'},
+          React.createElement('div',{className:'ctt'},
+            React.createElement('div',{className:'ctt__in'},
+              [['one-way','One way'],['round-trip','Round trip']].map(([k,l])=>
+                React.createElement('button',{key:k,type:'button',onClick:()=>setTrip(k),'aria-pressed':trip===k},l)))),
+          React.createElement('p',{className:'cest-l'},cp.estLabel),
+          React.createElement('p',{className:'cest-v num'},naira(estimate)),
+          React.createElement('p',{className:'cest-f'},freqWord),
+          React.createElement(CalcFreqSlider,{list:freqList,freq:freq,onChange:setFreq}),
+          React.createElement('div',{className:'cmodal__dl'},
+            React.createElement(OpenAppBtn,{href:isP?LINKS.pWeb:LINKS.dWeb,label:'Open the web app',loc:'calculator'}),
+            React.createElement(DownloadButton,{ios:isP?LINKS.pIos:LINKS.dIos,android:isP?LINKS.pAnd:LINKS.dAnd,variant:'dark',loc:'calculator'}))))));
 }
 function Bar({label,val,max,color}){
   return React.createElement('div',{className:'bar'},
@@ -1395,7 +1448,7 @@ function PaxHome(){
       <section className="sec" id="cost"><div className="wrap">
         <SHead eyebrow="What it costs" title={<>Now put your <em>own route</em> in.</>}
           lede="Pick where you travel from and to, and how often you make the journey. Distance and journey time are ours; the fare comes live from the app, so what you read here is what you pay at booking."/>
-        <Rv cls="rv--sc"><Quote mode="passenger"/></Rv>
+        <Rv cls="rv--sc"><Calculator lock="passenger"/></Rv>
         <Rv d={90}><p className="small" style={{marginTop:18,maxWidth:'74ch'}}>Not seeing where you travel? <a href={P.corr}>Ask us to open your route</a> and we will tell you when a car owner publishes it.</p></Rv>
       </div></section>
 
@@ -1492,7 +1545,7 @@ function OwnerPage(){
       <section className="sec" id="cost"><div className="wrap">
         <SHead eyebrow="What the seats are worth" title={<>Now put your <em>own drive</em> in.</>}
           lede="Pick your route, how many seats you would share and how often you make the journey. Distance and journey time are ours; the figure comes live from the app’s own pricing, so it is never a stale number on a web page."/>
-        <Rv cls="rv--sc"><Quote mode="owner"/></Rv>
+        <Rv cls="rv--sc"><Calculator lock="owner"/></Rv>
       </div></section>
 
       <Promo eyebrow="On now, for car owners"
@@ -1695,11 +1748,11 @@ function HowItWorks(){
 const SAFE_STEPS=[
   {n:'Before a first trip',t:'Verified before you ever meet',b:'Identity is checked on both sides before a first trip — passengers clear NIN, phone and a liveness selfie; car owners add licence, vehicle papers and roadworthiness. You see the other’s verification and rating before any money is committed.',screen:0},
   {n:'Meeting up',t:'A named place to meet, never a dropped pin',b:'You meet at a known, categorised landmark on the route the car was already taking — a filling station, a mall, a familiar junction — colour-coded for how safe and public it is, never an unmarked spot down a side street.',screen:1},
-  {n:'On the road',t:'Track the whole trip, and share it live',b:'Follow the journey on a live map, your destination and the car’s progress in view the whole way, and send a live link to anyone you trust — they follow along without the app. SOS sits on the same screen.',screen:2},
+  {n:'On the road',t:'Track the whole trip, and share it live',b:'Follow the journey on a live map — the car’s progress and your destination in view the whole way. Add the people you trust as emergency contacts and they’re sent a live link automatically: they watch you get home from any browser, no app or login needed — your name, who else is in the car, and your live location, only while the trip is on. SOS sits on the same screen.',screen:2},
   {n:'If anything goes wrong',t:'SOS on every screen, for both people',b:'Hold SOS and your live location goes to emergency services, your trusted contacts and our safety team at once. Short of an emergency, either side can suspend the trip — it ends there, and the fare is resolved afterwards, never at the roadside.',screen:3},
   {n:'Afterwards',t:'Rated, and it sticks to you',b:'Every passenger and car owner is rated after each trip, and either side can flag a problem — raise it and your money is protected until it is put right. A name here cannot be discarded and remade after a bad trip, which is exactly what makes every rating mean something.',screen:4}
 ];
-const SAFE_SET=[SHOT('pax-09-verification'),SHOT('drv-14-landmark'),SHOT('pax-livetrip'),SHOT('drv-05-sos'),SHOT('pax-07-rate')];
+const SAFE_SET=[SHOT('pax-09-verification'),SHOT('drv-14-landmark'),SHOT('pax-tripshare-v2'),SHOT('drv-05-sos'),SHOT('pax-07-rate')];
 
 const SAFE_ALL=[
   ['Before you travel','shield','Identity & trust',[
@@ -2504,7 +2557,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ]}/>;}
 
 /* ---------------- Terms ---------------- */
-function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal" updated="10 August 2026"
+function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal" updated="1 September 2026"
   title={<>Terms of <em>service</em>.</>}
   intro="These Terms of Service govern your use of the Conductor.ng website, mobile application and related services (the “Platform”). They incorporate the Passenger Policy, the Car Owner Policy, the Code of Conduct, the Refund Policy and the Privacy Policy by reference. Where a document written specifically for Passengers or Car Owners addresses a matter these Terms also cover, the specific document prevails."
   blocks={[
@@ -2520,7 +2573,7 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal" updated="10 
   ['h2','4 · Vehicle standards and roadworthiness'],
   ['p','The Company is not liable for mechanical faults or breakdowns of any Vehicle. Car Owners are solely responsible for keeping their Vehicle roadworthy, insured, and compliant with Lagos State and federal vehicle regulations, as set out in the Car Owner Policy. Where a Vehicle fails during a Trip, the Company will assist in arranging alternative transport where reasonably possible, but is not liable for resulting inconvenience or cost. Users accept that vehicle condition can vary trip to trip and use the Platform on that basis.'],
   ['h2','5 · Conduct and disputes'],
-  ['p','All Users must treat each other, and the Vehicle, respectfully and lawfully, in accordance with the Code of Conduct. Physical altercation, verbal abuse, sexual misconduct, or other misconduct between Users results in suspension or termination in accordance with the sanctions ladder set out in the Code of Conduct, without refund of any related fare. The Company may report criminal conduct to the Nigeria Police Force or other competent authority and may preserve and disclose evidence in accordance with law. The Company is a facilitator and disclaims liability for disputes arising directly between Users, without prejudice to the dispute-resolution channel described in clause 8.'],
+  ['p','All Users must treat each other, and the Vehicle, respectfully and lawfully, in accordance with the Code of Conduct. Physical altercation, verbal abuse, sexual misconduct, or other misconduct between Users results in suspension or termination in accordance with the sanctions ladder set out in the Code of Conduct, without refund of any related fare. The Company may report criminal conduct to the Nigeria Police Force or other competent authority and may preserve and disclose evidence in accordance with law. The Company is a facilitator and disclaims liability for disputes arising directly between Users, without prejudice to the dispute-resolution channel described in clause 9.'],
   ['h2','6 · Limitation of liability'],
   ['ul',[
     'The Company is a facilitator connecting Passengers and Car Owners; it does not assume responsibility for the safety, conduct, or actions of any User.',
@@ -2528,11 +2581,19 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal" updated="10 
     'You agree to indemnify and hold the Company harmless from claims arising from your use of the Platform, save to the extent caused by the Company’s own breach of these Terms or applicable law.']],
   ['h2','7 · Data protection'],
   ['p','Our collection, use, and protection of your personal data is described in full in the Privacy Policy, which forms part of these Terms. Where you are a Passenger or Car Owner, the Passenger Policy or Car Owner Policy also sets out data rights specific to your role.'],
-  ['h2','8 · Governing law, disputes and arbitration'],
+  ['h2','8 · Live trip sharing & emergency contacts'],
+  ['p','Conductor lets Passengers and Car Owners share their live journey with people they choose, so someone they trust can follow the trip while they are on the road. Sharing applies to a specific trip, and emergency contacts automatically receive access to a User’s eligible trips during the relevant trip week (a Car Owner’s route or a Passenger’s selection of a minimum of three active days).'],
+  ['ul',[
+    <><b>Live trip sharing.</b> You may share a link to your active trip with your emergency contacts or other persons of your choice. Anyone who has the link may be able to view your name or identifier, the number of other passengers on the trip, and your live location while the trip is active. Each trip has its own link, and a link gives access only to that specific trip — not to any other trip in the same week.</>,
+    <><b>Emergency contacts.</b> By adding a person as an emergency contact, you acknowledge that Conductor may automatically send that person information and trip-sharing links relating to your eligible trips during the relevant trip week.</>,
+    <><b>Your responsibility.</b> You are responsible for ensuring that your emergency-contact information is accurate, and for sharing trip links only with persons you trust.</>,
+    <><b>Link access.</b> You acknowledge that anyone who obtains a shared trip link may access the information available through that link. Conductor does not currently require additional authentication to access a shared trip link.</>,
+    <><b>End of access.</b> Live location is available only while the relevant trip is active. Access to live location ends when the trip ends, is cancelled, or your access to the trip is otherwise revoked.</>]],
+  ['h2','9 · Governing law, disputes and arbitration'],
   ['p','These Terms are governed by the laws of Lagos State and the Federal Republic of Nigeria. In-app reporting and the support and disputes channels described in the Passenger Policy and Car Owner Policy are the first point of call for any complaint. Where a matter is not resolved through support or mediation, it is referred to arbitration in Lagos under the Arbitration and Mediation Act 2023, subject to the enforceability of that provision under Nigerian consumer-protection law and your statutory right to bring certain claims before the Federal Competition and Consumer Protection Tribunal.'],
-  ['h2','9 · Changes to these Terms'],
+  ['h2','10 · Changes to these Terms'],
   ['p','The Company may amend these Terms from time to time. Where a change is material, we will notify Users through the Platform or by email and update the “last updated” date on this page. Continued use of the Platform after a change takes effect constitutes acceptance of the revised Terms.'],
-  ['h2','10 · Contact information'],
+  ['h2','11 · Contact information'],
   ['ul',[
     'Email: support@conductor.ng',
     'Phone: +234 818 887 6601',
