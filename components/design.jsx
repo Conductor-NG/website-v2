@@ -1381,7 +1381,10 @@ function OwnerPage(){
             <Rv d={110}><p className="lede" style={{marginTop:24}}>Conductor doesn't send you anywhere new. You publish the route you already drive, approve the people going your way, and the seats that were travelling empty start covering what the trip costs you to run.</p></Rv>
           </div>
           <Rv cls="rv--sc illusplit__art">
-            <img src="/images/art/driver.png" alt="A car owner driving through Lagos" loading="lazy"/>
+            <video autoPlay muted loop playsInline preload="none" poster="/images/art/driver-poster.jpg" aria-label="A car owner sharing the drive with passengers through Lagos">
+              <source src="/images/art/driver.webm" type="video/webm"/>
+              <source src="/images/art/driver.mp4" type="video/mp4"/>
+            </video>
           </Rv>
         </div>
       </div></section>
