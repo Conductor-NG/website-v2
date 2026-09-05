@@ -64,12 +64,12 @@ const ASK = `
       <h2 style="font-size:clamp(36px,4vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0">Let's talk.</h2>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:26px;line-height:1.25;color:#E88D0E;margin:0">Interested in partnering, investing, or just seeing the app?</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="mailto:admin@conductor.ng" data-cta="email_ceo" style="background:#E88D0E;color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Email the CEO</a>
+        <a href="mailto:admin@conductor.ng" data-cta="email" style="background:#E88D0E;color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Email the founders</a>
         <a href="mailto:admin@conductor.ng?subject=Conductor%20investor%20call" data-cta="book_call" style="background:transparent;color:#FDFAF6;border:1px solid #ACA9A6;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Book a call</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;font-size:16px;color:#E6E5E3;line-height:1.4">
         <div>conductor.ng · admin@conductor.ng · +234 810 690 2386</div>
-        <div style="font-size:14px;color:#ACA9A6">Ridwan Abdulateef, CEO · Book-a-call link and app store links to be added</div>
+        <div style="font-size:14px;color:#ACA9A6">Set up a meeting with the founders.</div>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <a href="#" style="display:flex;flex-direction:column;padding:10px 16px;border:1px solid #454442;border-radius:12px;text-decoration:none;color:#FDFAF6;min-width:150px"><span style="font-size:11px;color:#ACA9A6;letter-spacing:0.08em;text-transform:uppercase">Passenger app</span><span style="font-size:15px;font-weight:700">Play Store · App Store</span></a>

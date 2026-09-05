@@ -8,18 +8,7 @@ const PRODUCT = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 40px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Chapter 2 · Product</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:900px;text-wrap:pretty">Two apps, one rule: the driver publishes the trip, the passenger shows up.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Everything below is live in the apps today. The walkthrough video shows a full booking and a full trip from both sides.</p>
-</section>
-
-<section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box">
-  <div style="background:#292928;border-radius:24px;overflow:hidden;position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center">
-    <img src="/deck/images/illust-passengers.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35">
-    <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;color:#FDFAF6;text-align:center;padding:24px">
-      <div style="width:88px;height:88px;border-radius:50%;background:#E88D0E;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-left:30px solid #fff;border-top:18px solid transparent;border-bottom:18px solid transparent;margin-left:8px"></div></div>
-      <div style="font-size:24px;font-weight:700">App walkthrough · 2 min</div>
-      <div style="font-size:15px;color:#ACA9A6">Video placeholder — drop the MP4 or YouTube embed here</div>
-    </div>
-  </div>
+  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Everything below is live in the apps today — a full booking and a full trip, from both sides.</p>
 </section>
 
 <section style="background:#fff;border-top:1px solid #E6E5E3;border-bottom:1px solid #E6E5E3">

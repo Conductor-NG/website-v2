@@ -71,14 +71,16 @@ export function DeckNav() {
             display: "flex",
             alignItems: "center",
             gap: 10,
-            color: C.ink,
             textDecoration: "none",
-            fontWeight: 800,
-            fontSize: 18,
             flex: "none",
           }}
         >
-          Conductor
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="Conductor"
+            src="/deck/images/conductor-wordmark.svg"
+            style={{ height: 26, display: "block" }}
+          />
         </Link>
         <nav
           style={{
