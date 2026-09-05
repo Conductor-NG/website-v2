@@ -55,10 +55,12 @@ export function CommuteMap() {
         }
         const work = kids.length - home;
         const color = home && work ? INK : home ? GREEN : ORANGE;
-        const n = kids.length;
-        const size = n < 10 ? 34 : n < 50 ? 42 : 50;
+        // Density blob, no count label — the map shows the SHAPE of demand
+        // (homes scattered, workplaces collapsed on the Island), never a
+        // holdable headcount. Radius grows with the square root of the count.
+        const size = Math.min(66, Math.round(22 + Math.sqrt(kids.length) * 3.4));
         return L.divIcon({
-          html: `<div style="display:flex;align-items:center;justify-content:center;width:${size}px;height:${size}px;border-radius:50%;background:${color};color:#fff;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.25)">${n}</div>`,
+          html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color}80;border:2px solid ${color};box-shadow:0 1px 4px rgba(0,0,0,0.18)"></div>`,
           className: "",
           iconSize: [size, size],
         });
