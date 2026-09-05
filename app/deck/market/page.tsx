@@ -13,8 +13,8 @@ import { DeckPager } from "../deck-nav";
 const MARKET_TOP = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Chapter 3 · Market and traction</div>
-  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">122 users told us where they need to go. 63 of them are going to the same place.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Declared home and workplace from 122 onboarded users, September 2026. Homes scatter across Lagos; workplaces converge on roughly four square kilometres.</p>
+  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">We rebuilt V1 to learn where Lagos commutes. 52% are headed for the same place.</h1>
+  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">At onboarding, every user now declares home and workplace. Cleaned and mapped, the pattern is unmistakable — homes scatter across Lagos, but workplaces converge on a few square kilometres of Lagos Island.</p>
 </section>
 `;
 
@@ -35,11 +35,11 @@ const PIE_CARD = `
     </svg>
   </div>
   <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
-    <div style="display:flex;align-items:center;gap:10px"><span style="width:12px;height:12px;border-radius:3px;background:#E88D0E;flex:none"></span><span style="flex:1;color:#FDFAF6">Island cluster</span><strong style="color:#E88D0E">63 · 52%</strong></div>
-    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#C9C7C4;flex:none"></span><span style="flex:1">Mainland (Yaba, Surulere, Ajao)</span><span>30 · 25%</span></div>
-    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#A5A29F;flex:none"></span><span style="flex:1">Ikeja + Ikeja GRA</span><span>12 · 10%</span></div>
-    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#807E7B;flex:none"></span><span style="flex:1">Other Lagos</span><span>9 · 7%</span></div>
-    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#5C5A57;flex:none"></span><span style="flex:1">Ogun-state adjacent</span><span>8 · 6%</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:12px;height:12px;border-radius:3px;background:#E88D0E;flex:none"></span><span style="flex:1;color:#FDFAF6">Island cluster</span><strong style="color:#E88D0E">52%</strong></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#C9C7C4;flex:none"></span><span style="flex:1">Mainland (Yaba, Surulere, Ajao)</span><span>25%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#A5A29F;flex:none"></span><span style="flex:1">Ikeja + Ikeja GRA</span><span>10%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#807E7B;flex:none"></span><span style="flex:1">Other Lagos</span><span>7%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#5C5A57;flex:none"></span><span style="flex:1">Ogun-state adjacent</span><span>6%</span></div>
   </div>
 </div>
 `;
@@ -104,7 +104,7 @@ function recurringDonut(): string {
         `<polyline points="${l.x1.toFixed(1)},${l.y1.toFixed(1)} ${elbowX.toFixed(1)},${l.ly.toFixed(1)} ${labelX.toFixed(1)},${l.ly.toFixed(1)}" fill="none" stroke="#C9C7C4" stroke-width="1"></polyline>`,
         `<circle cx="${l.x1.toFixed(1)}" cy="${l.y1.toFixed(1)}" r="2.5" fill="${l.d.color}"></circle>`,
         `<text x="${tx.toFixed(1)}" y="${(l.ly - 2).toFixed(1)}" text-anchor="${anchor}" style="font-size:13px;font-weight:700;fill:#292928">${l.d.label}</text>`,
-        `<text x="${tx.toFixed(1)}" y="${(l.ly + 13).toFixed(1)}" text-anchor="${anchor}" style="font-size:12px;fill:#676563">${l.d.count} · ${l.d.pct}%</text>`,
+        `<text x="${tx.toFixed(1)}" y="${(l.ly + 13).toFixed(1)}" text-anchor="${anchor}" style="font-size:12px;fill:#676563">${l.d.pct}%</text>`,
       );
     }
   }
@@ -129,7 +129,7 @@ const MARKET_REST = `
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
       ${RECURRING_DONUT}
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>5+ days a week (recurring commute)</span><span style="color:#1D4ED8">70 · 57%</span></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>5+ days a week (recurring commute)</span><span style="color:#1D4ED8">57%</span></div>
     </div>
   </div>
 </section>
