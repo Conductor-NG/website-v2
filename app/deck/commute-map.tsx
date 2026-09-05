@@ -29,14 +29,41 @@ export function CommuteMap() {
     const el = containerRef.current;
     if (!el || mapRef.current) return;
 
-    const map = L.map(el, { scrollWheelZoom: false }).setView([6.52, 3.37], 11);
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
-      subdomains: "abcd",
-      maxZoom: 19,
-      attribution: "&copy; OpenStreetMap &copy; CARTO",
-    }).addTo(map);
+    const map = L.map(el, { scrollWheelZoom: false, maxZoom: 16 }).setView([6.52, 3.37], 11);
+    // Esri light-gray canvas — free, no API key, no watermark. Base + labels.
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 16, attribution: "Tiles &copy; Esri" },
+    ).addTo(map);
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 16 },
+    ).addTo(map);
 
-    const cluster = L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 45 });
+    // Colour each cluster bubble by category so the Home/Workplace filter is
+    // visually obvious: all-home = green, all-work = orange, mixed = ink. Size
+    // by count. (Leaflet's default bubbles colour by count, which would collide
+    // with the legend and read as "the filter isn't working".)
+    const cluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      maxClusterRadius: 45,
+      iconCreateFunction: (c) => {
+        const kids = c.getAllChildMarkers();
+        let home = 0;
+        for (const k of kids) {
+          if ((k as unknown as { kind?: Kind }).kind === "pickup") home++;
+        }
+        const work = kids.length - home;
+        const color = home && work ? INK : home ? GREEN : ORANGE;
+        const n = kids.length;
+        const size = n < 10 ? 34 : n < 50 ? 42 : 50;
+        return L.divIcon({
+          html: `<div style="display:flex;align-items:center;justify-content:center;width:${size}px;height:${size}px;border-radius:50%;background:${color};color:#fff;font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.25)">${n}</div>`,
+          className: "",
+          iconSize: [size, size],
+        });
+      },
+    });
     cluster.addTo(map);
 
     mapRef.current = map;
@@ -64,13 +91,16 @@ export function CommuteMap() {
     const visible = points.filter((p) => mode === "both" || p.k === mode);
     for (const p of visible) {
       const color = p.k === "pickup" ? GREEN : ORANGE;
-      L.circleMarker([p.lat, p.lng], {
+      const marker = L.circleMarker([p.lat, p.lng], {
         radius: 6,
-        color,
+        color: "#fff",
         fillColor: color,
-        fillOpacity: 0.8,
-        weight: 1,
-      }).addTo(cluster);
+        fillOpacity: 0.9,
+        weight: 1.5,
+      });
+      // Tag the marker so the cluster icon can colour itself by category.
+      (marker as unknown as { kind: Kind }).kind = p.k;
+      marker.addTo(cluster);
     }
   }, [mode, points]);
 
@@ -87,17 +117,17 @@ export function CommuteMap() {
       >
         <div style={{ display: "flex", gap: 8 }}>
           <Pill label="Both" active={mode === "both"} onClick={() => setMode("both")} />
-          <Pill label="Pickups" active={mode === "pickup"} onClick={() => setMode("pickup")} />
-          <Pill label="Drop-offs" active={mode === "dropoff"} onClick={() => setMode("dropoff")} />
+          <Pill label="Home" active={mode === "pickup"} onClick={() => setMode("pickup")} />
+          <Pill label="Workplace" active={mode === "dropoff"} onClick={() => setMode("dropoff")} />
         </div>
         <div style={{ display: "flex", gap: 16, fontSize: 13, color: "#454442" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <span style={dot(GREEN)} />
-            Pickup
+            Home
           </span>
           <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <span style={dot(ORANGE)} />
-            Drop-off
+            Workplace
           </span>
         </div>
       </div>

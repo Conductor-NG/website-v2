@@ -14,7 +14,7 @@ const MARKET_TOP = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Chapter 3 · Market and traction</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">122 users told us where they need to go. 63 of them are going to the same place.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Declared pickup and drop-off from 122 onboarded users, September 2026. Origins scatter across Lagos; destinations converge on roughly four square kilometres.</p>
+  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Declared home and workplace from 122 onboarded users, September 2026. Homes scatter across Lagos; workplaces converge on roughly four square kilometres.</p>
 </section>
 `;
 
@@ -44,6 +44,80 @@ const PIE_CARD = `
 </div>
 `;
 
+// Recurring-demand donut with direct leader-line labels (so no legend-matching)
+// and a blue palette distinct from the orange/grey Island donut above it.
+// Built at module load — coordinates computed, then written as static SVG.
+function recurringDonut(): string {
+  const cx = 300;
+  const cy = 190;
+  const r = 96;
+  const sw = 44;
+  const data = [
+    { label: "5 days", count: 38, pct: 31, color: "#1E3A8A" },
+    { label: "6 days", count: 16, pct: 13, color: "#1D4ED8" },
+    { label: "7 days", count: 16, pct: 13, color: "#2563EB" },
+    { label: "4 days", count: 6, pct: 5, color: "#3B82F6" },
+    { label: "3 days", count: 14, pct: 12, color: "#60A5FA" },
+    { label: "2 days", count: 10, pct: 8, color: "#93C5FD" },
+    { label: "1 day", count: 22, pct: 18, color: "#BFDBFE" },
+  ];
+  const total = data.reduce((s, d) => s + d.count, 0);
+  const C = 2 * Math.PI * r;
+  const rings: string[] = [];
+  type Lab = { d: (typeof data)[number]; x1: number; y1: number; right: boolean; ly: number };
+  const labels: Lab[] = [];
+  let acc = 0;
+  for (const d of data) {
+    const len = (d.count / total) * C;
+    const gap = C - len;
+    rings.push(
+      `<circle cx="${cx}" cy="${cy}" r="${r}" stroke="${d.color}" stroke-dasharray="${len.toFixed(2)} ${gap.toFixed(2)}" stroke-dashoffset="${(-acc).toFixed(2)}"></circle>`,
+    );
+    const mid = (acc + len / 2) / C;
+    const theta = ((-90 + mid * 360) * Math.PI) / 180;
+    labels.push({
+      d,
+      x1: cx + (r + sw / 2) * Math.cos(theta),
+      y1: cy + (r + sw / 2) * Math.sin(theta),
+      right: Math.cos(theta) >= 0,
+      ly: cy + (r + sw / 2 + 16) * Math.sin(theta),
+    });
+    acc += len;
+  }
+  // De-collide labels on each side (sort by y, enforce a minimum gap).
+  const spread = (side: boolean) => {
+    const arr = labels.filter((l) => l.right === side).sort((a, b) => a.ly - b.ly);
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i].ly - arr[i - 1].ly < 34) arr[i].ly = arr[i - 1].ly + 34;
+    }
+    return arr;
+  };
+  const parts: string[] = [];
+  for (const side of [true, false]) {
+    const arr = spread(side);
+    const labelX = side ? cx + r + sw / 2 + 60 : cx - r - sw / 2 - 60;
+    const elbowX = side ? labelX - 14 : labelX + 14;
+    const anchor = side ? "start" : "end";
+    const tx = side ? labelX + 6 : labelX - 6;
+    for (const l of arr) {
+      parts.push(
+        `<polyline points="${l.x1.toFixed(1)},${l.y1.toFixed(1)} ${elbowX.toFixed(1)},${l.ly.toFixed(1)} ${labelX.toFixed(1)},${l.ly.toFixed(1)}" fill="none" stroke="#C9C7C4" stroke-width="1"></polyline>`,
+        `<circle cx="${l.x1.toFixed(1)}" cy="${l.y1.toFixed(1)}" r="2.5" fill="${l.d.color}"></circle>`,
+        `<text x="${tx.toFixed(1)}" y="${(l.ly - 2).toFixed(1)}" text-anchor="${anchor}" style="font-size:13px;font-weight:700;fill:#292928">${l.d.label}</text>`,
+        `<text x="${tx.toFixed(1)}" y="${(l.ly + 13).toFixed(1)}" text-anchor="${anchor}" style="font-size:12px;fill:#676563">${l.d.count} · ${l.d.pct}%</text>`,
+      );
+    }
+  }
+  return `<svg viewBox="0 0 600 380" width="100%" style="max-width:560px;display:block;margin:0 auto">
+    <g transform="rotate(-90 ${cx} ${cy})" fill="none" stroke-width="${sw}" stroke-linecap="butt">${rings.join("")}</g>
+    ${parts.join("")}
+    <text x="${cx}" y="${cy - 2}" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:46px;fill:#1D4ED8">57%</text>
+    <text x="${cx}" y="${cy + 20}" text-anchor="middle" style="font-size:12px;fill:#909596;letter-spacing:0.12em">5+ DAYS</text>
+  </svg>`;
+}
+
+const RECURRING_DONUT = recurringDonut();
+
 const MARKET_REST = `
 <section style="background:#fff;border-top:1px solid #E6E5E3;border-bottom:1px solid #E6E5E3">
   <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start">
@@ -53,32 +127,9 @@ const MARKET_REST = `
       <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work economically, and what on-demand hailing never captured. Every driver–passenger pair, once matched, is a weekly recurring revenue stream.</p>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:24px;line-height:1.3;color:#676563;margin:0">We are not building a route. We are building a magnet.</p>
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center">
-        <svg width="180" height="180" viewBox="0 0 180 180" style="flex:none">
-          <g transform="rotate(-90 90 90)" fill="none" stroke-width="26">
-            <circle cx="90" cy="90" r="70" stroke="#E88D0E" stroke-dasharray="137.0 302.82" stroke-dashoffset="0"></circle>
-            <circle cx="90" cy="90" r="70" stroke="#E8A94A" stroke-dasharray="57.68 382.14" stroke-dashoffset="-137.0"></circle>
-            <circle cx="90" cy="90" r="70" stroke="#F0C379" stroke-dasharray="57.68 382.14" stroke-dashoffset="-194.68"></circle>
-            <circle cx="90" cy="90" r="70" stroke="#D5D3D0" stroke-dasharray="21.63 418.19" stroke-dashoffset="-252.36"></circle>
-            <circle cx="90" cy="90" r="70" stroke="#B7B4B1" stroke-dasharray="50.47 389.35" stroke-dashoffset="-273.99"></circle>
-            <circle cx="90" cy="90" r="70" stroke="#908E8B" stroke-dasharray="36.05 403.77" stroke-dashoffset="-324.46"></circle>
-            <circle cx="90" cy="90" r="70" stroke="#6B6966" stroke-dasharray="79.31 360.51" stroke-dashoffset="-360.51"></circle>
-          </g>
-          <text x="90" y="86" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;fill:#E88D0E">57%</text>
-          <text x="90" y="106" text-anchor="middle" style="font-size:11px;fill:#909596;letter-spacing:0.1em">5+ DAYS</text>
-        </svg>
-        <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;min-width:190px">
-          <div style="display:flex;align-items:center;gap:10px;color:#292928"><span style="width:12px;height:12px;border-radius:3px;background:#E88D0E;flex:none"></span><span style="flex:1;font-weight:700">5 days</span><strong style="color:#E88D0E">38 · 31%</strong></div>
-          <div style="display:flex;align-items:center;gap:10px;color:#454442"><span style="width:12px;height:12px;border-radius:3px;background:#E8A94A;flex:none"></span><span style="flex:1">6 days</span><span>16 · 13%</span></div>
-          <div style="display:flex;align-items:center;gap:10px;color:#454442"><span style="width:12px;height:12px;border-radius:3px;background:#F0C379;flex:none"></span><span style="flex:1">7 days</span><span>16 · 13%</span></div>
-          <div style="display:flex;align-items:center;gap:10px;color:#454442"><span style="width:12px;height:12px;border-radius:3px;background:#B7B4B1;flex:none"></span><span style="flex:1">3 days</span><span>14 · 12%</span></div>
-          <div style="display:flex;align-items:center;gap:10px;color:#454442"><span style="width:12px;height:12px;border-radius:3px;background:#6B6966;flex:none"></span><span style="flex:1">1 day</span><span>22 · 18%</span></div>
-          <div style="display:flex;align-items:center;gap:10px;color:#454442"><span style="width:12px;height:12px;border-radius:3px;background:#908E8B;flex:none"></span><span style="flex:1">2 days</span><span>10 · 8%</span></div>
-          <div style="display:flex;align-items:center;gap:10px;color:#454442"><span style="width:12px;height:12px;border-radius:3px;background:#D5D3D0;flex:none"></span><span style="flex:1">4 days</span><span>6 · 5%</span></div>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>5+ days a week (recurring commute)</span><span style="color:#E88D0E">70 · 57%</span></div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      ${RECURRING_DONUT}
+      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>5+ days a week (recurring commute)</span><span style="color:#1D4ED8">70 · 57%</span></div>
     </div>
   </div>
 </section>
