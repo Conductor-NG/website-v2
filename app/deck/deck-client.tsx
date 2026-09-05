@@ -60,6 +60,23 @@ export function DeckEnhancer() {
       }
     }
 
+    // Point every "Book a call" CTA at the configured Cal.com/Calendly URL,
+    // carrying the recipient token as utm_content so the booking attributes
+    // back to the named investor. Falls back to the SSR mailto when unset.
+    const bookUrl = process.env.NEXT_PUBLIC_BOOK_CALL_URL;
+    if (bookUrl) {
+      const bookLinks = document.querySelectorAll<HTMLAnchorElement>(
+        'a[data-cta="book_call"]'
+      );
+      const sep = bookUrl.includes("?") ? "&" : "?";
+      const tagged = `${bookUrl}${sep}utm_source=deck&utm_campaign=investor-deck&utm_content=${encodeURIComponent(v)}`;
+      for (const a of bookLinks) {
+        a.setAttribute("href", tagged);
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener noreferrer");
+      }
+    }
+
     const onClick = (e: MouseEvent) => {
       const el = (e.target as HTMLElement | null)?.closest("a");
       if (!el) {
