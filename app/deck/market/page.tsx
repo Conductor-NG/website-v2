@@ -15,13 +15,26 @@ const MARKET = `
   <div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:20px;font-weight:700">Origins scatter across Lagos</div><img src="/deck/images/pickup%20map%20markers.png" alt="Pickup map" style="width:100%;border-radius:16px;border:1px solid #E6E5E3"><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Ikorodu, Ajah, Berger, Yaba, Surulere, Sangotedo, and Ogun-state suburbs such as Mowe, Ibafo and Asese.</p></div>
   <div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:20px;font-weight:700">Destinations converge on the Island</div><img src="/deck/images/destinantion%20map%20markers.png" alt="Destination map" style="width:100%;border-radius:16px;border:1px solid #E6E5E3"><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Lagos Island, Victoria Island, Lekki Phase 1, Ikoyi. Different addresses, functionally the same destination.</p></div>
   <div style="background:#292928;color:#FDFAF6;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:20px">
-    <div><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:80px;line-height:1;color:#E88D0E">52%</div><div style="font-size:16px;color:#E6E5E3;margin-top:8px;line-height:1.4">of declared commute intent ends in the Lagos Island cluster</div></div>
-    <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between"><span>Island cluster</span><strong>63 · 52%</strong></div><div style="height:8px;background:#454442;border-radius:4px"><div style="width:52%;height:100%;background:#E88D0E;border-radius:4px"></div></div></div>
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;color:#E6E5E3"><span>Mainland (Yaba, Surulere, Ajao)</span><span>30 · 25%</span></div><div style="height:8px;background:#454442;border-radius:4px"><div style="width:25%;height:100%;background:#ACA9A6;border-radius:4px"></div></div></div>
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;color:#E6E5E3"><span>Ikeja + Ikeja GRA</span><span>12 · 10%</span></div><div style="height:8px;background:#454442;border-radius:4px"><div style="width:10%;height:100%;background:#ACA9A6;border-radius:4px"></div></div></div>
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;color:#E6E5E3"><span>Other Lagos</span><span>9 · 7%</span></div><div style="height:8px;background:#454442;border-radius:4px"><div style="width:7%;height:100%;background:#ACA9A6;border-radius:4px"></div></div></div>
-      <div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;color:#E6E5E3"><span>Ogun-state adjacent</span><span>8 · 6%</span></div><div style="height:8px;background:#454442;border-radius:4px"><div style="width:6%;height:100%;background:#ACA9A6;border-radius:4px"></div></div></div>
+    <div style="font-size:16px;color:#E6E5E3;line-height:1.4">of declared commute intent ends in the <span style="color:#E88D0E;font-weight:700">Lagos Island cluster</span></div>
+    <div style="display:flex;justify-content:center;padding:4px 0">
+      <svg width="180" height="180" viewBox="0 0 180 180" style="flex:none">
+        <g transform="rotate(-90 90 90)" fill="none" stroke-width="26">
+          <circle cx="90" cy="90" r="70" stroke="#E88D0E" stroke-dasharray="228.71 211.11" stroke-dashoffset="0"></circle>
+          <circle cx="90" cy="90" r="70" stroke="#C9C7C4" stroke-dasharray="109.96 329.86" stroke-dashoffset="-228.71"></circle>
+          <circle cx="90" cy="90" r="70" stroke="#A5A29F" stroke-dasharray="43.98 395.84" stroke-dashoffset="-338.67"></circle>
+          <circle cx="90" cy="90" r="70" stroke="#807E7B" stroke-dasharray="30.79 409.03" stroke-dashoffset="-382.65"></circle>
+          <circle cx="90" cy="90" r="70" stroke="#5C5A57" stroke-dasharray="26.39 413.43" stroke-dashoffset="-413.44"></circle>
+        </g>
+        <text x="90" y="86" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;fill:#E88D0E">52%</text>
+        <text x="90" y="106" text-anchor="middle" style="font-size:11px;fill:#ACA9A6;letter-spacing:0.1em">ISLAND</text>
+      </svg>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="width:12px;height:12px;border-radius:3px;background:#E88D0E;flex:none"></span><span style="flex:1;color:#FDFAF6">Island cluster</span><strong style="color:#E88D0E">63 · 52%</strong></div>
+      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#C9C7C4;flex:none"></span><span style="flex:1">Mainland (Yaba, Surulere, Ajao)</span><span>30 · 25%</span></div>
+      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#A5A29F;flex:none"></span><span style="flex:1">Ikeja + Ikeja GRA</span><span>12 · 10%</span></div>
+      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#807E7B;flex:none"></span><span style="flex:1">Other Lagos</span><span>9 · 7%</span></div>
+      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#5C5A57;flex:none"></span><span style="flex:1">Ogun-state adjacent</span><span>8 · 6%</span></div>
     </div>
   </div>
 </section>
@@ -34,15 +47,23 @@ const MARKET = `
       <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work economically, and what on-demand hailing never captured. Every driver–passenger pair, once matched, is a weekly recurring revenue stream.</p>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:24px;line-height:1.3;color:#676563;margin:0">We are not building a route. We are building a magnet.</p>
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;font-weight:700"><span>5 days</span><div style="height:28px;background:#FAE8CF;border-radius:6px"><div style="width:31%;height:100%;background:#E88D0E;border-radius:6px"></div></div><span style="text-align:right">38 · 31%</span></div>
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;color:#454442"><span>6 days</span><div style="height:28px;background:#FAE8CF;border-radius:6px"><div style="width:13%;height:100%;background:#E88D0E;border-radius:6px"></div></div><span style="text-align:right">16 · 13%</span></div>
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;color:#454442"><span>7 days</span><div style="height:28px;background:#FAE8CF;border-radius:6px"><div style="width:13%;height:100%;background:#E88D0E;border-radius:6px"></div></div><span style="text-align:right">16 · 13%</span></div>
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;color:#454442"><span>4 days</span><div style="height:28px;background:#F7F7F7;border-radius:6px"><div style="width:5%;height:100%;background:#ACA9A6;border-radius:6px"></div></div><span style="text-align:right">6 · 5%</span></div>
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;color:#454442"><span>3 days</span><div style="height:28px;background:#F7F7F7;border-radius:6px"><div style="width:12%;height:100%;background:#ACA9A6;border-radius:6px"></div></div><span style="text-align:right">14 · 12%</span></div>
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;color:#454442"><span>2 days</span><div style="height:28px;background:#F7F7F7;border-radius:6px"><div style="width:8%;height:100%;background:#ACA9A6;border-radius:6px"></div></div><span style="text-align:right">10 · 8%</span></div>
-      <div style="display:grid;grid-template-columns:90px 1fr 90px;gap:12px;align-items:center;color:#454442"><span>1 day</span><div style="height:28px;background:#F7F7F7;border-radius:6px"><div style="width:18%;height:100%;background:#ACA9A6;border-radius:6px"></div></div><span style="text-align:right">22 · 18%</span></div>
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700"><span>5+ days a week (recurring commute)</span><span style="color:#E88D0E">70 · 57%</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <svg width="100%" viewBox="0 0 480 260" style="display:block">
+        <line x1="30" y1="230" x2="472" y2="230" stroke="#E6E5E3"></line>
+        <polygon points="30,114.5 103.3,177.5 176.7,156.5 250,198.5 323.3,30.5 396.7,146 470,146 470,230 30,230" fill="#E88D0E" fill-opacity="0.08"></polygon>
+        <polyline points="30,114.5 103.3,177.5 176.7,156.5 250,198.5 323.3,30.5 396.7,146 470,146" fill="none" stroke="#E88D0E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <g fill="#676563" font-size="13" text-anchor="middle">
+          <text x="30" y="104">22</text><text x="103.3" y="167">10</text><text x="176.7" y="146">14</text><text x="250" y="188">6</text><text x="323.3" y="21" fill="#C97810" font-weight="700">38</text><text x="396.7" y="136">16</text><text x="470" y="136">16</text>
+        </g>
+        <g fill="#fff" stroke="#E88D0E" stroke-width="2.5">
+          <circle cx="30" cy="114.5" r="4"></circle><circle cx="103.3" cy="177.5" r="4"></circle><circle cx="176.7" cy="156.5" r="4"></circle><circle cx="250" cy="198.5" r="4"></circle><circle cx="323.3" cy="30.5" r="6" fill="#E88D0E"></circle><circle cx="396.7" cy="146" r="4"></circle><circle cx="470" cy="146" r="4"></circle>
+        </g>
+        <g fill="#909596" font-size="13" text-anchor="middle">
+          <text x="30" y="250">1</text><text x="103.3" y="250">2</text><text x="176.7" y="250">3</text><text x="250" y="250">4</text><text x="323.3" y="250" fill="#292928" font-weight="700">5</text><text x="396.7" y="250">6</text><text x="470" y="250">7</text>
+        </g>
+      </svg>
+      <div style="text-align:center;font-size:13px;color:#909596;margin-top:-4px">Users by commute days per week (n = 122)</div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>5+ days a week (recurring commute)</span><span style="color:#E88D0E">70 · 57%</span></div>
     </div>
   </div>
 </section>
