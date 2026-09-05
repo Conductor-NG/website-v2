@@ -1,44 +1,50 @@
 import { DeckTracker } from "../deck-client";
+import { CommuteMap } from "../commute-map-loader";
 import { DeckPager } from "../deck-nav";
 
 // Ported near-verbatim from the Claude Design deck (site/market.dc.html).
 // Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
 // so the enhancer tracks them. Section content is server-rendered HTML.
-const MARKET = `
+//
+// The origins/destinations static map images were replaced by an interactive
+// Leaflet map (<CommuteMap/>). MARKET_TOP is the chapter header; PIE_CARD is the
+// "52% Island cluster" donut that now sits beside the live map; MARKET_REST is
+// everything from the "Recurring demand" section onward.
+const MARKET_TOP = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Chapter 3 · Market and traction</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">122 users told us where they need to go. 63 of them are going to the same place.</h1>
   <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Declared pickup and drop-off from 122 onboarded users, September 2026. Origins scatter across Lagos; destinations converge on roughly four square kilometres.</p>
 </section>
+`;
 
-<section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
-  <div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:20px;font-weight:700">Origins scatter across Lagos</div><img src="/deck/images/pickup%20map%20markers.png" alt="Pickup map" style="width:100%;border-radius:16px;border:1px solid #E6E5E3"><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Ikorodu, Ajah, Berger, Yaba, Surulere, Sangotedo, and Ogun-state suburbs such as Mowe, Ibafo and Asese.</p></div>
-  <div style="display:flex;flex-direction:column;gap:12px"><div style="font-size:20px;font-weight:700">Destinations converge on the Island</div><img src="/deck/images/destinantion%20map%20markers.png" alt="Destination map" style="width:100%;border-radius:16px;border:1px solid #E6E5E3"><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Lagos Island, Victoria Island, Lekki Phase 1, Ikoyi. Different addresses, functionally the same destination.</p></div>
-  <div style="background:#292928;color:#FDFAF6;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:20px">
-    <div style="font-size:16px;color:#E6E5E3;line-height:1.4">of declared commute intent ends in the <span style="color:#E88D0E;font-weight:700">Lagos Island cluster</span></div>
-    <div style="display:flex;justify-content:center;padding:4px 0">
-      <svg width="180" height="180" viewBox="0 0 180 180" style="flex:none">
-        <g transform="rotate(-90 90 90)" fill="none" stroke-width="26">
-          <circle cx="90" cy="90" r="70" stroke="#E88D0E" stroke-dasharray="228.71 211.11" stroke-dashoffset="0"></circle>
-          <circle cx="90" cy="90" r="70" stroke="#C9C7C4" stroke-dasharray="109.96 329.86" stroke-dashoffset="-228.71"></circle>
-          <circle cx="90" cy="90" r="70" stroke="#A5A29F" stroke-dasharray="43.98 395.84" stroke-dashoffset="-338.67"></circle>
-          <circle cx="90" cy="90" r="70" stroke="#807E7B" stroke-dasharray="30.79 409.03" stroke-dashoffset="-382.65"></circle>
-          <circle cx="90" cy="90" r="70" stroke="#5C5A57" stroke-dasharray="26.39 413.43" stroke-dashoffset="-413.44"></circle>
-        </g>
-        <text x="90" y="86" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;fill:#E88D0E">52%</text>
-        <text x="90" y="106" text-anchor="middle" style="font-size:11px;fill:#ACA9A6;letter-spacing:0.1em">ISLAND</text>
-      </svg>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
-      <div style="display:flex;align-items:center;gap:10px"><span style="width:12px;height:12px;border-radius:3px;background:#E88D0E;flex:none"></span><span style="flex:1;color:#FDFAF6">Island cluster</span><strong style="color:#E88D0E">63 · 52%</strong></div>
-      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#C9C7C4;flex:none"></span><span style="flex:1">Mainland (Yaba, Surulere, Ajao)</span><span>30 · 25%</span></div>
-      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#A5A29F;flex:none"></span><span style="flex:1">Ikeja + Ikeja GRA</span><span>12 · 10%</span></div>
-      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#807E7B;flex:none"></span><span style="flex:1">Other Lagos</span><span>9 · 7%</span></div>
-      <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#5C5A57;flex:none"></span><span style="flex:1">Ogun-state adjacent</span><span>8 · 6%</span></div>
-    </div>
+const PIE_CARD = `
+<div style="background:#292928;color:#FDFAF6;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:20px">
+  <div style="font-size:16px;color:#E6E5E3;line-height:1.4">of declared commute intent ends in the <span style="color:#E88D0E;font-weight:700">Lagos Island cluster</span></div>
+  <div style="display:flex;justify-content:center;padding:4px 0">
+    <svg width="180" height="180" viewBox="0 0 180 180" style="flex:none">
+      <g transform="rotate(-90 90 90)" fill="none" stroke-width="26">
+        <circle cx="90" cy="90" r="70" stroke="#E88D0E" stroke-dasharray="228.71 211.11" stroke-dashoffset="0"></circle>
+        <circle cx="90" cy="90" r="70" stroke="#C9C7C4" stroke-dasharray="109.96 329.86" stroke-dashoffset="-228.71"></circle>
+        <circle cx="90" cy="90" r="70" stroke="#A5A29F" stroke-dasharray="43.98 395.84" stroke-dashoffset="-338.67"></circle>
+        <circle cx="90" cy="90" r="70" stroke="#807E7B" stroke-dasharray="30.79 409.03" stroke-dashoffset="-382.65"></circle>
+        <circle cx="90" cy="90" r="70" stroke="#5C5A57" stroke-dasharray="26.39 413.43" stroke-dashoffset="-413.44"></circle>
+      </g>
+      <text x="90" y="86" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;fill:#E88D0E">52%</text>
+      <text x="90" y="106" text-anchor="middle" style="font-size:11px;fill:#ACA9A6;letter-spacing:0.1em">ISLAND</text>
+    </svg>
   </div>
-</section>
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:12px;height:12px;border-radius:3px;background:#E88D0E;flex:none"></span><span style="flex:1;color:#FDFAF6">Island cluster</span><strong style="color:#E88D0E">63 · 52%</strong></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#C9C7C4;flex:none"></span><span style="flex:1">Mainland (Yaba, Surulere, Ajao)</span><span>30 · 25%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#A5A29F;flex:none"></span><span style="flex:1">Ikeja + Ikeja GRA</span><span>12 · 10%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#807E7B;flex:none"></span><span style="flex:1">Other Lagos</span><span>9 · 7%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;color:#E6E5E3"><span style="width:12px;height:12px;border-radius:3px;background:#5C5A57;flex:none"></span><span style="flex:1">Ogun-state adjacent</span><span>8 · 6%</span></div>
+  </div>
+</div>
+`;
 
+const MARKET_REST = `
 <section style="background:#fff;border-top:1px solid #E6E5E3;border-bottom:1px solid #E6E5E3">
   <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start">
     <div style="display:flex;flex-direction:column;gap:20px">
@@ -119,8 +125,31 @@ export default function DeckMarket() {
   return (
     <>
       <DeckTracker slide="market" />
-      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: first-party ported deck markup, no user input */}
-      <main dangerouslySetInnerHTML={{ __html: MARKET }} />
+      <main>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: first-party ported deck markup, no user input */}
+        <div dangerouslySetInnerHTML={{ __html: MARKET_TOP }} />
+        <section
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "0 32px 72px",
+            width: "100%",
+            boxSizing: "border-box",
+            display: "grid",
+            gridTemplateColumns: "minmax(0,1.6fr) minmax(0,1fr)",
+            gap: 24,
+            alignItems: "start",
+          }}
+        >
+          <div style={{ minWidth: 0 }}>
+            <CommuteMap />
+          </div>
+          {/* biome-ignore lint/security/noDangerouslySetInnerHtml: first-party ported deck markup, no user input */}
+          <div dangerouslySetInnerHTML={{ __html: PIE_CARD }} />
+        </section>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: first-party ported deck markup, no user input */}
+        <div dangerouslySetInnerHTML={{ __html: MARKET_REST }} />
+      </main>
       <div style={{ flex: 1 }} />
       <DeckPager prev={{ slug: "product", label: "Product" }} next={{ slug: "model", label: "Model" }} />
     </>
