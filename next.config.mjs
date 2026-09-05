@@ -1,3 +1,24 @@
+// Content-Security-Policy. 'unsafe-inline' is required for the inline GA / Meta /
+// TikTok pixel snippets, JSON-LD, and React inline styles (no nonce pipeline).
+// Third-party origins are allowlisted per integration — add here when a new one
+// is introduced, and watch the browser console for CSP violations after enabling
+// it. A stricter nonce-based CSP is a possible future upgrade.
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://analytics.tiktok.com https://*.tiktok.com https://va.vercel-scripts.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "img-src 'self' data: https:",
+  "media-src 'self'",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.tiktok.com https://*.tiktok.com https://www.facebook.com https://connect.facebook.net https://*.vercel-insights.com https://va.vercel-scripts.com",
+  "frame-src 'self' https://www.facebook.com",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
