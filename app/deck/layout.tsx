@@ -13,9 +13,6 @@ export const metadata: Metadata = {
 export default function DeckLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      {/* Deck design system (colors + type). Served from /public/deck. */}
-      {/* biome-ignore lint/a11y/useHtmlLang: stylesheet link, not a lang concern */}
-      <link href="/deck/ds.css" rel="stylesheet" />
       {/* iPhone-17 device frame for app screenshots (reused from the website). */}
       {/* biome-ignore lint/a11y/useHtmlLang: stylesheet link, not a lang concern */}
       <link href="/deck/phone.css" rel="stylesheet" />
@@ -28,9 +25,9 @@ export default function DeckLayout({ children }: { children: ReactNode }) {
       <div
         className="deck-scope"
         style={{
-          fontFamily: "'Satoshi','Manrope',system-ui,sans-serif",
-          color: "#292928",
-          background: "#FDFAF6",
+          fontFamily: "'Roboto Flex', system-ui, sans-serif",
+          color: "#211A14",
+          background: "#FFF8F0",
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",

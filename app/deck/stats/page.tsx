@@ -7,11 +7,11 @@ import { type CSSProperties, useCallback, useEffect, useState } from "react";
 export const dynamic = "force-dynamic";
 
 // ---- Palette (deck design system) --------------------------------------
-const ORANGE = "#E88D0E";
-const INK = "#292928";
-const CREAM = "#FDFAF6";
-const LINE = "#E6E5E3";
-const MUTED = "#676563";
+const ORANGE = "#EE4643";
+const INK = "#211A14";
+const CREAM = "#FFF8F0";
+const LINE = "#ECDFCE";
+const MUTED = "#6B5D4E";
 const CARD = "#ffffff";
 
 // ---- Types (mirror the API) --------------------------------------------

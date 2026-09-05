@@ -13,12 +13,12 @@ export const CommuteMap = dynamic(() => import("./commute-map").then((m) => m.Co
         height: 460 + 60,
         width: "100%",
         borderRadius: 16,
-        border: "1px solid #E6E5E3",
+        border: "1px solid #ECDFCE",
         background: "#fff",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "#676563",
+        color: "#6B5D4E",
         fontSize: 15,
       }}
     >

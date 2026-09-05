@@ -12,10 +12,10 @@ type Kind = "pickup" | "dropoff";
 type Point = { k: Kind; lat: number; lng: number };
 type Mode = "both" | "pickup" | "dropoff";
 
-const ORANGE = "#E88D0E";
-const INK = "#292928";
-const LINE = "#E6E5E3";
-const GREEN = "#16a34a";
+const ORANGE = "#EE4643";
+const INK = "#211A14";
+const LINE = "#ECDFCE";
+const GREEN = "#2F8F57";
 
 export function CommuteMap() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -128,7 +128,7 @@ export function CommuteMap() {
           <Pill label="Home" active={mode === "pickup"} onClick={() => setMode("pickup")} />
           <Pill label="Workplace" active={mode === "dropoff"} onClick={() => setMode("dropoff")} />
         </div>
-        <div style={{ display: "flex", gap: 16, fontSize: 13, color: "#454442" }}>
+        <div style={{ display: "flex", gap: 16, fontSize: 13, color: "#514336" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <span style={dot(GREEN)} />
             Home

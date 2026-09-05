@@ -31,11 +31,11 @@ function activeSlug(pathname: string): string {
 }
 
 const C = {
-  ink: "#292928",
-  cream: "#FDFAF6",
-  orange: "#E88D0E",
-  line: "#E6E5E3",
-  muted: "#676563",
+  ink: "#211A14",
+  cream: "#FFF8F0",
+  orange: "#EE4643",
+  line: "#ECDFCE",
+  muted: "#6B5D4E",
 };
 
 /** Top nav — logo + section pills + Book-a-call CTA. Token-preserving. */
@@ -47,7 +47,7 @@ export function DeckNav() {
     <header
       style={{
         borderBottom: `1px solid ${C.line}`,
-        background: "rgba(253,250,246,0.9)",
+        background: "rgba(255,248,240,0.9)",
         backdropFilter: "saturate(1.4) blur(8px)",
         position: "sticky",
         top: 0,
@@ -178,7 +178,7 @@ export function DeckPager({
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#909596",
+                color: "#8A7A6B",
               }}
             >
               ← Previous
@@ -209,7 +209,7 @@ export function DeckPager({
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#ACA9A6",
+                color: "#D6C3B3",
               }}
             >
               Next →
@@ -230,7 +230,7 @@ export function DeckPager({
           flexWrap: "wrap",
           gap: 12,
           fontSize: 13,
-          color: "#909596",
+          color: "#8A7A6B",
         }}
       >
         <span>
