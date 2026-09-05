@@ -58,8 +58,8 @@ function recurringDonut(): string {
     { label: "7 days", count: 16, pct: 13, color: "#2563EB" },
     { label: "4 days", count: 6, pct: 5, color: "#3B82F6" },
     { label: "3 days", count: 14, pct: 12, color: "#60A5FA" },
-    { label: "2 days", count: 10, pct: 8, color: "#93C5FD" },
-    { label: "1 day", count: 22, pct: 18, color: "#BFDBFE" },
+    { label: "2 days", count: 10, pct: 8, color: "#C9C7C4" },
+    { label: "1 day", count: 22, pct: 18, color: "#E1DFDC" },
   ];
   const total = data.reduce((s, d) => s + d.count, 0);
   const C = 2 * Math.PI * r;
@@ -111,8 +111,8 @@ function recurringDonut(): string {
   return `<svg viewBox="0 0 600 380" width="100%" style="max-width:560px;display:block;margin:0 auto">
     <g transform="rotate(-90 ${cx} ${cy})" fill="none" stroke-width="${sw}" stroke-linecap="butt">${rings.join("")}</g>
     ${parts.join("")}
-    <text x="${cx}" y="${cy - 2}" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:46px;fill:#1D4ED8">57%</text>
-    <text x="${cx}" y="${cy + 20}" text-anchor="middle" style="font-size:12px;fill:#909596;letter-spacing:0.12em">5+ DAYS</text>
+    <text x="${cx}" y="${cy - 2}" text-anchor="middle" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:46px;fill:#1D4ED8">74%</text>
+    <text x="${cx}" y="${cy + 20}" text-anchor="middle" style="font-size:12px;fill:#909596;letter-spacing:0.12em">3+ DAYS</text>
   </svg>`;
 }
 
@@ -123,13 +123,13 @@ const MARKET_REST = `
   <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start">
     <div style="display:flex;flex-direction:column;gap:20px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Recurring demand</div>
-      <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">57% commute five or more days a week.</h2>
-      <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work economically, and what on-demand hailing never captured. Every driver–passenger pair, once matched, is a weekly recurring revenue stream.</p>
+      <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">74% commute three or more days a week.</h2>
+      <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work economically, and what on-demand hailing never captured. It is why a trip must run at least three days a week: that is where predictable, poolable demand begins, and where a driver–passenger pair becomes a weekly recurring revenue stream.</p>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:24px;line-height:1.3;color:#676563;margin:0">We are not building a route. We are building a magnet.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
       ${RECURRING_DONUT}
-      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>5+ days a week (recurring commute)</span><span style="color:#1D4ED8">57%</span></div>
+      <div style="display:flex;justify-content:space-between;border-top:1px solid #E6E5E3;padding-top:12px;margin-top:6px;font-weight:700;font-size:15px"><span>3+ days a week — our minimum trip length</span><span style="color:#1D4ED8">74%</span></div>
     </div>
   </div>
 </section>
