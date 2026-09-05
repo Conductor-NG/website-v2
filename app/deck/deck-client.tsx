@@ -15,16 +15,50 @@ function useToken(): string {
   return useSearchParams().get("v") || "anon";
 }
 
+/**
+ * Fire-and-forget ingest into our own store (alongside Vercel `track()`).
+ * Prefers `navigator.sendBeacon` so events still flush on page unload;
+ * falls back to keepalive fetch. Never throws into the render path.
+ */
+type EvBody = {
+  v: string;
+  type: "view" | "dwell" | "cta";
+  slide: string;
+  seconds?: number;
+  cta?: string;
+};
+
+function sendEv(body: EvBody): void {
+  try {
+    const json = JSON.stringify(body);
+    if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+      const blob = new Blob([json], { type: "application/json" });
+      navigator.sendBeacon("/api/deck/ev", blob);
+      return;
+    }
+    void fetch("/api/deck/ev", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: json,
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    // ignore — analytics must never break the deck
+  }
+}
+
 /** Fire a slide view on mount and a dwell (seconds) on leave. */
 export function DeckTracker({ slide }: { slide: string }) {
   const v = useToken();
   useEffect(() => {
     const startedAt = Date.now();
     track("deck_view", { v, slide });
+    sendEv({ v, type: "view", slide });
     return () => {
       const seconds = Math.round((Date.now() - startedAt) / 1000);
       if (seconds > 0 && seconds < 3600) {
         track("deck_dwell", { v, slide, seconds });
+        sendEv({ v, type: "dwell", slide, seconds });
       }
     };
   }, [v, slide]);
@@ -86,10 +120,13 @@ export function DeckEnhancer() {
       const cta = el.getAttribute("data-cta");
       if (cta) {
         track("deck_cta", { v, cta, slide });
+        sendEv({ v, type: "cta", slide, cta });
       } else if (href.startsWith("mailto:")) {
         track("deck_cta", { v, cta: "email", slide });
+        sendEv({ v, type: "cta", slide, cta: "email" });
       } else if (href.startsWith("tel:")) {
         track("deck_cta", { v, cta: "call", slide });
+        sendEv({ v, type: "cta", slide, cta: "call" });
       }
     };
     document.addEventListener("click", onClick);
