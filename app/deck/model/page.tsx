@@ -12,12 +12,12 @@ const MODEL = `
 </section>
 
 <section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
-  <div style="background:#fff;border:1px solid #E6E5E3;border-radius:16px;padding:28px;display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center">
-    <img src="/deck/images/drv-13-escrow.png" alt="" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:16px;border:1px solid #E6E5E3">
+  <div style="background:#fff;border:1px solid #E6E5E3;border-radius:16px;padding:28px;display:grid;grid-template-columns:min(300px,80vw) 1fr;gap:24px;align-items:center">
+    <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/drv-13-escrow.png" alt="Conductor app screen"></div></div></div>
     <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/icon-bank.png" alt="" style="width:48px;height:48px;border-radius:10px"><div style="font-size:22px;font-weight:700">How money moves</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">The passenger pays into escrow at booking. Money is held per trip-day until the ride week completes, then released to the driver at week close. If a day does not happen, refunds are automatic and traceable to their origin.</p></div>
   </div>
-  <div style="background:#fff;border:1px solid #E6E5E3;border-radius:16px;padding:28px;display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center">
-    <img src="/deck/images/pax-11-cost.png" alt="" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:16px;border:1px solid #E6E5E3">
+  <div style="background:#fff;border:1px solid #E6E5E3;border-radius:16px;padding:28px;display:grid;grid-template-columns:min(300px,80vw) 1fr;gap:24px;align-items:center">
+    <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/pax-11-cost.png" alt="Conductor app screen"></div></div></div>
     <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/icon-earn-weekly.png" alt="" style="width:48px;height:48px;border-radius:10px"><div style="font-size:22px;font-weight:700">What we take</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">10% from each side of the transaction. The passenger sees the fare and the fee before booking; the driver sees net earnings per ride, per week and per month in the app.</p></div>
   </div>
 </section>
@@ -29,7 +29,7 @@ const MODEL = `
       <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">One corridor, real economics.</h2>
       <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Figures from the 5-year financial projection model, standard 4-seat car, using the actual in-app fare for this route.</p>
     </div>
-    <div style="display:grid;grid-template-columns:minmax(0,1fr) 220px minmax(0,0.8fr);gap:32px;align-items:start">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) min(300px,80vw) minmax(0,0.8fr);gap:32px;align-items:start">
       <div style="border:1px solid #E6E5E3;border-radius:16px;overflow:hidden;font-size:16px">
         <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #E6E5E3;color:#454442"><span>Ride fare per passenger</span><span>₦2,835</span></div>
         <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #E6E5E3;color:#454442"><span>Blended promo discount</span><span>(₦425)</span></div>
@@ -40,7 +40,7 @@ const MODEL = `
         <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #E6E5E3;color:#454442"><span>Driver weekly earnings (5 days)</span><span>₦43,380</span></div>
         <div style="display:flex;justify-content:space-between;padding:14px 20px;font-weight:700"><span>Driver monthly earnings (20 days)</span><span>₦173,520</span></div>
       </div>
-      <img src="/deck/images/pax-ikorodu.png" alt="In-app fare screen" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3">
+      <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/pax-ikorodu.png" alt="Conductor app screen"></div></div></div>
       <div style="display:flex;flex-direction:column;gap:20px">
         <div><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#E88D0E">₦4,820</div><div style="font-size:15px;line-height:1.4;color:#454442;margin-top:6px">weekly Conductor take from one 4-seat car running five days</div></div>
         <div style="height:1px;background:#E6E5E3"></div>
