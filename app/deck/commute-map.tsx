@@ -21,6 +21,7 @@ export function CommuteMap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const clusterRef = useRef<L.MarkerClusterGroup | null>(null);
+  const totalRef = useRef(1);
   const [points, setPoints] = useState<Point[]>([]);
   const [mode, setMode] = useState<Mode>("both");
 
@@ -55,12 +56,15 @@ export function CommuteMap() {
         }
         const work = kids.length - home;
         const color = home && work ? INK : home ? GREEN : ORANGE;
-        // Density blob, no count label — the map shows the SHAPE of demand
-        // (homes scattered, workplaces collapsed on the Island), never a
-        // holdable headcount. Radius grows with the square root of the count.
-        const size = Math.min(66, Math.round(22 + Math.sqrt(kids.length) * 3.4));
+        // Label clusters by SHARE, not headcount: the big Island blob reads
+        // ~52% (tying back to the pie), shares sum to 100% so nothing looks
+        // fabricated, and the sample size (N) never appears. Radius grows with
+        // the square root of the count.
+        const pct = (kids.length / totalRef.current) * 100;
+        const label = pct < 1 ? "<1%" : `${Math.round(pct)}%`;
+        const size = Math.min(66, Math.max(30, Math.round(20 + Math.sqrt(kids.length) * 3.4)));
         return L.divIcon({
-          html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color}80;border:2px solid ${color};box-shadow:0 1px 4px rgba(0,0,0,0.18)"></div>`,
+          html: `<div style="display:flex;align-items:center;justify-content:center;width:${size}px;height:${size}px;border-radius:50%;background:${color};color:#fff;font-weight:700;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.22)">${label}</div>`,
           className: "",
           iconSize: [size, size],
         });
@@ -91,6 +95,8 @@ export function CommuteMap() {
 
     cluster.clearLayers();
     const visible = points.filter((p) => mode === "both" || p.k === mode);
+    // Denominator for the cluster share labels (the current mode's point total).
+    totalRef.current = visible.length || 1;
     for (const p of visible) {
       const color = p.k === "pickup" ? GREEN : ORANGE;
       const marker = L.circleMarker([p.lat, p.lng], {
