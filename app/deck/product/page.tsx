@@ -1,0 +1,82 @@
+import { DeckTracker } from "../deck-client";
+import { DeckPager } from "../deck-nav";
+
+// Ported near-verbatim from the Claude Design deck (site/product.dc.html).
+// Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
+// so the enhancer tracks them. Section content is server-rendered HTML.
+const PRODUCT = `
+<section style="max-width:1200px;margin:0 auto;padding:80px 32px 40px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
+  <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Chapter 2 · Product</div>
+  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:900px;text-wrap:pretty">Two apps, one rule: the driver publishes the trip, the passenger shows up.</h1>
+  <p style="font-size:18px;line-height:1.55;color:#454442;margin:0;max-width:760px">Everything below is live in the apps today. The walkthrough video shows a full booking and a full trip from both sides.</p>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box">
+  <div style="background:#292928;border-radius:24px;overflow:hidden;position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center">
+    <img src="/deck/images/illust-passengers.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35">
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:16px;color:#FDFAF6;text-align:center;padding:24px">
+      <div style="width:88px;height:88px;border-radius:50%;background:#E88D0E;display:flex;align-items:center;justify-content:center"><div style="width:0;height:0;border-left:30px solid #fff;border-top:18px solid transparent;border-bottom:18px solid transparent;margin-left:8px"></div></div>
+      <div style="font-size:24px;font-weight:700">App walkthrough · 2 min</div>
+      <div style="font-size:15px;color:#ACA9A6">Video placeholder — drop the MP4 or YouTube embed here</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;border-top:1px solid #E6E5E3;border-bottom:1px solid #E6E5E3">
+  <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:820px">
+      <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Passenger app</div>
+      <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">The passenger experience, in four screens.</h2>
+      <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Booking a week of commutes takes about 90 seconds. No surge pricing, no mid-trip cancellations. Same driver, same seat, same route, five mornings running.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+      <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/pax-01-map.png" alt="Discover" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">1</span> Discover</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Real Lagos map. Every published commute near you, with departure time and duration.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/pax-02-results.png" alt="Compare" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">2</span> Compare</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Recurring Monday-to-Friday day chips. Per-day fare, verified drivers, ratings, seat count.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/pax-03-ownerprofile.png" alt="Trust" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">3</span> Trust</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Documents verified. Pick your car owner and see who else is on the seat roster before you commit.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/pax-livetrip.png" alt="Ride" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">4</span> Ride</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">The ride, happening live. Track it, share it with family, arrive together.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:32px">
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:820px">
+    <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Car owner app</div>
+    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">Earn on the drive you already make.</h2>
+    <p style="font-size:17px;line-height:1.55;color:#454442;margin:0">Car owners earn on trips they were making anyway. Escrow removes payment risk; curated matching keeps quality up.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/drv-00-create.png" alt="Create" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">1</span> Create the trip</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Set your route, days and price. About 60 seconds.</p></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/drv-01-requests.png" alt="Curate" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">2</span> Curate passengers</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Every passenger approved by you before locking in. Never assigned.</p></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/drv-12-earnings.png" alt="Earnings" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">3</span> Track earnings</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Real-time dashboard: per ride, per week, per month.</p></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/drv-13-escrow.png" alt="Escrow" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px;border:1px solid #E6E5E3"><div style="font-size:18px;font-weight:700"><span style="color:#E88D0E">4</span> Get paid</div><p style="font-size:15px;line-height:1.5;color:#454442;margin:0">Escrow-held, released at week close. No chasing, no payment disputes.</p></div>
+  </div>
+</section>
+
+<section style="background:#292928;color:#FDFAF6">
+  <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:820px">
+      <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E88D0E">Trust and safety</div>
+      <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">What happens when things go wrong? Four answers, all live today.</h2>
+      <p style="font-size:17px;line-height:1.55;color:#E6E5E3;margin:0">Trust is not a feature here; it is the product. None of this is a roadmap item.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+      <div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;align-items:center;gap:10px"><img src="/deck/images/icon-verifying.png" alt="" style="width:40px;height:40px;border-radius:10px"><span style="font-size:18px;font-weight:700">Verify both ways</span></div><img src="/deck/images/pax-09-verification.png" alt="" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px"><p style="font-size:15px;line-height:1.5;color:#E6E5E3;margin:0">Passengers and car owners: documents, NIN, phone, liveness selfie. No anonymous strangers.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;align-items:center;gap:10px"><img src="/deck/images/icon-security.png" alt="" style="width:40px;height:40px;border-radius:10px"><span style="font-size:18px;font-weight:700">SOS built in</span></div><img src="/deck/images/pax-06-sos.png" alt="" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px"><p style="font-size:15px;line-height:1.5;color:#E6E5E3;margin:0">One tap broadcasts location to emergency contacts and Conductor ops. Every trip has a live safety net.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;align-items:center;gap:10px"><img src="/deck/images/icon-confirm-pax.png" alt="" style="width:40px;height:40px;border-radius:10px"><span style="font-size:18px;font-weight:700">Live-share the trip</span></div><img src="/deck/images/pax-tripshare-v2.png" alt="" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px"><p style="font-size:15px;line-height:1.5;color:#E6E5E3;margin:0">Family and friends see the trip in real time. Automatic on every ride.</p></div>
+      <div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;align-items:center;gap:10px"><img src="/deck/images/icon-under-review.png" alt="" style="width:40px;height:40px;border-radius:10px"><span style="font-size:18px;font-weight:700">Community roster</span></div><img src="/deck/images/pax-03-ownerprofile.png" alt="" style="width:100%;aspect-ratio:9/17;object-fit:cover;object-position:top;border-radius:20px"><p style="font-size:15px;line-height:1.5;color:#E6E5E3;margin:0">See exactly who else is in the car before you board. No surprise passengers.</p></div>
+    </div>
+  </div>
+</section>
+`;
+
+export default function DeckProduct() {
+  return (
+    <>
+      <DeckTracker slide="product" />
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: first-party ported deck markup, no user input */}
+      <main dangerouslySetInnerHTML={{ __html: PRODUCT }} />
+      <div style={{ flex: 1 }} />
+      <DeckPager prev={{ slug: "", label: "Overview" }} next={{ slug: "market", label: "Market" }} />
+    </>
+  );
+}
