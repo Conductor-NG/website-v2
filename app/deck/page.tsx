@@ -4,7 +4,7 @@ import { DeckPager } from "./deck-nav";
 // Ported near-verbatim from the Claude Design deck (site/overview.dc.html).
 // Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
 // so the enhancer tracks them. Section content is server-rendered HTML.
-const OVERVIEW = `
+export const OVERVIEW = `
 <section style="position:relative;overflow:hidden;border-bottom:1px solid #ECDFCE">
   <img src="/deck/images/bg-eko-bridge.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.22">
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(253,250,246,0.3),rgba(253,250,246,0.95))"></div>

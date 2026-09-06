@@ -4,7 +4,7 @@ import { DeckPager } from "../deck-nav";
 // Ported near-verbatim from the Claude Design deck (site/why-now.dc.html).
 // Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
 // so the enhancer tracks them. Section content is server-rendered HTML.
-const WHY_NOW = `
+export const WHY_NOW = `
 <section style="background:#211A14;color:#FFF8F0">
   <div style="max-width:1200px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:56px;align-items:center">
     <div style="display:flex;flex-direction:column;gap:24px">

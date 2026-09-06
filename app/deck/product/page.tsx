@@ -4,7 +4,7 @@ import { DeckPager } from "../deck-nav";
 // Ported near-verbatim from the Claude Design deck (site/product.dc.html).
 // Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
 // so the enhancer tracks them. Section content is server-rendered HTML.
-const PRODUCT = `
+export const PRODUCT = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 40px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 2 · Product</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:900px;text-wrap:pretty">Two apps, one rule: the driver publishes the trip, the passenger shows up.</h1>
