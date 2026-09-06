@@ -39,13 +39,13 @@ const FINANCIALS = `
       <h2 style="font-size:30px;font-weight:700;line-height:1.15;letter-spacing:-0.01em;margin:0">The math behind ~₦1.03b</h2>
       <p style="font-size:15px;line-height:1.55;color:#514336;margin:0">Each co-founder has worked unpaid at market rate, benchmarked at £5,000 a month — a conservative chief-level UK rate, roughly half of what actual chief titles command in London. Omolara Shekoni (80% owner, silent partner) draws deferred salary as she has been formally listed as Finance &amp; Administration Manager since day one.</p>
     </div>
-    <div style="border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:15px">
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E"><span>Co-founder</span><span>Months (since)</span><span style="text-align:right">At £5k/mo</span><span style="text-align:right">₦ equiv.</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Wale Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Oladimeji Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Omolara Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Bawo Maleghemi</strong><span>8 (Feb 2026)</span><span style="text-align:right">£40k</span><span style="text-align:right">~₦77m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:14px 20px;font-weight:700;background:#FAEDDE"><span>Total</span><span></span><span style="text-align:right">£535k · ~$685k</span><span style="text-align:right">~₦1.03b</span></div>
+    <div style="border:1px solid #ECDFCE;border-radius:16px;background:#FAEDDE;padding:32px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E">Deferred market-rate pay, accrued across the co-founders</div>
+      <div>
+        <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#211A14">~₦1.03b</div>
+        <div style="font-size:18px;font-weight:700;color:#514336;margin-top:4px">£535k · ~$685k</div>
+      </div>
+      <p style="font-size:15px;line-height:1.55;color:#514336;margin:0">Four co-founders, each benchmarked at <strong style="color:#211A14">£5,000 a month</strong> — a conservative UK chief-level rate. This is the accrued market value of their unpaid work, and it converts to equity at close on the same $5M cap as the incoming investor.</p>
     </div>
   </div>
 </section>
