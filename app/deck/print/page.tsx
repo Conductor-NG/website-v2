@@ -1192,14 +1192,14 @@ export default function DeckPrint() {
           <div style={{ border: `1px solid ${DIV}`, borderRadius: 12, overflow: "hidden", fontSize: 13, background: "#fff" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 0.9fr 0.9fr 0.9fr", gap: 8, padding: "9px 18px", borderBottom: `1px solid ${DIV}`, fontSize: 10.5, fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase", color: MUTED }}>
               <span>Milestone</span>
-              <span style={{ textAlign: "right" }}>Car owners</span>
-              <span style={{ textAlign: "right" }}>Passengers</span>
+              <span style={{ textAlign: "right" }}>Active car owners</span>
+              <span style={{ textAlign: "right" }}>Active pax</span>
               <span style={{ textAlign: "right" }}>Monthly rev</span>
             </div>
             {[
-              ["Dec 2026", "728", "~1,820", "₦19.8m"],
-              ["June 2027", "3,343", "~8,360", "₦103.5m"],
-              ["Dec 2027", "10,132", "~25,330", "₦334.6m"],
+              ["Dec 2026", "700", "~1,800", "₦19.8m"],
+              ["June 2027", "3,300", "~8,400", "₦103.5m"],
+              ["Dec 2027", "10,100", "~25,300", "₦334.6m"],
             ].map(([m, co, pax, rev], i, arr) => (
               <div key={m} style={{ display: "grid", gridTemplateColumns: "1fr 0.9fr 0.9fr 0.9fr", gap: 8, padding: "11px 18px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", color: BODY }}>
                 <strong style={{ color: INK }}>{m}</strong>
@@ -1318,9 +1318,9 @@ export default function DeckPrint() {
               ))}
             </div>
             {[
-              ["By Dec 2026", "728 car owners · ~1,820 passengers · ~₦19.8m / mo"],
-              ["By June 2027", "3,343 car owners · ~8,360 passengers · ~₦103.5m / mo"],
-              ["By Dec 2027", "10,132 car owners · ~25,330 passengers · ~₦334.6m / mo"],
+              ["By Dec 2026", "700 monthly active car owners · ~1,800 monthly active passengers · ~₦19.8m / mo"],
+              ["By June 2027", "3,300 monthly active car owners · ~8,400 monthly active passengers · ~₦103.5m / mo"],
+              ["By Dec 2027", "10,100 monthly active car owners · ~25,300 monthly active passengers · ~₦334.6m / mo"],
             ].map(([d, pp]) => (
               <div key={d} style={{ borderTop: `2px solid ${RED}`, paddingTop: 8 }}>
                 <div style={{ ...serif, fontSize: 20, lineHeight: 1, color: RED }}>{d}</div>
