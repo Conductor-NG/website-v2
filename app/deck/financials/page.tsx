@@ -18,8 +18,7 @@ const FINANCIALS = `
     <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Deferred market-rate compensation — team (20+ contributors)</span><span style="text-align:right">₦100m</span><span style="text-align:right">$67k</span></div>
     <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Deferred market-rate compensation — co-founders</span><span style="text-align:right">~₦1.03b</span><span style="text-align:right">~$685k</span></div>
     <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Deferred compensation — Marketing Advisory Board</span><span style="text-align:right">~₦15m</span><span style="text-align:right">~$10k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>London office (unbooked historical + ongoing)</span><span style="text-align:right">~₦7.2m</span><span style="text-align:right">~$4.8k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Canada office</span><span style="text-align:right">~₦1.2m</span><span style="text-align:right">~$0.8k</span></div>
+    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>London &amp; Canada offices</span><span style="text-align:right">~₦8.4m</span><span style="text-align:right">~$5.6k</span></div>
     <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:16px 24px;border-bottom:1px solid #ECDFCE;font-weight:700;background:#FAEDDE"><span>Total committed capital and compensation</span><span style="text-align:right">~₦1.35b</span><span style="text-align:right">~$905k</span></div>
     <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;color:#8A7A6B"><span>Google Workspace / Cloud credits leveraged (in-kind)</span><span style="text-align:right">—</span><span style="text-align:right">~$13k</span></div>
   </div>
@@ -29,24 +28,6 @@ const FINANCIALS = `
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;color:#514336">Revenue to date (Paystack)</span><span style="font-size:22px;font-weight:700">₦71k</span></div>
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;color:#514336">Current burn rate</span><span style="font-size:22px;font-weight:700">~₦5m / mo</span></div>
     <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px"><div style="font-size:17px;font-weight:700;line-height:1.35">All founder loans and deferred compensation convert to equity at close, on the same $5M cap as the incoming investor.</div><div style="font-size:15px;color:#ECDFCE;line-height:1.4">No debt overhang. Clean balance sheet at round close.</div></div>
-  </div>
-</section>
-
-<section style="background:#fff;border-top:1px solid #ECDFCE;border-bottom:1px solid #ECDFCE">
-  <div style="max-width:1200px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.2fr);gap:40px;align-items:start">
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Co-founder deferred compensation</div>
-      <h2 style="font-size:30px;font-weight:700;line-height:1.15;letter-spacing:-0.01em;margin:0">The math behind ~₦1.03b</h2>
-      <p style="font-size:15px;line-height:1.55;color:#514336;margin:0">Each co-founder has worked unpaid at market rate, benchmarked at £5,000 a month — a conservative chief-level UK rate, roughly half of what actual chief titles command in London. Omolara Shekoni (80% owner, silent partner) draws deferred salary as she has been formally listed as Finance &amp; Administration Manager since day one.</p>
-    </div>
-    <div style="border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:15px">
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E"><span>Co-founder</span><span>Months (since)</span><span style="text-align:right">At £5k/mo</span><span style="text-align:right">₦ equiv.</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Wale Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Oladimeji Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Omolara Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Bawo Maleghemi</strong><span>8 (Feb 2026)</span><span style="text-align:right">£40k</span><span style="text-align:right">~₦77m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:14px 20px;font-weight:700;background:#FAEDDE"><span>Total</span><span></span><span style="text-align:right">£535k · ~$685k</span><span style="text-align:right">~₦1.03b</span></div>
-    </div>
   </div>
 </section>
 
