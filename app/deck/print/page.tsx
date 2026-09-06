@@ -1346,7 +1346,7 @@ export default function DeckPrint() {
             Interested in partnering, investing, or just seeing the app?
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 18, color: DIV, lineHeight: 1.5 }}>
-            <div>conductor.ng · admin@conductor.ng · +234 810 690 2386</div>
+            <div>conductor.ng · admin@conductor.ng · +44 7769 380713</div>
             <div style={{ fontSize: 15, color: "#D6C3B3" }}>View the live deck and book at conductor.ng/deck</div>
           </div>
         </div>
