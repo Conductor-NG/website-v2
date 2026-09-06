@@ -20,9 +20,11 @@ const OVERVIEW = `
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">1,000</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">users onboarded</div></div>
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">58</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified car owners, +87% in 5 weeks</div></div>
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">20</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">package deliveries piloted</div></div>
+      <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1;color:#EE4643">100</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">test trips run — plus 20 deliveries piloted</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">1,000</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">sign-ups</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">74%</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">commute three or more days a week</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">52%</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">head to one Lagos Island corridor</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">58</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified car owners ready</div></div>
       <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#EE4643">Sept 15</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">paid rides launch</div></div>
     </div>
   </div>
