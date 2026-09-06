@@ -5,7 +5,7 @@ import { DeckPager } from "../deck-nav";
 // Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
 // so the enhancer tracks them. The condensed-deck download link is dropped.
 // Section content is server-rendered HTML.
-const ASK = `
+export const ASK = `
 <section style="position:relative;overflow:hidden;border-bottom:1px solid #ECDFCE">
   <img src="/deck/images/bg-eko-bridge.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.1">
   <div style="position:relative;max-width:1200px;margin:0 auto;padding:80px 32px 64px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:48px;align-items:center">
@@ -50,9 +50,9 @@ const ASK = `
       <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">Three checkpoints in twelve months</h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
-      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By end Dec 2026</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">200 verified car owners · 5,000 active passengers · Lagos Island corridor at density · Deliveries beta on 3 routes</p></div>
-      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By end Mar 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">500 verified car owners · 20,000 active passengers · 3 corridors · first corporate partnership signed · Deliveries public launch</p></div>
-      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By end Sep 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">1,000+ verified car owners · 50,000+ active passengers · profitable on the Lagos Island corridor · Deliveries at 5k packages a month · Series A conversation</p></div>
+      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By Dec 2026</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">728 verified car owners · ~1,820 active passengers · ~₦19.8m monthly revenue · Lagos Island corridor at density · Deliveries beta on 3 routes</p></div>
+      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By June 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">3,343 verified car owners · ~8,360 active passengers · ~₦103.5m monthly revenue · 3 corridors · first Conductor-for-Enterprise contract · Deliveries public launch</p></div>
+      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By Dec 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">10,132 verified car owners · ~25,330 active passengers · ~₦334.6m monthly revenue (~₦4b run-rate) · profitable on the Island corridor · Series A conversation</p></div>
     </div>
   </div>
 </section>
@@ -64,7 +64,7 @@ const ASK = `
       <h2 style="font-size:clamp(36px,4vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0">Let's talk.</h2>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:26px;line-height:1.25;color:#EE4643;margin:0">Interested in partnering, investing, or just seeing the app?</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="mailto:admin@conductor.ng" data-cta="email" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Email the founders</a>
+        <a href="/deck/print" target="_blank" rel="noopener noreferrer" data-cta="download_deck" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Download the deck</a>
         <a href="mailto:admin@conductor.ng?subject=Conductor%20investor%20call" data-cta="book_call" style="background:transparent;color:#FFF8F0;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Book a call</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;font-size:16px;color:#ECDFCE;line-height:1.4">

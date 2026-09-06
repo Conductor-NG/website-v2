@@ -21,7 +21,18 @@ export default function DeckLayout({ children }: { children: ReactNode }) {
           its section's colour instead, so light sections get ink and dark
           sections get their cream/light colour automatically. Explicit inline
           colours still win. */}
-      <style>{`.deck-scope p,.deck-scope h1,.deck-scope h2,.deck-scope h3,.deck-scope h4,.deck-scope small{color:inherit}`}</style>
+      <style>{`.deck-scope p,.deck-scope h1,.deck-scope h2,.deck-scope h3,.deck-scope h4,.deck-scope small{color:inherit}
+/* Mobile: stack the two-column content splits (hero, problem/solution, map+pie,
+   financials/team/plan splits). Targets only grids whose columns START with
+   minmax(...) — i.e. the content layouts — leaving chart grids (repeat(N,1fr))
+   and the already-responsive card grids (repeat(auto-fit,...)) untouched. */
+@media (max-width:820px){
+  .deck-scope [style*="grid-template-columns:minmax"]{grid-template-columns:1fr!important}
+}
+@media (max-width:600px){
+  .deck-scope section{padding-left:18px!important;padding-right:18px!important}
+  .deck-scope [style*="1fr 110px 90px"]{grid-template-columns:1fr 88px 76px!important}
+}`}</style>
       <div
         className="deck-scope"
         style={{

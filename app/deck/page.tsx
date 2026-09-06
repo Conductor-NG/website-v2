@@ -4,7 +4,7 @@ import { DeckPager } from "./deck-nav";
 // Ported near-verbatim from the Claude Design deck (site/overview.dc.html).
 // Image paths → /deck/images, internal links → /deck/*, CTAs tagged data-cta
 // so the enhancer tracks them. Section content is server-rendered HTML.
-const OVERVIEW = `
+export const OVERVIEW = `
 <section style="position:relative;overflow:hidden;border-bottom:1px solid #ECDFCE">
   <img src="/deck/images/bg-eko-bridge.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.22">
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(253,250,246,0.3),rgba(253,250,246,0.95))"></div>
@@ -20,9 +20,11 @@ const OVERVIEW = `
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">1,000</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">users onboarded</div></div>
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">58</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified car owners, +87% in 5 weeks</div></div>
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">20</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">package deliveries piloted</div></div>
+      <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1;color:#EE4643">100</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">test trips run — plus 20 deliveries piloted</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">1,000</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">sign-ups</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">74%</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">commute three or more days a week</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">52%</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">head to one Lagos Island corridor</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">100</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified car owners ready</div></div>
       <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#EE4643">Sept 15</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">paid rides launch</div></div>
     </div>
   </div>
@@ -36,7 +38,7 @@ const OVERVIEW = `
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;color:#6B5D4E;line-height:1">Sept 1, 2026</div><div style="font-size:22px;font-weight:700;line-height:1.2">Uber announces exit from Nigeria</div><p style="font-size:17px;line-height:1.5;color:#514336;margin:0">Millions of Nigerian commuters lose their on-demand provider of choice. On-demand hailing could not make Nigerian unit economics work at commuter prices.</p></div>
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;color:#6B5D4E;line-height:1">Sept 3, 2026</div><div style="font-size:22px;font-weight:700;line-height:1.2">Shuttlers announces POD</div><p style="font-size:17px;line-height:1.5;color:#514336;margin:0">Pre-booked private small-group rides, waitlist only. A consumer pivot with corporate-shuttle DNA underneath: fixed price, premium positioning, manual re-booking.</p></div>
-    <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;color:#EE4643;line-height:1">Sept 15, 2026</div><div style="font-size:22px;font-weight:700;line-height:1.2">Conductor launches paid rides</div><p style="font-size:17px;line-height:1.5;color:#ECDFCE;margin:0">Community carpooling on the Lagos Island corridor. 58 verified car owners ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.</p></div>
+    <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:36px;color:#EE4643;line-height:1">Sept 15, 2026</div><div style="font-size:22px;font-weight:700;line-height:1.2">Conductor launches paid rides</div><p style="font-size:17px;line-height:1.5;color:#ECDFCE;margin:0">Community carpooling on the Lagos Island corridor. 100 verified car owners ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.</p></div>
   </div>
 </section>
 

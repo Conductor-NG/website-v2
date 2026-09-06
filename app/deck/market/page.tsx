@@ -10,7 +10,7 @@ import { DeckPager } from "../deck-nav";
 // Leaflet map (<CommuteMap/>). MARKET_TOP is the chapter header; PIE_CARD is the
 // "52% Island cluster" donut that now sits beside the live map; MARKET_REST is
 // everything from the "Recurring demand" section onward.
-const MARKET_TOP = `
+export const MARKET_TOP = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 3 · Market and traction</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">We rebuilt V1 to learn where Lagos commutes. 52% are headed for the same place.</h1>
@@ -18,7 +18,7 @@ const MARKET_TOP = `
 </section>
 `;
 
-const PIE_CARD = `
+export const PIE_CARD = `
 <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:20px">
   <div style="font-size:16px;color:#ECDFCE;line-height:1.4">of declared commute intent ends in the <span style="color:#E98B20;font-weight:700">Lagos Island cluster</span></div>
   <div style="display:flex;justify-content:center;padding:4px 0">
@@ -119,7 +119,7 @@ function recurringDonut(): string {
 
 const RECURRING_DONUT = recurringDonut();
 
-const MARKET_REST = `
+export const MARKET_REST = `
 <section style="background:#fff;border-top:1px solid #ECDFCE;border-bottom:1px solid #ECDFCE">
   <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start">
     <div style="display:flex;flex-direction:column;gap:20px">
@@ -138,7 +138,7 @@ const MARKET_REST = `
 <section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:32px">
   <div style="display:flex;flex-direction:column;gap:12px;max-width:860px">
     <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Traction</div>
-    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">795 users. 58 verified car owners. Growing 65–87% month over month.</h2>
+    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">1,000 users. 100 verified car owners. Growing 65–87% month over month.</h2>
   </div>
   <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr);gap:32px;align-items:stretch">
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
@@ -156,6 +156,7 @@ const MARKET_REST = `
         <span style="color:#6B5D4E">31 Aug 2026</span><strong style="text-align:right">795</strong><strong style="text-align:right">424</strong><strong style="text-align:right">58</strong>
         <span style="color:#6B5D4E">5-week change</span><span style="text-align:right;color:#EE4643;font-weight:700">+36%</span><span style="text-align:right;color:#EE4643;font-weight:700">+65%</span><span style="text-align:right;color:#EE4643;font-weight:700">+87%</span>
       </div>
+      <div style="font-size:13px;color:#6B5D4E;line-height:1.4">Weekly cumulative to 31 Aug 2026 — the ramp has since carried us past <strong style="color:#EE4643">1,000 users</strong> and <strong style="color:#EE4643">100 verified car owners</strong>.</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6B5D4E">Acquisition · Google Ads, 21 Aug – 3 Sep</div>
