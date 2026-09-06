@@ -210,7 +210,7 @@ const COMP_ROWS: { label: string; cells: [string, string][] }[] = [
       ["Sep 15", "y"],
       ["Yes", "p"],
       ["Yes", "p"],
-      ["Early access", "n"],
+      ["Sep 25", "n"],
       ["Yes", "p"],
       ["Exiting", "x"],
     ],
@@ -324,14 +324,14 @@ export default function DeckPrint() {
             {
               date: "Sept 3, 2026",
               h: "Shuttlers announces POD",
-              p: "Pre-booked private small-group rides, waitlist only. A consumer pivot with corporate-shuttle DNA: fixed price, premium positioning, manual re-booking.",
+              p: "Announced Sep 3, launching around Sep 25. Premium, fixed-price, manual re-booking — corporate-shuttle DNA, a different segment than the daily mass commuter.",
               dark: false,
               dateColor: MUTED,
             },
             {
               date: "Sept 15, 2026",
               h: "Conductor launches paid rides",
-              p: "Community carpooling on the Lagos Island corridor. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
+              p: "First paid rides in Lagos after Uber's exit — ten days ahead of Shuttlers POD. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
               dark: true,
               dateColor: RED,
             },
@@ -1027,8 +1027,8 @@ export default function DeckPrint() {
           ))}
         </div>
         <p style={{ ...serif, fontSize: 20, lineHeight: 1.3, color: MUTED, margin: "18px 0 0", maxWidth: 1000 }}>
-          The only carpooling platform, in the only city Uber just left, at the moment Shuttlers is still gated to a
-          waitlist.
+          The first affordable, recurring carpool in Lagos — live ten days before Shuttlers POD, in the only city Uber
+          just left. Two serious entrants now; we are first, cheapest, and the only weekly-recurring one.
         </p>
       </Slide>
 
@@ -1073,7 +1073,7 @@ export default function DeckPrint() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
           {[
             ["Wale", "Founder"],
-            ["Dimeji", "Co-founder · Chief Technology Officer"],
+            ["Dimeji", "Co-founder"],
             ["Bawo", "Co-founder"],
           ].map(([name, role]) => (
             <div key={name} style={{ ...cardLight, padding: 24, gap: 14, flexDirection: "row", alignItems: "center" }}>
