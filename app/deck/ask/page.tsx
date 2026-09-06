@@ -12,7 +12,7 @@ const ASK = `
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 9 · The ask</div>
       <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;text-wrap:pretty">$200k on a $5M SAFE. Twelve months of runway. Three concrete milestones.</h1>
-      <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:720px">Investor money will not go into finding out whether the acquisition channel exists. It goes into scaling a channel with a proven $57 cost per verified car owner, and into switching on the second revenue line.</p>
+      <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:720px">Investor money will not go into finding out whether the acquisition channel exists. It goes into scaling a channel with a proven, repeatable acquisition cost, and into switching on the second revenue line.</p>
     </div>
     <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px;font-size:16px">
       <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:64px;line-height:1;color:#EE4643">$200k</div>
@@ -64,7 +64,7 @@ const ASK = `
       <h2 style="font-size:clamp(36px,4vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0">Let's talk.</h2>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:26px;line-height:1.25;color:#EE4643;margin:0">Interested in partnering, investing, or just seeing the app?</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="mailto:admin@conductor.ng" data-cta="email" style="background:#EE4643;color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Email the founders</a>
+        <a href="mailto:admin@conductor.ng" data-cta="email" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Email the founders</a>
         <a href="mailto:admin@conductor.ng?subject=Conductor%20investor%20call" data-cta="book_call" style="background:transparent;color:#FFF8F0;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Book a call</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;font-size:16px;color:#ECDFCE;line-height:1.4">

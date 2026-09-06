@@ -15,14 +15,14 @@ const OVERVIEW = `
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1.2;color:#EE4643;margin:0">Ride together, share together, save together.</p>
       <p style="font-size:19px;line-height:1.55;color:#514336;margin:0;max-width:600px">Conductor matches car owners with passengers going to the same place. Car owners publish the trip they are already making; passengers book a seat for the week. Paid rides launch on the Lagos Island corridor on 15 September 2026.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="/deck/ask" data-cta="see_ask" style="background:#EE4643;color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">See the ask</a>
+        <a href="/deck/ask" data-cta="see_ask" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">See the ask</a>
         <a href="/deck/product" data-cta="watch_product" style="background:#fff;color:#211A14;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Watch the product</a>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">795</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">users onboarded</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">1,000</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">users onboarded</div></div>
       <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">58</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified car owners, +87% in 5 weeks</div></div>
-      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">$57</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">cost per verified car owner</div></div>
+      <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:48px;line-height:1">20</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">package deliveries piloted</div></div>
       <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#EE4643">Sept 15</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">paid rides launch</div></div>
     </div>
   </div>

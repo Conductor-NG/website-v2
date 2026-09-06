@@ -120,7 +120,7 @@ export function DeckNav() {
             flex: "none",
             order: 2,
             marginLeft: "auto",
-            background: C.orange,
+            background: "linear-gradient(120deg, #E98B20, #EE4643)",
             color: "#fff",
             fontWeight: 600,
             fontSize: 14,

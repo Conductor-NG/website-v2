@@ -8,7 +8,7 @@ const TEAM = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 7 · Team</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">A team that shipped. An advisory bench ready to accelerate.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:840px">We are not a hired-in team — we are friends, and friends of friends. That is how a group this size has kept building and supporting the app for 33 months, most of it unpaid. 20+ contributors across engineering, product, design, operations, marketing and QA, in Lagos and London, with every part of the stack built in-house.</p>
+  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:840px">We are not a hired-in team — we are friends, and friends of friends. That is how a group this size has kept building and supporting the app for 33 months, most of it unpaid. 20+ contributors across engineering, product, design, operations, marketing and QA, in Lagos, London and Canada, with every part of the stack built in-house.</p>
 </section>
 
 <section style="max-width:1200px;margin:0 auto;padding:0 32px 56px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
