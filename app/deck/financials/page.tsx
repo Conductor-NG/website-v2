@@ -32,24 +32,6 @@ const FINANCIALS = `
   </div>
 </section>
 
-<section style="background:#fff;border-top:1px solid #ECDFCE;border-bottom:1px solid #ECDFCE">
-  <div style="max-width:1200px;margin:0 auto;padding:64px 32px;display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.2fr);gap:40px;align-items:start">
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Co-founder deferred compensation</div>
-      <h2 style="font-size:30px;font-weight:700;line-height:1.15;letter-spacing:-0.01em;margin:0">The math behind ~₦1.03b</h2>
-      <p style="font-size:15px;line-height:1.55;color:#514336;margin:0">Each co-founder has worked unpaid at market rate, benchmarked at £5,000 a month — a conservative chief-level UK rate, roughly half of what actual chief titles command in London. Omolara Shekoni (80% owner, silent partner) draws deferred salary as she has been formally listed as Finance &amp; Administration Manager since day one.</p>
-    </div>
-    <div style="border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:15px">
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E"><span>Co-founder</span><span>Months (since)</span><span style="text-align:right">At £5k/mo</span><span style="text-align:right">₦ equiv.</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Wale Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Oladimeji Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Omolara Shekoni</strong><span>33 (Jan 2024)</span><span style="text-align:right">£165k</span><span style="text-align:right">~₦317m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><strong style="color:#211A14">Bawo Maleghemi</strong><span>8 (Feb 2026)</span><span style="text-align:right">£40k</span><span style="text-align:right">~₦77m</span></div>
-      <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:14px 20px;font-weight:700;background:#FAEDDE"><span>Total</span><span></span><span style="text-align:right">£535k · ~$685k</span><span style="text-align:right">~₦1.03b</span></div>
-    </div>
-  </div>
-</section>
-
 <section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:32px;position:relative">
   <div style="display:flex;flex-direction:column;gap:12px;max-width:860px">
     <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Five-year projection</div>
