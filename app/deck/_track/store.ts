@@ -24,6 +24,7 @@ export function redisEnabled(): boolean {
 const TOKENS_SET = "deck:tokens";
 const eventsKey = (v: string) => `deck:events:${v}`;
 const tokenKey = (v: string) => `deck:token:${v}`;
+const sessionsKey = (v: string) => `deck:sessions:${v}`;
 
 // ---- Types -------------------------------------------------------------
 export type EventType = "view" | "dwell" | "cta";
@@ -34,6 +35,7 @@ export type IncomingEvent = {
   slide: string;
   seconds?: number;
   cta?: string;
+  sid?: string;
 };
 
 export type StoredEvent = {
@@ -42,6 +44,7 @@ export type StoredEvent = {
   seconds?: number;
   cta?: string;
   ts: number;
+  sid?: string;
 };
 
 export type TokenRow = {
@@ -52,6 +55,8 @@ export type TokenRow = {
   lastSeen: number | null;
   views: number;
   ctas: number;
+  sessions: number;
+  downloads: number;
 };
 
 // ---- Validation --------------------------------------------------------
@@ -98,6 +103,7 @@ export async function recordEvent(ev: IncomingEvent): Promise<void> {
   }
   const cta = ev.cta != null ? cleanStr(ev.cta) : undefined;
   const seconds = cleanSeconds(ev.seconds);
+  const sid = ev.sid != null ? cleanStr(ev.sid) : undefined;
 
   const ts = Date.now();
   const stored: StoredEvent = { type, slide, ts };
@@ -107,9 +113,12 @@ export async function recordEvent(ev: IncomingEvent): Promise<void> {
   if (cta) {
     stored.cta = cta;
   }
+  if (sid) {
+    stored.sid = sid;
+  }
 
   const redis = client;
-  await Promise.all([
+  const ops: Promise<unknown>[] = [
     redis.sadd(TOKENS_SET, v),
     redis
       .lpush(eventsKey(v), JSON.stringify(stored))
@@ -120,7 +129,15 @@ export async function recordEvent(ev: IncomingEvent): Promise<void> {
       : type === "dwell"
         ? redis.hincrby(tokenKey(v), "dwellTotal", seconds ?? 0)
         : redis.hincrby(tokenKey(v), "ctas", 1),
-  ]);
+  ];
+  // Track distinct sessions (visits) and downloads as their own signals.
+  if (sid) {
+    ops.push(redis.sadd(sessionsKey(v), sid));
+  }
+  if (type === "cta" && cta === "download_deck") {
+    ops.push(redis.hincrby(tokenKey(v), "downloads", 1));
+  }
+  await Promise.all(ops);
 }
 
 /**
@@ -157,9 +174,11 @@ export async function listTokens(): Promise<TokenRow[]> {
   const ids = await client.smembers(TOKENS_SET);
   const rows = await Promise.all(
     ids.map(async (id): Promise<TokenRow> => {
-      const h =
-        (await client.hgetall<Record<string, string | number>>(tokenKey(id))) ||
-        {};
+      const [h0, sessions] = await Promise.all([
+        client.hgetall<Record<string, string | number>>(tokenKey(id)),
+        client.scard(sessionsKey(id)),
+      ]);
+      const h = h0 || {};
       return {
         id,
         name: str(h.name),
@@ -168,6 +187,8 @@ export async function listTokens(): Promise<TokenRow[]> {
         lastSeen: num(h.lastSeen),
         views: num(h.views) ?? 0,
         ctas: num(h.ctas) ?? 0,
+        sessions: sessions ?? 0,
+        downloads: num(h.downloads) ?? 0,
       };
     }),
   );
@@ -179,7 +200,10 @@ export async function getTokenMeta(v: string): Promise<TokenRow | null> {
   if (!client) {
     return null;
   }
-  const h = await client.hgetall<Record<string, string | number>>(tokenKey(v));
+  const [h, sessions] = await Promise.all([
+    client.hgetall<Record<string, string | number>>(tokenKey(v)),
+    client.scard(sessionsKey(v)),
+  ]);
   if (!h || Object.keys(h).length === 0) {
     return null;
   }
@@ -191,6 +215,8 @@ export async function getTokenMeta(v: string): Promise<TokenRow | null> {
     lastSeen: num(h.lastSeen),
     views: num(h.views) ?? 0,
     ctas: num(h.ctas) ?? 0,
+    sessions: sessions ?? 0,
+    downloads: num(h.downloads) ?? 0,
   };
 }
 
