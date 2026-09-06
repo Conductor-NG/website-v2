@@ -1,0 +1,138 @@
+   Sized by --pw (device width in px) set inline by the Phone component.
+   ============================================================ */
+.iphone17 {
+  --pw: 300px;
+  position: relative;
+  width: var(--pw);
+  /* height flows from status bar + screen so the screenshot never crops */
+  border-radius: 14% / 6.8%;
+  padding: 1.3%; /* titanium rail thickness (slimmed) */
+  background: linear-gradient(
+    145deg,
+    #e6e6ea 0%,
+    #a9a9af 16%,
+    #f2f2f5 34%,
+    #8c8c92 58%,
+    #d5d5da 78%,
+    #9a9aa0 100%
+  );
+  box-shadow:
+    0 24px 50px rgba(33, 26, 20, 0.22),
+    0 5px 14px rgba(33, 26, 20, 0.13),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+.iphone17__bezel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12% / 5.9%;
+  background: #05050a;
+  padding: 1.5%; /* black bezel thickness (slimmed) */
+  /* clip the status strip + screenshot to the bezel's rounded shape so the
+     app never pokes past the corners at the top */
+  overflow: hidden;
+  box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.9);
+}
+/* iOS status bar / notification strip — gives the app content room so the
+   Dynamic Island + bezel never sit on top of it. */
+.iphone17__status {
+  flex: none;
+  height: calc(var(--pw) * 0.098);
+  background: var(--cream-10);
+  color: var(--cream-90);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7%;
+  position: relative;
+  z-index: 2;
+  font: 700 calc(var(--pw) * 0.044) / 1 var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+.iphone17__sig {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--pw) * 0.018);
+}
+.iphone17__sig svg {
+  display: block;
+}
+.iphone17__screen {
+  position: relative;
+  aspect-ratio: 9 / 19.5; /* matches the captured screenshot → no crop */
+  width: 100%;
+  /* rounded bottom corners so the black case shows around the screen */
+  border-radius: 0 0 8.5% 8.5% / 0 0 4.2% 4.2%;
+  overflow: hidden;
+  background: var(--cream-10);
+}
+/* the status strip carries the matching rounded top so screen + strip read as
+   one rounded display inset in the black case */
+.iphone17__status {
+  border-radius: 8.5% 8.5% 0 0 / 8% 8% 0 0;
+}
+/* Driver SOS "triggered" — the SCREEN itself pulses red (not the phone body). */
+.iphone17__sosflash {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  /* Bright red alarm vignette — transparent centre, hot-red edges — pulsing over the dark SOS screen so it clearly reads as flashing. Normal blend (no multiply) so it lightens, not darkens. */
+  background:
+    radial-gradient(125% 95% at 50% 50%, rgba(255, 40, 36, 0) 42%, rgba(255, 38, 32, 0.98) 100%),
+    linear-gradient(rgba(255, 45, 40, 0.16), rgba(255, 45, 40, 0.16));
+  box-shadow: inset 0 0 60px 12px rgba(255, 30, 26, 0.85);
+  animation: sos-screen-flash 0.8s ease-in-out infinite;
+}
+@keyframes sos-screen-flash {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .iphone17__sosflash { animation: none; opacity: 0.55; }
+}
+.iphone17__screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+/* Dynamic Island — sits over the status strip */
+.iphone17__island {
+  position: absolute;
+  top: calc(var(--pw) * 0.024);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 29%;
+  aspect-ratio: 9 / 2.5;
+  background: #05050a;
+  border-radius: 999px;
+  z-index: 3;
+}
+/* Side buttons on the titanium rail */
+.iphone17__btn {
+  position: absolute;
+  background: linear-gradient(180deg, #b7b7bd, #85858b);
+  border-radius: 2px;
+}
+.iphone17__btn--action {
+  left: -1.1%;
+  top: 17%;
+  width: 1.2%;
+  height: 5%;
+}
+.iphone17__btn--vup {
+  left: -1.1%;
+  top: 26%;
+  width: 1.2%;
+  height: 8.5%;
+}
+.iphone17__btn--vdown {
+  left: -1.1%;
+  top: 37%;
+  width: 1.2%;
+  height: 8.5%;
+}
+.iphone17__btn--power {
+  right: -1.1%;

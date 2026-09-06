@@ -1,0 +1,303 @@
+/* ============================================================
+   Conductor — Colors & Type
+   ============================================================
+   Source: Figma (CONDUCTOR.NG) → /Components/Type-scale*,
+   /Style-V2. Brand: Conductor Technology International Services
+   Ltd. — Nigerian ridesharing app matching car owners
+   with passengers on the same route.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Roboto+Mono:wght@400;500;700&display=swap");
+
+/* Satoshi — local file, primary body font (locked Sprint 0).
+   Falls back to Manrope until/unless the local TTF is loaded. */
+@font-face {
+  font-family: "Satoshi";
+  src: url("Satoshi-Variable.ttf") format("truetype-variations");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ----- Type role decisions (locked Sprint 0) ----------------
+   Body / UI               → Satoshi (Manrope fallback)
+   Editorial display       → Instrument Serif italic
+                             (greetings, destinations, prices,
+                             milestone numbers, hero headlines)
+   Mono                    → Roboto Mono (rare — codes, plates)
+   Iconography             → Phosphor Duotone (1.6px stroke,
+                             15% accent fill on key shapes)
+   ------------------------------------------------------------ */
+
+:root {
+  /* ---- Primitive palette (Figma Color guide) -------------- */
+
+  /* Orange — Brand / Primary */
+  --orange-base: #e88d0e;      /* rgb(232,141,14) */
+  --orange-10:   #fae8cf;      /* rgb(250,232,207) */
+  --orange-20:   #f7d9af;      /* rgb(247,217,175) */
+  --orange-30:   #f0c379;
+  --orange-40:   #e8a94a;
+  --orange-50:   #c97810;
+  --orange-60:   #9f6010;
+  --orange-70:   #7a4a0e;
+  --orange-80:   #56340b;
+  --orange-90:   #341f07;
+  --orange-100:  #2e1c03;      /* rgb(46,28,3) */
+
+  /* Pink — Tertiary / Accent */
+  --pink-base:   #db405a;      /* rgb(219,64,90) */
+  --pink-10:     #f8d9de;      /* rgb(248,217,222) */
+  --pink-20:     #ed9fac;
+  --pink-30:     #e27889;
+  --pink-40:     #db5068;
+  --pink-50:     #b52424;
+  --pink-60:     #982a39;
+  --pink-70:     #6e1e2a;
+  --pink-80:     #4a151d;
+  --pink-90:     #2c0d12;      /* rgb(44,13,18) */
+  --pink-100:    #1a0308;
+
+  /* Neutral / Cream */
+  --neutral-base: #aca9a6;     /* rgb(172,169,166) — outline */
+  --cream-10:    #fdfaf6;      /* rgb(253,250,246) — background */
+  --cream-20:    #faf6ed;      /* rgb(250,246,237) — bg variant 1 */
+  --cream-40:    #fefcfa;
+  --cream-60:    #7c7872;
+  --cream-80:    #454442;      /* rgb(69,68,66) — outline dark */
+  --cream-90:    #292928;      /* rgb(41,41,40) — text primary */
+  --cream-100:   #1c1b14;      /* rgb(28,27,20) — deepest */
+
+  --black:       #000000;
+  --white:       #ffffff;
+  --primary-base: #4a4a4a;     /* rgb(74,74,74) — Primary Base */
+  --text-secondary: #676563;   /* rgb(103,101,99) */
+  --text-muted:  #909596;      /* rgb(144,149,150) */
+  --divider:     #e6e5e3;      /* rgb(230,229,227) */
+  --surface-gray: #f7f7f7;
+  --surface-gray-2: #ebebeb;
+
+  /* Status */
+  --success-base: #24a148;
+  --success-20:   #bdefc8;
+  --success-90:   #13451e;     /* rgb(19,69,30) */
+  --error-base:   #c41818;
+  --error-20:     #e6b6b6;
+  --error-90:     #4a0f0f;
+
+  /* ---- Semantic tokens ------------------------------------ */
+  --primary:        var(--primary-base);
+  --on-primary:     var(--white);
+  --primary-container: var(--orange-20);
+  --on-primary-container: var(--orange-100);
+
+  --tertiary:       var(--orange-base);
+  --on-tertiary:    var(--white);
+  --tertiary-container: var(--orange-10);
+  --on-tertiary-container: var(--orange-100);
+
+  --accent:         var(--pink-base);        /* used for highlights, streaks */
+  --on-accent:      var(--white);
+
+  --background:     var(--white);
+  --background-v1:  var(--cream-10);
+  --background-v2:  var(--cream-20);
+  --on-background:  var(--cream-90);
+  --on-background-muted: var(--text-secondary);
+
+  --outline:        var(--divider);
+  --outline-variant: var(--cream-60);
+  --outline-strong: var(--neutral-base);
+
+  --fg-1: var(--cream-90);            /* primary text      */
+  --fg-2: var(--text-secondary);       /* secondary text    */
+  --fg-3: var(--text-muted);           /* helper / disabled */
+  --fg-inverse: var(--white);
+
+  /* ---- Radii & elevation ---------------------------------- */
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  22px; /* trip cards, hero surfaces */
+  --radius-2xl: 28px; /* sheets, modal tops */
+  --radius-pill: 999px;
+
+  /* ---- Brand gradients (locked Sprint 0) ------------------ */
+  /* GradientButton primary CTA — orange → coral → pink.
+     Use only on the single most important action per screen. */
+  --gradient-cta: linear-gradient(96deg,
+                    #E88D0E 0%,
+                    #D4641E 50%,
+                    #DB405A 100%); /* @kind color */
+  /* Subtle warm wash — used behind editorial moments */
+  --gradient-warm: linear-gradient(165deg,
+                    var(--cream-10) 0%,
+                    var(--orange-10) 100%);
+
+  --elev-0: 0 0 0 0 transparent;
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --elev-2: 0 4px 10px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --elev-3: 0 12px 30px rgba(0, 0, 0, 0.09), 0 4px 10px rgba(0, 0, 0, 0.05);
+  --elev-sheet: 0 -8px 24px rgba(0, 0, 0, 0.08);
+
+  /* ---- Typography ----------------------------------------- */
+  --font-body:    "Satoshi", "Manrope", system-ui, -apple-system, sans-serif;
+  --font-display: "Satoshi", "Manrope", system-ui, sans-serif; /* legacy alias — for hero numerics use serif role */
+  --font-serif:   "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+  --font-mono:    "Roboto Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Editorial / serif italic — used for greetings, destinations,
+     prices, milestone numbers, big headlines. ALWAYS italic. */
+  --type-editorial-xl: italic 400 56px/56px var(--font-serif); /* hero numbers */
+  --type-editorial-lg: italic 400 40px/44px var(--font-serif); /* destination */
+  --type-editorial-md: italic 400 30px/34px var(--font-serif); /* greeting    */
+  --type-editorial-sm: italic 400 22px/26px var(--font-serif); /* in-card     */
+
+  /* Type ramp — body / UI (Satoshi) */
+  --type-headline-lg: 700 40px/48px var(--font-body);
+  --type-headline-md: 700 32px/40px var(--font-body);
+  --type-headline-sm: 700 28px/36px var(--font-body);
+  --type-title-lg:    600 22px/28px var(--font-body);
+  --type-title-md:    600 20px/24px var(--font-body);
+  --type-title-sm:    600 14px/20px var(--font-body);
+  --type-body-lg:     400 16px/24px var(--font-body);
+  --type-body-md:     400 14px/20px var(--font-body);
+  --type-body-sm:     400 12px/16px var(--font-body);
+  --type-label-lg:    500 14px/20px var(--font-body);
+  --type-label-md:    500 12px/16px var(--font-body);
+  --type-label-sm:    500 11px/16px var(--font-body);
+  --type-overline:    700 11px/16px var(--font-body); /* uppercase, .08em tracking */
+  --type-button-lg:   600 16px/20px var(--font-body);
+  --type-button-md:   600 14px/20px var(--font-body);
+
+  /* ---- Spacing (4px grid) --------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+
+  /* ---- Motion --------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-accel:    cubic-bezier(0.4, 0, 1, 1); /* @kind other */
+  --ease-decel:    cubic-bezier(0, 0, 0.2, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur-base: 200ms; /* @kind other */
+  --dur-slow: 320ms; /* @kind other */
+}
+
+/* ---- Element defaults --------------------------------------- */
+
+html, body {
+  background: var(--background);
+  color: var(--fg-1);
+  font: var(--type-body-lg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 { font: var(--type-headline-lg); color: var(--fg-1); letter-spacing: -0.01em; margin: 0; }
+h2 { font: var(--type-headline-md); color: var(--fg-1); letter-spacing: -0.01em; margin: 0; }
+h3 { font: var(--type-headline-sm); color: var(--fg-1); margin: 0; }
+h4 { font: var(--type-title-lg);    color: var(--fg-1); margin: 0; }
+h5 { font: var(--type-title-md);    color: var(--fg-1); margin: 0; }
+h6 { font: var(--type-title-sm);    color: var(--fg-1); margin: 0; }
+p  { font: var(--type-body-lg);     color: var(--fg-1); margin: 0; }
+small, .caption { font: var(--type-body-sm); color: var(--fg-2); }
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* ---- Utility helpers ---------------------------------------- */
+.u-fg-1 { color: var(--fg-1); }
+.u-fg-2 { color: var(--fg-2); }
+.u-fg-3 { color: var(--fg-3); }
+.u-accent { color: var(--accent); }
+.u-brand { color: var(--orange-base); }
+.u-bg-cream { background: var(--cream-10); }
+.u-bg-white { background: var(--white); }
+.u-bg-primary-container { background: var(--orange-20); }
+
+.u-card {
+  background: var(--white);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-md);
+}
+
+.u-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 31px; padding: 0 12px;
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-pill);
+  font: var(--type-label-lg);
+  color: var(--fg-2);
+  background: var(--white);
+}
+.u-pill[aria-pressed="true"] {
+  border-color: #ed9fac; /* pink-20ish outline */
+  color: var(--fg-1);
+}
+
+/* ---- Button primitives -------------------------------------- */
+.btn {
+  display: inline-flex; justify-content: center; align-items: center;
+  gap: 8px;
+  height: 46px; padding: 0 20px;
+  border-radius: var(--radius-pill);
+  font: var(--type-button-lg);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard),
+              opacity var(--dur-fast) var(--ease-standard);
+  user-select: none;
+}
+.btn:active { transform: scale(0.98); }
+
+.btn--primary     { background: var(--orange-base); color: var(--white); }
+.btn--primary:hover { background: var(--orange-50); }
+.btn--primary:disabled { background: var(--divider); color: var(--fg-3); cursor: not-allowed; }
+
+.btn--outline     { background: var(--white); color: var(--fg-1); border-color: var(--outline-strong); }
+.btn--outline:hover { background: var(--surface-gray); }
+
+.btn--text        { background: transparent; color: var(--fg-1); padding: 0 8px; height: auto; }
+.btn--text:hover  { color: var(--orange-50); }
+
+.btn--tonal       { background: var(--orange-20); color: var(--orange-100); }
+.btn--tonal:hover { background: var(--orange-10); }
+
+.btn--sm { height: 31px; padding: 0 12px; font: var(--type-button-md); }
+.btn--lg { height: 52px; padding: 0 24px; }
+.btn--block { width: 100%; }
+
+/* ---- Input -------------------------------------------------- */
+.input {
+  display: flex; align-items: center; gap: 12px;
+  height: 52px; padding: 0 16px;
+  background: var(--surface-gray);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  color: var(--fg-1);
+  font: var(--type-body-lg);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              background var(--dur-fast) var(--ease-standard);
+}
+.input:focus-within { border-color: var(--orange-base); background: var(--white); }
+.input--error { border-color: var(--pink-base); }
+
+/* ---- Tabs --------------------------------------------------- */
+.tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--outline); }
+.tabs__item {
+  padding: 12px 4px;
+  font: var(--type-title-md);
+  color: var(--fg-2);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.tabs__item[aria-selected="true"] { color: var(--fg-1); border-color: var(--pink-base); }
