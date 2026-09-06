@@ -1277,18 +1277,18 @@ export default function DeckPrint() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: MUTED }}>Where the $200k goes</div>
             <div style={{ display: "flex", height: 18, borderRadius: 8, overflow: "hidden" }}>
-              {[["30%", RED], ["22.5%", INK], ["17.5%", "#DB405A"], ["10%", "#9F6010"], ["10%", MUTED], ["5%", "#D6C3B3"], ["5%", DIV]].map(([w, c], i) => (
+              {[["30%", RED], ["27.5%", "#E98B20"], ["15%", INK], ["10%", "#9F6010"], ["7.5%", MUTED], ["5%", "#D6C3B3"], ["5%", DIV]].map(([w, c], i) => (
                 <div key={i} style={{ width: w, background: c }} />
               ))}
             </div>
             <div style={{ border: `1px solid ${DIV}`, borderRadius: 12, overflow: "hidden", fontSize: 13, background: "#fff" }}>
               {[
-                [RED, "Marketing and acquisition", "$60k", "30%", "Scale Google & Meta ads to 3× CPI budget; launch passenger-side campaigns"],
-                [INK, "Product and infrastructure", "$45k", "22.5%", "V2.1 features, safety infra, admin tools, Conductor Deliveries launch"],
-                ["#DB405A", "Ops and driver liquidity", "$35k", "17.5%", "Corridor launch team, driver incentives, corporate outreach"],
-                ["#9F6010", "Advisory retainer (partial cash)", "$20k", "10%", "~₦3m/mo cash for the launch window; balance deferred or equity"],
-                [MUTED, "Legal, compliance, licensing", "$20k", "10%", "LASTMA, LAGRA and regulatory footings"],
-                ["#D6C3B3", "Deliveries go-to-market", "$10k", "5%", "Driver onboarding, package ops, partner logistics"],
+                [RED, "Team salaries (12 months)", "$60k", "30%", "Cash salaries for the people running the app & company — eng, CS/onboarding, ops, marketing, finance. Market-rate balance deferred to equity"],
+                ["#E98B20", "Marketing and acquisition", "$55k", "27.5%", "Scale Google & Meta ads on the proven CPI; launch passenger-side campaigns"],
+                [INK, "Product and infrastructure", "$30k", "15%", "V2.1 features, safety infra, admin tools, servers, Conductor Deliveries launch"],
+                ["#9F6010", "Ops and driver liquidity", "$20k", "10%", "Corridor launch team, driver incentives, onboarding follow-up"],
+                [MUTED, "Legal, compliance, licensing", "$15k", "7.5%", "LASTMA, LAGRA and regulatory footings"],
+                ["#D6C3B3", "Advisory retainer (partial cash)", "$10k", "5%", "Marketing board, partial cash; balance deferred to Series A or equity"],
                 [DIV, "Runway buffer", "$10k", "5%", "Contingency"],
               ].map(([c, cat, amt, pct, what], i, arr) => (
                 <div key={cat as string} style={{ display: "grid", gridTemplateColumns: "16px 1.1fr 56px 46px 1.7fr", gap: 12, padding: "9px 16px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", alignItems: "center" }}>
