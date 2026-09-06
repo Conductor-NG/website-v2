@@ -64,7 +64,7 @@ export const ASK = `
       <h2 style="font-size:clamp(36px,4vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0">Let's talk.</h2>
       <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:26px;line-height:1.25;color:#EE4643;margin:0">Interested in partnering, investing, or just seeing the app?</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="/deck/print" target="_blank" rel="noopener noreferrer" data-cta="download_deck" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Download the deck</a>
+        <a href="/api/deck/pdf" data-cta="download_deck" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Download the deck</a>
         <a href="mailto:admin@conductor.ng?subject=Conductor%20investor%20call" data-cta="book_call" style="background:transparent;color:#FFF8F0;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Book a call</a>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;font-size:16px;color:#ECDFCE;line-height:1.4">
