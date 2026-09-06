@@ -117,7 +117,7 @@ function recurringDonut(): string {
   </svg>`;
 }
 
-const RECURRING_DONUT = recurringDonut();
+export const RECURRING_DONUT = recurringDonut();
 
 export const MARKET_REST = `
 <section style="background:#fff;border-top:1px solid #ECDFCE;border-bottom:1px solid #ECDFCE">
@@ -138,7 +138,7 @@ export const MARKET_REST = `
 <section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:32px">
   <div style="display:flex;flex-direction:column;gap:12px;max-width:860px">
     <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Traction</div>
-    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">1,000 users. 100 verified car owners. Growing 65–87% month over month.</h2>
+    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">1,000 users. ~500 car owners onboarded, 100 verified. Growing 65–87% a month.</h2>
   </div>
   <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr);gap:32px;align-items:stretch">
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
@@ -171,6 +171,20 @@ export const MARKET_REST = `
       <p style="font-size:15px;line-height:1.5;color:#514336;margin:0">The model projected 1,200 car-owner downloads for month one. We are pacing at 4,600 a month on car-owner ads alone — <strong style="color:#211A14">3.8× our own projection</strong>, on a limited paid budget. Passenger-side ads have not launched.</p>
     </div>
   </div>
+</section>
+
+<section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:24px">
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:880px">
+    <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Supply · the constraint we are ramping</div>
+    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0;text-wrap:pretty">~500 car owners onboarded. 100 verified. Verification is a lever we control.</h2>
+    <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Cars are the ceiling — you cannot seat more passengers than you have drivers — so we are saturating verified supply before opening more passenger demand.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:44px;line-height:1">~500</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">car owners onboarded — the top of the supply funnel</div></div>
+    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#EE4643">100</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified and launch-ready today, climbing daily</div></div>
+    <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#E98B20">~50%</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">of each cohort verifies with hands-on follow-up (10–15% unaided)</div></div>
+  </div>
+  <div style="background:#FAEDDE;border:1px solid #ECDFCE;border-radius:16px;padding:24px;font-size:16px;line-height:1.55;color:#514336">Verification is a staffed, repeatable funnel — not a hope. Of every 100 car owners who sign up, <strong style="color:#211A14">10–15 finish on their own</strong>; our onboarding team converts <strong style="color:#211A14">another 30–40</strong> through direct follow-up. Scaling that conversion — and the driver base beneath it — is exactly what the raise pays for.</div>
 </section>
 `;
 

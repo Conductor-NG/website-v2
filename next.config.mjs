@@ -22,6 +22,9 @@ const csp = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Headless-Chromium PDF generation (/api/deck/pdf) — keep these out of the
+  // server bundle so @sparticuz/chromium can locate its binary at runtime.
+  serverExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
   // Slim, self-contained server bundle for a container (Cloud Run / Firebase App Hosting).
   // Vercel builds its own output and its Next 16 adapter is incompatible with
   // standalone (the standalone step reads a build trace Vercel's build never
