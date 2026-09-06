@@ -117,7 +117,7 @@ function recurringDonut(): string {
   </svg>`;
 }
 
-const RECURRING_DONUT = recurringDonut();
+export const RECURRING_DONUT = recurringDonut();
 
 export const MARKET_REST = `
 <section style="background:#fff;border-top:1px solid #ECDFCE;border-bottom:1px solid #ECDFCE">
