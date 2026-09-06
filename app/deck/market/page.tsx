@@ -138,7 +138,7 @@ export const MARKET_REST = `
 <section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:32px">
   <div style="display:flex;flex-direction:column;gap:12px;max-width:860px">
     <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Traction</div>
-    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">795 users. 58 verified car owners. Growing 65–87% month over month.</h2>
+    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">1,000 users. 100 verified car owners. Growing 65–87% month over month.</h2>
   </div>
   <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr);gap:32px;align-items:stretch">
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px">
@@ -156,6 +156,7 @@ export const MARKET_REST = `
         <span style="color:#6B5D4E">31 Aug 2026</span><strong style="text-align:right">795</strong><strong style="text-align:right">424</strong><strong style="text-align:right">58</strong>
         <span style="color:#6B5D4E">5-week change</span><span style="text-align:right;color:#EE4643;font-weight:700">+36%</span><span style="text-align:right;color:#EE4643;font-weight:700">+65%</span><span style="text-align:right;color:#EE4643;font-weight:700">+87%</span>
       </div>
+      <div style="font-size:13px;color:#6B5D4E;line-height:1.4">Weekly cumulative to 31 Aug 2026 — the ramp has since carried us past <strong style="color:#EE4643">1,000 users</strong> and <strong style="color:#EE4643">100 verified car owners</strong>.</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6B5D4E">Acquisition · Google Ads, 21 Aug – 3 Sep</div>
