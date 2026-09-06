@@ -111,7 +111,7 @@ const HERO_STATS: { n: string; label: string; dark?: boolean }[] = [
   { n: "1,000", label: "sign-ups" },
   { n: "74%", label: "commute three or more days a week" },
   { n: "52%", label: "head to one Lagos Island corridor" },
-  { n: "100", label: "verified car owners ready" },
+  { n: "~500", label: "car owners onboarded · 100 verified" },
   { n: "Sept 15", label: "paid rides launch", dark: true },
 ];
 
@@ -331,7 +331,7 @@ export default function DeckPrint() {
             {
               date: "Sept 15, 2026",
               h: "Conductor launches paid rides",
-              p: "Community carpooling on the Lagos Island corridor. 100 verified car owners ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
+              p: "Community carpooling on the Lagos Island corridor. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
               dark: true,
               dateColor: RED,
             },
@@ -570,7 +570,7 @@ export default function DeckPrint() {
       <Slide
         n={next()}
         eyebrow="Market · Traction"
-        title="1,000 users. 100 verified car owners. Growing 65–87% month over month."
+        title="1,000 users. ~500 car owners onboarded, 100 verified. Growing 65–87% a month."
       >
         <div style={{ display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: 28, alignItems: "start", flex: 1 }}>
           <div style={{ ...cardLight, padding: 22, gap: 16 }}>
