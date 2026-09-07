@@ -30,8 +30,6 @@ const FOUNDERS: Record<string, Founder> = {
     first: "Wale",
     last: "Shekoni",
     role: "Founder",
-    credential:
-      "By day, a data analyst at one of Nigeria's unicorns — the day job that kept Conductor building without outside money.",
     photo: "/deck/images/founder-wale.jpg",
     objectPosition: "50% 20%",
     lede: "The idea started on a bridge in Lagos, years before the first line of code.",
