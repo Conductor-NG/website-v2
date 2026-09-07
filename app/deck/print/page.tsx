@@ -1197,9 +1197,9 @@ export default function DeckPrint() {
               <span style={{ textAlign: "right" }}>Monthly rev</span>
             </div>
             {[
-              ["Dec 2026", "700", "~1,800", "₦19.8m"],
-              ["June 2027", "3,300", "~8,400", "₦103.5m"],
-              ["Dec 2027", "10,100", "~25,300", "₦334.6m"],
+              ["Dec 2026", "700", "~2,000", "₦20m"],
+              ["June 2027", "3,000", "~8,000", "₦100m"],
+              ["Dec 2027", "10,000", "~25,000", "₦350m"],
             ].map(([m, co, pax, rev], i, arr) => (
               <div key={m} style={{ display: "grid", gridTemplateColumns: "1fr 0.9fr 0.9fr 0.9fr", gap: 8, padding: "11px 18px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", color: BODY }}>
                 <strong style={{ color: INK }}>{m}</strong>
@@ -1277,18 +1277,17 @@ export default function DeckPrint() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: MUTED }}>Where the $200k goes</div>
             <div style={{ display: "flex", height: 18, borderRadius: 8, overflow: "hidden" }}>
-              {[["30%", RED], ["27.5%", "#E98B20"], ["15%", INK], ["10%", "#9F6010"], ["7.5%", MUTED], ["5%", "#D6C3B3"], ["5%", DIV]].map(([w, c], i) => (
+              {[["30%", RED], ["32.5%", "#E98B20"], ["15%", INK], ["10%", "#9F6010"], ["7.5%", MUTED], ["5%", DIV]].map(([w, c], i) => (
                 <div key={i} style={{ width: w, background: c }} />
               ))}
             </div>
             <div style={{ border: `1px solid ${DIV}`, borderRadius: 12, overflow: "hidden", fontSize: 13, background: "#fff" }}>
               {[
                 [RED, "Team salaries (12 months)", "$60k", "30%", "Cash salaries for the people running the app & company — eng, CS/onboarding, ops, marketing, finance. Market-rate balance deferred to equity"],
-                ["#E98B20", "Marketing and acquisition", "$55k", "27.5%", "Scale Google & Meta ads on the proven CPI; launch passenger-side campaigns"],
-                [INK, "Product and infrastructure", "$30k", "15%", "V2.1 features, safety infra, admin tools, servers, Conductor Deliveries launch"],
+                ["#E98B20", "Marketing and acquisition", "$65k", "32.5%", "Google, Meta & other ad platforms on the proven CPI; social influencers; passenger-side; Nigeria-wide roll-out; incl. advisory retainer"],
+                [INK, "Product and infrastructure", "$30k", "15%", "V1 Stabilization features, safety infra, admin tools, servers, Conductor Deliveries launch"],
                 ["#9F6010", "Ops and driver liquidity", "$20k", "10%", "Corridor launch team, driver incentives, onboarding follow-up"],
                 [MUTED, "Legal, compliance, licensing", "$15k", "7.5%", "LASTMA, LAGRA and regulatory footings"],
-                ["#D6C3B3", "Advisory retainer (partial cash)", "$10k", "5%", "Marketing board, partial cash; balance deferred to Series A or equity"],
                 [DIV, "Runway buffer", "$10k", "5%", "Contingency"],
               ].map(([c, cat, amt, pct, what], i, arr) => (
                 <div key={cat as string} style={{ display: "grid", gridTemplateColumns: "16px 1.1fr 56px 46px 1.7fr", gap: 12, padding: "9px 16px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", alignItems: "center" }}>
@@ -1318,9 +1317,9 @@ export default function DeckPrint() {
               ))}
             </div>
             {[
-              ["By Dec 2026", "700 monthly active car owners · ~1,800 monthly active passengers · ~₦19.8m / mo"],
-              ["By June 2027", "3,300 monthly active car owners · ~8,400 monthly active passengers · ~₦103.5m / mo"],
-              ["By Dec 2027", "10,100 monthly active car owners · ~25,300 monthly active passengers · ~₦334.6m / mo"],
+              ["By Dec 2026", "700 monthly active car owners · ~2,000 monthly active passengers · ~₦20m / mo"],
+              ["By June 2027", "3,000 monthly active car owners · ~8,000 monthly active passengers · ~₦100m / mo"],
+              ["By Dec 2027", "10,000 monthly active car owners · ~25,000 monthly active passengers · ~₦350m / mo"],
             ].map(([d, pp]) => (
               <div key={d} style={{ borderTop: `2px solid ${RED}`, paddingTop: 8 }}>
                 <div style={{ ...serif, fontSize: 20, lineHeight: 1, color: RED }}>{d}</div>

@@ -77,6 +77,12 @@ export function DeckNav() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            alt=""
+            src="/deck/images/conductor.svg"
+            style={{ height: 30, display: "block" }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             alt="Conductor"
             src="/deck/images/conductor-wordmark.svg"
             style={{ height: 26, display: "block" }}

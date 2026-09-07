@@ -16,7 +16,7 @@ export const OVERVIEW = `
       <p style="font-size:19px;line-height:1.55;color:#514336;margin:0;max-width:600px">Conductor matches car owners with passengers going to the same place. Car owners publish the trip they are already making; passengers book a seat for the week. Paid rides launch on the Lagos Island corridor on 15 September 2026.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <a href="/deck/ask" data-cta="see_ask" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">See the ask</a>
-        <a href="/deck/product" data-cta="watch_product" style="background:#fff;color:#211A14;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Watch the product</a>
+        <a href="https://conductor.ng" target="_blank" rel="noopener noreferrer" data-cta="watch_product" style="background:#fff;color:#211A14;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Visit the website ↗</a>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
