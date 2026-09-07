@@ -35,11 +35,15 @@ function gate(req: Request): Gate {
 }
 
 function originOf(req: Request): string {
+  // Recipient links must always point at the clean marketing domain, never at
+  // the Vercel deployment host (e.g. a `v2.` / `website-v2-*.vercel.app` origin
+  // the request happens to arrive on). Prefer an explicit site URL, strip any
+  // leading `v2.` sub-host, and fall back to the canonical apex domain.
   const env = process.env.NEXT_PUBLIC_SITE_URL;
   if (env) {
-    return env.replace(/\/$/, "");
+    return env.replace(/\/$/, "").replace(/^(https?:\/\/)v2\./i, "$1");
   }
-  return new URL(req.url).origin;
+  return "https://conductor.ng";
 }
 
 export async function GET(req: Request) {

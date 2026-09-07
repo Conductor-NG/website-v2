@@ -13,7 +13,7 @@ import { DeckPager } from "../deck-nav";
 export const MARKET_TOP = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 3 · Market and traction</div>
-  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">We rebuilt V1 to learn where Lagos commutes. 52% are headed for the same place.</h1>
+  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">We built V1 to learn more about our commuters. 52% are headed for the same place.</h1>
   <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">At onboarding, every user now declares home and workplace. Cleaned and mapped, the pattern is unmistakable — homes scatter across Lagos, but workplaces converge on a few square kilometres of Lagos Island.</p>
 </section>
 `;

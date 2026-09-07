@@ -112,7 +112,7 @@ const HERO_STATS: { n: string; label: string; dark?: boolean }[] = [
   { n: "74%", label: "commute three or more days a week" },
   { n: "52%", label: "head to one Lagos Island corridor" },
   { n: "~500", label: "car owners onboarded · 100 verified" },
-  { n: "Sept 15", label: "paid rides launch", dark: true },
+  { n: "Sept 14", label: "paid rides launch", dark: true },
 ];
 
 // Revenue-ramp bars (financials) — same data, same on-brand styling --------
@@ -207,7 +207,7 @@ const COMP_ROWS: { label: string; cells: [string, string][] }[] = [
   {
     label: "Present in Lagos",
     cells: [
-      ["Sep 15", "y"],
+      ["Sep 14", "y"],
       ["Yes", "p"],
       ["Yes", "p"],
       ["Sep 25", "n"],
@@ -329,9 +329,9 @@ export default function DeckPrint() {
               dateColor: MUTED,
             },
             {
-              date: "Sept 15, 2026",
+              date: "Sept 14, 2026",
               h: "Conductor launches paid rides",
-              p: "First paid rides in Lagos after Uber's exit — ten days ahead of Shuttlers POD. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
+              p: "First paid rides in Lagos after Uber's exit — eleven days ahead of Shuttlers POD. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
               dark: true,
               dateColor: RED,
             },
@@ -519,7 +519,7 @@ export default function DeckPrint() {
       <Slide
         n={next()}
         eyebrow="Market · Demand geometry"
-        title="We rebuilt V1 to learn where Lagos commutes. 52% head for one place."
+        title="We built V1 to learn more about our commuters. 52% head for one place."
       >
         <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 40, alignItems: "center", flex: 1 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -847,7 +847,7 @@ export default function DeckPrint() {
           {[
             ["1", "We flipped the role, and had to teach the flip", "Every Nigerian who has ordered a ride knows the script: passenger books, driver shows up. Conductor flips it — the driver publishes the trip, the passenger shows up. The MVP failed to teach the flip; V1 embeds the concept in the UI itself. We learned this on our own money, before spending an investor's."],
             ["2", "Predictability over randomness", "Nigerians already carpool with ride-hailing — but only for parties and nights out. Random, weekend-peaked, no two rides alike. A repeatable Monday-through-Friday commute at a splittable price is unsolved. 74% of our users commute 3+ days a week; 52% head for the same Island cluster. That is the wedge — 33 months getting it right."],
-            ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no drivers and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 15 launches with the density for demand to convert on day one."],
+            ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no drivers and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 14 launches with the density for demand to convert on day one."],
           ].map(([n, h, pp]) => (
             <div key={n} style={{ ...cardLight, flexDirection: "row", gap: 20, padding: 20, alignItems: "flex-start" }}>
               <div style={{ ...serif, fontSize: 46, lineHeight: 1, color: RED, flex: "none", width: 50 }}>{n}</div>
@@ -937,7 +937,7 @@ export default function DeckPrint() {
           </p>
           <p style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.3, margin: 0, color: CREAM, maxWidth: 950 }}>
             33 months of founder-funded salaries and a team invested through ownership, so that when we turn it on on
-            September 15, it works the first time.
+            September 14, it works the first time.
           </p>
           <div style={{ display: "flex", gap: 28, flexWrap: "wrap", fontSize: 15, fontWeight: 600, borderTop: "1px solid rgba(46,28,3,0.25)", paddingTop: 18 }}>
             <span>$0.32 cost per install</span>
@@ -962,7 +962,7 @@ export default function DeckPrint() {
             ["Q4 2024", "Company incorporated (RC 7952968). MVP build begins.", DIV, false],
             ["Q4 2025", "Public MVP launch. First 500 users onboarded.", DIV, false],
             ["Q3 2026", "V2 rebuild ships: escrow, verification, community. Digital ads begin.", DIV, false],
-            ["Sep 15, 2026", "Paid rides launch on the Lagos Island cluster.", RED, true],
+            ["Sep 14, 2026", "Paid rides launch on the Lagos Island cluster.", RED, true],
             ["By end 2027", "10,000+ car owners · 25,000+ passengers · Enterprise live · Deliveries public · Series A conversation", "#D6C3B3", false],
           ].map(([d, pp, bc, hot]) => (
             <div key={d as string} style={{ borderTop: `2px ${(bc as string) === "#D6C3B3" ? "dashed" : "solid"} ${bc}`, paddingTop: 14, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1027,7 +1027,7 @@ export default function DeckPrint() {
           ))}
         </div>
         <p style={{ ...serif, fontSize: 20, lineHeight: 1.3, color: MUTED, margin: "18px 0 0", maxWidth: 1000 }}>
-          The first affordable, recurring carpool in Lagos — live ten days before Shuttlers POD, in the only city Uber
+          The first affordable, recurring carpool in Lagos — live eleven days before Shuttlers POD, in the only city Uber
           just left. Two serious entrants now; we are first, cheapest, and the only weekly-recurring one.
         </p>
       </Slide>
