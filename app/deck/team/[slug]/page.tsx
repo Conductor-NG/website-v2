@@ -55,20 +55,20 @@ const FOUNDERS: Record<string, Founder> = {
     ready: false,
   },
   bawo: {
-    name: "Bawo",
+    name: "Bawo Maleghemi",
     first: "Bawo",
-    last: "",
+    last: "Maleghemi",
     role: "Co-founder",
     initial: "B",
-    lede: "Transportation has been the constant — from Lagos's buses in 2019 to the seat beside you now.",
+    lede: "A product leader for over a decade — fintech, payments and AI — with transport the thread running through all of it.",
     body: [
-      "I have spent my whole career in one place: where technology meets the way a city moves. In 2019 I was part of the team that started BusRide in Lagos — putting scheduled, trackable buses onto roads that had only ever known the danfo and the molue. We were trying to bring a little order to one of the most informal transport systems in the world.",
-      "BusRide taught me the lesson that still drives me: the hard part is never the app. It is the human system around it — the trust, the timing, the incentives, the thousand small ways people actually behave at a bus stop at 6am. Get the software to respect how Lagos already moves, and it works. Fight it, and it doesn't.",
-      "Conductor is that same lesson, applied to the car instead of the bus. The seats are already on the road every morning; the coordination is what's missing. That intersection — technology and transportation, and the messy human middle between them — is the only thing I have ever really wanted to work on. This is the clearest shot I have had at it.",
+      "I have spent twelve years building products, most of it where technology meets the way people and money move. At Interswitch I led product across payments, oil and gas, and transport — shipping platforms like Smartmove and Smartfuel to millions of people across Africa. I was also part of the team that started BusRide in Lagos in 2019, putting scheduled, trackable buses onto roads that had only ever known the danfo and the molue.",
+      "Since then I have built and led product in Canada — Director of Products at Otter, an AI bookkeeping and tax platform, and lead product on Optisage.ai — across fintech, SaaS and AI, zero-to-one and at scale. Different countries, different products, the same craft: find the real problem, ship something structured and fast, and stay honest about how people actually behave.",
+      "That is the lesson transport keeps teaching me — the hard part is never the app, it is the human system around it: the trust, the timing, the incentives, the thousand small ways people act at a bus stop at 6am. Conductor is that lesson applied to the car. The seats are already on the road every morning; the coordination is what's missing. It is the clearest shot I have had at the problem I keep coming back to.",
     ],
     quote:
       "Lagos was never short of vehicles. It was short of coordination — and coordination is software.",
-    email: "bawo@conductor.ng",
+    email: "bm@conductor.ng",
     ready: true,
   },
 };
