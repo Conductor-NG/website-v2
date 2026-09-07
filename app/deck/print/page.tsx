@@ -210,7 +210,7 @@ const COMP_ROWS: { label: string; cells: [string, string][] }[] = [
       ["Sep 15", "y"],
       ["Yes", "p"],
       ["Yes", "p"],
-      ["Early access", "n"],
+      ["Sep 25", "n"],
       ["Yes", "p"],
       ["Exiting", "x"],
     ],
@@ -324,14 +324,14 @@ export default function DeckPrint() {
             {
               date: "Sept 3, 2026",
               h: "Shuttlers announces POD",
-              p: "Pre-booked private small-group rides, waitlist only. A consumer pivot with corporate-shuttle DNA: fixed price, premium positioning, manual re-booking.",
+              p: "Announced Sep 3, launching around Sep 25. Premium, fixed-price, manual re-booking — corporate-shuttle DNA, a different segment than the daily mass commuter.",
               dark: false,
               dateColor: MUTED,
             },
             {
               date: "Sept 15, 2026",
               h: "Conductor launches paid rides",
-              p: "Community carpooling on the Lagos Island corridor. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
+              p: "First paid rides in Lagos after Uber's exit — ten days ahead of Shuttlers POD. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
               dark: true,
               dateColor: RED,
             },
@@ -1027,8 +1027,8 @@ export default function DeckPrint() {
           ))}
         </div>
         <p style={{ ...serif, fontSize: 20, lineHeight: 1.3, color: MUTED, margin: "18px 0 0", maxWidth: 1000 }}>
-          The only carpooling platform, in the only city Uber just left, at the moment Shuttlers is still gated to a
-          waitlist.
+          The first affordable, recurring carpool in Lagos — live ten days before Shuttlers POD, in the only city Uber
+          just left. Two serious entrants now; we are first, cheapest, and the only weekly-recurring one.
         </p>
       </Slide>
 
@@ -1073,7 +1073,7 @@ export default function DeckPrint() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
           {[
             ["Wale", "Founder"],
-            ["Dimeji", "Co-founder · Chief Technology Officer"],
+            ["Dimeji", "Co-founder"],
             ["Bawo", "Co-founder"],
           ].map(([name, role]) => (
             <div key={name} style={{ ...cardLight, padding: 24, gap: 14, flexDirection: "row", alignItems: "center" }}>
@@ -1197,9 +1197,9 @@ export default function DeckPrint() {
               <span style={{ textAlign: "right" }}>Monthly rev</span>
             </div>
             {[
-              ["Dec 2026", "700", "~1,800", "₦19.8m"],
-              ["June 2027", "3,300", "~8,400", "₦103.5m"],
-              ["Dec 2027", "10,100", "~25,300", "₦334.6m"],
+              ["Dec 2026", "700", "~2,000", "₦20m"],
+              ["June 2027", "3,000", "~8,000", "₦100m"],
+              ["Dec 2027", "10,000", "~25,000", "₦350m"],
             ].map(([m, co, pax, rev], i, arr) => (
               <div key={m} style={{ display: "grid", gridTemplateColumns: "1fr 0.9fr 0.9fr 0.9fr", gap: 8, padding: "11px 18px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", color: BODY }}>
                 <strong style={{ color: INK }}>{m}</strong>
@@ -1273,22 +1273,24 @@ export default function DeckPrint() {
         eyebrow="The ask"
         title="$200k on a $5M SAFE. Twelve months of runway. Three checkpoints."
       >
+        <p style={{ fontSize: 13, lineHeight: 1.5, color: MUTED, margin: "0 0 12px", maxWidth: 1000 }}>
+          Not for building the app, the hard-case policies (disputes, no-shows, refunds, safety), or proving the channel — all done on our own money. Pure scaling capital.
+        </p>
         <div style={{ display: "grid", gridTemplateColumns: "1.5fr 0.9fr", gap: 28, alignItems: "start", flex: 1 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: MUTED }}>Where the $200k goes</div>
             <div style={{ display: "flex", height: 18, borderRadius: 8, overflow: "hidden" }}>
-              {[["30%", RED], ["22.5%", INK], ["17.5%", "#DB405A"], ["10%", "#9F6010"], ["10%", MUTED], ["5%", "#D6C3B3"], ["5%", DIV]].map(([w, c], i) => (
+              {[["30%", RED], ["32.5%", "#E98B20"], ["15%", INK], ["10%", "#9F6010"], ["7.5%", MUTED], ["5%", DIV]].map(([w, c], i) => (
                 <div key={i} style={{ width: w, background: c }} />
               ))}
             </div>
             <div style={{ border: `1px solid ${DIV}`, borderRadius: 12, overflow: "hidden", fontSize: 13, background: "#fff" }}>
               {[
-                [RED, "Marketing and acquisition", "$60k", "30%", "Scale Google & Meta ads to 3× CPI budget; launch passenger-side campaigns"],
-                [INK, "Product and infrastructure", "$45k", "22.5%", "V2.1 features, safety infra, admin tools, Conductor Deliveries launch"],
-                ["#DB405A", "Ops and driver liquidity", "$35k", "17.5%", "Corridor launch team, driver incentives, corporate outreach"],
-                ["#9F6010", "Advisory retainer (partial cash)", "$20k", "10%", "~₦3m/mo cash for the launch window; balance deferred or equity"],
-                [MUTED, "Legal, compliance, licensing", "$20k", "10%", "LASTMA, LAGRA and regulatory footings"],
-                ["#D6C3B3", "Deliveries go-to-market", "$10k", "5%", "Driver onboarding, package ops, partner logistics"],
+                [RED, "Team salaries (12 months)", "$60k", "30%", "Cash salaries for the people running the app & company — eng, CS/onboarding, ops, marketing, finance. Market-rate balance deferred to equity"],
+                ["#E98B20", "Marketing and acquisition", "$65k", "32.5%", "Google, Meta & other ad platforms on the proven CPI; social influencers; passenger-side; Nigeria-wide roll-out; incl. advisory retainer"],
+                [INK, "Product and infrastructure", "$30k", "15%", "V1 Stabilization features, safety infra, admin tools, servers, Conductor Deliveries launch"],
+                ["#9F6010", "Ops and driver liquidity", "$20k", "10%", "Corridor launch team, driver incentives, onboarding follow-up"],
+                [MUTED, "Legal, compliance, licensing", "$15k", "7.5%", "LASTMA, LAGRA and regulatory footings"],
                 [DIV, "Runway buffer", "$10k", "5%", "Contingency"],
               ].map(([c, cat, amt, pct, what], i, arr) => (
                 <div key={cat as string} style={{ display: "grid", gridTemplateColumns: "16px 1.1fr 56px 46px 1.7fr", gap: 12, padding: "9px 16px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", alignItems: "center" }}>
@@ -1318,9 +1320,9 @@ export default function DeckPrint() {
               ))}
             </div>
             {[
-              ["By Dec 2026", "700 monthly active car owners · ~1,800 monthly active passengers · ~₦19.8m / mo"],
-              ["By June 2027", "3,300 monthly active car owners · ~8,400 monthly active passengers · ~₦103.5m / mo"],
-              ["By Dec 2027", "10,100 monthly active car owners · ~25,300 monthly active passengers · ~₦334.6m / mo"],
+              ["By Dec 2026", "700 monthly active car owners · ~2,000 monthly active passengers · ~₦20m / mo"],
+              ["By June 2027", "3,000 monthly active car owners · ~8,000 monthly active passengers · ~₦100m / mo"],
+              ["By Dec 2027", "10,000 monthly active car owners · ~25,000 monthly active passengers · ~₦350m / mo"],
             ].map(([d, pp]) => (
               <div key={d} style={{ borderTop: `2px solid ${RED}`, paddingTop: 8 }}>
                 <div style={{ ...serif, fontSize: 20, lineHeight: 1, color: RED }}>{d}</div>
@@ -1346,7 +1348,7 @@ export default function DeckPrint() {
             Interested in partnering, investing, or just seeing the app?
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 18, color: DIV, lineHeight: 1.5 }}>
-            <div>conductor.ng · admin@conductor.ng · +234 810 690 2386</div>
+            <div>conductor.ng · admin@conductor.ng · +44 7769 380713</div>
             <div style={{ fontSize: 15, color: "#D6C3B3" }}>View the live deck and book at conductor.ng/deck</div>
           </div>
         </div>

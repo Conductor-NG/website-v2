@@ -23,6 +23,8 @@ type TokenRow = {
   lastSeen: number | null;
   views: number;
   ctas: number;
+  sessions: number;
+  downloads: number;
 };
 type StoredEvent = {
   type: "view" | "dwell" | "cta";
@@ -30,6 +32,7 @@ type StoredEvent = {
   seconds?: number;
   cta?: string;
   ts: number;
+  sid?: string;
 };
 
 type Gate = "checking" | "need-key" | "not-configured" | "ready";
@@ -380,8 +383,10 @@ function RecipientsTable({
             <tr>
               <th style={th}>Name</th>
               <th style={th}>Link</th>
-              <th style={{ ...th, ...thNum }}>Views</th>
+              <th style={{ ...th, ...thNum }}>Sessions</th>
+              <th style={{ ...th, ...thNum }}>Pages</th>
               <th style={{ ...th, ...thNum }}>CTAs</th>
+              <th style={{ ...th, ...thNum }}>Downloads</th>
               <th style={th}>Last seen</th>
             </tr>
           </thead>
@@ -460,13 +465,23 @@ function RecipientRow({
             <CopyButton text={url} small />
           </div>
         </td>
+        <td style={{ ...td, ...tdNum }}>{row.sessions}</td>
         <td style={{ ...td, ...tdNum }}>{row.views}</td>
         <td style={{ ...td, ...tdNum }}>{row.ctas}</td>
+        <td
+          style={{
+            ...td,
+            ...tdNum,
+            color: row.downloads > 0 ? ORANGE : MUTED,
+          }}
+        >
+          {row.downloads > 0 ? `✓ ${row.downloads}` : "—"}
+        </td>
         <td style={{ ...td, color: MUTED }}>{relTime(row.lastSeen)}</td>
       </tr>
       {open && (
         <tr>
-          <td colSpan={5} style={{ padding: 0, background: "#FBF6EE" }}>
+          <td colSpan={7} style={{ padding: 0, background: "#FBF6EE" }}>
             <Timeline deckKey={deckKey} token={row.id} />
           </td>
         </tr>
@@ -511,37 +526,73 @@ function Timeline({ deckKey, token }: { deckKey: string; token: string }) {
     return <div style={timelineWrap}>No events recorded yet.</div>;
   }
 
+  // Group events into sessions (visits) by sid, preserving newest-first order.
+  const sessions: { sid: string; events: StoredEvent[] }[] = [];
+  const bySid = new Map<string, { sid: string; events: StoredEvent[] }>();
+  for (const ev of events) {
+    const sid = ev.sid || "legacy";
+    let g = bySid.get(sid);
+    if (!g) {
+      g = { sid, events: [] };
+      bySid.set(sid, g);
+      sessions.push(g);
+    }
+    g.events.push(ev);
+  }
+
   return (
     <div style={timelineWrap}>
-      <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
-        {events.map((ev, i) => (
-          <li
-            // biome-ignore lint/suspicious/noArrayIndexKey: events are append-only + immutable
-            key={i}
+      {sessions.map((s, si) => (
+        <div key={s.sid} style={{ marginTop: si === 0 ? 0 : 18 }}>
+          <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "120px 68px 1fr",
-              gap: 12,
+              display: "flex",
               alignItems: "baseline",
-              padding: "7px 0",
-              borderTop: i === 0 ? "none" : `1px solid ${LINE}`,
-              fontSize: 14,
+              gap: 10,
+              marginBottom: 6,
             }}
           >
-            <span style={{ color: MUTED, fontVariantNumeric: "tabular-nums" }}>
-              {clockTime(ev.ts)}
+            <span style={{ fontSize: 13, fontWeight: 700, color: INK }}>
+              Session {sessions.length - si}
             </span>
-            <span style={typeBadge(ev.type)}>{ev.type}</span>
-            <span>
-              <strong style={{ fontWeight: 600 }}>{ev.slide}</strong>
-              {ev.cta && <span style={{ color: MUTED }}> · {ev.cta}</span>}
-              {ev.seconds != null && (
-                <span style={{ color: MUTED }}> · {ev.seconds}s</span>
-              )}
+            <span style={{ fontSize: 12, color: MUTED }}>
+              {relTime(s.events[0]?.ts ?? null)} · {s.events.length} event
+              {s.events.length === 1 ? "" : "s"}
             </span>
-          </li>
-        ))}
-      </ol>
+          </div>
+          <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
+            {s.events.map((ev, i) => (
+              <li
+                // biome-ignore lint/suspicious/noArrayIndexKey: events are append-only + immutable
+                key={i}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "120px 68px 1fr",
+                  gap: 12,
+                  alignItems: "baseline",
+                  padding: "7px 0",
+                  borderTop: i === 0 ? "none" : `1px solid ${LINE}`,
+                  fontSize: 14,
+                }}
+              >
+                <span
+                  style={{ color: MUTED, fontVariantNumeric: "tabular-nums" }}
+                >
+                  {clockTime(ev.ts)}
+                </span>
+                <span style={typeBadge(ev.type)}>{ev.type}</span>
+                <span>
+                  <strong style={{ fontWeight: 600 }}>{ev.slide}</strong>
+                  {ev.cta && <span style={{ color: MUTED }}> · {ev.cta}</span>}
+                  {ev.seconds != null && (
+                    <span style={{ color: MUTED }}> · {ev.seconds}s</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
     </div>
   );
 }

@@ -28,9 +28,33 @@ type EvBody = {
   cta?: string;
 };
 
+// A session = one sitting with the deck. A fresh sid is minted on a new
+// device/browser (localStorage is per-device) or after 30 min of inactivity —
+// so re-opening the same link 3 hours later, or opening it on another device,
+// each counts as a separate session in the dashboard.
+const SID_KEY = "deck_sid";
+const SID_TS = "deck_sid_ts";
+const SESSION_GAP_MS = 30 * 60 * 1000;
+
+function getSessionId(): string {
+  try {
+    const now = Date.now();
+    const last = Number(localStorage.getItem(SID_TS) || "0");
+    let sid = localStorage.getItem(SID_KEY);
+    if (!sid || now - last > SESSION_GAP_MS) {
+      sid = `${now.toString(36)}${Math.random().toString(36).slice(2, 10)}`;
+      localStorage.setItem(SID_KEY, sid);
+    }
+    localStorage.setItem(SID_TS, String(now));
+    return sid;
+  } catch {
+    return "nosession";
+  }
+}
+
 function sendEv(body: EvBody): void {
   try {
-    const json = JSON.stringify(body);
+    const json = JSON.stringify({ ...body, sid: getSessionId() });
     if (typeof navigator !== "undefined" && navigator.sendBeacon) {
       const blob = new Blob([json], { type: "application/json" });
       navigator.sendBeacon("/api/deck/ev", blob);

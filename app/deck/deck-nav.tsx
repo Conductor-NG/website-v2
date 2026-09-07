@@ -77,6 +77,12 @@ export function DeckNav() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            alt=""
+            src="/deck/images/conductor.svg"
+            style={{ height: 30, display: "block" }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             alt="Conductor"
             src="/deck/images/conductor-wordmark.svg"
             style={{ height: 26, display: "block" }}
@@ -114,12 +120,28 @@ export function DeckNav() {
           })}
         </nav>
         <a
+          href="https://conductor.ng"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            flex: "none",
+            order: 1,
+            marginLeft: "auto",
+            color: C.ink,
+            fontWeight: 600,
+            fontSize: 14,
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+          }}
+        >
+          conductor.ng ↗
+        </a>
+        <a
           data-cta="book_call"
           href="mailto:admin@conductor.ng?subject=Conductor%20%E2%80%94%20investor%20call"
           style={{
             flex: "none",
             order: 2,
-            marginLeft: "auto",
             background: "linear-gradient(120deg, #E98B20, #EE4643)",
             color: "#fff",
             fontWeight: 600,
@@ -237,7 +259,24 @@ export function DeckPager({
           Conductor Technology International Services Ltd · Investor briefing ·
           Confidential
         </span>
-        <span>admin@conductor.ng · +234 810 690 2386</span>
+        <span>
+          <a
+            href="https://conductor.ng"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "inherit" }}
+          >
+            conductor.ng
+          </a>{" "}
+          ·{" "}
+          <a href="mailto:admin@conductor.ng" style={{ color: "inherit" }}>
+            admin@conductor.ng
+          </a>{" "}
+          ·{" "}
+          <a href="tel:+447769380713" style={{ color: "inherit" }}>
+            +44 7769 380713
+          </a>
+        </span>
       </div>
     </footer>
   );
