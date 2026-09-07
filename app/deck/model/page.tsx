@@ -8,17 +8,17 @@ export const MODEL = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 4 · Business model</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">A 10% take on every ride. Held in escrow. Released weekly.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">10% on the rider fare plus 10% on driver earnings — roughly ₦360 on a ₦1,500 average fare. No surge, no dynamic markup, no hidden fees.</p>
+  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">10% on the rider fare plus 10% on car owner earnings — roughly ₦360 on a ₦1,500 average fare. No surge, no dynamic markup, no hidden fees.</p>
 </section>
 
 <section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
   <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:grid;grid-template-columns:min(300px,80vw) 1fr;gap:24px;align-items:center">
     <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/drv-13-escrow.png" alt="Conductor app screen"></div></div></div>
-    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/icon-bank.png" alt="" style="width:48px;height:48px;border-radius:10px"><div style="font-size:22px;font-weight:700">How money moves</div><p style="font-size:15px;line-height:1.5;color:#514336;margin:0">The passenger pays into escrow at booking. Money is held per trip-day until the ride week completes, then released to the driver at week close. If a day does not happen, refunds are automatic and traceable to their origin.</p></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/icon-bank.png" alt="" style="width:48px;height:48px;border-radius:10px"><div style="font-size:22px;font-weight:700">How money moves</div><p style="font-size:15px;line-height:1.5;color:#514336;margin:0">The passenger pays into escrow at booking. Money is held per trip-day until the ride week completes, then released to the car owner at week close. If a day does not happen, refunds are automatic and traceable to their origin.</p></div>
   </div>
   <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:grid;grid-template-columns:min(300px,80vw) 1fr;gap:24px;align-items:center">
     <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/pax-11-cost.png" alt="Conductor app screen"></div></div></div>
-    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/icon-earn-weekly.png" alt="" style="width:48px;height:48px;border-radius:10px"><div style="font-size:22px;font-weight:700">What we take</div><p style="font-size:15px;line-height:1.5;color:#514336;margin:0">10% from each side of the transaction. The passenger sees the fare and the fee before booking; the driver sees net earnings per ride, per week and per month in the app.</p></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><img src="/deck/images/icon-earn-weekly.png" alt="" style="width:48px;height:48px;border-radius:10px"><div style="font-size:22px;font-weight:700">What we take</div><p style="font-size:15px;line-height:1.5;color:#514336;margin:0">10% from each side of the transaction. The passenger sees the fare and the fee before booking; the car owner sees net earnings per ride, per week and per month in the app.</p></div>
   </div>
 </section>
 
@@ -36,9 +36,9 @@ export const MODEL = `
         <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;font-weight:700"><span>Net paid per passenger</span><span>₦2,410</span></div>
         <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>× 4 passengers per trip</span><span>₦9,640</span></div>
         <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;font-weight:700;color:#EE4643"><span>Conductor take (10% × 2 sides)</span><span>₦964</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Driver earnings after take</span><span>₦8,676</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Driver weekly earnings (5 days)</span><span>₦43,380</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;font-weight:700"><span>Driver monthly earnings (20 days)</span><span>₦173,520</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Car owner earnings after take</span><span>₦8,676</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Car owner weekly earnings (5 days)</span><span>₦43,380</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;font-weight:700"><span>Car owner monthly earnings (20 days)</span><span>₦173,520</span></div>
       </div>
       <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/pax-ikorodu.png" alt="Conductor app screen"></div></div></div>
       <div style="display:flex;flex-direction:column;gap:20px">
@@ -93,13 +93,13 @@ export const MODEL = `
         <div><strong style="color:#211A14">Same supply.</strong> Vehicles already on the road.</div>
         <div><strong style="color:#211A14">Zero marginal cost.</strong> Fuel already spent on the commute.</div>
         <div><strong style="color:#211A14">Complementary peaks.</strong> Rides peak at rush hour; deliveries fill midday.</div>
-        <div><strong style="color:#211A14">Cross-sell.</strong> Drivers earn 15–25% more per day at about 2× utilisation.</div>
+        <div><strong style="color:#211A14">Cross-sell.</strong> Car owners earn 15–25% more per day at about 2× utilisation.</div>
       </div>
     </div>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;border-top:1px solid #ECDFCE;padding-top:28px">
     <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Monthly rider subscription</strong>Unlimited routes on a single fee for the heaviest commuters.</div>
-    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Driver credit products</strong>Fuel, maintenance and vehicle acquisition, underwritten by ledger history. Later.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Car owner credit products</strong>Fuel, maintenance and vehicle acquisition, underwritten by ledger history. Later.</div>
   </div>
 </section>
 `;

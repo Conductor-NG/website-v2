@@ -51,7 +51,7 @@ export const OVERVIEW = `
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
         <div style="border-top:2px solid #EE4643;padding-top:14px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:34px;line-height:1">₦4tn</div><div style="font-size:14px;color:#6B5D4E;margin-top:6px;line-height:1.4">annual productivity loss to congestion · LAMATA, World Bank</div></div>
         <div style="border-top:2px solid #EE4643;padding-top:14px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:34px;line-height:1">&gt;40%</div><div style="font-size:14px;color:#6B5D4E;margin-top:6px;line-height:1.4">of monthly income spent on transport · Bureau of Statistics</div></div>
-        <div style="border-top:2px solid #EE4643;padding-top:14px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:34px;line-height:1">1 per car</div><div style="font-size:14px;color:#6B5D4E;margin-top:6px;line-height:1.4">most private cars carry only the driver at peak · LAMATA surveys</div></div>
+        <div style="border-top:2px solid #EE4643;padding-top:14px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:34px;line-height:1">1 per car</div><div style="font-size:14px;color:#6B5D4E;margin-top:6px;line-height:1.4">most private cars carry only one person at peak · LAMATA surveys</div></div>
       </div>
     </div>
     <img src="/deck/images/illust-bus-with-conductor.png" alt="Crowded Lagos bus" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px">

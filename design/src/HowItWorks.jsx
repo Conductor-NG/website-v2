@@ -17,7 +17,7 @@ const STAGES=[
    p:13,d:17,
    split:[['Passenger','Chooses the exact seat they’ll travel in — held on payment.'],['Car owner','Opens the seats to sell, and locks any they’re keeping.']]},
   {n:'Stage three',t:'You choose the car, and see who you’ll ride with',
-   b:'Filter by vehicle — saloon, SUV or bus — before you look at a single driver, so comfort and air conditioning are a choice, not a hope. You also see exactly who else is aboard: every passenger is verified, and the car owner can open or close individual seats to shape who joins the trip.',
+   b:'Filter by vehicle — saloon, SUV or bus — before you look at a single car owner, so comfort and air conditioning are a choice, not a hope. You also see exactly who else is aboard: every passenger is verified, and the car owner can open or close individual seats to shape who joins the trip.',
    p:3,d:3,
    split:[['Passenger','Picks the vehicle, then sees who else is in the car.'],['Car owner','Opens or closes seats and reviews each passenger.']]},
   {n:'Stage four',t:'Nobody is ever assigned to anybody',
@@ -26,8 +26,8 @@ const STAGES=[
   {n:'Stage five',t:'A seat costs a fraction of the whole car',
    b:'A journey has one cost. Divide it between the people travelling and each pays a share rather than the full fare — three seats sharing is roughly a third each of what that trip would cost alone. The passenger sees exactly what their seat costs; the car owner sees what the whole trip earns. The app prices it for the route and locks it at booking.',
    p:11,d:12},
-  {n:'Stage six',t:'You pay for the week; drivers are paid trip by trip',
-   b:'Add your week and you pay for all of it at once, so nobody counts notes at a junction — but the money sits in escrow, not with the driver. Each car owner is paid only after their own trip runs. And any day that does not happen — you suspend it, or the car owner does — is refunded to you in full.',
+  {n:'Stage six',t:'You pay for the week; car owners are paid trip by trip',
+   b:'Add your week and you pay for all of it at once, so nobody counts notes at a junction — but the money sits in escrow, not with the car owner. Each car owner is paid only after their own trip runs. And any day that does not happen — you suspend it, or the car owner does — is refunded to you in full.',
    p:8,d:13,
    split:[['Passenger','Each day shows as paid, suspended or refunded.'],['Car owner','Watches the escrow fill, and release one trip at a time.']]},
   {n:'Stage seven',t:'The journey, and where you meet',
@@ -45,7 +45,7 @@ const WHY=[
   ['naira','Spend a fraction of what you spend now','A seat costs a share of a journey, not the price of a whole car. For most people that is the single biggest monthly saving available to them.'],
   ['clock','Arrive at a time you can plan around','Trips are scheduled the day before, not summoned in the rain. You know who is driving, when they leave, and what it costs, before the morning starts.'],
   ['users','Travel with people, not strangers','Corridors settle into regulars. Within a fortnight most people are riding with the same two or three faces — and inside a community, people from their own workplace or estate.'],
-  ['shield','Take the guesswork out of your commute','No bus that never comes, no fare argued in the rain, no danfo that changes its route on a whim. You know the car, the driver, the time and the price the night before — the unpredictability of public transport is gone from your daily commute.']
+  ['shield','Take the guesswork out of your commute','No bus that never comes, no fare argued in the rain, no danfo that changes its route on a whim. You know the car, the car owner, the time and the price the night before — the unpredictability of public transport is gone from your daily commute.']
 ];
 
 /* Money-flow: alternating pax (left) ↔ car owner (right), the phone in the middle.
@@ -145,7 +145,7 @@ function HowItWorks(){
 
       <section className="sec"><div className="wrap">
         <SHead eyebrow="Money, in detail" title={<>Follow one week of fares <em>across the car</em>.</>}
-          lede="The money never jumps straight from passenger to driver. It moves a step at a time — into escrow, out per trip, back on a refund. Read it from the passenger on the left, through the app, to the car owner on the right."/>
+          lede="The money never jumps straight from passenger to car owner. It moves a step at a time — into escrow, out per trip, back on a refund. Read it from the passenger on the left, through the app, to the car owner on the right."/>
         <div className="mflow">
           <div className="mflow__phone" style={{gridRow:'1 / span '+MFLOW.length}}>
             <div className="mflow__phinner">
