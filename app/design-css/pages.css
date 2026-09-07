@@ -168,7 +168,7 @@
 
 /* ---------- how it works: dual phones ---------- */
 .htw{display:grid;grid-template-columns:1fr 1.12fr 1fr;gap:clamp(18px,2.6vw,44px);align-items:start;position:relative}
-.htw__col{position:sticky;top:104px;display:grid;gap:14px;justify-items:center}
+.htw__col{position:sticky;top:132px;display:grid;gap:14px;justify-items:center}
 .htw__lb{display:inline-flex;align-items:center;gap:8px;font:var(--type-label-md);letter-spacing:.09em;text-transform:uppercase;color:var(--fg-3);padding:7px 14px;border:1px solid var(--outline);border-radius:var(--radius-pill);background:#fff}
 .htw__lb i{width:7px;height:7px;border-radius:99px;display:block}
 .htw__mid{display:grid}
@@ -184,7 +184,7 @@
 .htw__sr span{font:var(--type-body-md);color:var(--fg-2);line-height:1.5}
 .htw__sr b{color:var(--fg-1);font-weight:600}
 .htw__ph{display:none;gap:14px;justify-content:center;padding-top:10px}
-.htw__prog{position:sticky;top:88px;z-index:5;display:flex;gap:5px;padding:14px 0;background:linear-gradient(to bottom,var(--white) 62%,transparent)}
+.htw__prog{position:sticky;top:92px;z-index:5;display:flex;gap:5px;padding:14px 0;background:linear-gradient(to bottom,var(--white) 62%,transparent)}
 .htw__prog i{flex:1;height:3px;border-radius:99px;background:var(--divider);transition:background .35s}
 .htw__prog i[data-on="1"]{background:var(--orange-base)}
 
