@@ -675,7 +675,7 @@ function PScrSchedule(){
             React.createElement(T,{t:'label-md',c:st==='done'?'var(--success-90)':'var(--fg-2)'},d)),
           React.createElement('div',{style:{flex:1,display:'grid',gap:1}},
             React.createElement(T,{t:'body-md',c:'var(--fg-1)'},r),
-            React.createElement(T,{t:'body-sm',c:st==='done'?'var(--success-90)':'var(--fg-3)'},st==='done'?'Released to driver':'Held in escrow')),
+            React.createElement(T,{t:'body-sm',c:st==='done'?'var(--success-90)':'var(--fg-3)'},st==='done'?'Released to car owner':'Held in escrow')),
           React.createElement(T,{t:'title-sm',c:'var(--fg-1)'},p)))),
       React.createElement(Row,{style:{gap:8}},
         React.createElement(Icon,{name:'check',size:14,color:'var(--success-base)'}),
@@ -1466,7 +1466,7 @@ const STAGES=[
    p:13,d:17,
    split:[['Passenger','Chooses the exact seat they’ll travel in — held on payment.'],['Car owner','Opens the seats to sell, and locks any they’re keeping.']]},
   {n:'Stage three',t:'You choose the car, and see who you’ll ride with',
-   b:'Filter by vehicle — saloon, SUV or bus — before you look at a single driver, so comfort and air conditioning are a choice, not a hope. You also see exactly who else is aboard: every passenger is verified, and the car owner can open or close individual seats to shape who joins the trip.',
+   b:'Filter by vehicle — saloon, SUV or bus — before you look at a single car owner, so comfort and air conditioning are a choice, not a hope. You also see exactly who else is aboard: every passenger is verified, and the car owner can open or close individual seats to shape who joins the trip.',
    p:3,d:3,
    split:[['Passenger','Picks the vehicle, then sees who else is in the car.'],['Car owner','Opens or closes seats and reviews each passenger.']]},
   {n:'Stage four',t:'Nobody is ever assigned to anybody',
@@ -1475,8 +1475,8 @@ const STAGES=[
   {n:'Stage five',t:'A seat costs a fraction of the whole car',
    b:'A journey has one cost. Divide it between the people travelling and each pays a share rather than the full fare — three seats sharing is roughly a third each of what that trip would cost alone. The passenger sees exactly what their seat costs; the car owner sees what the whole trip earns. The app prices it for the route and locks it at booking.',
    p:11,d:12},
-  {n:'Stage six',t:'You pay for the week; drivers are paid trip by trip',
-   b:'Add your week and you pay for all of it at once, so nobody counts notes at a junction — but the money sits in escrow, not with the driver. Each car owner is paid only after their own trip runs. And any day that does not happen — you suspend it, or the car owner does — is refunded to you in full.',
+  {n:'Stage six',t:'You pay for the week; car owners are paid trip by trip',
+   b:'Add your week and you pay for all of it at once, so nobody counts notes at a junction — but the money sits in escrow, not with the car owner. Each car owner is paid only after their own trip runs. And any day that does not happen — you suspend it, or the car owner does — is refunded to you in full.',
    p:8,d:13,
    split:[['Passenger','Each day shows as paid, suspended or refunded.'],['Car owner','Watches the escrow fill, and release one trip at a time.']]},
   {n:'Stage seven',t:'The journey, and where you meet',
@@ -1494,7 +1494,7 @@ const WHY=[
   ['naira','Spend a fraction of what you spend now','A seat costs a share of a journey, not the price of a whole car. For most people that is the single biggest monthly saving available to them.'],
   ['clock','Arrive at a time you can plan around','Trips are scheduled the day before, not summoned in the rain. You know who is driving, when they leave, and what it costs, before the morning starts.'],
   ['users','Travel with people, not strangers','Corridors settle into regulars. Within a fortnight most people are riding with the same two or three faces — and inside a community, people from their own workplace or estate.'],
-  ['shield','Take the guesswork out of your commute','No bus that never comes, no fare argued in the rain, no danfo that changes its route on a whim. You know the car, the driver, the time and the price the night before — the unpredictability of public transport is gone from your daily commute.']
+  ['shield','Take the guesswork out of your commute','No bus that never comes, no fare argued in the rain, no danfo that changes its route on a whim. You know the car, the car owner, the time and the price the night before — the unpredictability of public transport is gone from your daily commute.']
 ];
 
 /* Money-flow: alternating pax (left) ↔ car owner (right), the phone in the middle.
@@ -1594,7 +1594,7 @@ function HowItWorks(){
 
       <section className="sec"><div className="wrap">
         <SHead eyebrow="Money, in detail" title={<>Follow one week of fares <em>across the car</em>.</>}
-          lede="The money never jumps straight from passenger to driver. It moves a step at a time — into escrow, out per trip, back on a refund. Read it from the passenger on the left, through the app, to the car owner on the right."/>
+          lede="The money never jumps straight from passenger to car owner. It moves a step at a time — into escrow, out per trip, back on a refund. Read it from the passenger on the left, through the app, to the car owner on the right."/>
         <div className="mflow">
           <div className="mflow__phone" style={{gridRow:'1 / span '+MFLOW.length}}>
             <div className="mflow__phinner">
@@ -1654,11 +1654,11 @@ const SAFE_ALL=[
     ['Road incidents & live traffic','Community-reported incidents and live traffic along your route.'],
     ['GPS-verified pick-up & drop-off','The trip is checked against where it actually happened.']]],
   ['After the trip','star','Accountability that compounds',[
-    ['Reviews of every passenger and driver','Both sides rated after each trip — scores can’t be bought or reset.'],
+    ['Reviews of every passenger and car owner','Both sides rated after each trip — scores can’t be bought or reset.'],
     ['Feedback with voice notes','Detailed feedback, including a voice note, not just a star.'],
     ['Raise a complaint','An issue for a trip — for yourself, or several parties in the same car.'],
     ['GPS-adjudicated disputes','Settled against the trip’s real location record.'],
-    ['Your money is protected','The driver is paid only after the trip runs — until then we hold it, and refund you for anything that does not happen.']]],
+    ['Your money is protected','The car owner is paid only after the trip runs — until then we hold it, and refund you for anything that does not happen.']]],
   ['Behind the scenes','eye','The platform itself',[
     ['Bans and suspensions','Repeat offenders barred at the identity level, with a fair appeals process.'],
     ['No cash at the roadside','Every fare moves through escrow — nothing handed over in the car.'],
@@ -1680,7 +1680,7 @@ function SafetyNew(){
 
       <section style={{paddingBottom:'clamp(40px,5vw,64px)'}}><div className="wrap">
         <VRow items={[
-          ['01','Nobody is anonymous','Identity is verified on both sides before a first trip. No anonymous seats, no anonymous drivers.'],
+          ['01','Nobody is anonymous','Identity is verified on both sides before a first trip. No anonymous seats, no anonymous car owners.'],
           ['02','Both sides choose','Passengers request; car owners approve. Either can decline, at any point, without a reason.'],
           ['03','Everything runs both ways','Verification, ratings, SOS, the right to suspend — the passenger and the car owner get the same tools.'],
           ['04','On every single trip','Nothing here is an upgrade. Every safeguard ships with every journey, for free.']]}/>
@@ -1720,7 +1720,7 @@ function SafetyNew(){
 
       <section className="sec"><div className="wrap">
         <div className="trustband">
-          {[['shield','Your money is always safe','The driver is not paid up front — we hold every fare and release it only after your trip has run. Anything that does not happen is refunded to you in full.'],
+          {[['shield','Your money is always safe','The car owner is not paid up front — we hold every fare and release it only after your trip has run. Anything that does not happen is refunded to you in full.'],
             ['alert','Either side can suspend','End a journey that has become unsafe or unworkable, with no penalty on either side.'],
             ['users','A conduct code both sign','Clear rules on behaviour, cancellation and disputes — and a team that acts on reports.']]
             .map(([ic,t,b],i)=>
@@ -1996,7 +1996,7 @@ function CorridorDetail(){
 const PILLARS=[
   ['spark','Fewer cars, for the same number of people','A car carrying one person and a car carrying four take up identical road space. Every seat we fill is a vehicle that did not need to make the journey — less fuel burned, less exhaust, and fewer cars in the queue everyone else is sitting in.'],
   ['naira','A commute that stops eating a salary','Transport is one of the largest recurring costs a working household carries. Splitting a journey between the seats in the car turns that cost into a fraction of itself, every single working day, without anybody changing where they live or work.'],
-  ['clock','The end of the daily negotiation','Scheduled trips remove the part of commuting that exhausts people: the standing, the haggling, the not knowing whether you will arrive. You know the car, the driver, the departure and the cost the night before.'],
+  ['clock','The end of the daily negotiation','Scheduled trips remove the part of commuting that exhausts people: the standing, the haggling, the not knowing whether you will arrive. You know the car, the car owner, the departure and the cost the night before.'],
   ['wallet','A car that pays for its own running','Most private cars are the second most expensive thing their owner will buy and they spend the journey almost empty. Sharing the seats that were already travelling turns a pure cost into something that substantially covers itself.'],
   ['users','Commuting as something social','People who share a corridor become regulars, then acquaintances. Inside a community — a workplace, an estate, a campus — they were never strangers to begin with.'],
   ['shield','Accountability in both directions','Verified identity on both sides, ratings that run both ways, and safeguards available to everyone in the car. Trust is the product; the seats are just how it is delivered.']
@@ -2195,7 +2195,7 @@ const QGROUPS={
   passenger:{label:'Passengers',items:[
     ['What exactly is carpooling on Conductor?','Several people travelling the same way at the same time share one car instead of taking several. The car owner was making the journey regardless; you take one of the seats that would otherwise have travelled empty, and the cost of that journey is split between everyone in it.'],
     ['Can the fare change after I book?','No. The car owner sets a price per seat when they publish the trip, and it locks the moment you request the seat. There is no surge multiplier anywhere in the product — not at rush hour, not in the rain, not on a Friday evening.'],
-    ['Can I choose what kind of car I ride in?','Yes, and it is the flexibility most people notice first. Filter by saloon, SUV or bus before you look at a single driver, so comfort, air conditioning and boot space are a decision rather than a hope.'],
+    ['Can I choose what kind of car I ride in?','Yes, and it is the flexibility most people notice first. Filter by saloon, SUV or bus before you look at a single car owner, so comfort, air conditioning and boot space are a decision rather than a hope.'],
     ['Do I have to ride with strangers?','Only the first time. Most passengers settle into a handful of car owners on their route and travel with the same two or three people every week. Inside a community — a workplace, an estate, a campus — they were never strangers at all.'],
     ['How is this different from a hailing app?','A hailing app sends a driver to you and charges you for the whole car. Conductor is a scheduling platform: you book a seat in advance on a journey that was already going to happen, and pay a share of it rather than the price of a private trip.'],
     ['What if the car owner cancels?','Your money never leaves escrow until the trip is complete, so a cancellation returns it in full. You can also see the other trips published on your route for that morning without starting a new search.'],
@@ -2211,7 +2211,7 @@ const QGROUPS={
     ['What if a passenger does not show up?','Their fare is already in escrow, so a no-show does not cost you the trip. Repeat no-shows affect a passenger’s rating and, eventually, their access to the platform.'],
     ['Does this add much time to my commute?','Only if you let it. Matching is by route, never by detour, and the meeting point is agreed on the road you already drive. Most car owners add five minutes or less.']]},
   money:{label:'Payment & refunds',items:[
-    ['How does paying for a week of trips work?','When you add trips to your schedule you pay for all of them together, so the commute is settled in advance rather than transacted every morning. The full amount goes into escrow, not to any driver.'],
+    ['How does paying for a week of trips work?','When you add trips to your schedule you pay for all of them together, so the commute is settled in advance rather than transacted every morning. The full amount goes into escrow, not to any car owner.'],
     ['When does a car owner actually receive the money?','After their own trip is completed — per trip, not per week. Monday’s journey releases Monday’s fare; Friday’s is still held until Friday has happened.'],
     ['What happens if a trip does not go ahead?','It is refunded to you in full. That applies whether you cancelled, the car owner cancelled, or the trip was suspended part-way. Nothing that did not happen stays paid for.'],
     ['If a passenger cancels, does the car owner still get paid?','It depends on when. A passenger who suspends or cancels in good time is refunded, and the car owner is not paid for that seat that day. One who cancels too late, or simply does not show, still pays — the seat was held and the journey ran. The cut-off protects whoever plans ahead, on either side.'],
@@ -2221,7 +2221,7 @@ const QGROUPS={
     ['Can I pay cash?','Payment runs through the app so that escrow, refunds and dispute handling all work — and so nobody is counting notes at a junction in morning traffic.']]},
   safety:{label:'Safety & account',items:[
     ['What do I need to sign up?','A phone number and a verified identity — NIN or government ID — on both sides. Car owners additionally provide a driver’s licence, vehicle registration, insurance and a current roadworthiness certificate.'],
-    ['Are passengers verified as well as drivers?','Yes. A car owner is letting someone into their own vehicle, so verification has to run in both directions for the product to work at all.'],
+    ['Are passengers verified as well as car owners?','Yes. A car owner is letting someone into their own vehicle, so verification has to run in both directions for the product to work at all.'],
     ['What if I feel unsafe during a trip?','Hold SOS, on any screen. Your live location goes to emergency services, your trusted contacts and our safety team at once, with the trip details attached. Short of an emergency, either side can suspend the trip — it ends there, and the fare position is resolved afterwards rather than at the roadside.'],
     ['Can a car owner suspend a trip too?','Yes, and without penalty. Ending a journey that has become unsafe or unworkable is treated as the right call, not a breach.'],
     ['What are communities?','Groups built around a workplace, estate, campus or association. Trips posted inside one are visible only to its members, and a car owner can restrict their seats to it. Anyone can create one or ask to join.'],
@@ -2373,8 +2373,8 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ['h2','2 · What We Collect'],
   ['p','The following categories of information are collected:'],
   ['ol',[
-    <><b>Registration &amp; profile data:</b> name, date of birth, phone number, email, gender (where declared), photograph, password (hashed), preferred language, initial role (Passenger or Driver), and occupation category (optional).</>,
-    <><b>Identity-verification data:</b> NIN and NIN-verification records; for Drivers, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
+    <><b>Registration &amp; profile data:</b> name, date of birth, phone number, email, gender (where declared), photograph, password (hashed), preferred language, initial role (Passenger or Car Owner), and occupation category (optional).</>,
+    <><b>Identity-verification data:</b> NIN and NIN-verification records; for Car Owners, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
     <><b>Trip &amp; usage data:</b> Bookings, Trips published, Trip-Days completed, cancellations, ratings, chat messages, service-recovery credits and referrals.</>,
     <><b>Location data:</b> pickup and drop-off coordinates, live GPS during a Trip, and area-level home / work coordinates captured during onboarding (see clause 6).</>,
     <><b>Financial data:</b> Wallet balances, transaction history, bank-account details submitted for withdrawals, and tokenised card details as held by payment processors.</>,
@@ -2394,14 +2394,14 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ['h2','4 · Legal Bases (NDPA)'],
   ['p','Processing relies on one or more of the following lawful bases under the NDPA:'],
   ['ol',[
-    <><b>Contract</b> — processing necessary to perform services to users (e.g. matching Passengers with Drivers, processing payments).</>,
+    <><b>Contract</b> — processing necessary to perform services to users (e.g. matching Passengers with Car Owners, processing payments).</>,
     <><b>Legal obligation</b> — processing required by Nigerian law (e.g. VAT, KYC / identity verification, responding to lawful orders).</>,
     <><b>Legitimate interests</b> — where processing is necessary for Conductor’s or a third party’s legitimate interests and not overridden by user rights and freedoms (e.g. fraud prevention, Platform integrity, research and product improvement using aggregated data).</>,
     <><b>Consent</b> — where specifically requested (e.g. certain marketing communications, background-location tracking outside a Trip window).</>,
     <><b>Vital interests</b> — where processing is necessary to protect the life or physical safety of any person (e.g. SOS activations).</>]],
   ['h2','5 · Who We Share With'],
   ['ol',[
-    <><b>Other Users, on a need-to-know basis:</b> a Driver receives the Passenger’s first name, rating, and pickup / drop-off; a Passenger receives the Driver’s first name, rating, and Vehicle’s make / model / plate (partially masked in some contexts). Full identity documents, home / work coordinates, or unmasked phone numbers are not shared between Users.</>,
+    <><b>Other Users, on a need-to-know basis:</b> a Car Owner receives the Passenger’s first name, rating, and pickup / drop-off; a Passenger receives the Car Owner’s first name, rating, and Vehicle’s make / model / plate (partially masked in some contexts). Full identity documents, home / work coordinates, or unmasked phone numbers are not shared between Users.</>,
     <><b>Service providers</b> under written contract and confidentiality obligations, including cloud hosting, payment processing (Paystack), mapping (Google Maps & Places), notification orchestration (Novu, WhatsApp / Meta), identity verification (QoreID, VerifyMe), analytics, and customer-support tooling.</>,
     <><b>Regulators, courts, and law-enforcement agencies</b> where required by law, court order, or valid regulatory demand, or where there is good-faith belief that disclosure is necessary to prevent harm, fraud, or a violation of law.</>,
     <><b>Corporate transactions</b> — in the event of a merger, acquisition, financing, insolvency, or sale of assets, information may be transferred to the counterparty, subject to appropriate protections.</>,
@@ -2416,9 +2416,9 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ['h2','7 · National Identification Number (NIN)'],
   ['p','The following notice supplements this Policy in relation to NIN specifically, and forms part of it.'],
   ['ol',[
-    <><b>Identity verification.</b> NIN is used to confirm that the registered identity is genuine and belongs to the user. This helps confirm the identity of both Drivers and Passengers and prevents the use of false, stolen, or fraudulent identities.</>,
+    <><b>Identity verification.</b> NIN is used to confirm that the registered identity is genuine and belongs to the user. This helps confirm the identity of both Car Owners and Passengers and prevents the use of false, stolen, or fraudulent identities.</>,
     <><b>Safety and security.</b> NIN verification forms part of safety measures. It supports accountability, deters misconduct, and protects the community from fraudulent or harmful activity.</>,
-    <><b>Driver and Passenger authentication.</b> For Drivers, NIN verification is part of onboarding and due diligence to ensure that only properly identified individuals provide transportation services on the Platform. For Passengers, NIN verification reduces impersonation and promotes trust between all Users.</>,
+    <><b>Car Owner and Passenger authentication.</b> For Car Owners, NIN verification is part of onboarding and due diligence to ensure that only properly identified individuals provide transportation services on the Platform. For Passengers, NIN verification reduces impersonation and promotes trust between all Users.</>,
     <><b>Fraud prevention and investigation.</b> NIN may be used to detect, prevent, investigate, and respond to fraud, identity theft, abuse of the Platform, or other activities that violate the Terms or applicable law.</>,
     <><b>Legal and regulatory compliance.</b> NIN may be processed to comply with applicable laws, lawful requests from competent authorities, and other requirements imposed by relevant governmental agencies.</>,
     <><b>Protection.</b> NIN is treated as sensitive personal information with reasonable administrative, technical, and organisational measures to protect it against unauthorised access, disclosure, alteration, misuse, or loss. Access is restricted to authorised personnel and trusted service providers who require it to perform verification, security, or compliance functions and are bound by confidentiality and data-protection obligations.</>,
@@ -2623,7 +2623,7 @@ function CareersPage(){
   useReveal();
   const roles=[
     ['Engineering','Mobile & platform engineers','React Native, NestJS, Postgres. You will own real surfaces end to end — booking, escrow, live trips — not tickets in a queue.'],
-    ['Operations','City & driver operations','Onboard car owners, run the morning corridors, and turn what happens on the road into product. Lagos-based, on the ground.'],
+    ['Operations','City & car owner operations','Onboard car owners, run the morning corridors, and turn what happens on the road into product. Lagos-based, on the ground.'],
     ['Trust & Safety','Safety investigators','Work the incident and dispute queue with GPS, chat and attendance evidence. Calm judgement under real stakes.'],
     ['Design','Product designer','One designer’s decisions reach every commuter. Systems thinking, a strong bar for craft, and comfort shipping weekly.']];
   return (<>

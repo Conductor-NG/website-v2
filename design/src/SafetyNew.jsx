@@ -31,11 +31,11 @@ const SAFE_ALL=[
     ['Road incidents & live traffic','Community-reported incidents and live traffic along your route.'],
     ['GPS-verified pick-up & drop-off','The trip is checked against where it actually happened.']]],
   ['After the trip','star','Accountability that compounds',[
-    ['Reviews of every passenger and driver','Both sides rated after each trip — scores can’t be bought or reset.'],
+    ['Reviews of every passenger and car owner','Both sides rated after each trip — scores can’t be bought or reset.'],
     ['Feedback with voice notes','Detailed feedback, including a voice note, not just a star.'],
     ['Raise a complaint','An issue for a trip — for yourself, or several parties in the same car.'],
     ['GPS-adjudicated disputes','Settled against the trip’s real location record.'],
-    ['Your money is protected','The driver is paid only after the trip runs — until then we hold it, and refund you for anything that does not happen.']]],
+    ['Your money is protected','The car owner is paid only after the trip runs — until then we hold it, and refund you for anything that does not happen.']]],
   ['Behind the scenes','eye','The platform itself',[
     ['Bans and suspensions','Repeat offenders barred at the identity level, with a fair appeals process.'],
     ['No cash at the roadside','Every fare moves through escrow — nothing handed over in the car.'],
@@ -57,7 +57,7 @@ function SafetyNew(){
 
       <section style={{paddingBottom:'clamp(40px,5vw,64px)'}}><div className="wrap">
         <VRow items={[
-          ['01','Nobody is anonymous','Identity is verified on both sides before a first trip. No anonymous seats, no anonymous drivers.'],
+          ['01','Nobody is anonymous','Identity is verified on both sides before a first trip. No anonymous seats, no anonymous car owners.'],
           ['02','Both sides choose','Passengers request; car owners approve. Either can decline, at any point, without a reason.'],
           ['03','Everything runs both ways','Verification, ratings, SOS, the right to suspend — the passenger and the car owner get the same tools.'],
           ['04','On every single trip','Nothing here is an upgrade. Every safeguard ships with every journey, for free.']]}/>
@@ -97,7 +97,7 @@ function SafetyNew(){
 
       <section className="sec"><div className="wrap">
         <div className="trustband">
-          {[['shield','Your money is always safe','The driver is not paid up front — we hold every fare and release it only after your trip has run. Anything that does not happen is refunded to you in full.'],
+          {[['shield','Your money is always safe','The car owner is not paid up front — we hold every fare and release it only after your trip has run. Anything that does not happen is refunded to you in full.'],
             ['alert','Either side can suspend','End a journey that has become unsafe or unworkable, with no penalty on either side.'],
             ['users','A conduct code both sign','Clear rules on behaviour, cancellation and disputes — and a team that acts on reports.']]
             .map(([ic,t,b],i)=>

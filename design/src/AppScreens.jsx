@@ -353,7 +353,7 @@ function PScrSchedule(){
             React.createElement(T,{t:'label-md',c:st==='done'?'var(--success-90)':'var(--fg-2)'},d)),
           React.createElement('div',{style:{flex:1,display:'grid',gap:1}},
             React.createElement(T,{t:'body-md',c:'var(--fg-1)'},r),
-            React.createElement(T,{t:'body-sm',c:st==='done'?'var(--success-90)':'var(--fg-3)'},st==='done'?'Released to driver':'Held in escrow')),
+            React.createElement(T,{t:'body-sm',c:st==='done'?'var(--success-90)':'var(--fg-3)'},st==='done'?'Released to car owner':'Held in escrow')),
           React.createElement(T,{t:'title-sm',c:'var(--fg-1)'},p)))),
       React.createElement(Row,{style:{gap:8}},
         React.createElement(Icon,{name:'check',size:14,color:'var(--success-base)'}),

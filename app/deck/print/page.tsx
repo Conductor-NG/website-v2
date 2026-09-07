@@ -230,8 +230,8 @@ const COMP_ROWS: { label: string; cells: [string, string][] }[] = [
 
 // Failure modes (why-now) --------------------------------------------------
 const FAILURES: [string, string][] = [
-  ["Passenger no-show", "Driver still paid — settlement router charges NO_SHOW and CANCEL_LATE alongside completed rides"],
-  ["Driver no-start", "Full refund cascade through per-component escrows; disputes auto-open with GPS evidence"],
+  ["Passenger no-show", "Car owner still paid — settlement router charges NO_SHOW and CANCEL_LATE alongside completed rides"],
+  ["Car owner no-start", "Full refund cascade through per-component escrows; disputes auto-open with GPS evidence"],
   ["Payment dispute", "26-hour window, GPS-adjudicated, append-only investigation timeline"],
   ["Physical altercation on board", "Incident logging, banned-identity registry, community road-incident feed"],
   ["Lost item", "In-app claim, roster-based accountability, dispute case file for admin resolution"],
@@ -362,7 +362,7 @@ export default function DeckPrint() {
               {[
                 ["₦4tn", "annual productivity loss to congestion · LAMATA, World Bank"],
                 [">40%", "of monthly income spent on transport · Bureau of Statistics"],
-                ["1 per car", "most private cars carry only the driver at peak · LAMATA surveys"],
+                ["1 per car", "most private cars carry only one person at peak · LAMATA surveys"],
               ].map(([n, l]) => (
                 <div key={l} style={{ borderTop: `2px solid ${RED}`, paddingTop: 14 }}>
                   <div style={{ ...serif, fontSize: 32, lineHeight: 1 }}>{n}</div>
@@ -436,13 +436,13 @@ export default function DeckPrint() {
         title="The passenger experience, in four screens."
       >
         <p style={{ fontSize: 15, lineHeight: 1.5, color: BODY, margin: "0 0 14px", maxWidth: 980 }}>
-          Booking a week of commutes takes about 90 seconds. No surge pricing, no mid-trip cancellations. Same driver,
+          Booking a week of commutes takes about 90 seconds. No surge pricing, no mid-trip cancellations. Same car owner,
           same seat, same route, five mornings running.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
           {[
             ["/deck/images/pax-01-map.png", "1 Discover", "Real Lagos map. Every published commute near you, with departure time and duration."],
-            ["/deck/images/pax-02-results.png", "2 Compare", "Recurring Mon–Fri day chips. Per-day fare, verified drivers, ratings, seat count."],
+            ["/deck/images/pax-02-results.png", "2 Compare", "Recurring Mon–Fri day chips. Per-day fare, verified car owners, ratings, seat count."],
             ["/deck/images/pax-03-ownerprofile.png", "3 Trust", "Documents verified. Pick your car owner and see the seat roster before you commit."],
             ["/deck/images/pax-livetrip.png", "4 Ride", "The ride, happening live. Track it, share it with family, arrive together."],
           ].map(([src, h, cap]) => (
@@ -550,7 +550,7 @@ export default function DeckPrint() {
             <p style={{ fontSize: 16, lineHeight: 1.55, color: BODY, margin: 0 }}>
               Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work
               economically, and what on-demand hailing never captured. It is why a trip must run at least three days a
-              week: that is where poolable demand begins, and where a driver–passenger pair becomes a weekly recurring
+              week: that is where poolable demand begins, and where a car owner–passenger pair becomes a weekly recurring
               revenue stream.
             </p>
             <p style={{ ...serif, fontSize: 22, lineHeight: 1.3, color: MUTED, margin: 0 }}>
@@ -649,7 +649,7 @@ export default function DeckPrint() {
         title="A 10% take on every ride. Held in escrow. Released weekly."
       >
         <p style={{ fontSize: 17, lineHeight: 1.55, color: BODY, margin: "0 0 22px", maxWidth: 1000 }}>
-          10% on the rider fare plus 10% on driver earnings — roughly ₦360 on a ₦1,500 average fare. No surge, no dynamic
+          10% on the rider fare plus 10% on car owner earnings — roughly ₦360 on a ₦1,500 average fare. No surge, no dynamic
           markup, no hidden fees.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
@@ -657,14 +657,14 @@ export default function DeckPrint() {
             <div style={{ fontSize: 20, fontWeight: 700 }}>How money moves</div>
             <p style={{ fontSize: 15, lineHeight: 1.5, color: BODY, margin: 0 }}>
               The passenger pays into escrow at booking. Money is held per trip-day until the ride week completes, then
-              released to the driver at week close. If a day does not happen, refunds are automatic and traceable to
+              released to the car owner at week close. If a day does not happen, refunds are automatic and traceable to
               their origin.
             </p>
           </div>
           <div style={{ ...cardLight, padding: 24, gap: 10 }}>
             <div style={{ fontSize: 20, fontWeight: 700 }}>What we take</div>
             <p style={{ fontSize: 15, lineHeight: 1.5, color: BODY, margin: 0 }}>
-              10% from each side of the transaction. The passenger sees the fare and the fee before booking; the driver
+              10% from each side of the transaction. The passenger sees the fare and the fee before booking; the car owner
               sees net earnings per ride, per week and per month in the app.
             </p>
           </div>
@@ -742,7 +742,7 @@ export default function DeckPrint() {
               ["Same supply.", "Vehicles already on the road."],
               ["Zero marginal cost.", "Fuel already spent on the commute."],
               ["Complementary peaks.", "Rides peak at rush hour; deliveries fill midday."],
-              ["Cross-sell.", "Drivers earn 15–25% more per day at ~2× utilisation."],
+              ["Cross-sell.", "Car owners earn 15–25% more per day at ~2× utilisation."],
             ].map(([b, t]) => (
               <div key={b} style={{ fontSize: 14, lineHeight: 1.45, color: BODY }}>
                 <strong style={{ color: INK }}>{b}</strong> {t}
@@ -769,9 +769,9 @@ export default function DeckPrint() {
               ["Net paid per passenger", "₦2,400", true, false],
               ["× 4 passengers per trip", "₦9,600", false, false],
               ["Conductor take (10% × 2 sides)", "₦960", true, true],
-              ["Driver earnings after take", "₦8,640", false, false],
-              ["Driver weekly earnings (5 days)", "₦43,200", false, false],
-              ["Driver monthly earnings (20 days)", "₦172,800", true, false],
+              ["Car owner earnings after take", "₦8,640", false, false],
+              ["Car owner weekly earnings (5 days)", "₦43,200", false, false],
+              ["Car owner monthly earnings (20 days)", "₦172,800", true, false],
             ].map(([l, v, bold, red], i, arr) => (
               <div
                 key={l as string}
@@ -821,8 +821,8 @@ export default function DeckPrint() {
             </p>
             <p style={{ fontSize: 15, lineHeight: 1.55, margin: 0, color: DIV }}>
               That discipline is what makes every carpooling arrangement work in Nigeria. Conductor is built on that
-              rule: the driver publishes his trip and commits to the route, the pickup point and the time — and the
-              passenger must be ready when he arrives. The app holds the passenger to that discipline, not the driver.
+              rule: the car owner publishes his trip and commits to the route, the pickup point and the time — and the
+              passenger must be ready when he arrives. The app holds the passenger to that discipline, not the car owner.
               Every design decision flows from this one principle.
             </p>
             <div style={{ fontSize: 15, color: "#D6C3B3" }}>Wale Shekoni, Founder</div>
@@ -843,9 +843,9 @@ export default function DeckPrint() {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 16, flex: 1, justifyContent: "center" }}>
           {[
-            ["1", "We flipped the role, and had to teach the flip", "Every Nigerian who has ordered a ride knows the script: passenger books, driver shows up. Conductor flips it — the driver publishes the trip, the passenger shows up. The MVP failed to teach the flip; V1 embeds the concept in the UI itself. We learned this on our own money, before spending an investor's."],
+            ["1", "We flipped the role, and had to teach the flip", "Every Nigerian who has ordered a ride knows the script: passenger books, driver shows up. Conductor flips it — the car owner publishes the trip, the passenger shows up. The MVP failed to teach the flip; V1 embeds the concept in the UI itself. We learned this on our own money, before spending an investor's."],
             ["2", "Predictability over randomness", "Nigerians already carpool with ride-hailing — but only for parties and nights out. Random, weekend-peaked, no two rides alike. A repeatable Monday-through-Friday commute at a splittable price is unsolved. 74% of our users commute 3+ days a week; 52% head for the same Island cluster. That is the wedge — years in the making."],
-            ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no drivers and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 14 launches with the density for demand to convert on day one."],
+            ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no car owners and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 14 launches with the density for demand to convert on day one."],
           ].map(([n, h, pp]) => (
             <div key={n} style={{ ...cardLight, flexDirection: "row", gap: 20, padding: 20, alignItems: "flex-start" }}>
               <div style={{ ...serif, fontSize: 46, lineHeight: 1, color: RED, flex: "none", width: 50 }}>{n}</div>
@@ -868,7 +868,7 @@ export default function DeckPrint() {
           {[
             ["Bank-grade ledger", "Double-entry general ledger mirroring Temenos T24 architecture. Per-user, per-day, per-trip attribution — every naira traceable to source, holder and destination."],
             ["Escrow payment mechanics", "Passenger money held per trip-day, released only after service completion, with a 26-hour dispute window. Five-account per-component escrow model."],
-            ["GPS-adjudicated disputes", "Arguments settled by trip data and roster attendance, not customer-service opinion. Append-only timeline, five-occupant roster, driver/peer/self attestations."],
+            ["GPS-adjudicated disputes", "Arguments settled by trip data and roster attendance, not customer-service opinion. Append-only timeline, five-occupant roster, car owner/peer/self attestations."],
             ["Analytics + admin console", "User panel, ledger viewer, dispute case files, referral leaderboards, KPI dashboards. We can run A/B experiments on live users from day one."],
             ["Verified + banned-identity registry", "Bad actors cannot create new accounts and re-enter. Standard on paper, uncommon in practice."],
           ].map(([h, pp]) => (
@@ -895,7 +895,7 @@ export default function DeckPrint() {
       >
         <p style={{ fontSize: 14, lineHeight: 1.5, color: BODY, margin: "0 0 12px", maxWidth: 1050 }}>
           We are not turning on an untested system. <strong style={{ color: INK }}>50+ live trips</strong> completed
-          across multiple Lagos locations, ~100 passengers and 5 drivers — feedback that directly drove V1. Each
+          across multiple Lagos locations, ~100 passengers and 5 car owners — feedback that directly drove V1. Each
           response is product logic backed by the ledger, not a customer-service policy.
         </p>
         <div style={{ border: `1px solid ${DIV}`, borderRadius: 12, overflow: "hidden", background: "#fff" }}>
@@ -1287,7 +1287,7 @@ export default function DeckPrint() {
                 [RED, "Team salaries (12 months)", "$60k", "30%", "Cash salaries for the people running the app & company — eng, CS/onboarding, ops, marketing, finance. Market-rate balance deferred to equity"],
                 ["#E98B20", "Marketing and acquisition", "$65k", "32.5%", "Google, Meta & other ad platforms on the proven CPI; social influencers; passenger-side; Nigeria-wide roll-out; incl. advisory retainer"],
                 [INK, "Product and infrastructure", "$30k", "15%", "V1 Stabilization features, safety infra, admin tools, servers, Conductor Deliveries launch"],
-                ["#9F6010", "Ops and driver liquidity", "$20k", "10%", "Corridor launch team, driver incentives, onboarding follow-up"],
+                ["#9F6010", "Ops and car owner liquidity", "$20k", "10%", "Corridor launch team, car owner incentives, onboarding follow-up"],
                 [MUTED, "Legal, compliance, licensing", "$15k", "7.5%", "LASTMA, LAGRA and regulatory footings"],
                 [DIV, "Runway buffer", "$10k", "5%", "Contingency"],
               ].map(([c, cat, amt, pct, what], i, arr) => (
