@@ -60,10 +60,16 @@ const FOUNDERS: Record<string, Founder> = {
     last: "",
     role: "Co-founder",
     initial: "B",
-    lede: "Co-founder of Conductor.",
-    body: ["Profile coming soon."],
-    email: "admin@conductor.ng",
-    ready: false,
+    lede: "Transportation has been the constant — from Lagos's buses in 2019 to the seat beside you now.",
+    body: [
+      "I have spent my whole career in one place: where technology meets the way a city moves. In 2019 I was part of the team that started BusRide in Lagos — putting scheduled, trackable buses onto roads that had only ever known the danfo and the molue. We were trying to bring a little order to one of the most informal transport systems in the world.",
+      "BusRide taught me the lesson that still drives me: the hard part is never the app. It is the human system around it — the trust, the timing, the incentives, the thousand small ways people actually behave at a bus stop at 6am. Get the software to respect how Lagos already moves, and it works. Fight it, and it doesn't.",
+      "Conductor is that same lesson, applied to the car instead of the bus. The seats are already on the road every morning; the coordination is what's missing. That intersection — technology and transportation, and the messy human middle between them — is the only thing I have ever really wanted to work on. This is the clearest shot I have had at it.",
+    ],
+    quote:
+      "Lagos was never short of vehicles. It was short of coordination — and coordination is software.",
+    email: "bawo@conductor.ng",
+    ready: true,
   },
 };
 
