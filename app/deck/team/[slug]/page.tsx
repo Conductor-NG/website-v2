@@ -49,10 +49,16 @@ const FOUNDERS: Record<string, Founder> = {
     last: "",
     role: "Co-founder",
     initial: "D",
-    lede: "Co-founder of Conductor.",
-    body: ["Profile coming soon."],
-    email: "admin@conductor.ng",
-    ready: false,
+    lede: "Transportation runs through the whole path — a railway across northern Nigeria, a master's in AI, and the data behind one of the world's busiest transit systems.",
+    body: [
+      "I grew up in an estate in Abuja, driving out each morning past the same neighbours walking down our road toward the junction — waiting on a bus or a bike for the last stretch to work. I would give lifts to the ones I knew, three or four in the car, and watch the rest keep walking as I pulled away. I had empty seats. They needed seats. And there was nothing in between us.",
+      "Every step since has been about building what it takes to close that gap. I spent years as an engineer on the Mota-Engil Kano–Maradi railway — a $1.9 billion line laying new track across northern Nigeria — then went to Sussex for an MSc in Artificial Intelligence. Today I am a data analyst at Transport for London, inside a system that moves millions of people a day, learning exactly how one is run.",
+      "In September 2024, Wale and I brought Conductor together with the operating team we had spent years looking for. The gap I saw on that estate road — and the one Wale saw being flagged down on the Obalende bridge — is the same one Conductor is built to close: interest-based matching, so a shared ride is one people actually want to be in, and a weekly escrow that turns a one-off trip into a standing commuter relationship. We are building for Lagos first, and moving out from there.",
+    ],
+    quote:
+      "I had empty seats. They needed seats. And there was no system in between us.",
+    email: "dimeji@conductor.ng",
+    ready: true,
   },
   bawo: {
     name: "Bawo Maleghemi",
