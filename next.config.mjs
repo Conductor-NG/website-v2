@@ -25,6 +25,13 @@ const nextConfig = {
   // Headless-Chromium PDF generation (/api/deck/pdf) — keep these out of the
   // server bundle so @sparticuz/chromium can locate its binary at runtime.
   serverExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
+  // Externalizing keeps the JS out of the bundle, but Vercel's file tracing
+  // still drops the chromium binary (the bin/*.br brotli packs) from the
+  // function — causing "the input directory .../@sparticuz/chromium/bin does
+  // not exist" at runtime. Force the whole package into the PDF route's bundle.
+  outputFileTracingIncludes: {
+    "/api/deck/pdf": ["./node_modules/@sparticuz/chromium/**"],
+  },
   // Slim, self-contained server bundle for a container (Cloud Run / Firebase App Hosting).
   // Vercel builds its own output and its Next 16 adapter is incompatible with
   // standalone (the standalone step reads a build trace Vercel's build never
