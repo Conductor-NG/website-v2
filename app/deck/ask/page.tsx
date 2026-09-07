@@ -15,7 +15,7 @@ export const ASK = `
       <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:720px">Investor money will not go into building or fixing the app, into working out how a shared ride handles its hard cases — disputes, no-shows, refunds, safety, suspensions — or into proving the acquisition channel. All three took 33 months and are already done, on our own money. It goes into scaling: a proven, repeatable channel, and switching on the second revenue line.</p>
     </div>
     <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px;font-size:16px">
-      <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:64px;line-height:1;color:#EE4643">$200k</div>
+      <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:64px;line-height:1;color:#EE4643">$200k</div>
       <div style="display:flex;justify-content:space-between;border-top:1px solid #514336;padding-top:12px"><span style="color:#D6C3B3">Instrument</span><span>Post-money SAFE</span></div>
       <div style="display:flex;justify-content:space-between"><span style="color:#D6C3B3">Cap</span><span>$5M</span></div>
       <div style="display:flex;justify-content:space-between"><span style="color:#D6C3B3">Discount</span><span>20%</span></div>
@@ -49,9 +49,9 @@ export const ASK = `
       <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">Three checkpoints in twelve months</h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
-      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By Dec 2026</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">700 monthly active car owners · ~2,000 monthly active passengers · ~₦20m monthly revenue · Lagos Island corridor at density · Deliveries beta on 3 routes</p></div>
-      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By June 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">3,000 monthly active car owners · ~8,000 monthly active passengers · ~₦100m monthly revenue · 3 states · first Conductor-for-Enterprise contract · Deliveries public launch</p></div>
-      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By Dec 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">10,000 monthly active car owners · ~25,000 monthly active passengers · ~₦350m monthly revenue (~₦4b run-rate) · profitable on the Island corridor · Series A conversation</p></div>
+      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By Dec 2026</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">700 monthly active car owners · ~2,000 monthly active passengers · ~₦20m monthly revenue · Lagos Island corridor at density · Deliveries beta on 3 routes</p></div>
+      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By June 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">3,000 monthly active car owners · ~8,000 monthly active passengers · ~₦100m monthly revenue · 3 states · first Conductor-for-Enterprise contract · Deliveries public launch</p></div>
+      <div style="border-top:2px solid #EE4643;padding-top:16px;display:flex;flex-direction:column;gap:8px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#EE4643">By Dec 2027</div><p style="font-size:16px;line-height:1.55;color:#514336;margin:0">10,000 monthly active car owners · ~25,000 monthly active passengers · ~₦350m monthly revenue (~₦4b run-rate) · profitable on the Island corridor · Series A conversation</p></div>
     </div>
   </div>
 </section>
@@ -61,7 +61,7 @@ export const ASK = `
     <div style="display:flex;flex-direction:column;gap:24px">
       <img src="/deck/images/LOGO%202.png" alt="Conductor" style="width:96px;height:96px;background:#FFF8F0;border-radius:24px">
       <h2 style="font-size:clamp(36px,4vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0">Let's talk.</h2>
-      <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:26px;line-height:1.25;color:#EE4643;margin:0">Interested in partnering, investing, or just seeing the app?</p>
+      <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:26px;line-height:1.25;color:#EE4643;margin:0">Interested in partnering, investing, or just seeing the app?</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <a href="/api/deck/pdf" data-cta="download_deck" style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#fff;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Download the deck</a>
         <a href="mailto:admin@conductor.ng?subject=Conductor%20investor%20call" data-cta="book_call" style="background:transparent;color:#FFF8F0;border:1px solid #D6C3B3;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;text-decoration:none">Book a call</a>
