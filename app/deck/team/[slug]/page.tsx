@@ -31,15 +31,15 @@ const FOUNDERS: Record<string, Founder> = {
     role: "Founder",
     photo: "/deck/images/founder-wale.jpg",
     objectPosition: "50% 20%",
-    lede: "Founder of Conductor. The idea started on a bridge in Lagos, years before the first line of code.",
+    lede: "The idea started on a bridge in Lagos, years before the first line of code.",
     body: [
-      "In 2019 I drove to and from my office on Ikoyi Road, by Obalende. On the way home, going up the Obalende bridge, commuters would flag me down to hitch a ride toward the Iyana Oworo bus stop — while I was headed for Costain roundabout. Same road, same direction. And yet I never picked anyone up.",
-      "I didn't know these people and no one could vouch for them. They didn't know where I was going. I didn't know the going rate for a drop anywhere in Lagos, and they had no way of knowing whether I meant to carry them for free. And if anything happened on that bridge — if I ever felt unsafe — there was no one I could reach in the moment.",
-      "In January 2024 it all came together, and we began building Conductor — the trust, the pricing, the vouching, and the safety line that were missing on that bridge. Today the app is complete, and we are turning it on.",
+      "In 2019 I drove to and from my office on Ikoyi Road, by Obalende. Everyday on my way home from work, going up the Obalende bridge, commuters would flag me down to hitch a ride toward the Iyana Oworo bus stop — while I was headed for Costain roundabout. Different directions, different routes, different places.",
+      "I didn't know these people and no one could vouch for them. They didn't know where I was going. I didn't know the going rate for a drop anywhere in Lagos. And if anything happened on that bridge — if I ever felt unsafe — there was no one I could reach in the moment.",
+      "In January 2024 it all came together, and we began building Conductor — the trust, the pricing, the vouching, and the safety line that were missing on that bridge. Today the app is complete, and we have started onboarding users.",
     ],
     quote:
       "The demand was literally flagging me down. The trust to say yes just didn't exist yet.",
-    email: "admin@conductor.ng",
+    email: "ws@conductor.ng",
     ready: true,
   },
   dimeji: {
