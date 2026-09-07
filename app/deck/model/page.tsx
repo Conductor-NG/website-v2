@@ -31,20 +31,20 @@ export const MODEL = `
     </div>
     <div style="display:grid;grid-template-columns:minmax(0,1fr) min(300px,80vw) minmax(0,0.8fr);gap:32px;align-items:start">
       <div style="border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:16px">
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Ride fare per passenger</span><span>₦2,835</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Blended promo discount</span><span>(₦425)</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;font-weight:700"><span>Net paid per passenger</span><span>₦2,410</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>× 4 passengers per trip</span><span>₦9,640</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;font-weight:700;color:#EE4643"><span>Conductor take (10% × 2 sides)</span><span>₦964</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Driver earnings after take</span><span>₦8,676</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Driver weekly earnings (5 days)</span><span>₦43,380</span></div>
-        <div style="display:flex;justify-content:space-between;padding:14px 20px;font-weight:700"><span>Driver monthly earnings (20 days)</span><span>₦173,520</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Ride fare per passenger</span><span>₦2,800</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Blended promo discount</span><span>(₦400)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;font-weight:700"><span>Net paid per passenger</span><span>₦2,400</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>× 4 passengers per trip</span><span>₦9,600</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;font-weight:700;color:#EE4643"><span>Conductor take (10% × 2 sides)</span><span>₦960</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Driver earnings after take</span><span>₦8,640</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Driver weekly earnings (5 days)</span><span>₦43,200</span></div>
+        <div style="display:flex;justify-content:space-between;padding:14px 20px;font-weight:700"><span>Driver monthly earnings (20 days)</span><span>₦172,800</span></div>
       </div>
       <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/pax-ikorodu.png" alt="Conductor app screen"></div></div></div>
       <div style="display:flex;flex-direction:column;gap:20px">
-        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#EE4643">₦4,820</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly Conductor take from one 4-seat car running five days</div></div>
+        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#EE4643">₦4,800</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly Conductor take from one 4-seat car running five days</div></div>
         <div style="height:1px;background:#ECDFCE"></div>
-        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦482k</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 100 cars on this corridor</div></div>
+        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦480k</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 100 cars on this corridor</div></div>
         <div style="height:1px;background:#ECDFCE"></div>
         <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦2.4m</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 500 cars — all from a single corridor</div></div>
       </div>

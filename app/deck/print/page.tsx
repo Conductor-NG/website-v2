@@ -570,7 +570,7 @@ export default function DeckPrint() {
       <Slide
         n={next()}
         eyebrow="Market · Traction"
-        title="1,000 users. ~500 car owners onboarded, 100 verified. Growing 65–87% a month."
+        title="1,000 signups. ~500 car owners onboarded, 100 verified. Growing 70–90% a month."
       >
         <div style={{ display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: 28, alignItems: "start", flex: 1 }}>
           <div style={{ ...cardLight, padding: 22, gap: 16 }}>
@@ -612,7 +612,7 @@ export default function DeckPrint() {
             </div>
             <div style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>
               Weekly cumulative to 31 Aug 2026 — the ramp has since carried us past{" "}
-              <strong style={{ color: RED }}>1,000 users</strong> and{" "}
+              <strong style={{ color: RED }}>1,000 signups</strong> and{" "}
               <strong style={{ color: RED }}>100 verified car owners</strong>.
             </div>
           </div>
@@ -622,10 +622,8 @@ export default function DeckPrint() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {[
-                ["2,160", "downloads in 14 days", false],
-                ["$0.32", "cost per install", false],
-                ["6.8%", "download → any signup", false],
-                ["5.7%", "download → car owner", false],
+                ["1,000+", "downloads weekly", false],
+                ["<₦400", "cost per install", false],
               ].map(([n, l]) => (
                 <div key={l as string} style={{ ...cardLight, padding: 14, gap: 4 }}>
                   <div style={{ ...serif, fontSize: 30, lineHeight: 1 }}>{n}</div>
@@ -761,19 +759,19 @@ export default function DeckPrint() {
         title="One corridor, real economics."
       >
         <p style={{ fontSize: 15, lineHeight: 1.5, color: BODY, margin: "0 0 16px" }}>
-          Figures from the 5-year projection model, standard 4-seat car, using the actual in-app fare for this route.
+          Figures from our operating model, standard 4-seat car, using the actual in-app fare for this route.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 32, alignItems: "start", flex: 1 }}>
           <div style={{ border: `1px solid ${DIV}`, borderRadius: 14, overflow: "hidden", fontSize: 14.5 }}>
             {[
-              ["Ride fare per passenger", "₦2,835", false, false],
-              ["Blended promo discount", "(₦425)", false, false],
-              ["Net paid per passenger", "₦2,410", true, false],
-              ["× 4 passengers per trip", "₦9,640", false, false],
-              ["Conductor take (10% × 2 sides)", "₦964", true, true],
-              ["Driver earnings after take", "₦8,676", false, false],
-              ["Driver weekly earnings (5 days)", "₦43,380", false, false],
-              ["Driver monthly earnings (20 days)", "₦173,520", true, false],
+              ["Ride fare per passenger", "₦2,800", false, false],
+              ["Blended promo discount", "(₦400)", false, false],
+              ["Net paid per passenger", "₦2,400", true, false],
+              ["× 4 passengers per trip", "₦9,600", false, false],
+              ["Conductor take (10% × 2 sides)", "₦960", true, true],
+              ["Driver earnings after take", "₦8,640", false, false],
+              ["Driver weekly earnings (5 days)", "₦43,200", false, false],
+              ["Driver monthly earnings (20 days)", "₦172,800", true, false],
             ].map(([l, v, bold, red], i, arr) => (
               <div
                 key={l as string}
@@ -793,8 +791,8 @@ export default function DeckPrint() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 16, justifyContent: "center" }}>
             {[
-              ["₦4,820", "weekly Conductor take from one 4-seat car running five days", RED],
-              ["₦482k", "weekly take with 100 cars on this corridor", INK],
+              ["₦4,800", "weekly Conductor take from one 4-seat car running five days", RED],
+              ["₦480k", "weekly take with 100 cars on this corridor", INK],
               ["₦2.4m", "weekly take with 500 cars — all from a single corridor", INK],
             ].map(([n, l, c]) => (
               <div key={l}>
@@ -940,8 +938,8 @@ export default function DeckPrint() {
             September 14, it works the first time.
           </p>
           <div style={{ display: "flex", gap: 28, flexWrap: "wrap", fontSize: 15, fontWeight: 600, borderTop: "1px solid rgba(46,28,3,0.25)", paddingTop: 18 }}>
-            <span>$0.32 cost per install</span>
-            <span>2,160 downloads in 14 days</span>
+            <span>&lt;₦400 cost per install</span>
+            <span>1,000+ downloads weekly</span>
             <span>Investor money scales a channel that already exists.</span>
           </div>
         </div>
