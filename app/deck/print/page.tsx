@@ -1273,6 +1273,9 @@ export default function DeckPrint() {
         eyebrow="The ask"
         title="$200k on a $5M SAFE. Twelve months of runway. Three checkpoints."
       >
+        <p style={{ fontSize: 13, lineHeight: 1.5, color: MUTED, margin: "0 0 12px", maxWidth: 1000 }}>
+          Not for building the app, the hard-case policies (disputes, no-shows, refunds, safety), or proving the channel — all done on our own money. Pure scaling capital.
+        </p>
         <div style={{ display: "grid", gridTemplateColumns: "1.5fr 0.9fr", gap: 28, alignItems: "start", flex: 1 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: MUTED }}>Where the $200k goes</div>

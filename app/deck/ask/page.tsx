@@ -12,7 +12,7 @@ export const ASK = `
     <div style="display:flex;flex-direction:column;gap:16px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 9 · The ask</div>
       <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;text-wrap:pretty">$200k on a $5M SAFE. Twelve months of runway. Three concrete milestones.</h1>
-      <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:720px">Investor money will not go into building or fixing the app, or into proving that the acquisition channel exists — both are already done. It goes into scaling a channel with a proven, repeatable acquisition cost, and into switching on the second revenue line.</p>
+      <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:720px">Investor money will not go into building or fixing the app, into working out how a shared ride handles its hard cases — disputes, no-shows, refunds, safety, suspensions — or into proving the acquisition channel. All three took 33 months and are already done, on our own money. It goes into scaling: a proven, repeatable channel, and switching on the second revenue line.</p>
     </div>
     <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:12px;font-size:16px">
       <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:64px;line-height:1;color:#EE4643">$200k</div>
