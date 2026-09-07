@@ -12,6 +12,7 @@ type Founder = {
   first: string;
   last: string;
   role: string;
+  credential?: string;
   photo?: string;
   objectPosition?: string;
   initial?: string;
@@ -29,6 +30,8 @@ const FOUNDERS: Record<string, Founder> = {
     first: "Wale",
     last: "Shekoni",
     role: "Founder",
+    credential:
+      "By day, a data analyst at one of Nigeria's unicorns — the day job that kept Conductor building without outside money.",
     photo: "/deck/images/founder-wale.jpg",
     objectPosition: "50% 20%",
     lede: "The idea started on a bridge in Lagos, years before the first line of code.",
@@ -192,6 +195,19 @@ export default async function FounderProfile({
               >
                 {f.role}
               </div>
+              {f.credential ? (
+                <div
+                  style={{
+                    fontSize: 15,
+                    lineHeight: 1.5,
+                    color: "#6B5D4E",
+                    maxWidth: 460,
+                    margin: "10px auto 0",
+                  }}
+                >
+                  {f.credential}
+                </div>
+              ) : null}
             </div>
           </div>
 

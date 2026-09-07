@@ -8,7 +8,7 @@ export const PLAN = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 6 · Plan and competition</div>
   <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">What we did. What we do next.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">Every milestone below is either done or ten days out. We have been building quietly for 33 months. The raise switches on the growth valve.</p>
+  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">Every milestone below is either done or ten days out. We have been building quietly since January 2024. The raise switches on the growth valve.</p>
 </section>
 
 <section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box">

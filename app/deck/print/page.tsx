@@ -846,7 +846,7 @@ export default function DeckPrint() {
         <div style={{ display: "flex", flexDirection: "column", gap: 16, flex: 1, justifyContent: "center" }}>
           {[
             ["1", "We flipped the role, and had to teach the flip", "Every Nigerian who has ordered a ride knows the script: passenger books, driver shows up. Conductor flips it — the driver publishes the trip, the passenger shows up. The MVP failed to teach the flip; V1 embeds the concept in the UI itself. We learned this on our own money, before spending an investor's."],
-            ["2", "Predictability over randomness", "Nigerians already carpool with ride-hailing — but only for parties and nights out. Random, weekend-peaked, no two rides alike. A repeatable Monday-through-Friday commute at a splittable price is unsolved. 74% of our users commute 3+ days a week; 52% head for the same Island cluster. That is the wedge — 33 months getting it right."],
+            ["2", "Predictability over randomness", "Nigerians already carpool with ride-hailing — but only for parties and nights out. Random, weekend-peaked, no two rides alike. A repeatable Monday-through-Friday commute at a splittable price is unsolved. 74% of our users commute 3+ days a week; 52% head for the same Island cluster. That is the wedge — years in the making."],
             ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no drivers and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 14 launches with the density for demand to convert on day one."],
           ].map(([n, h, pp]) => (
             <div key={n} style={{ ...cardLight, flexDirection: "row", gap: 20, padding: 20, alignItems: "flex-start" }}>
@@ -936,7 +936,7 @@ export default function DeckPrint() {
             paid ride?
           </p>
           <p style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.3, margin: 0, color: CREAM, maxWidth: 950 }}>
-            33 months of founder-funded salaries and a team invested through ownership, so that when we turn it on on
+            30+ months of founder-funded salaries and a team invested through ownership, so that when we turn it on on
             September 14, it works the first time.
           </p>
           <div style={{ display: "flex", gap: 28, flexWrap: "wrap", fontSize: 15, fontWeight: 600, borderTop: "1px solid rgba(46,28,3,0.25)", paddingTop: 18 }}>
@@ -1062,7 +1062,7 @@ export default function DeckPrint() {
         title="A team that shipped — friends, and friends of friends."
       >
         <p style={{ fontSize: 15, lineHeight: 1.55, color: BODY, margin: "0 0 20px", maxWidth: 1050 }}>
-          We are not a hired-in team. That is how a group this size has kept building for 33 months — on founder-funded
+          We are not a hired-in team. That is how a group this size has kept building for 30+ months — on founder-funded
           salaries, with most taking part of their market rate as ownership rather than cash. 20+ contributors across
           engineering, product, design, operations, marketing and QA, in Lagos, London and Canada, with every part of
           the stack built in-house.
