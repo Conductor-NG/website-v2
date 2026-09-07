@@ -18,7 +18,7 @@ const DIV = "#ECDFCE";
 const RED = "#EE4643";
 const AMBER = "#E98B20";
 const CREAM = "#FFF8F0";
-const serif: CSSProperties = { fontFamily: "'Instrument Serif',Georgia,serif", fontStyle: "italic" };
+const serif: CSSProperties = { fontFamily: "'Instrument Serif','Roboto Flex',Georgia,serif", fontStyle: "italic" };
 
 // ---------------------------------------------------------------------------
 // Reusable slide frame — one A4-landscape page, one concept.

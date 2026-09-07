@@ -27,7 +27,7 @@ export const MODEL = `
     <div style="display:flex;flex-direction:column;gap:12px;max-width:860px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Unit economics · Ikorodu ↔ Victoria Island</div>
       <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">One corridor, real economics.</h2>
-      <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Figures from the 5-year financial projection model, standard 4-seat car, using the actual in-app fare for this route.</p>
+      <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Figures from our operating model, standard 4-seat car, using the actual in-app fare for this route.</p>
     </div>
     <div style="display:grid;grid-template-columns:minmax(0,1fr) min(300px,80vw) minmax(0,0.8fr);gap:32px;align-items:start">
       <div style="border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:16px">
@@ -42,11 +42,11 @@ export const MODEL = `
       </div>
       <div class="iphone17" style="--pw:min(300px,80vw)"><div class="iphone17__btn iphone17__btn--action"></div><div class="iphone17__btn iphone17__btn--vup"></div><div class="iphone17__btn iphone17__btn--vdown"></div><div class="iphone17__btn iphone17__btn--power"></div><div class="iphone17__bezel"><div class="iphone17__status"><span class="iphone17__time">9:41</span></div><div class="iphone17__island"></div><div class="iphone17__screen"><img src="/deck/images/pax-ikorodu.png" alt="Conductor app screen"></div></div></div>
       <div style="display:flex;flex-direction:column;gap:20px">
-        <div><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#EE4643">₦4,820</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly Conductor take from one 4-seat car running five days</div></div>
+        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#EE4643">₦4,820</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly Conductor take from one 4-seat car running five days</div></div>
         <div style="height:1px;background:#ECDFCE"></div>
-        <div><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦482k</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 100 cars on this corridor</div></div>
+        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦482k</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 100 cars on this corridor</div></div>
         <div style="height:1px;background:#ECDFCE"></div>
-        <div><div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦2.4m</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 500 cars — all from a single corridor</div></div>
+        <div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1">₦2.4m</div><div style="font-size:15px;line-height:1.4;color:#514336;margin-top:6px">weekly take with 500 cars — all from a single corridor</div></div>
       </div>
     </div>
   </div>
@@ -64,7 +64,7 @@ export const MODEL = `
       <div style="border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px"><div style="font-size:20px;font-weight:700"><span style="color:#EE4643">2</span> Built-in trust</div><p style="font-size:15px;line-height:1.5;color:#514336;margin:0">Colleagues in the same building, vouched for by the same employer. Two-way verification plus a shared workplace is the highest-trust match a shared ride can have.</p></div>
       <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px"><div style="font-size:20px;font-weight:700"><span style="color:#EE4643">3</span> SaaS-like revenue</div><p style="font-size:15px;line-height:1.5;color:#ECDFCE;margin:0">The employer pays a recurring per-seat subscription on top of the 10% transaction take — contracted, predictable revenue that complements and de-risks the transaction line.</p></div>
     </div>
-    <p style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:24px;line-height:1.3;color:#6B5D4E;margin:0;max-width:900px">Every corporate HQ on the Island is a pre-assembled corridor of trusted, recurring demand — waiting to be switched on.</p>
+    <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:24px;line-height:1.3;color:#6B5D4E;margin:0;max-width:900px">Every corporate HQ on the Island is a pre-assembled corridor of trusted, recurring demand — waiting to be switched on.</p>
   </div>
 </section>
 
