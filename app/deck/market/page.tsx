@@ -125,7 +125,7 @@ export const MARKET_REST = `
     <div style="display:flex;flex-direction:column;gap:20px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Recurring demand</div>
       <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">74% commute three or more days a week.</h2>
-      <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work economically, and what on-demand hailing never captured. It is why a trip must run at least three days a week: that is where predictable, poolable demand begins, and where a driver–passenger pair becomes a weekly recurring revenue stream.</p>
+      <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Not one-off rides — recurring, predictable, week in, week out. That is what makes carpooling work economically, and what on-demand hailing never captured. It is why a trip must run at least three days a week: that is where predictable, poolable demand begins, and where a car owner–passenger pair becomes a weekly recurring revenue stream.</p>
       <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:24px;line-height:1.3;color:#6B5D4E;margin:0">We are not building a route. We are building a magnet.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:16px">
@@ -165,7 +165,7 @@ export const MARKET_REST = `
         <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1">$0.32</div><div style="font-size:14px;color:#514336;margin-top:6px">cost per install</div></div>
         <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1">6.8%</div><div style="font-size:14px;color:#514336;margin-top:6px">download → any signup</div></div>
         <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1">5.7%</div><div style="font-size:14px;color:#514336;margin-top:6px">download → car owner onboarded</div></div>
-        <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1">0.56%</div><div style="font-size:14px;color:#514336;margin-top:6px">download → verifiable driver</div></div>
+        <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1">0.56%</div><div style="font-size:14px;color:#514336;margin-top:6px">download → verifiable car owner</div></div>
         <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:20px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1;color:#E98B20">4,600</div><div style="font-size:14px;color:#ECDFCE;margin-top:6px">car-owner downloads / mo — 3.8× projection</div></div>
       </div>
       <p style="font-size:15px;line-height:1.5;color:#514336;margin:0">The model projected 1,200 car-owner downloads for month one. We are pacing at 4,600 a month on car-owner ads alone — <strong style="color:#211A14">3.8× our own projection</strong>, on a limited paid budget. Passenger-side ads have not launched.</p>
@@ -177,14 +177,14 @@ export const MARKET_REST = `
   <div style="display:flex;flex-direction:column;gap:12px;max-width:880px">
     <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Supply · the constraint we are ramping</div>
     <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0;text-wrap:pretty">~500 car owners onboarded. 100 verified. Verification is a lever we control.</h2>
-    <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Cars are the ceiling — you cannot seat more passengers than you have drivers — so we are saturating verified supply before opening more passenger demand.</p>
+    <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Cars are the ceiling — you cannot seat more passengers than you have car owners — so we are saturating verified supply before opening more passenger demand.</p>
   </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:44px;line-height:1">~500</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">car owners onboarded — the top of the supply funnel</div></div>
     <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#EE4643">100</div><div style="font-size:15px;color:#6B5D4E;margin-top:6px">verified and launch-ready today, climbing daily</div></div>
     <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px"><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:44px;line-height:1;color:#E98B20">~50%</div><div style="font-size:15px;color:#ECDFCE;margin-top:6px">of each cohort verifies with hands-on follow-up (10–15% unaided)</div></div>
   </div>
-  <div style="background:#FAEDDE;border:1px solid #ECDFCE;border-radius:16px;padding:24px;font-size:16px;line-height:1.55;color:#514336">Verification is a staffed, repeatable funnel — not a hope. Of every 100 car owners who sign up, <strong style="color:#211A14">10–15 finish on their own</strong>; our onboarding team converts <strong style="color:#211A14">another 30–40</strong> through direct follow-up. Scaling that conversion — and the driver base beneath it — is exactly what the raise pays for.</div>
+  <div style="background:#FAEDDE;border:1px solid #ECDFCE;border-radius:16px;padding:24px;font-size:16px;line-height:1.55;color:#514336">Verification is a staffed, repeatable funnel — not a hope. Of every 100 car owners who sign up, <strong style="color:#211A14">10–15 finish on their own</strong>; our onboarding team converts <strong style="color:#211A14">another 30–40</strong> through direct follow-up. Scaling that conversion — and the car owner base beneath it — is exactly what the raise pays for.</div>
 </section>
 `;
 

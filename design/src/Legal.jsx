@@ -59,8 +59,8 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ['h2','2 · What We Collect'],
   ['p','The following categories of information are collected:'],
   ['ol',[
-    <><b>Registration &amp; profile data:</b> name, date of birth, phone number, email, gender (where declared), photograph, password (hashed), preferred language, initial role (Passenger or Driver), and occupation category (optional).</>,
-    <><b>Identity-verification data:</b> NIN and NIN-verification records; for Drivers, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
+    <><b>Registration &amp; profile data:</b> name, date of birth, phone number, email, gender (where declared), photograph, password (hashed), preferred language, initial role (Passenger or Car Owner), and occupation category (optional).</>,
+    <><b>Identity-verification data:</b> NIN and NIN-verification records; for Car Owners, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
     <><b>Trip &amp; usage data:</b> Bookings, Trips published, Trip-Days completed, cancellations, ratings, chat messages, service-recovery credits and referrals.</>,
     <><b>Location data:</b> pickup and drop-off coordinates, live GPS during a Trip, and area-level home / work coordinates captured during onboarding (see clause 6).</>,
     <><b>Financial data:</b> Wallet balances, transaction history, bank-account details submitted for withdrawals, and tokenised card details as held by payment processors.</>,
@@ -80,14 +80,14 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ['h2','4 · Legal Bases (NDPA)'],
   ['p','Processing relies on one or more of the following lawful bases under the NDPA:'],
   ['ol',[
-    <><b>Contract</b> — processing necessary to perform services to users (e.g. matching Passengers with Drivers, processing payments).</>,
+    <><b>Contract</b> — processing necessary to perform services to users (e.g. matching Passengers with Car Owners, processing payments).</>,
     <><b>Legal obligation</b> — processing required by Nigerian law (e.g. VAT, KYC / identity verification, responding to lawful orders).</>,
     <><b>Legitimate interests</b> — where processing is necessary for Conductor’s or a third party’s legitimate interests and not overridden by user rights and freedoms (e.g. fraud prevention, Platform integrity, research and product improvement using aggregated data).</>,
     <><b>Consent</b> — where specifically requested (e.g. certain marketing communications, background-location tracking outside a Trip window).</>,
     <><b>Vital interests</b> — where processing is necessary to protect the life or physical safety of any person (e.g. SOS activations).</>]],
   ['h2','5 · Who We Share With'],
   ['ol',[
-    <><b>Other Users, on a need-to-know basis:</b> a Driver receives the Passenger’s first name, rating, and pickup / drop-off; a Passenger receives the Driver’s first name, rating, and Vehicle’s make / model / plate (partially masked in some contexts). Full identity documents, home / work coordinates, or unmasked phone numbers are not shared between Users.</>,
+    <><b>Other Users, on a need-to-know basis:</b> a Car Owner receives the Passenger’s first name, rating, and pickup / drop-off; a Passenger receives the Car Owner’s first name, rating, and Vehicle’s make / model / plate (partially masked in some contexts). Full identity documents, home / work coordinates, or unmasked phone numbers are not shared between Users.</>,
     <><b>Service providers</b> under written contract and confidentiality obligations, including cloud hosting, payment processing (Paystack), mapping (Google Maps & Places), notification orchestration (Novu, WhatsApp / Meta), identity verification (QoreID, VerifyMe), analytics, and customer-support tooling.</>,
     <><b>Regulators, courts, and law-enforcement agencies</b> where required by law, court order, or valid regulatory demand, or where there is good-faith belief that disclosure is necessary to prevent harm, fraud, or a violation of law.</>,
     <><b>Corporate transactions</b> — in the event of a merger, acquisition, financing, insolvency, or sale of assets, information may be transferred to the counterparty, subject to appropriate protections.</>,
@@ -102,9 +102,9 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated=
   ['h2','7 · National Identification Number (NIN)'],
   ['p','The following notice supplements this Policy in relation to NIN specifically, and forms part of it.'],
   ['ol',[
-    <><b>Identity verification.</b> NIN is used to confirm that the registered identity is genuine and belongs to the user. This helps confirm the identity of both Drivers and Passengers and prevents the use of false, stolen, or fraudulent identities.</>,
+    <><b>Identity verification.</b> NIN is used to confirm that the registered identity is genuine and belongs to the user. This helps confirm the identity of both Car Owners and Passengers and prevents the use of false, stolen, or fraudulent identities.</>,
     <><b>Safety and security.</b> NIN verification forms part of safety measures. It supports accountability, deters misconduct, and protects the community from fraudulent or harmful activity.</>,
-    <><b>Driver and Passenger authentication.</b> For Drivers, NIN verification is part of onboarding and due diligence to ensure that only properly identified individuals provide transportation services on the Platform. For Passengers, NIN verification reduces impersonation and promotes trust between all Users.</>,
+    <><b>Car Owner and Passenger authentication.</b> For Car Owners, NIN verification is part of onboarding and due diligence to ensure that only properly identified individuals provide transportation services on the Platform. For Passengers, NIN verification reduces impersonation and promotes trust between all Users.</>,
     <><b>Fraud prevention and investigation.</b> NIN may be used to detect, prevent, investigate, and respond to fraud, identity theft, abuse of the Platform, or other activities that violate the Terms or applicable law.</>,
     <><b>Legal and regulatory compliance.</b> NIN may be processed to comply with applicable laws, lawful requests from competent authorities, and other requirements imposed by relevant governmental agencies.</>,
     <><b>Protection.</b> NIN is treated as sensitive personal information with reasonable administrative, technical, and organisational measures to protect it against unauthorised access, disclosure, alteration, misuse, or loss. Access is restricted to authorised personnel and trusted service providers who require it to perform verification, security, or compliance functions and are bound by confidentiality and data-protection obligations.</>,
@@ -301,7 +301,7 @@ function CareersPage(){
   useReveal();
   const roles=[
     ['Engineering','Mobile & platform engineers','React Native, NestJS, Postgres. You will own real surfaces end to end — booking, escrow, live trips — not tickets in a queue.'],
-    ['Operations','City & driver operations','Onboard car owners, run the morning corridors, and turn what happens on the road into product. Lagos-based, on the ground.'],
+    ['Operations','City & car owner operations','Onboard car owners, run the morning corridors, and turn what happens on the road into product. Lagos-based, on the ground.'],
     ['Trust & Safety','Safety investigators','Work the incident and dispute queue with GPS, chat and attendance evidence. Calm judgement under real stakes.'],
     ['Design','Product designer','One designer’s decisions reach every commuter. Systems thinking, a strong bar for craft, and comfort shipping weekly.']];
   return (<>
