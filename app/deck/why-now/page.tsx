@@ -38,7 +38,7 @@ export const WHY_NOW = `
     <div style="display:flex;flex-direction:column;gap:12px">
       <div style="font-size:24px;font-weight:700;line-height:1.2">Predictability over randomness</div>
       <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">Nigerians already carpool with ride-hailing — but only for parties, weddings and nights out. Three to five friends split a Bolt fare. Real behaviour, but random: it peaks on weekends and no two rides look the same. Conductor is not built for randomness. A banker goes to work five days a week, four weeks a month, about 45 weeks a year. A civil servant, a teacher, a factory worker, a nurse — the same predictability. 74% of our onboarded users commute at least three days a week, and 52% are headed for the same Lagos Island cluster.</p>
-      <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">Scheduling a random Friday-night group ride is a solved problem — Bolt does it. Scheduling a repeatable Monday-through-Friday commute at a splittable price is not. That is the wedge, and it is what we spent 33 months getting right.</p>
+      <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">Scheduling a random Friday-night group ride is a solved problem — Bolt does it. Scheduling a repeatable Monday-through-Friday commute at a splittable price is not. That is the wedge, and it is what we spent the better part of three years getting right.</p>
       <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:18px;line-height:1.3;color:#EE4643;margin:0">No app in Nigeria serves predictability. That is the gap.</p>
     </div>
   </div>
@@ -48,7 +48,7 @@ export const WHY_NOW = `
       <div style="font-size:24px;font-weight:700;line-height:1.2">The chicken-and-egg problem, solved by supply-side saturation</div>
       <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">Every two-sided marketplace faces the same paradox: you need car owners to attract passengers, and passengers to attract car owners. If we launch to passengers before there are enough car owners, passengers open the app, see no trips near them, and leave — and that churn is unrecoverable. If we launch to car owners with no passengers, car owners publish once and never again.</p>
       <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">Our answer: saturate the supply side quietly before turning on demand. About 50% of onboarded car owners work in the Island cluster, with pickups spread across residential Lagos — Ikeja, Surulere, Yaba, Egbeda, Alagbado, Ojo, Ajah. For a passenger in Egbeda going to VI to reliably find a match within their time window, we need dozens of car owners on that corridor, not two.</p>
-      <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:18px;line-height:1.3;color:#EE4643;margin:0">September 15 launches with the density for demand to convert on day one.</p>
+      <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:18px;line-height:1.3;color:#EE4643;margin:0">September 14 launches with the density for demand to convert on day one.</p>
     </div>
   </div>
 </section>
@@ -78,7 +78,7 @@ export const WHY_NOW = `
     <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:56px;line-height:1;color:#EE4643">5</div>
     <div style="display:flex;flex-direction:column;gap:12px;max-width:860px">
       <div style="font-size:24px;font-weight:700;line-height:1.2">Every failure mode has already been designed for</div>
-      <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">We are not turning on an untested system on September 15. <strong style="color:#211A14">50+ live trips</strong> completed across multiple Lagos locations, with about 100 passengers and 5 car owners — external volunteers and the internal team — and feedback that has directly driven V1. More importantly, anything that could go wrong on a shared ride already has a response encoded as product logic, backed by the ledger — not as a customer-service policy.</p>
+      <p style="font-size:16px;line-height:1.55;color:#514336;margin:0">We are not turning on an untested system on September 14. <strong style="color:#211A14">50+ live trips</strong> completed across multiple Lagos locations, with about 100 passengers and 5 car owners — external volunteers and the internal team — and feedback that has directly driven V1. More importantly, anything that could go wrong on a shared ride already has a response encoded as product logic, backed by the ledger — not as a customer-service policy.</p>
     </div>
   </div>
   <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:15px;line-height:1.45">
@@ -99,8 +99,8 @@ export const WHY_NOW = `
 <section style="background:linear-gradient(120deg,#E98B20,#EE4643);color:#2E1C03">
   <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:24px">
     <p style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:clamp(24px,2.6vw,32px);line-height:1.3;margin:0;max-width:1000px;text-wrap:pretty">The right question is not <span style="color:#FFF8F0;font-weight:700">“why haven't you launched yet?”</span> It is: how did you get a bank-grade ledger, an escrow engine, a dispute adjudicator, a full admin platform, 100 test trips, 20 package deliveries, 1,000 users and an acquisition channel with proven CAC — a product already stress-tested against every failure mode a shared ride can produce — built before your first paid ride?</p>
-    <p style="font-size:24px;font-weight:700;line-height:1.3;margin:0;color:#FFF8F0;max-width:900px;text-wrap:pretty">33 months of founder-funded salaries and a team invested through ownership, so that when we turn it on on September 15, it works the first time.</p>
-    <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px;font-weight:600;border-top:1px solid rgba(46,28,3,0.25);padding-top:20px"><span>$0.32 cost per install</span><span>2,160 downloads in 14 days</span><span>Investor money scales a channel that already exists.</span></div>
+    <p style="font-size:24px;font-weight:700;line-height:1.3;margin:0;color:#FFF8F0;max-width:900px;text-wrap:pretty">30+ months of founder-funded salaries and a team invested through ownership, so that when we turn it on on September 14, it works the first time.</p>
+    <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px;font-weight:600;border-top:1px solid rgba(46,28,3,0.25);padding-top:20px"><span>&lt;₦400 cost per install</span><span>1,000+ downloads weekly</span><span>Investor money scales a channel that already exists.</span></div>
   </div>
 </section>
 `;

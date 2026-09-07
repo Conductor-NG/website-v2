@@ -101,6 +101,14 @@ export function DeckEnhancer() {
   const v = useToken();
   const slide = pathname === "/deck" ? "overview" : pathname.replace(/^\/deck\/?/, "");
 
+  // Each deck section is a standalone "slide" — always open it at the top.
+  // Next's App Router can land mid-page when the previous section was scrolled
+  // down; force the window back to the top on every section change.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the intended trigger, not a value read in the effect
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     if (v !== "anon") {
       // Append ?v to internal deck links that don't already carry it.

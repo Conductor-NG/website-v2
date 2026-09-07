@@ -112,7 +112,7 @@ const HERO_STATS: { n: string; label: string; dark?: boolean }[] = [
   { n: "74%", label: "commute three or more days a week" },
   { n: "52%", label: "head to one Lagos Island corridor" },
   { n: "~500", label: "car owners onboarded · 100 verified" },
-  { n: "Sept 15", label: "paid rides launch", dark: true },
+  { n: "Sept 14", label: "paid rides launch", dark: true },
 ];
 
 // Revenue-ramp bars (financials) — same data, same on-brand styling --------
@@ -207,7 +207,7 @@ const COMP_ROWS: { label: string; cells: [string, string][] }[] = [
   {
     label: "Present in Lagos",
     cells: [
-      ["Sep 15", "y"],
+      ["Sep 14", "y"],
       ["Yes", "p"],
       ["Yes", "p"],
       ["Sep 25", "n"],
@@ -329,9 +329,9 @@ export default function DeckPrint() {
               dateColor: MUTED,
             },
             {
-              date: "Sept 15, 2026",
+              date: "Sept 14, 2026",
               h: "Conductor launches paid rides",
-              p: "First paid rides in Lagos after Uber's exit — ten days ahead of Shuttlers POD. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
+              p: "First paid rides in Lagos after Uber's exit — eleven days ahead of Shuttlers POD. ~500 car owners onboarded, 100 verified and ready today. Supply is already-driving vehicles, so marginal cost per rider is near zero.",
               dark: true,
               dateColor: RED,
             },
@@ -519,7 +519,7 @@ export default function DeckPrint() {
       <Slide
         n={next()}
         eyebrow="Market · Demand geometry"
-        title="We rebuilt V1 to learn where Lagos commutes. 52% head for one place."
+        title="We built V1 to learn more about our commuters. 52% head for one place."
       >
         <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 40, alignItems: "center", flex: 1 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -570,7 +570,7 @@ export default function DeckPrint() {
       <Slide
         n={next()}
         eyebrow="Market · Traction"
-        title="1,000 users. ~500 car owners onboarded, 100 verified. Growing 65–87% a month."
+        title="1,000 signups. ~500 car owners onboarded, 100 verified. Growing 70–90% a month."
       >
         <div style={{ display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: 28, alignItems: "start", flex: 1 }}>
           <div style={{ ...cardLight, padding: 22, gap: 16 }}>
@@ -612,7 +612,7 @@ export default function DeckPrint() {
             </div>
             <div style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>
               Weekly cumulative to 31 Aug 2026 — the ramp has since carried us past{" "}
-              <strong style={{ color: RED }}>1,000 users</strong> and{" "}
+              <strong style={{ color: RED }}>1,000 signups</strong> and{" "}
               <strong style={{ color: RED }}>100 verified car owners</strong>.
             </div>
           </div>
@@ -622,10 +622,8 @@ export default function DeckPrint() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {[
-                ["2,160", "downloads in 14 days", false],
-                ["$0.32", "cost per install", false],
-                ["6.8%", "download → any signup", false],
-                ["5.7%", "download → car owner", false],
+                ["1,000+", "downloads weekly", false],
+                ["<₦400", "cost per install", false],
               ].map(([n, l]) => (
                 <div key={l as string} style={{ ...cardLight, padding: 14, gap: 4 }}>
                   <div style={{ ...serif, fontSize: 30, lineHeight: 1 }}>{n}</div>
@@ -761,19 +759,19 @@ export default function DeckPrint() {
         title="One corridor, real economics."
       >
         <p style={{ fontSize: 15, lineHeight: 1.5, color: BODY, margin: "0 0 16px" }}>
-          Figures from the 5-year projection model, standard 4-seat car, using the actual in-app fare for this route.
+          Figures from our operating model, standard 4-seat car, using the actual in-app fare for this route.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 32, alignItems: "start", flex: 1 }}>
           <div style={{ border: `1px solid ${DIV}`, borderRadius: 14, overflow: "hidden", fontSize: 14.5 }}>
             {[
-              ["Ride fare per passenger", "₦2,835", false, false],
-              ["Blended promo discount", "(₦425)", false, false],
-              ["Net paid per passenger", "₦2,410", true, false],
-              ["× 4 passengers per trip", "₦9,640", false, false],
-              ["Conductor take (10% × 2 sides)", "₦964", true, true],
-              ["Car owner earnings after take", "₦8,676", false, false],
-              ["Car owner weekly earnings (5 days)", "₦43,380", false, false],
-              ["Car owner monthly earnings (20 days)", "₦173,520", true, false],
+              ["Ride fare per passenger", "₦2,800", false, false],
+              ["Blended promo discount", "(₦400)", false, false],
+              ["Net paid per passenger", "₦2,400", true, false],
+              ["× 4 passengers per trip", "₦9,600", false, false],
+              ["Conductor take (10% × 2 sides)", "₦960", true, true],
+              ["Car owner earnings after take", "₦8,640", false, false],
+              ["Car owner weekly earnings (5 days)", "₦43,200", false, false],
+              ["Car owner monthly earnings (20 days)", "₦172,800", true, false],
             ].map(([l, v, bold, red], i, arr) => (
               <div
                 key={l as string}
@@ -793,8 +791,8 @@ export default function DeckPrint() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 16, justifyContent: "center" }}>
             {[
-              ["₦4,820", "weekly Conductor take from one 4-seat car running five days", RED],
-              ["₦482k", "weekly take with 100 cars on this corridor", INK],
+              ["₦4,800", "weekly Conductor take from one 4-seat car running five days", RED],
+              ["₦480k", "weekly take with 100 cars on this corridor", INK],
               ["₦2.4m", "weekly take with 500 cars — all from a single corridor", INK],
             ].map(([n, l, c]) => (
               <div key={l}>
@@ -846,8 +844,8 @@ export default function DeckPrint() {
         <div style={{ display: "flex", flexDirection: "column", gap: 16, flex: 1, justifyContent: "center" }}>
           {[
             ["1", "We flipped the role, and had to teach the flip", "Every Nigerian who has ordered a ride knows the script: passenger books, driver shows up. Conductor flips it — the car owner publishes the trip, the passenger shows up. The MVP failed to teach the flip; V1 embeds the concept in the UI itself. We learned this on our own money, before spending an investor's."],
-            ["2", "Predictability over randomness", "Nigerians already carpool with ride-hailing — but only for parties and nights out. Random, weekend-peaked, no two rides alike. A repeatable Monday-through-Friday commute at a splittable price is unsolved. 74% of our users commute 3+ days a week; 52% head for the same Island cluster. That is the wedge — 33 months getting it right."],
-            ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no car owners and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 15 launches with the density for demand to convert on day one."],
+            ["2", "Predictability over randomness", "Nigerians already carpool with ride-hailing — but only for parties and nights out. Random, weekend-peaked, no two rides alike. A repeatable Monday-through-Friday commute at a splittable price is unsolved. 74% of our users commute 3+ days a week; 52% head for the same Island cluster. That is the wedge — years in the making."],
+            ["3", "Chicken-and-egg, solved by supply-side saturation", "Launch to passengers with no car owners and they leave — churn that is unrecoverable. Our answer: saturate supply quietly before turning on demand. ~50% of onboarded car owners work the Island cluster, with pickups spread across residential Lagos. September 14 launches with the density for demand to convert on day one."],
           ].map(([n, h, pp]) => (
             <div key={n} style={{ ...cardLight, flexDirection: "row", gap: 20, padding: 20, alignItems: "flex-start" }}>
               <div style={{ ...serif, fontSize: 46, lineHeight: 1, color: RED, flex: "none", width: 50 }}>{n}</div>
@@ -936,12 +934,12 @@ export default function DeckPrint() {
             paid ride?
           </p>
           <p style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.3, margin: 0, color: CREAM, maxWidth: 950 }}>
-            33 months of founder-funded salaries and a team invested through ownership, so that when we turn it on on
-            September 15, it works the first time.
+            30+ months of founder-funded salaries and a team invested through ownership, so that when we turn it on on
+            September 14, it works the first time.
           </p>
           <div style={{ display: "flex", gap: 28, flexWrap: "wrap", fontSize: 15, fontWeight: 600, borderTop: "1px solid rgba(46,28,3,0.25)", paddingTop: 18 }}>
-            <span>$0.32 cost per install</span>
-            <span>2,160 downloads in 14 days</span>
+            <span>&lt;₦400 cost per install</span>
+            <span>1,000+ downloads weekly</span>
             <span>Investor money scales a channel that already exists.</span>
           </div>
         </div>
@@ -962,7 +960,7 @@ export default function DeckPrint() {
             ["Q4 2024", "Company incorporated (RC 7952968). MVP build begins.", DIV, false],
             ["Q4 2025", "Public MVP launch. First 500 users onboarded.", DIV, false],
             ["Q3 2026", "V2 rebuild ships: escrow, verification, community. Digital ads begin.", DIV, false],
-            ["Sep 15, 2026", "Paid rides launch on the Lagos Island cluster.", RED, true],
+            ["Sep 14, 2026", "Paid rides launch on the Lagos Island cluster.", RED, true],
             ["By end 2027", "10,000+ car owners · 25,000+ passengers · Enterprise live · Deliveries public · Series A conversation", "#D6C3B3", false],
           ].map(([d, pp, bc, hot]) => (
             <div key={d as string} style={{ borderTop: `2px ${(bc as string) === "#D6C3B3" ? "dashed" : "solid"} ${bc}`, paddingTop: 14, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1027,7 +1025,7 @@ export default function DeckPrint() {
           ))}
         </div>
         <p style={{ ...serif, fontSize: 20, lineHeight: 1.3, color: MUTED, margin: "18px 0 0", maxWidth: 1000 }}>
-          The first affordable, recurring carpool in Lagos — live ten days before Shuttlers POD, in the only city Uber
+          The first affordable, recurring carpool in Lagos — live eleven days before Shuttlers POD, in the only city Uber
           just left. Two serious entrants now; we are first, cheapest, and the only weekly-recurring one.
         </p>
       </Slide>
@@ -1062,7 +1060,7 @@ export default function DeckPrint() {
         title="A team that shipped — friends, and friends of friends."
       >
         <p style={{ fontSize: 15, lineHeight: 1.55, color: BODY, margin: "0 0 20px", maxWidth: 1050 }}>
-          We are not a hired-in team. That is how a group this size has kept building for 33 months — on founder-funded
+          We are not a hired-in team. That is how a group this size has kept building for 30+ months — on founder-funded
           salaries, with most taking part of their market rate as ownership rather than cash. 20+ contributors across
           engineering, product, design, operations, marketing and QA, in Lagos, London and Canada, with every part of
           the stack built in-house.
