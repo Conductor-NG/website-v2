@@ -6,8 +6,8 @@ import { DeckPager } from "./deck-nav";
 // so the enhancer tracks them. Section content is server-rendered HTML.
 export const OVERVIEW = `
 <section style="position:relative;overflow:hidden;border-bottom:1px solid #ECDFCE">
-  <img src="/deck/images/bg-eko-bridge.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.22">
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(253,250,246,0.3),rgba(253,250,246,0.95))"></div>
+  <img src="/images/art/eko-bridge-line.png" alt="" style="position:absolute;left:0;right:0;bottom:-4%;width:100%;height:auto;max-height:78%;object-fit:contain;object-position:center bottom;opacity:0.45;pointer-events:none">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(253,250,246,0.55),rgba(253,250,246,0.35))"></div>
   <div style="position:relative;max-width:1200px;margin:0 auto;padding:80px 32px 64px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr);gap:48px;align-items:center">
     <div style="display:flex;flex-direction:column;gap:24px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Seed round · $200k SAFE · $5M cap</div>

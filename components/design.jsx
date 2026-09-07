@@ -1297,7 +1297,9 @@ function PaxHome(){
 
       <Carpool role="passenger"/>
 
-      <section className="sec"><div className="wrap">
+      <section className="sec" style={{position:'relative',overflow:'hidden'}}>
+        <img src="/images/art/eko-bridge-line.png" alt="" aria-hidden="true" style={{position:'absolute',left:0,right:0,bottom:0,width:'100%',height:'auto',maxHeight:'62%',objectFit:'contain',objectPosition:'center bottom',opacity:0.4,pointerEvents:'none'}}/>
+        <div className="wrap" style={{position:'relative'}}>
         <div className="illusplit">
           <Rv cls="rv--sc illusplit__art">
             <img src="/images/art/passengers.png" alt="Four commuters sharing a car through Lagos" loading="lazy"/>
