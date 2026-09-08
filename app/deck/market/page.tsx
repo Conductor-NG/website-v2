@@ -153,8 +153,8 @@ export const MARKET_REST = `
       </div>
       <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px;font-size:13px;color:#6B5D4E;text-align:center"><span>27 Jul</span><span>03 Aug</span><span>10 Aug</span><span>17 Aug</span><span>24 Aug</span><span>31 Aug</span></div>
       <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;font-size:15px;border-top:1px solid #ECDFCE;padding-top:14px">
-        <span style="color:#6B5D4E">31 Aug 2026</span><strong style="text-align:right">795</strong><strong style="text-align:right">424</strong><strong style="text-align:right">58</strong>
-        <span style="color:#6B5D4E">5-week change</span><span style="text-align:right;color:#EE4643;font-weight:700">+36%</span><span style="text-align:right;color:#EE4643;font-weight:700">+65%</span><span style="text-align:right;color:#EE4643;font-weight:700">+87%</span>
+        <span style="color:#6B5D4E">31 Aug 2026</span><strong style="text-align:right">800</strong><strong style="text-align:right">420</strong><strong style="text-align:right">60</strong>
+        <span style="color:#6B5D4E">5-week change</span><span style="text-align:right;color:#EE4643;font-weight:700">+40%</span><span style="text-align:right;color:#EE4643;font-weight:700">+70%</span><span style="text-align:right;color:#EE4643;font-weight:700">+90%</span>
       </div>
       <div style="font-size:13px;color:#6B5D4E;line-height:1.4">Weekly cumulative to 31 Aug 2026 — the ramp has since carried us past <strong style="color:#EE4643">1,000 signups</strong> and <strong style="color:#EE4643">100 verified car owners</strong>.</div>
     </div>

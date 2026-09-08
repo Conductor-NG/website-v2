@@ -602,13 +602,13 @@ export default function DeckPrint() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1fr", fontSize: 14, borderTop: `1px solid ${DIV}`, paddingTop: 12 }}>
               <span style={{ color: MUTED }}>31 Aug 2026</span>
-              <strong style={{ textAlign: "right" }}>795</strong>
-              <strong style={{ textAlign: "right" }}>424</strong>
-              <strong style={{ textAlign: "right" }}>58</strong>
+              <strong style={{ textAlign: "right" }}>800</strong>
+              <strong style={{ textAlign: "right" }}>420</strong>
+              <strong style={{ textAlign: "right" }}>60</strong>
               <span style={{ color: MUTED }}>5-week change</span>
-              <span style={{ textAlign: "right", color: RED, fontWeight: 700 }}>+36%</span>
-              <span style={{ textAlign: "right", color: RED, fontWeight: 700 }}>+65%</span>
-              <span style={{ textAlign: "right", color: RED, fontWeight: 700 }}>+87%</span>
+              <span style={{ textAlign: "right", color: RED, fontWeight: 700 }}>+40%</span>
+              <span style={{ textAlign: "right", color: RED, fontWeight: 700 }}>+70%</span>
+              <span style={{ textAlign: "right", color: RED, fontWeight: 700 }}>+90%</span>
             </div>
             <div style={{ fontSize: 12, color: MUTED, lineHeight: 1.4 }}>
               Weekly cumulative to 31 Aug 2026 — the ramp has since carried us past{" "}
@@ -1254,7 +1254,7 @@ export default function DeckPrint() {
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: RED }}>Anchor</div>
             <div style={{ ...serif, fontSize: 68, lineHeight: 1 }}>$5M</div>
             <div style={{ fontSize: 14, color: DIV, lineHeight: 1.4 }}>
-              Top of the defensible band. A live product on both platforms, 1,000 users, 424 car-owner signups, 100
+              Top of the defensible band. A live product on both platforms, 1,000 users, 420 car-owner signups, 100
               verified, and ~₦1.35b of aligned commitment already in.
             </div>
             <div style={{ borderTop: "1px solid #514336", paddingTop: 12, display: "flex", flexDirection: "column", gap: 6 }}>
