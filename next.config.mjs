@@ -70,8 +70,12 @@ const nextConfig = {
       { source: "/privacy-policy", destination: "/legal/privacy", permanent: true },
       { source: "/code-of-conduct", destination: "/legal/code-of-conduct", permanent: true },
       { source: "/how-to-delete-profile", destination: "/delete-profile", permanent: true },
+      // The Refund Policy lives as clause 14 of the Privacy Policy, not its own
+      // page — keep both the old WordPress URL and the short-lived
+      // /legal/refund-policy route pointing at it.
+      { source: "/refund-policy", destination: "/legal/privacy#refund", permanent: true },
+      { source: "/legal/refund-policy", destination: "/legal/privacy#refund", permanent: true },
       // Policies not yet rebuilt as their own pages — send to Terms, which incorporates them.
-      { source: "/refund-policy", destination: "/legal/terms", permanent: false },
       { source: "/car-owner-policy", destination: "/legal/terms", permanent: false },
       { source: "/passenger-policy", destination: "/legal/terms", permanent: false },
     ];

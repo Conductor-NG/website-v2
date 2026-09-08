@@ -875,7 +875,7 @@ function Carpool({role}){
 
 
 /* ============ Shell ============ */
-const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/refund-policy',del2:'/legal/account-deletion',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
+const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del2:'/legal/account-deletion',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
 const NAVS={
   passenger:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]],
   owner:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]]
@@ -2323,7 +2323,7 @@ function FAQPage(){
 function LegalBody({blocks}){
   return blocks.map((b,i)=>{
     const [t,v]=b;
-    if(t==='h2') return <h2 key={i} className="legal__h2" id={'s'+i}>{v}</h2>;
+    if(t==='h2') return <h2 key={i} className="legal__h2" id={b[2]||('s'+i)}>{v}</h2>;
     if(t==='h3') return <h3 key={i} className="legal__h3">{v}</h3>;
     if(t==='p')  return <p  key={i} className="legal__p">{v}</p>;
     if(t==='ol') return <ol key={i} className="legal__list">{v.map((x,j)=><li key={j}>{x}</li>)}</ol>;
@@ -2334,7 +2334,10 @@ function LegalBody({blocks}){
 
 function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
   useReveal();
-  const toc=blocks.map((b,i)=>b[0]==='h2'?[i,b[1]]:null).filter(Boolean);
+  // An h2 may supply an explicit anchor as its third element — index-based
+  // ids shift whenever a clause is inserted, so anything linked from another
+  // page (e.g. /legal/privacy#refund) needs a stable one.
+  const toc=blocks.map((b,i)=>b[0]==='h2'?[b[2]||('s'+i),b[1]]:null).filter(Boolean);
   return (<>
     <Header role="passenger"/>
     <main>
@@ -2346,7 +2349,7 @@ function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
           <aside className="legal__toc">
             {updated&&<p className="legal__updated">Last updated · {updated}</p>}
             <p className="eyebrow" style={{margin:'0 0 12px'}}>On this page</p>
-            <nav>{toc.map(([i,t])=><a key={i} href={'#s'+i}>{t}</a>)}</nav>
+            <nav>{toc.map(([id,t])=><a key={id} href={'#'+id}>{t}</a>)}</nav>
           </aside>
           <article className="legal__body">
             <LegalBody blocks={blocks}/>
@@ -2366,7 +2369,7 @@ function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
 /* ---------------- Privacy ---------------- */
 function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   title={<>Privacy <em>policy</em>.</>}
-  intro="Conductor takes your privacy seriously. This Privacy Policy explains what personal information we collect, why we collect it, who we share it with, how long we keep it, and the rights you have under Nigerian data-protection law — including the Nigeria Data Protection Act 2023 (NDPA) and, where applicable, the Nigeria Data Protection Regulation (NDPR)."
+  intro="Conductor takes your privacy seriously. This Privacy Policy explains what personal information we collect, why we collect it, who we share it with, how long we keep it, and the rights you have under Nigerian data-protection law — including the Nigeria Data Protection Act 2023 (NDPA) and, where applicable, the Nigeria Data Protection Regulation (NDPR). Our Refund Policy forms clause 14 of this document."
   blocks={[
   ['h2','1 · Scope & roles'],
   ['p','This Policy applies to personal information we collect when you access or use the Platform, communicate with us, or otherwise interact with our services. For the purposes of the NDPA, Conductor is the Data Controller in respect of your personal information, save where a specific processing activity involves us acting as processor on behalf of another controller (for example, certain identity-verification activities where the controller is a licensed identity provider).'],
@@ -2377,7 +2380,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
     <><b>Identity-verification data:</b> NIN and NIN-verification records; for Car Owners, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
     <><b>Trip &amp; usage data:</b> Bookings, Trips published, Trip-Days completed, cancellations, ratings, chat messages, service-recovery credits and referrals.</>,
     <><b>Location data:</b> pickup and drop-off coordinates, live GPS during a Trip, and area-level home / work coordinates captured during onboarding (see clause 6).</>,
-    <><b>Financial data:</b> Wallet balances, transaction history, bank-account details submitted for withdrawals, and tokenised card details as held by our payment processor.</>,
+    <><b>Financial data:</b> Wallet balances, transaction history, refund requests and their outcomes, bank-account details submitted for withdrawals, and tokenised card details as held by our payment processor.</>,
     <><b>Device &amp; technical data:</b> device model, operating system, app version, IP address, session identifiers, telemetry (battery, network kind, GPS accuracy), and analytics events.</>,
     <><b>Safety data:</b> SOS activations, emergency contacts you nominate, incident reports, safety-relevant photos or recordings (e.g. vehicle photographs), and dispute records.</>,
     <><b>Communications:</b> messages exchanged in the in-app chat, support tickets, and notifications delivered via our providers.</>,
@@ -2385,8 +2388,9 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['h2','3 · How we use it'],
   ['p','We use personal information to:'],
   ['ul',[
-    'operate the Platform — register your account, verify your identity, publish or book Trips, calculate fares, process payments, and settle earnings;',
+    'operate the Platform — register your account, verify your identity, publish or book Trips, calculate fares, process payments and refunds, and settle earnings;',
     'keep the Platform safe — run our Trust & Safety systems, detect fraud, prevent abuse, investigate incidents, and respond to disputes;',
+    <>assess refund requests — where you report an issue with a Trip-Day, we review the records relevant to that claim, which may include GPS traces, in-app chat logs, and attendance flags, in order to decide the request and to detect refund fraud or abuse (see <a href="/legal/privacy#refund">clause 14</a>);</>,
     'improve the Platform — understand how features are used, prioritise product decisions, calibrate pricing, and develop new features;',
     'communicate with you — send Trip notifications, service messages, safety alerts, receipts, and (where you have opted in or the law permits) promotional messages;',
     'meet legal, tax, and regulatory obligations — including obligations arising under the NDPA, NDPR, FCCPA, Federal Inland Revenue Service (FIRS) requirements, and any lawful requests by competent authorities;',
@@ -2430,7 +2434,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['ul',[
     <><b>Account &amp; profile data</b> — while the account is active, and thereafter for a reasonable period to satisfy legal obligations, resolve disputes, and enforce our agreements.</>,
     <><b>Identity-verification records (including NIN, licences, vehicle documents)</b> — for the duration of the account and thereafter for such period as is required by anti-fraud, safety, tax, or regulatory obligations.</>,
-    <><b>Trip, payment, and settlement records</b> — for a minimum of seven (7) years, or such longer period as required for accounting, tax, or audit purposes.</>,
+    <><b>Trip, payment, refund, and settlement records</b> — for a minimum of seven (7) years, or such longer period as required for accounting, tax, or audit purposes.</>,
     <><b>Search history &amp; usage telemetry</b> — up to 365 days by default (admin-tunable), used for personalisation and product research.</>,
     <><b>Chat and support communications</b> — for such period as is required to service tickets, respond to disputes, and comply with law.</>,
     <><b>Anonymised / aggregated data</b> — may be retained indefinitely.</>]],
@@ -2455,7 +2459,66 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['h2','12 · Cross-border transfers'],
   ['p','Some of our service providers process personal information outside Nigeria. Where personal information is transferred outside Nigeria, we do so in accordance with the NDPA, including by relying on adequacy decisions, standard contractual clauses, binding corporate rules, or one of the other lawful transfer mechanisms recognised under Nigerian law.'],
   ['h2','13 · Contact & Data Protection Officer (DPO)'],
-  ['p','Questions, requests, or complaints about your privacy or personal information: privacy@conductor.ng.']
+  ['p','Questions, requests, or complaints about your privacy or personal information: privacy@conductor.ng.'],
+  ['h2','14 · Refund Policy','refund'],
+  ['p','This Refund Policy sets out when refunds are and are not payable, the process for requesting one, and how long refunds take to reach you. It is incorporated by reference into the Terms of Service.'],
+  ['h3','14.1 · General principles'],
+  ['ol',[
+    'Refunds are decided on the facts of each Trip-Day, in accordance with this Policy.',
+    'Approved refunds are, in the first instance, credited to your Wallet spendable balance. Where you have withdrawn, refunds may be routed to the original payment method or another payment channel we designate, subject to operational, legal, and regulatory requirements.',
+    'We reserve the right to investigate every refund request, including by reviewing GPS data, chat logs, car owner / passenger attendance flags, and any other Trip records, in order to prevent fraud, abuse, or misuse.',
+    'Refunds are processed on a per-Trip-Day basis. A multi-day Booking is not refunded on a whole-Trip basis simply because one Trip-Day was disputed — each affected Trip-Day is evaluated on its own facts.',
+    'Where the Service Charge has been earned, we may deduct it from a refund. Where a refund arises from Car Owner fault or a service failure attributable to us, the full amount paid is refunded.']],
+  ['h3','14.2 · Passenger-initiated cancellations'],
+  ['ol',[
+    <><b>Before Car Owner acceptance.</b> Any amount pre-authorised, held, or paid is refunded in full.</>,
+    <><b>Early cancellation (before the daily cut-off).</b> Where you cancel a Trip-Day sufficiently in advance of the Car Owner’s pickup time (as defined by the in-app cancellation window for that Trip), the fare is refunded in full, less any small administrative processing fee expressly disclosed at cancellation.</>,
+    <><b>Late cancellation.</b> Where you cancel a Trip-Day inside the cut-off window — sufficiently close to pickup that the Car Owner cannot reasonably re-sell the seat — the fare for that Trip-Day is not refundable. This is because the seat has effectively been consumed against the Car Owner’s capacity.</>,
+    <><b>No-show.</b> If the Car Owner arrives at the pickup point and waits the applicable grace period (published in-app) and you neither arrive nor cancel in-app, you are treated as a no-show and no refund is due.</>,
+    <><b>Ride refused after boarding for behaviour.</b> Where a Car Owner ends a Trip early due to your prohibited conduct (clause 11 of the Terms), you are not entitled to a refund of the affected Trip-Day.</>]],
+  ['h3','14.3 · Car owner-initiated cancellations & service failures'],
+  ['ol',[
+    <><b>Car Owner cancels a Trip-Day after accepting the Booking.</b> You receive a full refund of the fare paid for that Trip-Day. Where the pattern is repeated by the same Car Owner, we may sanction the Car Owner under clause 12 of the Terms.</>,
+    <><b>Car Owner marks the Trip-Day as suspended</b> (e.g. vehicle unavailable, personal emergency). You are not charged for that Trip-Day and any pre-held amount is released back.</>,
+    <><b>Car Owner no-show</b> (Car Owner did not arrive within a reasonable time and did not update the Trip-Day status). You are refunded in full.</>,
+    <><b>Vehicle unroadworthy or safety-inadequate at pickup.</b> You may decline to board; the Trip-Day is refunded in full and reported to our Trust &amp; Safety team.</>,
+    <><b>Substantial route deviation.</b> Where the Car Owner, without lawful reason, materially departs from the agreed route in a way that substantially harms the value of the Trip to you, a partial or full refund may be granted upon investigation.</>]],
+  ['h3','14.4 · Payment failures, duplicates, and technical errors'],
+  ['ol',[
+    'Duplicate charges are refunded in full upon confirmation.',
+    'Where a payment is deducted without a corresponding successful Booking, the amount is refunded in full.',
+    'Where an incorrect fare has been charged due to a technical error, we will refund the difference.']],
+  ['h3','14.5 · Wallet balances & withdrawals'],
+  ['ol',[
+    'Spendable Wallet funds may be withdrawn to a verified bank account. Withdrawals may take between one (1) and five (5) business days after approval, depending on the banking rails.',
+    'Withdrawal requests may be delayed or declined where fraud, abuse, suspicious activity, sanctions-list matching, or a lawful hold is present.',
+    'Referral rewards and promotional credits are not directly withdrawable. Referral rewards may be transferred to the spendable Wallet subject to programme-specific minimums and PIN authentication.']],
+  ['h3','14.6 · Promotional credits, bonuses, and coupons'],
+  ['p','Promotional credits, referral rewards, discount codes, and other incentives are:'],
+  ['ul',[
+    'non-transferable;',
+    'not redeemable for cash;',
+    'not refundable when a related Trip is cancelled — only the eligible monetary amount, if any, may be refunded;',
+    'expire in accordance with the terms of the specific promotion.']],
+  ['h3','14.7 · Circumstances where refunds may be declined'],
+  ['ul',[
+    'failure of the Passenger to appear within the permitted waiting time;',
+    'provision of inaccurate pickup or drop-off information;',
+    'violations of these Terms;',
+    'fraudulent, deceptive, or abusive refund practices, or repeated misuse of the refund process;',
+    'circumstances beyond the Company’s reasonable control (see clause 15 of the Terms);',
+    'where the service has substantially been rendered.']],
+  ['h3','14.8 · Processing time'],
+  ['ol',[
+    <><b>To the in-app Wallet:</b> generally immediate or within 24 hours of approval.</>,
+    <><b>To a bank account or card:</b> generally within 5 to 15 business days, depending on the financial institution, payment processor, and applicable regulations.</>,
+    'We are not liable for delays caused by third-party payment providers or financial institutions.']],
+  ['h3','14.9 · How to request a refund'],
+  ['p','Open the affected Trip-Day in the app and tap “Report an issue”. Describe the problem and attach any photographs or screenshots you have. Our support team will acknowledge within seven (7) business days and confirm the outcome within a reasonable time thereafter. You may also email support@conductor.ng.'],
+  ['h3','14.10 · Fraud prevention & abuse'],
+  ['p','We maintain fraud-detection measures for refund requests. Users who engage in fraudulent, deceptive, or abusive refund practices may have their accounts suspended, restricted, or terminated, and forfeit outstanding Wallet balances derived from the abusive activity, without prejudice to any other legal remedy available to the Company.'],
+  ['h3','14.11 · Changes to this Policy'],
+  ['p','We may amend this Policy from time to time. Changes take effect on publication and continued use of the Platform constitutes acceptance.']
   ]}/>;}
 /* ---------------- Terms ---------------- */
 function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
@@ -2534,7 +2597,7 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
     <><b>Taxes.</b> Prices displayed to Passengers are inclusive of applicable VAT. The Company will remit VAT in accordance with Nigerian tax law. Car Owners are solely responsible for their own income tax and any other personal tax obligations.</>,
     <><b>Failed payments.</b> Where a payment fails, the Company may retry the charge, invoice the Passenger, deduct from Wallet balance, or restrict Booking rights until settled.</>]],
   ['h2','8 · Cancellations, no-shows, suspensions'],
-  ['p',<>Detailed rules — including the two-tier refund model, per-Trip-Day treatment, and how attendance flags (rode, no-show, cancel-early, cancel-late, suspended, skipped-by-driver) affect refunds and payouts — are set out in the <a href="/legal/refund-policy">Refund Policy</a>. In summary:</>],
+  ['p',<>Detailed rules — including the two-tier refund model, per-Trip-Day treatment, and how attendance flags (rode, no-show, cancel-early, cancel-late, suspended, skipped-by-driver) affect refunds and payouts — are set out in the <a href="/legal/privacy#refund">Refund Policy</a>. In summary:</>],
   ['ol',[
     'Passenger cancellation before Car Owner acceptance: full refund of any pre-authorised or held amount.',
     'Passenger cancellation early (before the Car Owner’s cut-off window on the day): refund of the fare paid for the affected Trip-Day, in accordance with the Refund Policy.',
@@ -2620,7 +2683,7 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
   ['p','We may modify these Terms from time to time. Where a change materially affects your rights or obligations, we will provide reasonable notice via the Platform or the email associated with your account, and will identify an effective date. Your continued use of the Platform after the effective date constitutes acceptance of the modified Terms. If you do not agree to a material change, you must stop using the Platform.'],
   ['h2','20 · General'],
   ['ol',[
-    <><b>Entire agreement.</b> These Terms, together with the <a href="/legal/privacy">Privacy Policy</a>, <a href="/legal/refund-policy">Refund Policy</a>, <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>, Community Guidelines, and any Car Owner Addendum, constitute the entire agreement between you and the Company in relation to the Platform, and supersede any prior agreement or understanding on the subject.</>,
+    <><b>Entire agreement.</b> These Terms, together with the <a href="/legal/privacy">Privacy Policy</a>, <a href="/legal/privacy#refund">Refund Policy</a>, <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>, Community Guidelines, and any Car Owner Addendum, constitute the entire agreement between you and the Company in relation to the Platform, and supersede any prior agreement or understanding on the subject.</>,
     <><b>Severability.</b> If any provision is held invalid or unenforceable, that provision shall be modified to the minimum extent necessary to be enforceable, or, failing that, severed; the remaining provisions continue in force.</>,
     <><b>Waiver.</b> A failure or delay in exercising a right is not a waiver of that right.</>,
     <><b>Assignment.</b> You may not assign or transfer these Terms without our written consent. We may assign these Terms to any successor or affiliate, or in connection with a merger, sale, or restructuring.</>,
@@ -2639,7 +2702,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
     <><b>Transparent pricing.</b> The full fare, including VAT and any applicable tax, is shown before you confirm a Booking and is locked at Booking. There is no surge and no hidden fee.</>,
     <><b>Escrowed payment.</b> Your fare is held in Company-controlled escrow, per Trip-Day, until the Trip-Day is complete or resolved.</>,
     <><b>The same seat, same route.</b> When you book a recurring Trip, the same seat is generally reserved for you on every eligible Trip-Day, subject to the Car Owner’s continued publication of the Trip-Days.</>,
-    <><b>Refund per the <a href="/legal/refund-policy">Refund Policy</a>.</b> A pre-departure cancellation window inside which you may cancel without loss; full refund where the Car Owner cancels, no-shows, presents an unroadworthy Vehicle, or the Trip is not delivered as promised.</>,
+    <><b>Refund per the <a href="/legal/privacy#refund">Refund Policy</a>.</b> A pre-departure cancellation window inside which you may cancel without loss; full refund where the Car Owner cancels, no-shows, presents an unroadworthy Vehicle, or the Trip is not delivered as promised.</>,
     <><b>Verified Car Owners.</b> Every Car Owner must complete NIN, licence, and vehicle-document verification before publishing.</>,
     <><b>Safety tooling.</b> In-app SOS, live GPS tracking on your Trip, an anonymised in-app chat channel with the Car Owner, and Trust &amp; Safety support for any incident.</>,
     <><b>Honest ratings.</b> Weekly release windows to prevent revenge-rating from a Car Owner. Written feedback is confidential save for lawful disclosure and internal review.</>,
@@ -2687,7 +2750,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
     'Fares are inclusive of VAT. The fare is calculated by the Company’s pricing engine, versioned per Trip, and locked at Booking.',
     'Accepted payment methods, minimums, and processing fees are displayed at checkout.',
     'Your Wallet has spendable funds, referral rewards, and promotional credits — each with its own rules. Only spendable funds are directly withdrawable.',
-    <>Refunds follow the <a href="/legal/refund-policy">Refund Policy</a>. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.</>,
+    <>Refunds follow the <a href="/legal/privacy#refund">Refund Policy</a>. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.</>,
     'The 26-hour never-reverse window applies to Car Owner settlement. Disputes raised after 26 hours are handled through the dispute engine and, where you win, may be paid as a Wallet credit or bank refund.']],
   ['h2','7 · Safety & SOS'],
   ['ol',[
@@ -2805,69 +2868,6 @@ function CarOwnerPolicyPage(){return <LegalDoc crumb="Car owner policy" eyebrow=
   ]}/>;}
 
 /* ---------------- Refund policy ---------------- */
-function RefundPolicyPage(){return <LegalDoc crumb="Refund policy" eyebrow="Legal"
-  title={<>Refund <em>policy</em>.</>}
-  intro="This Refund Policy sets out when refunds are and are not payable, the process for requesting one, and how long refunds take to reach you. It is incorporated by reference into the Terms of Service."
-  blocks={[
-  ['h2','1 · General principles'],
-  ['ol',[
-    'Refunds are decided on the facts of each Trip-Day, in accordance with this Policy.',
-    'Approved refunds are, in the first instance, credited to your Wallet spendable balance. Where you have withdrawn, refunds may be routed to the original payment method or another payment channel we designate, subject to operational, legal, and regulatory requirements.',
-    'We reserve the right to investigate every refund request, including by reviewing GPS data, chat logs, car owner / passenger attendance flags, and any other Trip records, in order to prevent fraud, abuse, or misuse.',
-    'Refunds are processed on a per-Trip-Day basis. A multi-day Booking is not refunded on a whole-Trip basis simply because one Trip-Day was disputed — each affected Trip-Day is evaluated on its own facts.',
-    'Where the Service Charge has been earned, we may deduct it from a refund. Where a refund arises from Car Owner fault or a service failure attributable to us, the full amount paid is refunded.']],
-  ['h2','2 · Passenger-initiated cancellations'],
-  ['ol',[
-    <><b>Before Car Owner acceptance.</b> Any amount pre-authorised, held, or paid is refunded in full.</>,
-    <><b>Early cancellation (before the daily cut-off).</b> Where you cancel a Trip-Day sufficiently in advance of the Car Owner’s pickup time (as defined by the in-app cancellation window for that Trip), the fare is refunded in full, less any small administrative processing fee expressly disclosed at cancellation.</>,
-    <><b>Late cancellation.</b> Where you cancel a Trip-Day inside the cut-off window — sufficiently close to pickup that the Car Owner cannot reasonably re-sell the seat — the fare for that Trip-Day is not refundable. This is because the seat has effectively been consumed against the Car Owner’s capacity.</>,
-    <><b>No-show.</b> If the Car Owner arrives at the pickup point and waits the applicable grace period (published in-app) and you neither arrive nor cancel in-app, you are treated as a no-show and no refund is due.</>,
-    <><b>Ride refused after boarding for behaviour.</b> Where a Car Owner ends a Trip early due to your prohibited conduct (clause 11 of the Terms), you are not entitled to a refund of the affected Trip-Day.</>]],
-  ['h2','3 · Car owner-initiated cancellations & service failures'],
-  ['ol',[
-    <><b>Car Owner cancels a Trip-Day after accepting the Booking.</b> You receive a full refund of the fare paid for that Trip-Day. Where the pattern is repeated by the same Car Owner, we may sanction the Car Owner under clause 12 of the Terms.</>,
-    <><b>Car Owner marks the Trip-Day as suspended</b> (e.g. vehicle unavailable, personal emergency). You are not charged for that Trip-Day and any pre-held amount is released back.</>,
-    <><b>Car Owner no-show</b> (Car Owner did not arrive within a reasonable time and did not update the Trip-Day status). You are refunded in full.</>,
-    <><b>Vehicle unroadworthy or safety-inadequate at pickup.</b> You may decline to board; the Trip-Day is refunded in full and reported to our Trust &amp; Safety team.</>,
-    <><b>Substantial route deviation.</b> Where the Car Owner, without lawful reason, materially departs from the agreed route in a way that substantially harms the value of the Trip to you, a partial or full refund may be granted upon investigation.</>]],
-  ['h2','4 · Payment failures, duplicates, and technical errors'],
-  ['ol',[
-    'Duplicate charges are refunded in full upon confirmation.',
-    'Where a payment is deducted without a corresponding successful Booking, the amount is refunded in full.',
-    'Where an incorrect fare has been charged due to a technical error, we will refund the difference.']],
-  ['h2','5 · Wallet balances & withdrawals'],
-  ['ol',[
-    'Spendable Wallet funds may be withdrawn to a verified bank account. Withdrawals may take between one (1) and five (5) business days after approval, depending on the banking rails.',
-    'Withdrawal requests may be delayed or declined where fraud, abuse, suspicious activity, sanctions-list matching, or a lawful hold is present.',
-    'Referral rewards and promotional credits are not directly withdrawable. Referral rewards may be transferred to the spendable Wallet subject to programme-specific minimums and PIN authentication.']],
-  ['h2','6 · Promotional credits, bonuses, and coupons'],
-  ['p','Promotional credits, referral rewards, discount codes, and other incentives are:'],
-  ['ul',[
-    'non-transferable;',
-    'not redeemable for cash;',
-    'not refundable when a related Trip is cancelled — only the eligible monetary amount, if any, may be refunded;',
-    'expire in accordance with the terms of the specific promotion.']],
-  ['h2','7 · Circumstances where refunds may be declined'],
-  ['ul',[
-    'failure of the Passenger to appear within the permitted waiting time;',
-    'provision of inaccurate pickup or drop-off information;',
-    'violations of these Terms;',
-    'fraudulent, deceptive, or abusive refund practices, or repeated misuse of the refund process;',
-    'circumstances beyond the Company’s reasonable control (see clause 15 of the Terms);',
-    'where the service has substantially been rendered.']],
-  ['h2','8 · Processing time'],
-  ['ol',[
-    <><b>To the in-app Wallet:</b> generally immediate or within 24 hours of approval.</>,
-    <><b>To a bank account or card:</b> generally within 5 to 15 business days, depending on the financial institution, payment processor, and applicable regulations.</>,
-    'We are not liable for delays caused by third-party payment providers or financial institutions.']],
-  ['h2','9 · How to request a refund'],
-  ['p','Open the affected Trip-Day in the app and tap “Report an issue”. Describe the problem and attach any photographs or screenshots you have. Our support team will acknowledge within seven (7) business days and confirm the outcome within a reasonable time thereafter. You may also email support@conductor.ng.'],
-  ['h2','10 · Fraud prevention & abuse'],
-  ['p','We maintain fraud-detection measures for refund requests. Users who engage in fraudulent, deceptive, or abusive refund practices may have their accounts suspended, restricted, or terminated, and forfeit outstanding Wallet balances derived from the abusive activity, without prejudice to any other legal remedy available to the Company.'],
-  ['h2','11 · Changes to this Policy'],
-  ['p','We may amend this Policy from time to time. Changes take effect on publication and continued use of the Platform constitutes acceptance.']
-  ]}/>;}
-
 /* ---------------- Account & data deletion ---------------- */
 function AccountDeletionPage(){return <LegalDoc crumb="Account & data deletion" eyebrow="Legal"
   title={<>Account &amp; data <em>deletion</em>.</>}
@@ -2956,7 +2956,7 @@ function ConductPage(){return <LegalDoc crumb="Code of conduct" eyebrow="Legal" 
   ['ol',[
     <><b>Warning.</b> Recorded on your account; no restriction on service.</>,
     <><b>Feature restriction.</b> Temporary loss of a specific feature (e.g. no publishing, no wallet withdrawal) while a review is completed.</>,
-    <><b>Short suspension.</b> Account inactive for 24 – 72 hours; existing Bookings honoured or refunded per the <a href="/legal/refund-policy">Refund Policy</a>.</>,
+    <><b>Short suspension.</b> Account inactive for 24 – 72 hours; existing Bookings honoured or refunded per the <a href="/legal/privacy#refund">Refund Policy</a>.</>,
     <><b>Extended suspension.</b> Account inactive for 7 – 90 days; Bookings cancelled with refund; funds in Wallet subject to normal payout rules.</>,
     <><b>Termination.</b> Account permanently closed. Withdrawable Wallet funds are paid out subject to identity verification and fraud checks.</>,
     <><b>Identity-level ban.</b> Applied in addition to termination for zero-tolerance conduct. The verified identity (NIN + face) is blocked from re-registration under any name or phone number.</>,
@@ -3103,4 +3103,4 @@ function PressPage(){
 
 
 
-export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, RefundPolicyPage, AccountDeletionPage, ConductPage, DeletePage, CareersPage, PressPage };
+export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, AccountDeletionPage, ConductPage, DeletePage, CareersPage, PressPage };
