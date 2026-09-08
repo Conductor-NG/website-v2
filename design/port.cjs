@@ -29,11 +29,11 @@ out = out.replace(/window.ConductorDesignSystem_31cc6b/g, "(typeof window!=='und
 
 out = out.replace(
   /const P=\{[^}]*\};/,
-  "const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',del:'/delete-profile',careers:'/careers',press:'/press'};"
+  "const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',del:'/delete-profile',careers:'/careers',press:'/press'};"
 );
 
 out +=
-  "\nexport { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Quote, Header, Footer, PrivacyPage, TermsPage, ConductPage, DeletePage, CareersPage, PressPage };\n";
+  "\nexport { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Quote, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };\n";
 
 fs.writeFileSync("components/design.jsx", out);
 const lines = out.split("\n").length;

@@ -96,7 +96,7 @@ function Footer(){
   const C=[['Ride',[['Open the web app',LINKS.pWeb],['For passengers',P.home],['For car owners',P.own],['How it works',P.how],['Safety',P.safety]]],
     ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact','mailto:support@conductor.ng']]],
     ['Company',[['About',P.about],['Communities',P.how+'#walk'],['Careers',P.careers],['Press',P.press]]],
-    ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
+    ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Passenger policy',P.paxpol],['Car owner policy',P.ownpol],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
   return React.createElement('footer',{className:'ftr'},
     React.createElement('div',{className:'wrap'},
       React.createElement('div',{className:'ftr__grid',style:{gridTemplateColumns:'1.4fr repeat(4,1fr)'}},
