@@ -96,7 +96,7 @@ export const FINANCIALS = `
       <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:32px;display:flex;flex-direction:column;justify-content:center;gap:14px">
         <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Anchor</div>
         <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:80px;line-height:1">$5M</div>
-        <div style="font-size:16px;color:#ECDFCE;line-height:1.4">Top of the defensible band. Incorporated September 2024 with ₦1m authorised capital; today a live product on both platforms, 1,000 users, 424 car-owner signups, 100 verified, and ~₦1.35b of aligned commitment already in.</div>
+        <div style="font-size:16px;color:#ECDFCE;line-height:1.4">Top of the defensible band. Incorporated September 2024 with ₦1m authorised capital; today a live product on both platforms, 1,000 users, 420 car-owner signups, 100 verified, and ~₦1.35b of aligned commitment already in.</div>
         <div style="border-top:1px solid #514336;padding-top:14px;display:flex;flex-direction:column;gap:8px">
           <div style="font-size:15px;color:#FFF8F0;line-height:1.4">Founders have committed ~$1M of capital.</div>
           <div style="font-size:15px;color:#ECDFCE;line-height:1.4">$200k raise = ~4% — a modest ask for an audited, live, two-sided product.</div>
