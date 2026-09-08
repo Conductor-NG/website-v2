@@ -22,7 +22,6 @@ export const PrivacyPage: AnyProps;
 export const TermsPage: AnyProps;
 export const PassengerPolicyPage: AnyProps;
 export const CarOwnerPolicyPage: AnyProps;
-export const AccountDeletionPage: AnyProps;
 export const ConductPage: AnyProps;
 export const DeletePage: AnyProps;
 export const CareersPage: AnyProps;

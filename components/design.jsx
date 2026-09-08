@@ -875,7 +875,7 @@ function Carpool({role}){
 
 
 /* ============ Shell ============ */
-const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del2:'/legal/account-deletion',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
+const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del2:'/delete-profile',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
 const NAVS={
   passenger:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]],
   owner:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]]
@@ -2443,7 +2443,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['ul',[
     'ask us to confirm whether we process your personal information and to receive a copy;',
     <>ask us to correct inaccurate or incomplete information;</>,
-    <>ask us to delete personal information we no longer have a lawful basis to retain (see the <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>);</>,
+    <>ask us to delete personal information we no longer have a lawful basis to retain (see the <a href="/delete-profile">Account &amp; Data Deletion Policy</a>);</>,
     'object to processing on grounds of your particular situation, or to withdraw a consent you previously gave;',
     'request restriction of processing in certain cases;',
     'request portability of personal information you provided to us, in a structured, commonly used, machine-readable format;',
@@ -2683,7 +2683,7 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
   ['p','We may modify these Terms from time to time. Where a change materially affects your rights or obligations, we will provide reasonable notice via the Platform or the email associated with your account, and will identify an effective date. Your continued use of the Platform after the effective date constitutes acceptance of the modified Terms. If you do not agree to a material change, you must stop using the Platform.'],
   ['h2','20 · General'],
   ['ol',[
-    <><b>Entire agreement.</b> These Terms, together with the <a href="/legal/privacy">Privacy Policy</a>, <a href="/legal/privacy#refund">Refund Policy</a>, <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>, Community Guidelines, and any Car Owner Addendum, constitute the entire agreement between you and the Company in relation to the Platform, and supersede any prior agreement or understanding on the subject.</>,
+    <><b>Entire agreement.</b> These Terms, together with the <a href="/legal/privacy">Privacy Policy</a>, <a href="/legal/privacy#refund">Refund Policy</a>, <a href="/delete-profile">Account &amp; Data Deletion Policy</a>, Community Guidelines, and any Car Owner Addendum, constitute the entire agreement between you and the Company in relation to the Platform, and supersede any prior agreement or understanding on the subject.</>,
     <><b>Severability.</b> If any provision is held invalid or unenforceable, that provision shall be modified to the minimum extent necessary to be enforceable, or, failing that, severed; the remaining provisions continue in force.</>,
     <><b>Waiver.</b> A failure or delay in exercising a right is not a waiver of that right.</>,
     <><b>Assignment.</b> You may not assign or transfer these Terms without our written consent. We may assign these Terms to any successor or affiliate, or in connection with a merger, sale, or restructuring.</>,
@@ -2868,34 +2868,6 @@ function CarOwnerPolicyPage(){return <LegalDoc crumb="Car owner policy" eyebrow=
   ]}/>;}
 
 /* ---------------- Refund policy ---------------- */
-/* ---------------- Account & data deletion ---------------- */
-function AccountDeletionPage(){return <LegalDoc crumb="Account & data deletion" eyebrow="Legal"
-  title={<>Account &amp; data <em>deletion</em>.</>}
-  intro="You control your account. This Policy explains how to request deletion, what happens during the 30-day grace period, and which categories of information we may lawfully retain after your account is closed."
-  blocks={[
-  ['h2','1 · How to request deletion'],
-  ['p','Open Account → Delete account in the app, or contact us at support@conductor.ng. Once we receive your request, your account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
-  ['h2','2 · Thirty (30) day grace period'],
-  ['ol',[
-    'Your account is deactivated but not permanently deleted for thirty (30) days.',
-    'If you log in or otherwise access the Platform using your credentials during that period, your deletion request is deemed withdrawn and your account is automatically reactivated. You may submit a new deletion request at any time.',
-    'Where you are owed money on your account (e.g. a Wallet balance), we will guide you through payout (typically to your verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
-  ['h2','3 · Timeline for deletion'],
-  ['p','After the 30-day grace period, we complete the deletion or anonymisation of your eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in our secure archives for the periods described below.'],
-  ['h2','4 · Information that may not be deleted'],
-  ['p','Notwithstanding a deletion request, we may retain certain categories of information where retention is necessary or permitted by law, including:'],
-  ['ol',[
-    <><b>Identity-verification records</b> — information used to verify User identity (including NIN records) may be retained where necessary to comply with legal, regulatory, security, fraud-prevention, or audit requirements.</>,
-    <><b>Transaction and Trip records</b> — records relating to completed Trips, payments, receipts, disputes, complaints, refunds, and other transactional activity may be retained for accounting, tax, auditing, and legal-compliance purposes.</>,
-    <><b>Safety and security information</b> — we may retain information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
-    <><b>Legal and regulatory requirements</b> — personal information subject to a legal-hold, court order, governmental directive, or valid regulatory request.</>,
-    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify you may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
-  ['h2','5 · Effect of permanent deletion'],
-  ['p','Once your account is permanently deleted, you may lose access to your profile, Trip history, saved preferences, referrals, and other information associated with the account. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
-  ['h2','6 · Your acknowledgement'],
-  ['p','By submitting a deletion request, you acknowledge and understand this Policy.']
-  ]}/>;}
-
 /* ---------------- Code of conduct ---------------- */
 function ConductPage(){return <LegalDoc crumb="Code of conduct" eyebrow="Legal" updated="10 August 2026"
   title={<>Code of <em>conduct</em>.</>}
@@ -2989,27 +2961,28 @@ function DeletePage(){return <LegalDoc crumb="Delete your profile" eyebrow="Your
     <><b>Step 4:</b> Optionally provide feedback about why you’re leaving the platform.</>,
     <><b>Step 5:</b> Confirm deletion by typing “DELETE” to schedule account deletion.</>]],
   ['p','The 30-day grace period begins immediately. Users can log back in before it ends to cancel the deletion request.'],
+  ['p','You control your account. This Policy explains how to request deletion, what happens during the 30-day grace period, and which categories of information we may lawfully retain after your account is closed.'],
   ['h2','1 · How to request deletion'],
-  ['p','Open Account → Delete account in the app, or contact Conductor at support@conductor.ng. Once the request is received, the account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
+  ['p','Open Account → Delete account in the app, or contact us at support@conductor.ng. Once we receive your request, your account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
   ['h2','2 · Thirty (30) day grace period'],
   ['ol',[
-    'The account is deactivated but not permanently deleted for thirty (30) days.',
-    'If the user logs in or otherwise accesses the Platform using their credentials during that period, the deletion request is deemed withdrawn and the account is automatically reactivated. A new deletion request may be submitted at any time.',
-    'Where the user is owed money on the account (e.g. a Wallet balance), Conductor will guide them through payout (typically to the verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
+    'Your account is deactivated but not permanently deleted for thirty (30) days.',
+    'If you log in or otherwise access the Platform using your credentials during that period, your deletion request is deemed withdrawn and your account is automatically reactivated. You may submit a new deletion request at any time.',
+    'Where you are owed money on your account (e.g. a Wallet balance), we will guide you through payout (typically to your verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
   ['h2','3 · Timeline for deletion'],
-  ['p','After the 30-day grace period, Conductor completes the deletion or anonymisation of eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in secure archives for the periods described below.'],
+  ['p','After the 30-day grace period, we complete the deletion or anonymisation of your eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in our secure archives for the periods described below.'],
   ['h2','4 · Information that may not be deleted'],
-  ['p','Notwithstanding a deletion request, certain categories of information may be retained where retention is necessary or permitted by law, including:'],
+  ['p','Notwithstanding a deletion request, we may retain certain categories of information where retention is necessary or permitted by law, including:'],
   ['ol',[
     <><b>Identity-verification records</b> — information used to verify User identity (including NIN records) may be retained where necessary to comply with legal, regulatory, security, fraud-prevention, or audit requirements.</>,
     <><b>Transaction and Trip records</b> — records relating to completed Trips, payments, receipts, disputes, complaints, refunds, and other transactional activity may be retained for accounting, tax, auditing, and legal-compliance purposes.</>,
-    <><b>Safety and security information</b> — information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
+    <><b>Safety and security information</b> — we may retain information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
     <><b>Legal and regulatory requirements</b> — personal information subject to a legal-hold, court order, governmental directive, or valid regulatory request.</>,
-    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify the user may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
+    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify you may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
   ['h2','5 · Effect of permanent deletion'],
-  ['p','Once an account is permanently deleted, access to the profile, Trip history, saved preferences, referrals, and other information associated with the account may be lost. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
+  ['p','Once your account is permanently deleted, you may lose access to your profile, Trip history, saved preferences, referrals, and other information associated with the account. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
   ['h2','6 · Your acknowledgement'],
-  ['p','By submitting a deletion request, users acknowledge and understand this Policy.']
+  ['p','By submitting a deletion request, you acknowledge and understand this Policy.']
   ]}/>;}
 
 /* ---------------- Careers ---------------- */
@@ -3103,4 +3076,4 @@ function PressPage(){
 
 
 
-export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, AccountDeletionPage, ConductPage, DeletePage, CareersPage, PressPage };
+export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };

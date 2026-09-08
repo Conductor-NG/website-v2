@@ -75,6 +75,10 @@ const nextConfig = {
       // /legal/refund-policy route pointing at it.
       { source: "/refund-policy", destination: "/legal/privacy#refund", permanent: true },
       { source: "/legal/refund-policy", destination: "/legal/privacy#refund", permanent: true },
+      // The deletion policy and the how-to walkthrough were two forks of the
+      // same document; /delete-profile is the URL registered with the app
+      // stores, so that one survives.
+      { source: "/legal/account-deletion", destination: "/delete-profile", permanent: true },
       // Policies not yet rebuilt as their own pages — send to Terms, which incorporates them.
       { source: "/car-owner-policy", destination: "/legal/terms", permanent: false },
       { source: "/passenger-policy", destination: "/legal/terms", permanent: false },
