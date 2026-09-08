@@ -125,7 +125,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['ul',[
     'ask us to confirm whether we process your personal information and to receive a copy;',
     <>ask us to correct inaccurate or incomplete information;</>,
-    <>ask us to delete personal information we no longer have a lawful basis to retain (see the <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>);</>,
+    <>ask us to delete personal information we no longer have a lawful basis to retain (see the <a href="/delete-profile">Account &amp; Data Deletion Policy</a>);</>,
     'object to processing on grounds of your particular situation, or to withdraw a consent you previously gave;',
     'request restriction of processing in certain cases;',
     'request portability of personal information you provided to us, in a structured, commonly used, machine-readable format;',
@@ -220,7 +220,7 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
     <><b>Taxes.</b> Prices displayed to Passengers are inclusive of applicable VAT. The Company will remit VAT in accordance with Nigerian tax law. Car Owners are solely responsible for their own income tax and any other personal tax obligations.</>,
     <><b>Failed payments.</b> Where a payment fails, the Company may retry the charge, invoice the Passenger, deduct from Wallet balance, or restrict Booking rights until settled.</>]],
   ['h2','8 · Cancellations, no-shows, suspensions'],
-  ['p',<>Detailed rules — including the two-tier refund model, per-Trip-Day treatment, and how attendance flags (rode, no-show, cancel-early, cancel-late, suspended, skipped-by-driver) affect refunds and payouts — are set out in the <a href="/legal/refund-policy">Refund Policy</a>. In summary:</>],
+  ['p',<>Detailed rules — including the two-tier refund model, per-Trip-Day treatment, and how attendance flags (rode, no-show, cancel-early, cancel-late, suspended, skipped-by-driver) affect refunds and payouts — are set out in the <a href="/legal/privacy#refund">Refund Policy</a>. In summary:</>],
   ['ol',[
     'Passenger cancellation before Car Owner acceptance: full refund of any pre-authorised or held amount.',
     'Passenger cancellation early (before the Car Owner’s cut-off window on the day): refund of the fare paid for the affected Trip-Day, in accordance with the Refund Policy.',
@@ -306,7 +306,7 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
   ['p','We may modify these Terms from time to time. Where a change materially affects your rights or obligations, we will provide reasonable notice via the Platform or the email associated with your account, and will identify an effective date. Your continued use of the Platform after the effective date constitutes acceptance of the modified Terms. If you do not agree to a material change, you must stop using the Platform.'],
   ['h2','20 · General'],
   ['ol',[
-    <><b>Entire agreement.</b> These Terms, together with the <a href="/legal/privacy">Privacy Policy</a>, <a href="/legal/refund-policy">Refund Policy</a>, <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>, Community Guidelines, and any Car Owner Addendum, constitute the entire agreement between you and the Company in relation to the Platform, and supersede any prior agreement or understanding on the subject.</>,
+    <><b>Entire agreement.</b> These Terms, together with the <a href="/legal/privacy">Privacy Policy</a>, <a href="/legal/privacy#refund">Refund Policy</a>, <a href="/delete-profile">Account &amp; Data Deletion Policy</a>, Community Guidelines, and any Car Owner Addendum, constitute the entire agreement between you and the Company in relation to the Platform, and supersede any prior agreement or understanding on the subject.</>,
     <><b>Severability.</b> If any provision is held invalid or unenforceable, that provision shall be modified to the minimum extent necessary to be enforceable, or, failing that, severed; the remaining provisions continue in force.</>,
     <><b>Waiver.</b> A failure or delay in exercising a right is not a waiver of that right.</>,
     <><b>Assignment.</b> You may not assign or transfer these Terms without our written consent. We may assign these Terms to any successor or affiliate, or in connection with a merger, sale, or restructuring.</>,
@@ -325,7 +325,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
     <><b>Transparent pricing.</b> The full fare, including VAT and any applicable tax, is shown before you confirm a Booking and is locked at Booking. There is no surge and no hidden fee.</>,
     <><b>Escrowed payment.</b> Your fare is held in Company-controlled escrow, per Trip-Day, until the Trip-Day is complete or resolved.</>,
     <><b>The same seat, same route.</b> When you book a recurring Trip, the same seat is generally reserved for you on every eligible Trip-Day, subject to the Car Owner’s continued publication of the Trip-Days.</>,
-    <><b>Refund per the <a href="/legal/refund-policy">Refund Policy</a>.</b> A pre-departure cancellation window inside which you may cancel without loss; full refund where the Car Owner cancels, no-shows, presents an unroadworthy Vehicle, or the Trip is not delivered as promised.</>,
+    <><b>Refund per the <a href="/legal/privacy#refund">Refund Policy</a>.</b> A pre-departure cancellation window inside which you may cancel without loss; full refund where the Car Owner cancels, no-shows, presents an unroadworthy Vehicle, or the Trip is not delivered as promised.</>,
     <><b>Verified Car Owners.</b> Every Car Owner must complete NIN, licence, and vehicle-document verification before publishing.</>,
     <><b>Safety tooling.</b> In-app SOS, live GPS tracking on your Trip, an anonymised in-app chat channel with the Car Owner, and Trust &amp; Safety support for any incident.</>,
     <><b>Honest ratings.</b> Weekly release windows to prevent revenge-rating from a Car Owner. Written feedback is confidential save for lawful disclosure and internal review.</>,
@@ -373,7 +373,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
     'Fares are inclusive of VAT. The fare is calculated by the Company’s pricing engine, versioned per Trip, and locked at Booking.',
     'Accepted payment methods, minimums, and processing fees are displayed at checkout.',
     'Your Wallet has spendable funds, referral rewards, and promotional credits — each with its own rules. Only spendable funds are directly withdrawable.',
-    <>Refunds follow the <a href="/legal/refund-policy">Refund Policy</a>. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.</>,
+    <>Refunds follow the <a href="/legal/privacy#refund">Refund Policy</a>. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.</>,
     'The 26-hour never-reverse window applies to Car Owner settlement. Disputes raised after 26 hours are handled through the dispute engine and, where you win, may be paid as a Wallet credit or bank refund.']],
   ['h2','7 · Safety & SOS'],
   ['ol',[
@@ -642,7 +642,7 @@ function ConductPage(){return <LegalDoc crumb="Code of conduct" eyebrow="Legal" 
   ['ol',[
     <><b>Warning.</b> Recorded on your account; no restriction on service.</>,
     <><b>Feature restriction.</b> Temporary loss of a specific feature (e.g. no publishing, no wallet withdrawal) while a review is completed.</>,
-    <><b>Short suspension.</b> Account inactive for 24 – 72 hours; existing Bookings honoured or refunded per the <a href="/legal/refund-policy">Refund Policy</a>.</>,
+    <><b>Short suspension.</b> Account inactive for 24 – 72 hours; existing Bookings honoured or refunded per the <a href="/legal/privacy#refund">Refund Policy</a>.</>,
     <><b>Extended suspension.</b> Account inactive for 7 – 90 days; Bookings cancelled with refund; funds in Wallet subject to normal payout rules.</>,
     <><b>Termination.</b> Account permanently closed. Withdrawable Wallet funds are paid out subject to identity verification and fraud checks.</>,
     <><b>Identity-level ban.</b> Applied in addition to termination for zero-tolerance conduct. The verified identity (NIN + face) is blocked from re-registration under any name or phone number.</>,
