@@ -41,7 +41,7 @@ export const NAV = {
   ],
   owner: [
     { label: "How it works", href: "/how-it-works" },
-    { label: "Requirements", href: "/car-owners#requirements" },
+    { label: "Requirements", href: "/car-owners" },
     { label: "Safety", href: "/safety" },
     { label: "About", href: "/about" },
   ],
@@ -76,8 +76,8 @@ export const FOOTER_NAV = [
     links: [
       { label: "Privacy", href: "/legal/privacy" },
       { label: "Terms", href: "/legal/terms" },
-      { label: "Code of conduct", href: "/legal/conduct" },
-      { label: "Delete profile", href: "/legal/delete-profile" },
+      { label: "Code of conduct", href: "/legal/code-of-conduct" },
+      { label: "Delete profile", href: "/delete-profile" },
     ],
   },
 ] as const;
