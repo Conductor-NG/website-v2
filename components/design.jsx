@@ -875,7 +875,7 @@ function Carpool({role}){
 
 
 /* ============ Shell ============ */
-const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del2:'/delete-profile',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
+const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
 const NAVS={
   passenger:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]],
   owner:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]]
@@ -990,7 +990,7 @@ function Footer(){
   const C=[['Ride',[['Open the web app',LINKS.pWeb],['For passengers',P.home],['For car owners',P.own],['How it works',P.how],['Safety',P.safety]]],
     ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact us',P.contact]]],
     ['Company',[['About',P.about],['Communities',P.how+'#walk'],['Careers',P.careers],['Press',P.press]]],
-    ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Passenger policy',P.paxpol],['Car owner policy',P.ownpol],['Refund policy',P.refund],['Account & data deletion',P.del2],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
+    ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Passenger policy',P.paxpol],['Car owner policy',P.ownpol],['Refund policy',P.refund],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
   return React.createElement('footer',{className:'ftr'},
     React.createElement('div',{className:'wrap'},
       React.createElement('div',{className:'ftr__grid',style:{gridTemplateColumns:'1.4fr repeat(4,1fr)'}},

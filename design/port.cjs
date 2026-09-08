@@ -29,7 +29,7 @@ out = out.replace(/window.ConductorDesignSystem_31cc6b/g, "(typeof window!=='und
 
 out = out.replace(
   /const P=\{[^}]*\};/,
-  "const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/refund-policy',del2:'/legal/account-deletion',del:'/delete-profile',careers:'/careers',press:'/press'};"
+  "const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del:'/delete-profile',careers:'/careers',press:'/press'};"
 );
 
 out +=
