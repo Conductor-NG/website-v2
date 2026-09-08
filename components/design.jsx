@@ -2535,14 +2535,14 @@ function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
     <><b>Taxes.</b> Prices displayed to Passengers are inclusive of applicable VAT. The Company will remit VAT in accordance with Nigerian tax law. Drivers are solely responsible for their own income tax and any other personal tax obligations.</>,
     <><b>Failed payments.</b> Where a payment fails, the Company may retry the charge, invoice the Passenger, deduct from Wallet balance, or restrict Booking rights until settled.</>]],
   ['h2','8 · Cancellations, no-shows, suspensions'],
-  ['p','Detailed rules — including the two-tier refund model, per-Trip-Day treatment, and how attendance flags (rode, no-show, cancel-early, cancel-late, suspended, skipped-by-driver) affect refunds and payouts — are set out in the Refund Policy (Document C). In summary:'],
+  ['p','Detailed rules — including the two-tier refund model, per-Trip-Day treatment, and how attendance flags (rode, no-show, cancel-early, cancel-late, suspended, skipped-by-driver) affect refunds and payouts — are set out in the Refund Policy. In summary:'],
   ['ol',[
     'Passenger cancellation before Driver acceptance: full refund of any pre-authorised or held amount.',
     'Passenger cancellation early (before the Driver’s cut-off window on the day): refund of the fare paid for the affected Trip-Day, in accordance with the Refund Policy.',
     'Passenger cancellation late, or no-show: the fare for that Trip-Day is due to the Driver in the ordinary course; no refund is due unless specific facts qualify under the Refund Policy.',
     'Driver-suspended Trip-Day: the Passenger is not charged for that Trip-Day and any pre-held amount is released back.',
     'Driver cancellation of a whole Trip after acceptance: the Passenger receives a full refund of affected Trip-Days and, at the Company’s discretion, may receive a service-recovery credit.',
-    'Service failure by the Driver (e.g. Driver did not arrive, unroadworthy vehicle, misconduct): refund pursuant to Document C and possible sanction under clause 12.',
+    'Service failure by the Driver (e.g. Driver did not arrive, unroadworthy vehicle, misconduct): refund pursuant to the Refund Policy and possible sanction under clause 12.',
     'Force majeure and external circumstances: see clause 15.']],
   ['h2','9 · Ratings & reviews'],
   ['ol',[
@@ -2688,7 +2688,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
     'Fares are inclusive of VAT. The fare is calculated by the Company’s pricing engine, versioned per Trip, and locked at Booking.',
     'Accepted payment methods, minimums, and processing fees are displayed at checkout.',
     'Your Wallet has spendable funds, referral rewards, and promotional credits — each with its own rules. Only spendable funds are directly withdrawable.',
-    'Refunds follow the Refund Policy at Document C. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.',
+    'Refunds follow the Refund Policy. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.',
     'The 26-hour never-reverse window applies to Car Owner settlement. Disputes raised after 26 hours are handled through the dispute engine and, where you win, may be paid as a Wallet credit or bank refund.']],
   ['h2','7 · Safety & SOS'],
   ['ol',[
@@ -2707,7 +2707,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
   ['h2','9 · Suspension & termination'],
   ['p','The suspension, termination, appeal, and identity-ban provisions in the Terms of Service and the Code of Conduct apply. Common reasons a Passenger’s account may be restricted include: fraudulent refund claims, chronic no-shows or late cancellations that harm Car Owners’ schedules, off-platform payment attempts, and any zero-tolerance breach under the Code of Conduct.'],
   ['h2','10 · Data & privacy summary'],
-  ['p','Full detail is in the Privacy Policy at Document B. In summary: we collect the information necessary to run your Bookings, keep you safe, comply with the law, and improve the service; we do not sell your personal information; we do not use it for advertising to third parties; we share only with Car Owners on a need-to-know basis, with our vetted service providers under contract, and with authorities where the law requires. Your NIN is treated as sensitive personal information under Document B section 7.']
+  ['p',<>Full detail is in the <a href="/legal/privacy">Privacy Policy</a>. In summary: we collect the information necessary to run your Bookings, keep you safe, comply with the law, and improve the service; we do not sell your personal information; we do not use it for advertising to third parties; we share only with Car Owners on a need-to-know basis, with our vetted service providers under contract, and with authorities where the law requires. Your NIN is treated as sensitive personal information under section 7 of the <a href="/legal/privacy">Privacy Policy</a>.</>]
   ]}/>;}
 
 /* ---------------- Car owner policy ---------------- */
