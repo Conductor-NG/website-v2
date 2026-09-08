@@ -52,12 +52,29 @@ export const MODEL = `
   </div>
 </section>
 
+<section style="max-width:1200px;margin:0 auto;padding:56px 32px;width:100%;box-sizing:border-box">
+  <div style="background:#211A14;color:#FFF8F0;border-radius:20px;padding:44px 32px;display:flex;flex-direction:column;gap:14px;text-align:center;align-items:center">
+    <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Asset-light by design</div>
+    <p style="font-size:clamp(22px,2.6vw,30px);font-weight:700;line-height:1.25;margin:0;max-width:900px;text-wrap:pretty">Conductor owns no vehicles — no cars, no buses, no bikes. The fleet is Lagos's existing private cars, already making the trip.</p>
+    <p style="font-size:17px;line-height:1.55;color:#ECDFCE;margin:0;max-width:820px">We own the software, the trust layer and the ledger — not the metal. That means near-zero marginal cost per rider, no capex to scale, and a margin profile a fleet or bus operator can never match.</p>
+  </div>
+</section>
+
 <section style="background:#fff;border-top:1px solid #ECDFCE;border-bottom:1px solid #ECDFCE">
   <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:32px">
     <div style="display:flex;flex-direction:column;gap:12px;max-width:900px">
       <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Growth engine · Conductor for Enterprise</div>
       <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0;text-wrap:pretty">We don't buy commuters on Facebook. We onboard them a company at a time.</h2>
       <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">Rather than acquire riders one ad-click at a time, we sell Conductor for Enterprise to the banks, tech firms and corporate HQs already clustered on the Island. We onboard a company's own staff, match colleagues heading the same way, and the employer subsidises the platform fee as a staff benefit — cheaper than running a shuttle, safer than a hail. LOIs are already in progress.</p>
+    </div>
+    <div style="background:#FAEDDE;border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:16px">
+      <div style="font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6B5D4E">How it works</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;font-size:15px;line-height:1.5;color:#514336">
+        <div><strong style="color:#211A14">Pre-loaded wallet.</strong> The company funds a transport wallet and sets a daily or monthly cap per employee.</div>
+        <div><strong style="color:#211A14">Staff just book.</strong> Employees ride any live corridor; Conductor handles matching, routing, payment and reporting.</div>
+        <div><strong style="color:#211A14">Pay only for rides taken.</strong> No bus contracts, no route minimums, no vehicles to manage — with a monthly utilisation dashboard.</div>
+        <div><strong style="color:#211A14">Replaces the cash allowance.</strong> Firms already pay staff transport informally; we make it auditable, capped and cheaper than a shuttle.</div>
+      </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
       <div style="border:1px solid #ECDFCE;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:10px"><div style="font-size:20px;font-weight:700"><span style="color:#EE4643">1</span> Guaranteed density</div><p style="font-size:15px;line-height:1.5;color:#514336;margin:0">A single 500-person HQ seeds an entire corridor overnight. No cold-start — the passengers and the car owners already share a car park.</p></div>

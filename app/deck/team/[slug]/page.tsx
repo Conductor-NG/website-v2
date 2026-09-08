@@ -30,6 +30,8 @@ const FOUNDERS: Record<string, Founder> = {
     first: "Wale",
     last: "Shekoni",
     role: "Founder",
+    credential:
+      "A data analyst at Moniepoint — one of Africa's largest fintechs — with two master's degrees, the most recent from Sussex, with distinction. The payments-and-ledger rigour behind Conductor's escrow, settlement and pricing engine is his day-to-day work.",
     photo: "/deck/images/founder-wale.jpg",
     objectPosition: "50% 20%",
     lede: "The idea started on a bridge in Lagos, years before the first line of code.",
