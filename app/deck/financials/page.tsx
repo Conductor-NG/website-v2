@@ -7,27 +7,8 @@ import { DeckPager } from "../deck-nav";
 export const FINANCIALS = `
 <section style="max-width:1200px;margin:0 auto;padding:80px 32px 48px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
   <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Chapter 8 · Financials</div>
-  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">Built on ~₦1.35b of committed capital. No external funding yet.</h1>
-  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">Position as at 31 August 2026. Audited FY2025 accounts by Lanre Abidakun &amp; Co. (Chartered Accountants), Abuja, available on request. £1 ≈ ₦1,850 · $1 ≈ ₦1,350.</p>
-</section>
-
-<section style="max-width:1200px;margin:0 auto;padding:0 32px 72px;width:100%;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,0.7fr);gap:32px;align-items:start">
-  <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;overflow:hidden;font-size:15px;line-height:1.35">
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E"><span>Committed capital</span><span style="text-align:right">₦</span><span style="text-align:right">$</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Founder personal cash deployed</span><span style="text-align:right">₦200m</span><span style="text-align:right">$148k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Deferred market-rate compensation — team (20+ contributors)</span><span style="text-align:right">₦100m</span><span style="text-align:right">$74k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Deferred market-rate compensation — co-founders</span><span style="text-align:right">~₦1.03b</span><span style="text-align:right">~$763k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>Deferred compensation — Marketing Advisory Board</span><span style="text-align:right">~₦15m</span><span style="text-align:right">~$11k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:14px 24px;border-bottom:1px solid #ECDFCE;color:#514336"><span>London &amp; Canada offices</span><span style="text-align:right">~₦8.4m</span><span style="text-align:right">~$6.2k</span></div>
-    <div style="display:grid;grid-template-columns:1fr 110px 90px;gap:12px;padding:16px 24px;border-bottom:1px solid #ECDFCE;font-weight:700;background:#FAEDDE"><span>Total committed capital and compensation</span><span style="text-align:right">~₦1.35b</span><span style="text-align:right">~$1.0m</span></div>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:14px">
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;color:#514336">2025 audited loss</span><span style="font-size:22px;font-weight:700">₦119.05m</span></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;color:#514336">2026 cash burn to 31 Aug</span><span style="font-size:22px;font-weight:700">₦45.8m</span></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;color:#514336">Revenue to date (Paystack)</span><span style="font-size:22px;font-weight:700">₦71k</span></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:15px;color:#514336">Current burn rate</span><span style="font-size:22px;font-weight:700">~₦10m / mo</span></div>
-    <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px"><div style="font-size:17px;font-weight:700;line-height:1.35">All founder loans and deferred compensation convert to equity at close, on the same $5M cap as the incoming investor.</div><div style="font-size:15px;color:#ECDFCE;line-height:1.4">No debt overhang. Clean balance sheet at round close.</div></div>
-  </div>
+  <h1 style="font-size:clamp(36px,4.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin:0;max-width:960px;text-wrap:pretty">Bottoms-up economics, and a $5M cap the forward run-rate carries.</h1>
+  <p style="font-size:18px;line-height:1.55;color:#514336;margin:0;max-width:760px">How the platform earns, what it projects through the end of 2027, and why $5M is a modest entry. £1 ≈ ₦1,850 · $1 ≈ ₦1,350.</p>
 </section>
 
 <section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:32px;position:relative">
@@ -96,9 +77,9 @@ export const FINANCIALS = `
       <div style="background:#211A14;color:#FFF8F0;border-radius:16px;padding:32px;display:flex;flex-direction:column;justify-content:center;gap:14px">
         <div style="font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Anchor</div>
         <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:80px;line-height:1">$5M</div>
-        <div style="font-size:16px;color:#ECDFCE;line-height:1.4">Top of the defensible band. Incorporated September 2024 with ₦1m authorised capital; today a live product on both platforms, 1,000 users, 420 car-owner signups, 100 verified, and ~₦1.35b of aligned commitment already in.</div>
+        <div style="font-size:16px;color:#ECDFCE;line-height:1.4">Top of the defensible band, carried by the forward run-rate. A live product on both platforms, 1,000 signups, ~500 car owners onboarded, 100 verified, and a proven acquisition channel — before the first paid ride.</div>
         <div style="border-top:1px solid #514336;padding-top:14px;display:flex;flex-direction:column;gap:8px">
-          <div style="font-size:15px;color:#FFF8F0;line-height:1.4">Founders have committed ~$1M of capital.</div>
+          <div style="font-size:15px;color:#FFF8F0;line-height:1.4">Founder-funded to date — no outside capital. Founder loans and deferred compensation convert to equity at close, on this same cap. Clean cap table, no debt.</div>
           <div style="font-size:15px;color:#ECDFCE;line-height:1.4">$200k raise = ~4% — a modest ask for an audited, live, two-sided product.</div>
         </div>
       </div>

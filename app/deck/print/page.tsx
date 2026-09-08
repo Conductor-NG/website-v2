@@ -1092,59 +1092,22 @@ export default function DeckPrint() {
       {/* 25 — FINANCIALS · CAPITAL + BURN --------------------------------- */}
       <Slide
         n={next()}
-        eyebrow="Financials · Position at 31 Aug 2026"
-        title="Built on ~₦1.35b of committed capital. No external funding yet."
+        eyebrow="Financials · Capital structure"
+        title="Founder-funded to the first paid ride — clean cap table, no debt."
       >
-        <div style={{ display: "grid", gridTemplateColumns: "1.3fr 0.7fr", gap: 28, alignItems: "start", flex: 1 }}>
-          <div style={{ border: `1px solid ${DIV}`, borderRadius: 14, overflow: "hidden", fontSize: 13.5, background: "#fff" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 100px 82px", gap: 10, padding: "11px 20px", borderBottom: `1px solid ${DIV}`, fontSize: 11, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", color: MUTED }}>
-              <span>Committed capital</span>
-              <span style={{ textAlign: "right" }}>₦</span>
-              <span style={{ textAlign: "right" }}>$</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 20, flex: 1, justifyContent: "center", maxWidth: 900 }}>
+          <p style={{ fontSize: 18, lineHeight: 1.55, color: BODY, margin: 0 }}>
+            Conductor has been built entirely on founder capital and deferred, ownership-based compensation — no outside
+            funding raised to date. FY2025 accounts are audited (Lanre Abidakun &amp; Co., Chartered Accountants),
+            available on request.
+          </p>
+          <div style={{ ...cardDark, padding: 24, gap: 8 }}>
+            <div style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.35 }}>
+              Founder loans and deferred compensation convert to equity at close, on the same $5M cap as the incoming
+              investor.
             </div>
-            {[
-              ["Founder personal cash deployed", "₦200m", "$148k", false],
-              ["Deferred comp — team (20+ contributors)", "₦100m", "$74k", false],
-              ["Deferred comp — co-founders", "~₦1.03b", "~$763k", false],
-              ["Deferred comp — Marketing Advisory Board", "~₦15m", "~$11k", false],
-              ["London & Canada offices", "~₦8.4m", "~$6.2k", false],
-              ["Total committed capital & compensation", "~₦1.35b", "~$1.0m", true],
-            ].map(([l, naira, usd, total], i, arr) => (
-              <div
-                key={l as string}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 100px 82px",
-                  gap: 10,
-                  padding: "11px 20px",
-                  borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none",
-                  color: BODY,
-                  fontWeight: total ? 700 : 400,
-                  background: total ? "#FAEDDE" : "transparent",
-                }}
-              >
-                <span>{l}</span>
-                <span style={{ textAlign: "right" }}>{naira}</span>
-                <span style={{ textAlign: "right" }}>{usd}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {[
-              ["2025 audited loss", "₦119.05m"],
-              ["2026 cash burn to 31 Aug", "₦45.8m"],
-              ["Current burn rate", "~₦10m / mo"],
-            ].map(([l, v]) => (
-              <div key={l} style={{ ...cardLight, padding: "16px 20px", flexDirection: "row", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
-                <span style={{ fontSize: 14, color: BODY }}>{l}</span>
-                <span style={{ fontSize: 20, fontWeight: 700 }}>{v}</span>
-              </div>
-            ))}
-            <div style={{ ...cardDark, padding: 20, gap: 8 }}>
-              <div style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.35 }}>
-                Founder loans and deferred comp convert to equity at close, on the same $5M cap as the incoming investor.
-              </div>
-              <div style={{ fontSize: 13, color: DIV, lineHeight: 1.4 }}>No debt overhang. Clean balance sheet at close.</div>
+            <div style={{ fontSize: 14, color: DIV, lineHeight: 1.4 }}>
+              No debt overhang. Clean balance sheet, clean cap table at round close.
             </div>
           </div>
         </div>
@@ -1254,11 +1217,12 @@ export default function DeckPrint() {
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: RED }}>Anchor</div>
             <div style={{ ...serif, fontSize: 68, lineHeight: 1 }}>$5M</div>
             <div style={{ fontSize: 14, color: DIV, lineHeight: 1.4 }}>
-              Top of the defensible band. A live product on both platforms, 1,000 users, 420 car-owner signups, 100
-              verified, and ~₦1.35b of aligned commitment already in.
+              Top of the defensible band, carried by the forward run-rate. A live product on both platforms, 1,000
+              signups, ~500 car owners onboarded, 100 verified, and a proven acquisition channel — before the first paid
+              ride.
             </div>
             <div style={{ borderTop: "1px solid #514336", paddingTop: 12, display: "flex", flexDirection: "column", gap: 6 }}>
-              <div style={{ fontSize: 14, color: CREAM, lineHeight: 1.4 }}>Founders have committed ~$1M of capital.</div>
+              <div style={{ fontSize: 14, color: CREAM, lineHeight: 1.4 }}>Founder-funded to date — no outside capital. Loans and deferred comp convert to equity at close, on this same cap. Clean cap table, no debt.</div>
               <div style={{ fontSize: 14, color: DIV, lineHeight: 1.4 }}>$200k raise = ~4% — a modest ask for an audited, live, two-sided product.</div>
             </div>
           </div>
