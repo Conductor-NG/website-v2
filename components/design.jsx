@@ -875,7 +875,7 @@ function Carpool({role}){
 
 
 /* ============ Shell ============ */
-const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
+const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/refund-policy',del2:'/legal/account-deletion',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
 const NAVS={
   passenger:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]],
   owner:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]]
@@ -990,7 +990,7 @@ function Footer(){
   const C=[['Ride',[['Open the web app',LINKS.pWeb],['For passengers',P.home],['For car owners',P.own],['How it works',P.how],['Safety',P.safety]]],
     ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact us',P.contact]]],
     ['Company',[['About',P.about],['Communities',P.how+'#walk'],['Careers',P.careers],['Press',P.press]]],
-    ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Passenger policy',P.paxpol],['Car owner policy',P.ownpol],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
+    ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Passenger policy',P.paxpol],['Car owner policy',P.ownpol],['Refund policy',P.refund],['Account & data deletion',P.del2],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
   return React.createElement('footer',{className:'ftr'},
     React.createElement('div',{className:'wrap'},
       React.createElement('div',{className:'ftr__grid',style:{gridTemplateColumns:'1.4fr repeat(4,1fr)'}},
@@ -2364,100 +2364,99 @@ function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
 }
 
 /* ---------------- Privacy ---------------- */
-function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal" updated="August 2026"
+function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   title={<>Privacy <em>policy</em>.</>}
-  intro="Conductor takes your privacy seriously. This Privacy Policy explains what personal information we collect, why we collect it, who we share it with, how long we keep it, and the rights you have under Nigerian data protection law — including the Nigeria Data Protection Act 2023 (NDPA) and, where applicable, the Nigeria Data Protection Regulation (NDPR)."
+  intro="Conductor takes your privacy seriously. This Privacy Policy explains what personal information we collect, why we collect it, who we share it with, how long we keep it, and the rights you have under Nigerian data-protection law — including the Nigeria Data Protection Act 2023 (NDPA) and, where applicable, the Nigeria Data Protection Regulation (NDPR)."
   blocks={[
-  ['h2','1 · Scope & Roles'],
-  ['p','This Policy applies to personal information collected when accessing or using the Platform, communicating with Conductor, or otherwise interacting with their services. For the NDPA, Conductor functions as the Data Controller regarding personal information, except where specific processing activities involve them acting as a processor on behalf of another controller (such as certain identity-verification activities where the controller is a licensed identity provider).'],
-  ['h2','2 · What We Collect'],
-  ['p','The following categories of information are collected:'],
+  ['h2','1 · Scope & roles'],
+  ['p','This Policy applies to personal information we collect when you access or use the Platform, communicate with us, or otherwise interact with our services. For the purposes of the NDPA, Conductor is the Data Controller in respect of your personal information, save where a specific processing activity involves us acting as processor on behalf of another controller (for example, certain identity-verification activities where the controller is a licensed identity provider).'],
+  ['h2','2 · What we collect'],
+  ['p','We collect the following categories of information:'],
   ['ol',[
-    <><b>Registration &amp; profile data:</b> name, date of birth, phone number, email, gender (where declared), photograph, password (hashed), preferred language, initial role (Passenger or Car Owner), and occupation category (optional).</>,
-    <><b>Identity-verification data:</b> NIN and NIN-verification records; for Car Owners, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
+    <><b>Registration &amp; profile data:</b> name, date of birth, phone number, email, gender (where declared), photograph, password (hashed), preferred language, initial role (Passenger or Driver), and occupation category (optional).</>,
+    <><b>Identity-verification data:</b> NIN and NIN-verification records; for Drivers, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
     <><b>Trip &amp; usage data:</b> Bookings, Trips published, Trip-Days completed, cancellations, ratings, chat messages, service-recovery credits and referrals.</>,
     <><b>Location data:</b> pickup and drop-off coordinates, live GPS during a Trip, and area-level home / work coordinates captured during onboarding (see clause 6).</>,
-    <><b>Financial data:</b> Wallet balances, transaction history, bank-account details submitted for withdrawals, and tokenised card details as held by payment processors.</>,
+    <><b>Financial data:</b> Wallet balances, transaction history, bank-account details submitted for withdrawals, and tokenised card details as held by our payment processor.</>,
     <><b>Device &amp; technical data:</b> device model, operating system, app version, IP address, session identifiers, telemetry (battery, network kind, GPS accuracy), and analytics events.</>,
-    <><b>Safety data:</b> SOS activations, emergency contacts nominated, incident reports, safety-relevant photos or recordings (e.g. vehicle photographs), and dispute records.</>,
-    <><b>Communications:</b> messages exchanged in the in-app chat, support tickets, and notifications delivered via their providers.</>,
-    <><b>Search &amp; preference data:</b> the routes and days searched, filters applied, promotional codes redeemed, and preferences set.</>]],
-  ['h2','3 · How We Use It'],
-  ['p','Personal information is used to:'],
+    <><b>Safety data:</b> SOS activations, emergency contacts you nominate, incident reports, safety-relevant photos or recordings (e.g. vehicle photographs), and dispute records.</>,
+    <><b>Communications:</b> messages exchanged in the in-app chat, support tickets, and notifications delivered via our providers.</>,
+    <><b>Search &amp; preference data:</b> the routes and days you search, filters you apply, promotional codes you redeem, and preferences you set.</>]],
+  ['h2','3 · How we use it'],
+  ['p','We use personal information to:'],
+  ['ul',[
+    'operate the Platform — register your account, verify your identity, publish or book Trips, calculate fares, process payments, and settle earnings;',
+    'keep the Platform safe — run our Trust & Safety systems, detect fraud, prevent abuse, investigate incidents, and respond to disputes;',
+    'improve the Platform — understand how features are used, prioritise product decisions, calibrate pricing, and develop new features;',
+    'communicate with you — send Trip notifications, service messages, safety alerts, receipts, and (where you have opted in or the law permits) promotional messages;',
+    'meet legal, tax, and regulatory obligations — including obligations arising under the NDPA, NDPR, FCCPA, Federal Inland Revenue Service (FIRS) requirements, and any lawful requests by competent authorities;',
+    'enforce our Terms and defend our legal rights.']],
+  ['h2','4 · Legal bases (NDPA)'],
+  ['p','We rely on one or more of the following lawful bases under the NDPA:'],
   ['ol',[
-    'operate the Platform — register accounts, verify identity, publish or book Trips, calculate fares, process payments, and settle earnings;',
-    'keep the Platform safe — run Trust & Safety systems, detect fraud, prevent abuse, investigate incidents, and respond to disputes;',
-    'improve the Platform — understand feature usage, prioritise product decisions, calibrate pricing, and develop new features;',
-    'communicate with users — send Trip notifications, service messages, safety alerts, receipts, and (where opted in or the law permits) promotional messages;',
-    'meet legal, tax, and regulatory obligations — including obligations under the NDPA, NDPR, FCCPA, Federal Inland Revenue Service (FIRS) requirements, and any lawful requests by competent authorities;',
-    'enforce Terms and defend legal rights.']],
-  ['h2','4 · Legal Bases (NDPA)'],
-  ['p','Processing relies on one or more of the following lawful bases under the NDPA:'],
-  ['ol',[
-    <><b>Contract</b> — processing necessary to perform services to users (e.g. matching Passengers with Car Owners, processing payments).</>,
+    <><b>Contract</b> — processing necessary to perform our services to you (e.g. matching you with Drivers, processing payments).</>,
     <><b>Legal obligation</b> — processing required by Nigerian law (e.g. VAT, KYC / identity verification, responding to lawful orders).</>,
-    <><b>Legitimate interests</b> — where processing is necessary for Conductor’s or a third party’s legitimate interests and not overridden by user rights and freedoms (e.g. fraud prevention, Platform integrity, research and product improvement using aggregated data).</>,
-    <><b>Consent</b> — where specifically requested (e.g. certain marketing communications, background-location tracking outside a Trip window).</>,
+    <><b>Legitimate interests</b> — where processing is necessary for our or a third party’s legitimate interests and not overridden by your rights and freedoms (e.g. fraud prevention, Platform integrity, research and product improvement using aggregated data).</>,
+    <><b>Consent</b> — where we specifically ask for it (e.g. certain marketing communications, background-location tracking outside a Trip window).</>,
     <><b>Vital interests</b> — where processing is necessary to protect the life or physical safety of any person (e.g. SOS activations).</>]],
-  ['h2','5 · Who We Share With'],
+  ['h2','5 · Who we share with'],
   ['ol',[
-    <><b>Other Users, on a need-to-know basis:</b> a Car Owner receives the Passenger’s first name, rating, and pickup / drop-off; a Passenger receives the Car Owner’s first name, rating, and Vehicle’s make / model / plate (partially masked in some contexts). Full identity documents, home / work coordinates, or unmasked phone numbers are not shared between Users.</>,
-    <><b>Service providers</b> under written contract and confidentiality obligations, including cloud hosting, payment processing (Paystack), mapping (Google Maps & Places), notification orchestration (Novu, WhatsApp / Meta), identity verification (QoreID, VerifyMe), analytics, and customer-support tooling.</>,
-    <><b>Regulators, courts, and law-enforcement agencies</b> where required by law, court order, or valid regulatory demand, or where there is good-faith belief that disclosure is necessary to prevent harm, fraud, or a violation of law.</>,
+    <><b>Other Users, on a need-to-know basis:</b> a Driver receives the Passenger’s first name, rating, and pickup / drop-off; a Passenger receives the Driver’s first name, rating, and Vehicle’s make / model / plate (partially masked in some contexts). We do not share full identity documents, home / work coordinates, or unmasked phone numbers between Users.</>,
+    <><b>Service providers</b> under written contract and confidentiality obligations, including cloud hosting, payment processing (Paystack), mapping (Google Maps &amp; Places), notification orchestration (Novu, WhatsApp / Meta), identity verification (QoreID, VerifyMe), analytics, and customer-support tooling.</>,
+    <><b>Regulators, courts, and law-enforcement agencies</b> where required by law, court order, or valid regulatory demand, or where we have a good-faith belief that disclosure is necessary to prevent harm, fraud, or a violation of law.</>,
     <><b>Corporate transactions</b> — in the event of a merger, acquisition, financing, insolvency, or sale of assets, information may be transferred to the counterparty, subject to appropriate protections.</>,
-    <><b>With your consent</b> — e.g. where connecting a third-party service to a Conductor account, or authorising sharing information with a workplace-benefits scheme.</>]],
-  ['p','Personal information is not sold, and it is not used for interest-based advertising to third parties.'],
-  ['h2','6 · Location Data'],
+    <><b>With your consent</b> — e.g. where you connect a third-party service to your Conductor account, or authorise us to share information with a workplace-benefits scheme.</>]],
+  ['p','We do not sell your personal information, and we do not use it for interest-based advertising to third parties.'],
+  ['h2','6 · Location data'],
   ['ol',[
-    'The Platform collects location data (a) at points where users actively use location features (searching, booking, setting home / work), (b) during Trips (for safety and to power in-Trip UX such as ETA and route replay), and (c) where background-location permission has been granted (for pickup-arrival detection when the phone is asleep).',
-    'Location permission may be revoked at any time through device settings. Revoking permission may disable safety or matching features that require it.',
+    'The Platform collects location data (a) at points where you actively use location features (searching, booking, setting home / work), (b) during Trips (for safety and to power in-Trip UX such as ETA and route replay), and (c) where you have granted the app background-location permission (for pickup-arrival detection when the phone is asleep).',
+    'You may revoke location permission at any time through your device settings. Revoking permission may disable safety or matching features that require it.',
     'Location precision is minimised where possible. Home and work areas are stored as neighbourhood-level coordinates, not exact street addresses.',
-    'Location data is not sold.']],
+    'We do not sell location data.']],
   ['h2','7 · National Identification Number (NIN)'],
   ['p','The following notice supplements this Policy in relation to NIN specifically, and forms part of it.'],
   ['ol',[
-    <><b>Identity verification.</b> NIN is used to confirm that the registered identity is genuine and belongs to the user. This helps confirm the identity of both Car Owners and Passengers and prevents the use of false, stolen, or fraudulent identities.</>,
-    <><b>Safety and security.</b> NIN verification forms part of safety measures. It supports accountability, deters misconduct, and protects the community from fraudulent or harmful activity.</>,
-    <><b>Car Owner and Passenger authentication.</b> For Car Owners, NIN verification is part of onboarding and due diligence to ensure that only properly identified individuals provide transportation services on the Platform. For Passengers, NIN verification reduces impersonation and promotes trust between all Users.</>,
-    <><b>Fraud prevention and investigation.</b> NIN may be used to detect, prevent, investigate, and respond to fraud, identity theft, abuse of the Platform, or other activities that violate the Terms or applicable law.</>,
-    <><b>Legal and regulatory compliance.</b> NIN may be processed to comply with applicable laws, lawful requests from competent authorities, and other requirements imposed by relevant governmental agencies.</>,
-    <><b>Protection.</b> NIN is treated as sensitive personal information with reasonable administrative, technical, and organisational measures to protect it against unauthorised access, disclosure, alteration, misuse, or loss. Access is restricted to authorised personnel and trusted service providers who require it to perform verification, security, or compliance functions and are bound by confidentiality and data-protection obligations.</>,
-    <><b>No sale or marketing.</b> NIN is not sold and is not used for marketing.</>,
-    <><b>Retention.</b> NIN is retained only for as long as necessary to fulfil the purposes above, comply with legal and regulatory requirements, resolve disputes, or enforce contractual rights. Where retention is no longer required, it will be securely deleted or anonymised in accordance with the retention schedule.</>,
-    <><b>Your rights.</b> Subject to applicable law, users may request access, correction, objection, or exercise other rights available under NDPA (see clause 9 below).</>]],
+    <><b>Identity verification.</b> Your NIN is used to confirm that the identity you have registered is genuine and belongs to you. This helps us confirm the identity of both Drivers and Passengers and prevents the use of false, stolen, or fraudulent identities.</>,
+    <><b>Safety and security.</b> NIN verification forms part of our safety measures. It supports accountability, deters misconduct, and protects the community from fraudulent or harmful activity.</>,
+    <><b>Driver and Passenger authentication.</b> For Drivers, NIN verification is part of onboarding and due diligence to ensure that only properly identified individuals provide transportation services on the Platform. For Passengers, NIN verification reduces impersonation and promotes trust between all Users.</>,
+    <><b>Fraud prevention and investigation.</b> Your NIN may be used to detect, prevent, investigate, and respond to fraud, identity theft, abuse of the Platform, or other activities that violate our Terms or applicable law.</>,
+    <><b>Legal and regulatory compliance.</b> We may process your NIN to comply with applicable laws, lawful requests from competent authorities, and other requirements imposed by relevant governmental agencies.</>,
+    <><b>Protection.</b> We treat your NIN as sensitive personal information and implement reasonable administrative, technical, and organisational measures to protect it against unauthorised access, disclosure, alteration, misuse, or loss. Access is restricted to authorised personnel and trusted service providers who require it to perform verification, security, or compliance functions on our behalf and who are bound by confidentiality and data-protection obligations.</>,
+    <><b>No sale or marketing.</b> We do not sell your NIN and we do not use it for marketing.</>,
+    <><b>Retention.</b> Your NIN is retained only for as long as necessary to fulfil the purposes above, comply with legal and regulatory requirements, resolve disputes, or enforce our contractual rights. Where retention is no longer required, we will securely delete or anonymise it in accordance with our retention schedule.</>,
+    <><b>Your rights.</b> Subject to applicable law, you may request access, correction, objection, or exercise other rights available under NDPA (see clause 9 below).</>]],
   ['h2','8 · Retention'],
-  ['p','Personal information is retained only for as long as necessary for the purposes described in this Policy, or for such longer period as is required by law. Indicative retention windows (subject to specific legal, regulatory, or operational requirements):'],
+  ['p','We retain personal information only for as long as necessary for the purposes described in this Policy, or for such longer period as is required by law. Indicative retention windows (subject to specific legal, regulatory, or operational requirements):'],
   ['ul',[
-    <><b>Account &amp; profile data</b> — while the account is active, and thereafter for a reasonable period to satisfy legal obligations, resolve disputes, and enforce agreements.</>,
+    <><b>Account &amp; profile data</b> — while the account is active, and thereafter for a reasonable period to satisfy legal obligations, resolve disputes, and enforce our agreements.</>,
     <><b>Identity-verification records (including NIN, licences, vehicle documents)</b> — for the duration of the account and thereafter for such period as is required by anti-fraud, safety, tax, or regulatory obligations.</>,
     <><b>Trip, payment, and settlement records</b> — for a minimum of seven (7) years, or such longer period as required for accounting, tax, or audit purposes.</>,
     <><b>Search history &amp; usage telemetry</b> — up to 365 days by default (admin-tunable), used for personalisation and product research.</>,
     <><b>Chat and support communications</b> — for such period as is required to service tickets, respond to disputes, and comply with law.</>,
     <><b>Anonymised / aggregated data</b> — may be retained indefinitely.</>]],
-  ['h2','9 · Your Rights'],
-  ['p','Subject to applicable law and to any specific conditions, users have the right to:'],
+  ['h2','9 · Your rights'],
+  ['p','Subject to applicable law and to any specific conditions, you have the right to:'],
   ['ul',[
-    'ask Conductor to confirm whether personal information is processed and to receive a copy;',
-    'ask Conductor to correct inaccurate or incomplete information;',
-    'ask Conductor to delete personal information no longer having a lawful basis to retain;',
-    'object to processing on grounds of particular situation, or to withdraw a consent previously given;',
+    'ask us to confirm whether we process your personal information and to receive a copy;',
+    <>ask us to correct inaccurate or incomplete information;</>,
+    <>ask us to delete personal information we no longer have a lawful basis to retain (see the <a href="/legal/account-deletion">Account &amp; Data Deletion Policy</a>);</>,
+    'object to processing on grounds of your particular situation, or to withdraw a consent you previously gave;',
     'request restriction of processing in certain cases;',
-    'request portability of personal information provided to Conductor, in a structured, commonly used, machine-readable format;',
+    'request portability of personal information you provided to us, in a structured, commonly used, machine-readable format;',
     'lodge a complaint with the Nigeria Data Protection Commission (NDPC).']],
-  ['p','To exercise a right, contact privacy@conductor.ng. Conductor may need to verify identity before responding. Response will be within the timeframe required by law and generally within thirty (30) days.'],
-  ['h2','10 · Security & Breaches'],
+  ['p','To exercise a right, contact privacy@conductor.ng. We may need to verify your identity before responding. We will respond within the timeframe required by law and generally within thirty (30) days.'],
+  ['h2','10 · Security & breaches'],
   ['ol',[
-    'Administrative, technical, and organisational safeguards are implemented to protect personal information from unauthorised access, disclosure, alteration, misuse, or loss. These include encryption in transit, access controls, network segmentation, audit logs, and staff training.',
-    'No system is completely secure. If account or personal information has been compromised, contact Conductor immediately at security@conductor.ng.',
-    'Where a personal-data breach is likely to result in a risk to affected individuals, the Nigeria Data Protection Commission and any affected individuals will be notified in accordance with the NDPA.']],
+    'We implement administrative, technical, and organisational safeguards designed to protect personal information from unauthorised access, disclosure, alteration, misuse, or loss. These include encryption in transit, access controls, network segmentation, audit logs, and staff training.',
+    'No system is completely secure. If you believe your account or personal information has been compromised, contact us immediately at security@conductor.ng.',
+    'Where a personal-data breach is likely to result in a risk to affected individuals, we will notify the Nigeria Data Protection Commission and any affected individuals in accordance with the NDPA.']],
   ['h2','11 · Children'],
-  ['p','The Platform is not intended for and may not be used by any person under the age of 18. Personal information is not knowingly collected from any person under 18. If Conductor becomes aware that such information has been collected, it will be deleted and the associated account will be terminated.'],
-  ['h2','12 · Cross-Border Transfers'],
-  ['p','Some service providers process personal information outside Nigeria. Where personal information is transferred outside Nigeria, this is done in accordance with the NDPA, including by relying on adequacy decisions, standard contractual clauses, binding corporate rules, or one of the other lawful transfer mechanisms recognised under Nigerian law.'],
+  ['p','The Platform is not intended for and may not be used by any person under the age of 18. We do not knowingly collect personal information from any person under 18. If we become aware that we have collected such information, we will delete it and terminate the associated account.'],
+  ['h2','12 · Cross-border transfers'],
+  ['p','Some of our service providers process personal information outside Nigeria. Where personal information is transferred outside Nigeria, we do so in accordance with the NDPA, including by relying on adequacy decisions, standard contractual clauses, binding corporate rules, or one of the other lawful transfer mechanisms recognised under Nigerian law.'],
   ['h2','13 · Contact & Data Protection Officer (DPO)'],
-  ['p','Questions, requests, or complaints about privacy or personal information: privacy@conductor.ng.']
+  ['p','Questions, requests, or complaints about your privacy or personal information: privacy@conductor.ng.']
   ]}/>;}
-
 /* ---------------- Terms ---------------- */
 function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
   title={<>Terms of <em>service</em>.</>}
@@ -2805,6 +2804,98 @@ function CarOwnerPolicyPage(){return <LegalDoc crumb="Car owner policy" eyebrow=
   ['p','The suspension, termination, appeal, and identity-ban provisions in the Terms of Service and the Code of Conduct apply. In summary, repeat safety incidents or a single zero-tolerance breach (assault, sexual misconduct, weapons, DUI, gross negligence causing injury, identity fraud, retaliation) result in immediate termination and identity-level ban.']
   ]}/>;}
 
+/* ---------------- Refund policy ---------------- */
+function RefundPolicyPage(){return <LegalDoc crumb="Refund policy" eyebrow="Legal"
+  title={<>Refund <em>policy</em>.</>}
+  intro="This Refund Policy sets out when refunds are and are not payable, the process for requesting one, and how long refunds take to reach you. It is incorporated by reference into the Terms of Service."
+  blocks={[
+  ['h2','1 · General principles'],
+  ['ol',[
+    'Refunds are decided on the facts of each Trip-Day, in accordance with this Policy.',
+    'Approved refunds are, in the first instance, credited to your Wallet spendable balance. Where you have withdrawn, refunds may be routed to the original payment method or another payment channel we designate, subject to operational, legal, and regulatory requirements.',
+    'We reserve the right to investigate every refund request, including by reviewing GPS data, chat logs, driver / passenger attendance flags, and any other Trip records, in order to prevent fraud, abuse, or misuse.',
+    'Refunds are processed on a per-Trip-Day basis. A multi-day Booking is not refunded on a whole-Trip basis simply because one Trip-Day was disputed — each affected Trip-Day is evaluated on its own facts.',
+    'Where the Service Charge has been earned, we may deduct it from a refund. Where a refund arises from Driver fault or a service failure attributable to us, the full amount paid is refunded.']],
+  ['h2','2 · Passenger-initiated cancellations'],
+  ['ol',[
+    <><b>Before Driver acceptance.</b> Any amount pre-authorised, held, or paid is refunded in full.</>,
+    <><b>Early cancellation (before the daily cut-off).</b> Where you cancel a Trip-Day sufficiently in advance of the Driver’s pickup time (as defined by the in-app cancellation window for that Trip), the fare is refunded in full, less any small administrative processing fee expressly disclosed at cancellation.</>,
+    <><b>Late cancellation.</b> Where you cancel a Trip-Day inside the cut-off window — sufficiently close to pickup that the Driver cannot reasonably re-sell the seat — the fare for that Trip-Day is not refundable. This is because the seat has effectively been consumed against the Driver’s capacity.</>,
+    <><b>No-show.</b> If the Driver arrives at the pickup point and waits the applicable grace period (published in-app) and you neither arrive nor cancel in-app, you are treated as a no-show and no refund is due.</>,
+    <><b>Ride refused after boarding for behaviour.</b> Where a Driver ends a Trip early due to your prohibited conduct (clause 11 of the Terms), you are not entitled to a refund of the affected Trip-Day.</>]],
+  ['h2','3 · Driver-initiated cancellations & service failures'],
+  ['ol',[
+    <><b>Driver cancels a Trip-Day after accepting the Booking.</b> You receive a full refund of the fare paid for that Trip-Day. Where the pattern is repeated by the same Driver, we may sanction the Driver under clause 12 of the Terms.</>,
+    <><b>Driver marks the Trip-Day as suspended</b> (e.g. vehicle unavailable, personal emergency). You are not charged for that Trip-Day and any pre-held amount is released back.</>,
+    <><b>Driver no-show</b> (Driver did not arrive within a reasonable time and did not update the Trip-Day status). You are refunded in full.</>,
+    <><b>Vehicle unroadworthy or safety-inadequate at pickup.</b> You may decline to board; the Trip-Day is refunded in full and reported to our Trust &amp; Safety team.</>,
+    <><b>Substantial route deviation.</b> Where the Driver, without lawful reason, materially departs from the agreed route in a way that substantially harms the value of the Trip to you, a partial or full refund may be granted upon investigation.</>]],
+  ['h2','4 · Payment failures, duplicates, and technical errors'],
+  ['ol',[
+    'Duplicate charges are refunded in full upon confirmation.',
+    'Where a payment is deducted without a corresponding successful Booking, the amount is refunded in full.',
+    'Where an incorrect fare has been charged due to a technical error, we will refund the difference.']],
+  ['h2','5 · Wallet balances & withdrawals'],
+  ['ol',[
+    'Spendable Wallet funds may be withdrawn to a verified bank account. Withdrawals may take between one (1) and five (5) business days after approval, depending on the banking rails.',
+    'Withdrawal requests may be delayed or declined where fraud, abuse, suspicious activity, sanctions-list matching, or a lawful hold is present.',
+    'Referral rewards and promotional credits are not directly withdrawable. Referral rewards may be transferred to the spendable Wallet subject to programme-specific minimums and PIN authentication.']],
+  ['h2','6 · Promotional credits, bonuses, and coupons'],
+  ['p','Promotional credits, referral rewards, discount codes, and other incentives are:'],
+  ['ul',[
+    'non-transferable;',
+    'not redeemable for cash;',
+    'not refundable when a related Trip is cancelled — only the eligible monetary amount, if any, may be refunded;',
+    'expire in accordance with the terms of the specific promotion.']],
+  ['h2','7 · Circumstances where refunds may be declined'],
+  ['ul',[
+    'failure of the Passenger to appear within the permitted waiting time;',
+    'provision of inaccurate pickup or drop-off information;',
+    'violations of these Terms;',
+    'fraudulent, deceptive, or abusive refund practices, or repeated misuse of the refund process;',
+    'circumstances beyond the Company’s reasonable control (see clause 15 of the Terms);',
+    'where the service has substantially been rendered.']],
+  ['h2','8 · Processing time'],
+  ['ol',[
+    <><b>To the in-app Wallet:</b> generally immediate or within 24 hours of approval.</>,
+    <><b>To a bank account or card:</b> generally within 5 to 15 business days, depending on the financial institution, payment processor, and applicable regulations.</>,
+    'We are not liable for delays caused by third-party payment providers or financial institutions.']],
+  ['h2','9 · How to request a refund'],
+  ['p','Open the affected Trip-Day in the app and tap “Report an issue”. Describe the problem and attach any photographs or screenshots you have. Our support team will acknowledge within seven (7) business days and confirm the outcome within a reasonable time thereafter. You may also email support@conductor.ng.'],
+  ['h2','10 · Fraud prevention & abuse'],
+  ['p','We maintain fraud-detection measures for refund requests. Users who engage in fraudulent, deceptive, or abusive refund practices may have their accounts suspended, restricted, or terminated, and forfeit outstanding Wallet balances derived from the abusive activity, without prejudice to any other legal remedy available to the Company.'],
+  ['h2','11 · Changes to this Policy'],
+  ['p','We may amend this Policy from time to time. Changes take effect on publication and continued use of the Platform constitutes acceptance.']
+  ]}/>;}
+
+/* ---------------- Account & data deletion ---------------- */
+function AccountDeletionPage(){return <LegalDoc crumb="Account & data deletion" eyebrow="Legal"
+  title={<>Account &amp; data <em>deletion</em>.</>}
+  intro="You control your account. This Policy explains how to request deletion, what happens during the 30-day grace period, and which categories of information we may lawfully retain after your account is closed."
+  blocks={[
+  ['h2','1 · How to request deletion'],
+  ['p','Open Account → Delete account in the app, or contact us at support@conductor.ng. Once we receive your request, your account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
+  ['h2','2 · Thirty (30) day grace period'],
+  ['ol',[
+    'Your account is deactivated but not permanently deleted for thirty (30) days.',
+    'If you log in or otherwise access the Platform using your credentials during that period, your deletion request is deemed withdrawn and your account is automatically reactivated. You may submit a new deletion request at any time.',
+    'Where you are owed money on your account (e.g. a Wallet balance), we will guide you through payout (typically to your verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
+  ['h2','3 · Timeline for deletion'],
+  ['p','After the 30-day grace period, we complete the deletion or anonymisation of your eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in our secure archives for the periods described below.'],
+  ['h2','4 · Information that may not be deleted'],
+  ['p','Notwithstanding a deletion request, we may retain certain categories of information where retention is necessary or permitted by law, including:'],
+  ['ol',[
+    <><b>Identity-verification records</b> — information used to verify User identity (including NIN records) may be retained where necessary to comply with legal, regulatory, security, fraud-prevention, or audit requirements.</>,
+    <><b>Transaction and Trip records</b> — records relating to completed Trips, payments, receipts, disputes, complaints, refunds, and other transactional activity may be retained for accounting, tax, auditing, and legal-compliance purposes.</>,
+    <><b>Safety and security information</b> — we may retain information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
+    <><b>Legal and regulatory requirements</b> — personal information subject to a legal-hold, court order, governmental directive, or valid regulatory request.</>,
+    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify you may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
+  ['h2','5 · Effect of permanent deletion'],
+  ['p','Once your account is permanently deleted, you may lose access to your profile, Trip history, saved preferences, referrals, and other information associated with the account. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
+  ['h2','6 · Your acknowledgement'],
+  ['p','By submitting a deletion request, you acknowledge and understand this Policy.']
+  ]}/>;}
+
 /* ---------------- Code of conduct ---------------- */
 function ConductPage(){return <LegalDoc crumb="Code of conduct" eyebrow="Legal" updated="10 August 2026"
   title={<>Code of <em>conduct</em>.</>}
@@ -3012,4 +3103,4 @@ function PressPage(){
 
 
 
-export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };
+export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, RefundPolicyPage, AccountDeletionPage, ConductPage, DeletePage, CareersPage, PressPage };
