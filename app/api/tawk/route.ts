@@ -21,7 +21,7 @@ const SECRET = process.env.TAWK_WEBHOOK_SECRET;
 const CLICKUP_TOKEN = process.env.CLICKUP_API_TOKEN;
 const LIST_ID = process.env.CLICKUP_SUPPORT_LIST_ID;
 
-// Comma-separated numeric ClickUp user IDs, e.g. "106591509,106591501".
+// Comma-separated numeric ClickUp user IDs, e.g. "100000001,100000002".
 const ASSIGNEES = (process.env.CLICKUP_ASSIGNEE_IDS || "")
   .split(",")
   .map((s) => Number(s.trim()))
