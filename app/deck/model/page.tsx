@@ -119,6 +119,8 @@ export const MODEL = `
     <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Car owner credit products</strong>Fuel, maintenance and vehicle acquisition, underwritten by ledger history. Later.</div>
     <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Embedded insurance</strong>Per-trip passenger and vehicle cover at booking, earning commission from the underwriter.</div>
     <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Commute-demand data</strong>Anonymised, aggregated corridor demand — valuable to planners, retailers and developers.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Enterprise wallet float</strong>Companies pre-load transport wallets; those balances are additional escrowed float — the treasury line, at corporate scale.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Car-owner earnings advance</strong>Advance a car owner their expected weekly earnings for a small fee — near-zero risk, since the escrow already holds the money.</div>
   </div>
 </section>
 
