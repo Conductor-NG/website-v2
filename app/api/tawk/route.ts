@@ -133,14 +133,18 @@ function describeVisitor(v?: Visitor): string {
   return [who || "Anonymous visitor", where].filter(Boolean).join(" · ");
 }
 
-async function clickup(path: string, body: unknown): Promise<Response> {
+async function clickup(
+  path: string,
+  body?: unknown,
+  method: "GET" | "POST" | "PUT" = "POST",
+): Promise<Response> {
   return fetch(`https://api.clickup.com/api/v2${path}`, {
-    method: "POST",
+    method,
     headers: {
       "content-type": "application/json",
       authorization: CLICKUP_TOKEN as string,
     },
-    body: JSON.stringify(body),
+    body: body === undefined ? undefined : JSON.stringify(body),
   });
 }
 
@@ -160,15 +164,60 @@ async function createTask(name: string, markdown: string): Promise<string | null
   return task.id ?? null;
 }
 
-async function addComment(taskId: string, text: string): Promise<boolean> {
-  const res = await clickup(`/task/${taskId}/comment`, {
-    comment_text: text,
-    notify_all: false,
-  });
-  if (!res.ok) {
-    console.error("[tawk] ClickUp addComment failed", res.status, await res.text());
+/**
+ * Most visitors open with "Hi" and ask the real question in their second
+ * message — but chat:start only carries the first one, so the ticket lands
+ * titled "Chat: Hi". Once the transcript arrives we know what they actually
+ * wanted, so retitle it to that.
+ */
+const GREETING_MAX = 24; // "Hi", "Hello there", "Good morning" all fall under this.
+
+function firstRealQuestion(messages: TawkMessage[]): string | null {
+  // Default to visitor: tawk omits the sender type on some payload shapes.
+  const said = messages
+    .filter((m) => (m.sender?.t ?? "v") === "v")
+    .map(messageText)
+    .filter(Boolean);
+  // The first message past greeting length is almost always the actual ask.
+  const substantive = said.find((t) => t.length > GREETING_MAX);
+  if (substantive) return substantive;
+  // Everything was short ("Hi" / "How much?") — the longest is the best we have.
+  return said.sort((a, b) => b.length - a.length)[0] ?? null;
+}
+
+/**
+ * Rewrites the ticket once the whole conversation is known: the title becomes
+ * the question the visitor actually asked, and the body carries every message
+ * under a Conversation section. Handles both shapes we see in practice — the
+ * visitor who says everything in one go, and the one who spreads it over the
+ * session.
+ */
+async function rewriteTicket(
+  taskId: string,
+  question: string | null,
+  markdown: string,
+): Promise<boolean> {
+  try {
+    const current = await clickup(`/task/${taskId}`, undefined, "GET");
+    if (!current.ok) return false;
+    const { name } = (await current.json()) as { name?: string };
+
+    const body: Record<string, string> = { markdown_content: markdown };
+    // Retitle only while the ticket still carries the title we gave it — if a
+    // person has renamed it, their wording wins over ours.
+    if (question && name?.startsWith("Chat: ")) {
+      const next = truncate(`Chat: ${question}`, 100);
+      if (next !== name) body.name = next;
+    }
+    const res = await clickup(`/task/${taskId}`, body, "PUT");
+    if (!res.ok) {
+      console.error("[tawk] ClickUp rewrite failed", res.status, await res.text());
+    }
+    return res.ok;
+  } catch (err) {
+    console.error("[tawk] rewrite threw", err);
+    return false;
   }
-  return res.ok;
 }
 
 // ---- Event handlers ----------------------------------------------------
@@ -238,11 +287,29 @@ async function handleTranscript(p: TawkPayload): Promise<boolean> {
   if (!taskId) return true;
 
   const messages = p.chat?.messages ?? [];
-  const body = messages
-    .map((m) => `${senderLabel(m)}: ${messageText(m) || "(attachment)"}`)
+  const conversation = messages
+    .map((m) => `**${senderLabel(m)}:** ${messageText(m) || "_(attachment)_"}`)
+    .join("\n\n");
+
+  const markdown = [
+    `**From:** ${describeVisitor(p.chat?.visitor)}`,
+    `**Page:** ${p.referrer || p.domain || "—"}`,
+    p.chatId ? `**Chat ID:** \`${p.chatId}\`` : null,
+    "",
+    "---",
+    "",
+    "## Conversation",
+    "",
+    conversation || "_(no messages recorded)_",
+    "",
+    "---",
+    "",
+    "_Chat ended. Replies happen in tawk.to — this ticket is the record and the follow-up._",
+  ]
+    .filter((line) => line !== null)
     .join("\n");
 
-  return addComment(taskId, `Full transcript\n\n${body || "(no messages recorded)"}`);
+  return rewriteTicket(taskId, firstRealQuestion(messages), markdown);
 }
 
 // ---- Route -------------------------------------------------------------
