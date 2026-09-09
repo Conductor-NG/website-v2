@@ -117,6 +117,26 @@ export const MODEL = `
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;border-top:1px solid #ECDFCE;padding-top:28px">
     <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Monthly rider subscription</strong>Unlimited routes on a single fee for the heaviest commuters.</div>
     <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Car owner credit products</strong>Fuel, maintenance and vehicle acquisition, underwritten by ledger history. Later.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Embedded insurance</strong>Per-trip passenger and vehicle cover at booking, earning commission from the underwriter.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Commute-demand data</strong>Anonymised, aggregated corridor demand — valuable to planners, retailers and developers.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Enterprise wallet float</strong>Companies pre-load transport wallets; those balances are additional escrowed float — the treasury line, at corporate scale.</div>
+    <div style="font-size:15px;line-height:1.5;color:#514336"><strong style="color:#211A14;display:block;font-size:17px">Car-owner earnings advance</strong>Advance a car owner their expected weekly earnings for a small fee — near-zero risk, since the escrow already holds the money.</div>
+  </div>
+</section>
+
+<section style="background:#211A14;color:#FFF8F0">
+  <div style="max-width:1200px;margin:0 auto;padding:72px 32px;display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:900px">
+      <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">Possible revenue line · Treasury float</div>
+      <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0;text-wrap:pretty">The escrow model holds cash. Cash on deposit earns.</h2>
+      <p style="font-size:17px;line-height:1.55;color:#ECDFCE;margin:0">Passengers pay for the week upfront, so their fares sit in escrow for the duration of every trip — and more than half of all trips run five days. At any point, an estimated <strong style="color:#FFF8F0">15–25% of monthly GMV</strong> is held on our rails. Parked in a liquid call deposit at about <strong style="color:#FFF8F0">12% a year</strong>, that float becomes a revenue line at near-zero marginal cost — additive to, never instead of, the transaction take.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+      <div style="background:#2C231B;border:1px solid #514336;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:6px"><div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#D6C3B3">Dec 2026</div><div style="font-size:15px;color:#ECDFCE">~₦200m GMV / month</div><div style="font-size:15px;color:#ECDFCE">₦30–50m held in escrow</div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:34px;line-height:1;color:#E98B20;margin-top:6px">~₦4–6m<span style="font-size:15px;color:#8A7A6B"> / yr</span></div></div>
+      <div style="background:#2C231B;border:1px solid #514336;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:6px"><div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#D6C3B3">Jun 2027</div><div style="font-size:15px;color:#ECDFCE">~₦1.0b GMV / month</div><div style="font-size:15px;color:#ECDFCE">₦155–260m held in escrow</div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:34px;line-height:1;color:#E98B20;margin-top:6px">~₦19–31m<span style="font-size:15px;color:#8A7A6B"> / yr</span></div></div>
+      <div style="background:#EE4643;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:6px"><div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#FFE9E4">Dec 2027 · run-rate</div><div style="font-size:15px;color:#FFF8F0">~₦3.35b GMV / month</div><div style="font-size:15px;color:#FFF8F0">₦500–840m held in escrow</div><div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1;color:#fff;margin-top:6px">~₦60–100m<span style="font-size:15px;color:#FFE9E4"> / yr</span></div></div>
+    </div>
+    <p style="font-size:14px;line-height:1.5;color:#D6C3B3;margin:0;max-width:960px">Illustrative, and shown as optionality — not included in the core projection. It requires a trust/escrow structure where Conductor is entitled to the interest (or a bank sweep that shares it), never touches principal, and keeps a payout and refund buffer. GMV is taken at ≈10× platform revenue, reflecting our ~10% take.</p>
   </div>
 </section>
 `;
