@@ -11,8 +11,41 @@ import { useEffect } from "react";
  * map). Uses Vercel Analytics custom events; no PII, just the token you minted.
  */
 
+const INTERNAL_KEY = "deck_internal";
+
+/**
+ * Resolve the per-recipient token: the `?v=` query wins (legacy links), else
+ * the `deck_v` cookie set by the clean `/d/<token>` entry links, else "anon".
+ * Reading the cookie is what lets clean, query-less links still attribute.
+ */
+function readToken(queryV: string | null): string {
+  if (queryV) {
+    return queryV;
+  }
+  if (typeof document !== "undefined") {
+    const m = document.cookie.match(/(?:^|;\s*)deck_v=([^;]+)/);
+    if (m) {
+      return decodeURIComponent(m[1]);
+    }
+  }
+  return "anon";
+}
+
 function useToken(): string {
-  return useSearchParams().get("v") || "anon";
+  return readToken(useSearchParams().get("v"));
+}
+
+/**
+ * Is this device flagged internal (the team testing the deck)? Internal
+ * traffic is never sent, so it can't pollute a recipient's numbers. Toggle
+ * with `/deck?internal=1` to set and `/deck?internal=0` to clear.
+ */
+function isInternal(): boolean {
+  try {
+    return localStorage.getItem(INTERNAL_KEY) === "1";
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -54,6 +87,10 @@ function getSessionId(): string {
 
 function sendEv(body: EvBody): void {
   try {
+    // Never record the team's own testing traffic.
+    if (isInternal()) {
+      return;
+    }
     const json = JSON.stringify({ ...body, sid: getSessionId() });
     if (typeof navigator !== "undefined" && navigator.sendBeacon) {
       const blob = new Blob([json], { type: "application/json" });
@@ -98,8 +135,25 @@ export function DeckTracker({ slide }: { slide: string }) {
  */
 export function DeckEnhancer() {
   const pathname = usePathname();
-  const v = useToken();
+  const searchParams = useSearchParams();
+  const queryV = searchParams.get("v");
+  const v = readToken(queryV);
   const slide = pathname === "/deck" ? "overview" : pathname.replace(/^\/deck\/?/, "");
+
+  // Internal/self toggle: `/deck?internal=1` flags this device so it stops
+  // sending events (team testing); `/deck?internal=0` clears it.
+  useEffect(() => {
+    const flag = searchParams.get("internal");
+    try {
+      if (flag === "1") {
+        localStorage.setItem(INTERNAL_KEY, "1");
+      } else if (flag === "0") {
+        localStorage.removeItem(INTERNAL_KEY);
+      }
+    } catch {
+      // ignore — storage may be unavailable
+    }
+  }, [searchParams]);
 
   // Each deck section is a standalone "slide" — always open it at the top.
   // Next's App Router can land mid-page when the previous section was scrolled
@@ -110,8 +164,10 @@ export function DeckEnhancer() {
   }, [pathname]);
 
   useEffect(() => {
-    if (v !== "anon") {
-      // Append ?v to internal deck links that don't already carry it.
+    // Only propagate `?v` onto in-content links when the token came from the
+    // query (legacy links). Clean cookie-based `/d/<token>` entries keep links
+    // tidy and rely on the cookie for attribution, so nothing is appended.
+    if (queryV) {
       const links = document.querySelectorAll<HTMLAnchorElement>(
         'a[href^="/deck"]'
       );
@@ -120,7 +176,7 @@ export function DeckEnhancer() {
         if (href.startsWith("/deck") && !href.includes("v=")) {
           a.setAttribute(
             "href",
-            href + (href.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(v)
+            `${href}${href.includes("?") ? "&" : "?"}v=${encodeURIComponent(queryV)}`
           );
         }
       }
@@ -163,7 +219,7 @@ export function DeckEnhancer() {
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
-  }, [v, slide]);
+  }, [v, queryV, slide]);
 
   return null;
 }

@@ -15,13 +15,23 @@ export async function POST(req: Request) {
       slide?: string;
       seconds?: number;
       cta?: string;
+      sid?: string;
+      internal?: boolean;
     };
+    // Self / internal traffic (the team testing the deck) opts out — never
+    // recorded, so it can't pollute a recipient's numbers.
+    if (body?.internal === true) {
+      return new Response(null, { status: 204 });
+    }
     await recordEvent({
       v: String(body?.v ?? ""),
       type: body?.type as EventType,
       slide: String(body?.slide ?? ""),
       seconds: typeof body?.seconds === "number" ? body.seconds : undefined,
       cta: typeof body?.cta === "string" ? body.cta : undefined,
+      // Forward the session id so distinct sittings are counted as distinct
+      // sessions (previously dropped here — everything collapsed into one).
+      sid: typeof body?.sid === "string" ? body.sid : undefined,
     });
   } catch {
     // Swallow everything — validation lives in recordEvent and the public
