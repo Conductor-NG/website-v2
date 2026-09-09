@@ -44,6 +44,13 @@ Variables** (the same values as the Cloud Run env table below):
 | `CONTACT_FROM_EMAIL` | must be a Resend-verified sender |
 | `RESEND_AUDIENCE_ID` | optional newsletter list |
 | `GOOGLE_SITE_VERIFICATION` | optional Search Console token |
+| `NEXT_PUBLIC_TAWK_PROPERTY_ID` | tawk.to live chat — **build-time**, blank disables the widget |
+| `NEXT_PUBLIC_TAWK_WIDGET_ID` | tawk.to widget id (defaults to `default`) |
+| `TAWK_WEBHOOK_SECRET` | verifies the `/api/tawk` webhook signature |
+| `CLICKUP_API_TOKEN` | files chat questions as ClickUp tickets |
+| `CLICKUP_SUPPORT_LIST_ID` | id of the Support Inbox list in ClickUp |
+| `CLICKUP_ASSIGNEE_IDS` | optional — comma-separated ClickUp user IDs to assign |
+| `KV_REST_API_URL` + `KV_REST_API_TOKEN` | optional Upstash/Vercel KV — adds chat transcripts + webhook de-duplication |
 
 Lockfiles: `package-lock.json` is what Vercel installs from. `bun.lock` exists
 for the documented local `bun` workflow — update both when you change
@@ -68,9 +75,9 @@ gcloud secrets add-iam-policy-binding RESEND_API_KEY \
 
 ## Cloud Run — deploy (every release)
 ```bash
-gcloud builds submit --substitutions=_GA_ID=G-XXXXXXXXXX
+gcloud builds submit --substitutions=_GA_ID=G-XXXXXXXXXX,_TAWK_PROPERTY_ID=68xxxxxxxxxxxxxx,_TAWK_WIDGET_ID=1hxxxxxxx
 ```
-That builds the image (baking in your GA4 id), pushes it, and deploys to Cloud Run. It prints the live `*.run.app` URL.
+That builds the image (baking in your GA4 id and the tawk.to widget ids), pushes it, and deploys to Cloud Run. It prints the live `*.run.app` URL.
 
 > Prefer to build locally instead of Cloud Build?
 > ```bash

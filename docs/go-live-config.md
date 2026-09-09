@@ -90,6 +90,65 @@ campaigns can optimise toward people who actually convert.
 
 ---
 
+## 3. Live chat (tawk.to) → ClickUp tickets
+
+The chat widget and the ClickUp bridge are both built. The widget stays invisible
+until `NEXT_PUBLIC_TAWK_PROPERTY_ID` is set, and the webhook accepts-and-drops until
+the ClickUp variables are set — so a half-finished setup breaks nothing.
+
+**How it works:** a visitor opens the chat and asks a question → tawk.to POSTs to
+`https://conductor.ng/api/tawk` → a task is created in the **Support Inbox** list
+(Chat Support space) with the question,
+the visitor's name/email/city and the page they were on, assigned to whoever
+`CLICKUP_ASSIGNEE_IDS` names. When the chat ends, the full transcript is appended to
+that same task as a comment. Offline messages ("Ticket Create" in tawk) file the same
+way. **Agents still reply inside tawk.to** — the ClickUp task is the record and the
+follow-up, not the conversation.
+
+### 3a. tawk.to setup
+1. Create the property at **https://tawk.to** (free) for `conductor.ng`.
+2. **Administration → Chat Widget** → copy the widget URL. It looks like
+   `https://embed.tawk.to/68xxxxxxxxxxxxxx/1hxxxxxxx` — the first half is the
+   **property ID**, the second the **widget ID**.
+3. **Administration → Settings → Webhooks** → add a webhook:
+   - URL: `https://conductor.ng/api/tawk`
+   - Events: **Chat Start**, **Ticket Create**, **Chat Transcript Created**
+   - Copy the **secret key** it generates.
+
+> The webhook only works against the deployed site — tawk.to can't reach `localhost`,
+> so test it on `conductor.ng` after deploying.
+
+### 3b. ClickUp setup
+1. ClickUp → avatar → **Settings → Apps → API Token** → generate a personal token (`pk_...`).
+2. Decide who tickets go to and get their **numeric user IDs** (not emails) — the
+   ClickUp API returns them, or ask whoever set up the workspace.
+
+### 3c. Environment variables
+
+| Variable | Value | Notes |
+|----------|-------|-------|
+| `NEXT_PUBLIC_TAWK_PROPERTY_ID` | first half of the embed URL | **required** — blank means no widget at all |
+| `NEXT_PUBLIC_TAWK_WIDGET_ID` | second half of the embed URL | defaults to `default` |
+| `TAWK_WEBHOOK_SECRET` | the webhook secret key | **server-only.** Every request is HMAC-verified; a wrong value rejects everything with a 401 |
+| `CLICKUP_API_TOKEN` | `pk_...` | server-only |
+| `CLICKUP_SUPPORT_LIST_ID` | the list id | last path segment of the Support Inbox list's ClickUp URL |
+| `CLICKUP_ASSIGNEE_IDS` | user ids | comma-separated numeric ClickUp user ids (`GET /api/v2/team`); blank files tickets unassigned |
+| `KV_REST_API_URL` + `KV_REST_API_TOKEN` | *(optional)* Upstash / Vercel KV | **recommended** — see below |
+
+Without the KV pair the integration still files every ticket; you just lose two things:
+the **full transcript** appended when a chat ends, and **duplicate protection** if tawk
+retries a delivery. The investor deck already uses these same credentials, so if KV is
+connected for that, this picks it up automatically.
+
+### 3d. Test it
+1. Deploy, then open `conductor.ng` and send yourself a message in the chat bubble.
+2. A task should appear in **Support Inbox** within a few seconds.
+3. If nothing shows: tawk.to → Webhooks shows the delivery status and response code.
+   `401` = wrong `TAWK_WEBHOOK_SECRET`. `502` = ClickUp rejected it (bad token or list ID).
+   `200 {"skipped":"not configured"}` = the environment variables aren't set on the deployment.
+
+---
+
 ## Quick checklist
 - [ ] Resend: domain verified + `RESEND_API_KEY` (+ `CONTACT_*`) set  — **or** `CONTACT_WEBHOOK_URL` set
 - [ ] Vercel Analytics enabled (dashboard)
@@ -101,3 +160,7 @@ campaigns can optimise toward people who actually convert.
 - [ ] `NEXT_PUBLIC_SITE_URL=https://conductor.ng` set
 - [ ] Redeployed after setting variables
 - [ ] Sent a test contact-form message and confirmed it arrived
+- [ ] tawk.to property created, `NEXT_PUBLIC_TAWK_PROPERTY_ID` + `NEXT_PUBLIC_TAWK_WIDGET_ID` set
+- [ ] tawk.to webhook pointed at `https://conductor.ng/api/tawk` (Chat Start, Ticket Create, Chat Transcript Created) + `TAWK_WEBHOOK_SECRET` set
+- [ ] `CLICKUP_API_TOKEN`, `CLICKUP_SUPPORT_LIST_ID`, `CLICKUP_ASSIGNEE_IDS` set
+- [ ] Sent a test chat message and confirmed the ClickUp ticket appeared
