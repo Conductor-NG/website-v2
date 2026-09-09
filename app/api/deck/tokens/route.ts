@@ -34,7 +34,7 @@ function gate(req: Request): Gate {
   return { ok: true };
 }
 
-function originOf(req: Request): string {
+function originOf(): string {
   // Recipient links must always point at the clean marketing domain, never at
   // the Vercel deployment host (e.g. a `v2.` / `website-v2-*.vercel.app` origin
   // the request happens to arrive on). Prefer an explicit site URL, strip any
@@ -52,7 +52,7 @@ export async function GET(req: Request) {
     return g.res;
   }
   const tokens = await listTokens();
-  return NextResponse.json({ tokens, origin: originOf(req) });
+  return NextResponse.json({ tokens, origin: originOf() });
 }
 
 export async function POST(req: Request) {
@@ -70,6 +70,6 @@ export async function POST(req: Request) {
     name: (body?.name || "").trim(),
     note: (body?.note || "").trim(),
   });
-  const url = `${originOf(req)}/deck?v=${id}`;
+  const url = `${originOf()}/d/${id}`;
   return NextResponse.json({ token, id, url });
 }
