@@ -76,6 +76,7 @@ type Visitor = {
 type TawkMessage = {
   text?: string;
   message?: string;
+  msg?: string;
   time?: string;
   sender?: { t?: string; n?: string; name?: string };
 };
@@ -111,8 +112,10 @@ function truncate(s: string, max: number): string {
   return t.length <= max ? t : `${t.slice(0, max - 1)}…`;
 }
 
+// tawk names the body differently across event shapes, so try each rather
+// than render a real message as "(attachment)".
 function messageText(m?: TawkMessage): string {
-  return (m?.text || m?.message || "").trim();
+  return (m?.text || m?.message || m?.msg || "").trim();
 }
 
 function senderLabel(m?: TawkMessage): string {
