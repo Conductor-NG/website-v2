@@ -13,8 +13,46 @@ export const metadata: Metadata = {
     description:
       "A seat in a neighbour's car, on your route, fare agreed up front and held until each day is done. See it on London routes and tell us about your commute.",
     url: "/london",
+    images: [{ url: "/images/london/og.png", width: 2400, height: 1260, alt: "Would you share your commute? — Conductor London" }],
   },
+  twitter: { card: "summary_large_image", images: ["/images/london/og.png"] },
 };
+
+/** Agreed → held → released. Inline so it inherits the site's tokens. */
+function MoneyFlow() {
+  const steps = [
+    ["Book", "Fare agreed"],
+    ["Pay", "Held in escrow"],
+    ["Mon", "£ released"],
+    ["Tue", "£ released"],
+    ["Wed", "£ released"],
+    ["Thu", "Skipped · refunded"],
+    ["Fri", "£ released"],
+  ];
+  return (
+    <svg className="ldn-flow" viewBox="0 0 900 150" role="img" aria-label="Fare agreed at booking, held in escrow when you pay, then released to the car owner after each day you ride; a skipped day is refunded">
+      <line x1="60" y1="60" x2="840" y2="60" stroke="var(--outline)" strokeWidth="2" />
+      <line x1="190" y1="60" x2="840" y2="60" stroke="var(--orange-base)" strokeWidth="3" strokeDasharray="6 6" />
+      {steps.map(([t, s], i) => {
+        const x = 60 + i * 130;
+        const refund = t === "Thu";
+        const money = i >= 2;
+        return (
+          <g key={t}>
+            <circle cx={x} cy="60" r={money ? 16 : 20} fill={refund ? "#fff" : money ? "var(--success-20)" : i === 0 ? "#fff" : "var(--orange-10)"} stroke={refund ? "var(--pink-base)" : money ? "var(--success-base)" : "var(--orange-base)"} strokeWidth="2.5" />
+            {money && !refund && <path d={`M${x - 6} 60 l4 4 l8 -9`} fill="none" stroke="var(--success-base)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />}
+            {refund && <path d={`M${x - 5} 55 l10 10 M${x + 5} 55 l-10 10`} fill="none" stroke="var(--pink-base)" strokeWidth="2.5" strokeLinecap="round" />}
+            {!money && <text x={x} y="65" textAnchor="middle" fontSize="13" fontWeight="700" fill="var(--fg-1)">{i + 1}</text>}
+            <text x={x} y="108" textAnchor="middle" fontSize="14" fontWeight="700" fill="var(--fg-1)">{t}</text>
+            <text x={x} y="128" textAnchor="middle" fontSize="12" fill={refund ? "var(--pink-base)" : "var(--fg-3)"}>{s}</text>
+          </g>
+        );
+      })}
+      <text x="60" y="22" fontSize="11" fontWeight="700" letterSpacing="1.5" fill="var(--fg-3)">YOUR WALLET</text>
+      <text x="840" y="22" textAnchor="end" fontSize="11" fontWeight="700" letterSpacing="1.5" fill="var(--fg-3)">CAR OWNER</text>
+    </svg>
+  );
+}
 
 /** App screen inside the site's iPhone frame (same markup as design.jsx's Phone). */
 function Phone({ src, alt, w = 300 }: { src: string; alt: string; w?: number }) {
@@ -100,7 +138,7 @@ export default function Page() {
         <section className="phero">
           <div className="hero__glow" />
           <div className="wrap">
-            <div className="phero__grid phero__grid--solo">
+            <div className="phero__grid ldn-phero">
               <div>
                 <p className="crumb"><a href="/">Home</a> › London</p>
                 <p className="eyebrow">London · commuter research</p>
@@ -117,6 +155,15 @@ export default function Page() {
                   <a href="#app" className="btn btn--ghostline btn--lg">See the app on London routes</a>
                 </div>
                 <p className="ldn-hero__note"><i /> Real app screens · illustrative London prices · no download needed</p>
+              </div>
+              <div className="ldn-hero__art">
+                <img
+                  src="/images/london/hero-phones.png"
+                  alt="Three passenger app screens on London routes: the map of commutes near Clapham, the Clapham to Canary Wharf trip, and the wallet showing money held in escrow"
+                  width={1500}
+                  height={900}
+                  fetchPriority="high"
+                />
               </div>
             </div>
           </div>
@@ -152,6 +199,7 @@ export default function Page() {
               <p className="eyebrow">The money, in three lines</p>
               <h2 className="h2">Agreed before, held during, <em>released after.</em></h2>
             </div>
+            <div className="ldn-flow__wrap"><MoneyFlow /></div>
             <div className="ldn-money">
               <div className="feat">
                 <h3>The fare is fixed before you book</h3>
@@ -185,6 +233,16 @@ export default function Page() {
                   <li>Name and email are optional.</li>
                   <li>Answers are used only to plan a London launch.</li>
                 </ul>
+                <figure className="ldn-mapfig">
+                  <img
+                    src="/images/london/corridors-map.png"
+                    alt="Map of London with eight commuter corridors drawn on it: Clapham to Canary Wharf, Brixton to Victoria, East Croydon to London Bridge, Ealing to Paddington, Stratford to Liverpool Street, Walthamstow to King's Cross, Wood Green to Old Street"
+                    width={2400}
+                    height={1800}
+                    loading="lazy"
+                  />
+                  <figcaption>The corridors loaded into the app for this page. Tell us yours — the busiest ones open first.</figcaption>
+                </figure>
               </div>
               <LondonSurveyForm />
             </div>

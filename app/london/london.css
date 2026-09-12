@@ -9,6 +9,20 @@
 }
 .ldn-hero__note i { width: 8px; height: 8px; border-radius: 99px; background: var(--success-base); display: block; }
 
+/* Hero: copy left, phone fan right */
+.ldn-phero { grid-template-columns: 1fr 1.05fr; align-items: center; }
+.ldn-hero__art { position: relative; margin-right: clamp(-80px, -6vw, -20px); }
+.ldn-hero__art img { display: block; width: 100%; height: auto; }
+
+/* Money flow diagram */
+.ldn-flow__wrap { margin: 0 0 26px; padding: 22px 18px 8px; border: 1px solid var(--outline); border-radius: var(--radius-lg); background: #fff; overflow-x: auto; }
+.ldn-flow { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--font-body); }
+
+/* Corridors map in the survey aside */
+.ldn-mapfig { margin: 6px 0 0; display: grid; gap: 10px; }
+.ldn-mapfig img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); border: 1px solid var(--outline); }
+.ldn-mapfig figcaption { font: var(--type-body-sm); color: var(--fg-3); }
+
 /* App walkthrough — one phone per step, read left → right, top → bottom. */
 .ldn-steps {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -57,6 +71,10 @@
 @media (max-width: 1080px) {
   .ldn-steps { grid-template-columns: repeat(2, 1fr); }
   .ldn-money { grid-template-columns: 1fr; }
+}
+@media (max-width: 960px) {
+  .ldn-phero { grid-template-columns: 1fr; }
+  .ldn-hero__art { margin: 8px 0 0; }
 }
 @media (max-width: 860px) {
   .ldn-survey { grid-template-columns: 1fr; }
