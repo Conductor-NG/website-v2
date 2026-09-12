@@ -15,3 +15,5 @@ running against the local greenfield server with London trips seeded.
    `NODE_PATH=<website>/node_modules node london-cap.js` → writes
    `public/images/screens/uk/*.png`. The tidy pass converts ₦ to illustrative £
    (₦400 ≈ £1) and hides Google's web-only map chrome.
+
+5. `compose.html` + `compose.js` build the composed page images (hero phone fan, OG share image, London corridors map on OSM tiles) from the captured screens using the site CSS: `NODE_PATH=<website>/node_modules node compose.js` → `public/images/london/`.
