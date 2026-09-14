@@ -2208,7 +2208,7 @@ const QGROUPS={
     ['What does Conductor take?','Conductor earns through a service charge built into the fare, and it falls as you complete more trips — the more you share, the less it costs you to share.'],
     ['Can I select who rides with me?','Every time. Requests arrive with a verified profile and a rating earned from previous car owners, and you approve or decline each one. You can also restrict your seats to a community, so only its members can even ask.'],
     ['When exactly am I paid?','At the end of each trip. A passenger pays for their whole week up front, but that money sits in escrow and is released to you only once your own journey has been completed.'],
-    ['What if a passenger does not show up?','Their fare is already in escrow, so a no-show does not cost you the trip. Repeat no-shows affect a passenger’s rating and, eventually, their access to the platform.'],
+    ['What if a passenger does not show up?','Their fare is already in escrow. Half of that day’s fare still settles to you for holding the seat; the other half goes back to the passenger. Repeat no-shows affect a passenger’s rating and, eventually, their access to the platform.'],
     ['Does this add much time to my commute?','Only if you let it. Matching is by route, never by detour, and the meeting point is agreed on the road you already drive. Most car owners add five minutes or less.']]},
   money:{label:'Payment & refunds',items:[
     ['How does paying for a week of trips work?','When you add trips to your schedule you pay for all of them together, so the commute is settled in advance rather than transacted every morning. The full amount goes into escrow, not to any car owner.'],
@@ -2750,7 +2750,7 @@ function PassengerPolicyPage(){return <LegalDoc crumb="Passenger policy" eyebrow
     'Fares are inclusive of VAT. The fare is calculated by the Company’s pricing engine, versioned per Trip, and locked at Booking.',
     'Accepted payment methods, minimums, and processing fees are displayed at checkout.',
     'Your Wallet has spendable funds, referral rewards, and promotional credits — each with its own rules. Only spendable funds are directly withdrawable.',
-    <>Refunds follow the <a href="/legal/privacy#refund">Refund Policy</a>. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; no refund for a Passenger no-show; late-cancellation and no-show handling is per the published cut-off and the attendance-flag model.</>,
+    <>Refunds follow the <a href="/legal/privacy#refund">Refund Policy</a>. In summary: full refund for cancellations before Car Owner acceptance; full refund for the Trip-Day where the Car Owner cancels, no-shows, or fails to deliver the ride; a Passenger no-show returns half of the Car Owner’s fare for that Trip-Day to the Passenger (the other half settles to the Car Owner; service charges and taxes are not refunded); no refund for a Passenger late cancellation; cut-offs and the attendance-flag model are as published.</>,
     'The 26-hour never-reverse window applies to Car Owner settlement. Disputes raised after 26 hours are handled through the dispute engine and, where you win, may be paid as a Wallet credit or bank refund.']],
   ['h2','7 · Safety & SOS'],
   ['ol',[
