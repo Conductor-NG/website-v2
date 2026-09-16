@@ -22,10 +22,17 @@ const CLICKUP_TOKEN = process.env.CLICKUP_API_TOKEN;
 const LIST_ID = process.env.CLICKUP_SUPPORT_LIST_ID;
 
 // Comma-separated numeric ClickUp user IDs, e.g. "100000001,100000002".
-const ASSIGNEES = (process.env.CLICKUP_ASSIGNEE_IDS || "")
-  .split(",")
-  .map((s) => Number(s.trim()))
-  .filter((n) => Number.isFinite(n) && n > 0);
+function userIds(raw: string | undefined): number[] {
+  return (raw || "")
+    .split(",")
+    .map((s) => Number(s.trim()))
+    .filter((n) => Number.isFinite(n) && n > 0);
+}
+
+// Assignees own the ticket and get the "assigned to you" notification.
+const ASSIGNEES = userIds(process.env.CLICKUP_ASSIGNEE_IDS);
+// Watchers follow it for visibility without being on the hook for it.
+const WATCHERS = userIds(process.env.CLICKUP_WATCHER_IDS);
 
 // Optional. Used only to tie a chat's transcript back to the task the opening
 // message created; without it, transcripts are dropped and the task keeps just
@@ -172,7 +179,25 @@ async function createTask(name: string, markdown: string): Promise<string | null
     return null;
   }
   const task = (await res.json()) as { id?: string };
+  if (task.id) await addWatchers(task.id);
   return task.id ?? null;
+}
+
+/**
+ * ClickUp accepts watchers only on update, never at create time — so this is
+ * a second call per ticket. A ticket that files without its watchers is still
+ * a ticket, so a failure here is logged and swallowed rather than retried.
+ */
+async function addWatchers(taskId: string): Promise<void> {
+  if (!WATCHERS.length) return;
+  try {
+    const res = await clickup(`/task/${taskId}`, { watchers: { add: WATCHERS } }, "PUT");
+    if (!res.ok) {
+      console.error("[tawk] ClickUp addWatchers failed", res.status, await res.text());
+    }
+  } catch (err) {
+    console.error("[tawk] addWatchers threw", err);
+  }
 }
 
 /**
