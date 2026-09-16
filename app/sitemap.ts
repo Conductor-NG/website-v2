@@ -11,6 +11,7 @@ const ROUTES: { path: string; priority: number; freq: MetadataRoute.Sitemap[numb
   { path: "/corridors", priority: 0.7, freq: "weekly" },
   { path: "/faq", priority: 0.6, freq: "monthly" },
   { path: "/contact", priority: 0.4, freq: "yearly" },
+  { path: "/london", priority: 0.5, freq: "monthly" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
