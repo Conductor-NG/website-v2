@@ -132,7 +132,8 @@ follow-up, not the conversation.
 | `TAWK_WEBHOOK_SECRET` | the webhook secret key | **server-only.** Every request is HMAC-verified; a wrong value rejects everything with a 401 |
 | `CLICKUP_API_TOKEN` | `pk_...` | server-only |
 | `CLICKUP_SUPPORT_LIST_ID` | the list id | last path segment of the Support Inbox list's ClickUp URL |
-| `CLICKUP_ASSIGNEE_IDS` | user ids | comma-separated numeric ClickUp user ids (`GET /api/v2/team`); blank files tickets unassigned |
+| `CLICKUP_ASSIGNEE_IDS` | user ids | who owns the ticket — gets the "assigned to you" notification; blank files tickets unassigned |
+| `CLICKUP_WATCHER_IDS` | user ids | who follows it without owning it; optional |
 | `KV_REST_API_URL` + `KV_REST_API_TOKEN` | *(optional)* Upstash / Vercel KV | **recommended** — see below |
 
 Without the KV pair the integration still files every ticket; you just lose two things:

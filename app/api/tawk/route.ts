@@ -22,10 +22,17 @@ const CLICKUP_TOKEN = process.env.CLICKUP_API_TOKEN;
 const LIST_ID = process.env.CLICKUP_SUPPORT_LIST_ID;
 
 // Comma-separated numeric ClickUp user IDs, e.g. "100000001,100000002".
-const ASSIGNEES = (process.env.CLICKUP_ASSIGNEE_IDS || "")
-  .split(",")
-  .map((s) => Number(s.trim()))
-  .filter((n) => Number.isFinite(n) && n > 0);
+function userIds(raw: string | undefined): number[] {
+  return (raw || "")
+    .split(",")
+    .map((s) => Number(s.trim()))
+    .filter((n) => Number.isFinite(n) && n > 0);
+}
+
+// Assignees own the ticket and get the "assigned to you" notification.
+const ASSIGNEES = userIds(process.env.CLICKUP_ASSIGNEE_IDS);
+// Watchers follow it for visibility without being on the hook for it.
+const WATCHERS = userIds(process.env.CLICKUP_WATCHER_IDS);
 
 // Optional. Used only to tie a chat's transcript back to the task the opening
 // message created; without it, transcripts are dropped and the task keeps just
@@ -44,20 +51,31 @@ const chatKey = (chatId: string) => `tawk:chat:${chatId}`;
  * or simply unconfigured, we lose those two things — we must NOT lose the
  * ticket. So every call is swallowed rather than allowed to reach the handler.
  */
-async function recallTaskId(chatId: string): Promise<string | null> {
+/**
+ * What we keep per chat. The header is stored, not re-derived: chat:start
+ * carries the visitor's name, email, location and the page they were on, and
+ * the transcript event carries far less. Rebuilding the body from the
+ * transcript alone would overwrite that context with "Anonymous visitor".
+ */
+type ChatRecord = { taskId: string; header: string };
+
+async function recallChat(chatId: string): Promise<ChatRecord | null> {
   if (!(chatId && redis)) return null;
   try {
-    return await redis.get<string>(chatKey(chatId));
+    const raw = await redis.get<ChatRecord | string>(chatKey(chatId));
+    if (!raw) return null;
+    // Chats stored by the previous version held a bare task id.
+    return typeof raw === "string" ? { taskId: raw, header: "" } : raw;
   } catch (err) {
     console.error("[tawk] redis read failed — continuing without it", err);
     return null;
   }
 }
 
-async function rememberTaskId(chatId: string, taskId: string): Promise<void> {
+async function rememberChat(chatId: string, record: ChatRecord): Promise<void> {
   if (!(chatId && redis)) return;
   try {
-    await redis.set(chatKey(chatId), taskId, { ex: CHAT_TTL_SECONDS });
+    await redis.set(chatKey(chatId), record, { ex: CHAT_TTL_SECONDS });
   } catch (err) {
     console.error("[tawk] redis write failed — transcript won't be stitched", err);
   }
@@ -161,7 +179,25 @@ async function createTask(name: string, markdown: string): Promise<string | null
     return null;
   }
   const task = (await res.json()) as { id?: string };
+  if (task.id) await addWatchers(task.id);
   return task.id ?? null;
+}
+
+/**
+ * ClickUp accepts watchers only on update, never at create time — so this is
+ * a second call per ticket. A ticket that files without its watchers is still
+ * a ticket, so a failure here is logged and swallowed rather than retried.
+ */
+async function addWatchers(taskId: string): Promise<void> {
+  if (!WATCHERS.length) return;
+  try {
+    const res = await clickup(`/task/${taskId}`, { watchers: { add: WATCHERS } }, "PUT");
+    if (!res.ok) {
+      console.error("[tawk] ClickUp addWatchers failed", res.status, await res.text());
+    }
+  } catch (err) {
+    console.error("[tawk] addWatchers threw", err);
+  }
 }
 
 /**
@@ -227,31 +263,33 @@ async function handleChatStart(p: TawkPayload): Promise<boolean> {
   const chatId = p.chatId || "";
   // tawk retries deliveries it thinks failed; without this a retry files a
   // duplicate ticket. Only possible when Redis is reachable.
-  if (await recallTaskId(chatId)) return true;
+  if (await recallChat(chatId)) return true;
 
   const question = messageText(p.message) || "(no message text)";
-  const visitor = p.visitor;
-  const name = truncate(`Chat: ${question}`, 100);
-  const markdown = [
-    `**From:** ${describeVisitor(visitor)}`,
+  // Everything we know about who this is and where they were. Kept verbatim
+  // for the life of the ticket — the transcript event can't reproduce it.
+  const header = [
+    `**From:** ${describeVisitor(p.visitor)}`,
     `**Page:** ${p.referrer || p.domain || "—"}`,
     `**Started:** ${p.time || new Date().toISOString()}`,
     chatId ? `**Chat ID:** \`${chatId}\`` : null,
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  const markdown = [
+    header,
     "",
     "---",
     "",
     question,
     "",
     "_Reply in the tawk.to dashboard — this ticket is the record, not the conversation._",
-  ]
-    // Only the conditional entries drop out — "" is a real blank line, and
-    // Markdown needs those to separate paragraphs from the rule below.
-    .filter((line) => line !== null)
-    .join("\n");
+  ].join("\n");
 
-  const taskId = await createTask(name, markdown);
+  const taskId = await createTask(truncate(`Chat: ${question}`, 100), markdown);
   if (!taskId) return false;
-  await rememberTaskId(chatId, taskId);
+  await rememberChat(chatId, { taskId, header });
   return true;
 }
 
@@ -279,22 +317,33 @@ async function handleTicketCreate(p: TawkPayload): Promise<boolean> {
   return (await createTask(truncate(`Ticket: ${subject}`, 100), markdown)) !== null;
 }
 
-/** Chat ended — append what was actually said to the ticket it opened. */
+/** Chat ended — fold the whole exchange into the ticket it opened. */
 async function handleTranscript(p: TawkPayload): Promise<boolean> {
-  const taskId = await recallTaskId(p.chatId || "");
+  const chat = await recallChat(p.chatId || "");
   // No mapping: Redis is off/unreachable, or the chat started before this was
   // wired up. The ticket already has the opening question — drop quietly.
-  if (!taskId) return true;
+  if (!chat) return true;
 
   const messages = p.chat?.messages ?? [];
   const conversation = messages
     .map((m) => `**${senderLabel(m)}:** ${messageText(m) || "_(attachment)_"}`)
     .join("\n\n");
 
+  // Header comes from chat:start, where the visitor's identity and page were
+  // captured. Falling back to the transcript's own fields would downgrade a
+  // named visitor to "Anonymous visitor" and lose the page they were on.
+  const header =
+    chat.header ||
+    [
+      `**From:** ${describeVisitor(p.chat?.visitor)}`,
+      `**Page:** ${p.referrer || p.domain || "—"}`,
+      p.chatId ? `**Chat ID:** \`${p.chatId}\`` : null,
+    ]
+      .filter((line) => line !== null)
+      .join("\n");
+
   const markdown = [
-    `**From:** ${describeVisitor(p.chat?.visitor)}`,
-    `**Page:** ${p.referrer || p.domain || "—"}`,
-    p.chatId ? `**Chat ID:** \`${p.chatId}\`` : null,
+    header,
     "",
     "---",
     "",
@@ -305,11 +354,9 @@ async function handleTranscript(p: TawkPayload): Promise<boolean> {
     "---",
     "",
     "_Chat ended. Replies happen in tawk.to — this ticket is the record and the follow-up._",
-  ]
-    .filter((line) => line !== null)
-    .join("\n");
+  ].join("\n");
 
-  return rewriteTicket(taskId, firstRealQuestion(messages), markdown);
+  return rewriteTicket(chat.taskId, firstRealQuestion(messages), markdown);
 }
 
 // ---- Route -------------------------------------------------------------
