@@ -17,6 +17,7 @@ substitutions:
   _SERVICE: conductor-website
   _REPO: web
   _GA_ID: "" # pass at submit time: --substitutions=_GA_ID=G-XXXXXXXXXX
+  _META_PIXEL_ID: "" # Meta pixel — blank disables it
   _TAWK_PROPERTY_ID: "" # tawk.to live chat — blank disables the widget
   _TAWK_WIDGET_ID: "default"
   _CLICKUP_LIST_ID: "" # ClickUp Support Inbox list id
@@ -28,6 +29,8 @@ steps:
       - build
       - --build-arg
       - NEXT_PUBLIC_GA_ID=${_GA_ID}
+      - --build-arg
+      - NEXT_PUBLIC_META_PIXEL_ID=${_META_PIXEL_ID}
       - --build-arg
       - NEXT_PUBLIC_TAWK_PROPERTY_ID=${_TAWK_PROPERTY_ID}
       - --build-arg
