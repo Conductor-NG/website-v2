@@ -415,7 +415,7 @@ function DScrApproved(){
 
 /* Real v3 app screenshots (captured from design/backup/*.html). Community has no
    v3 design yet, so those two slots keep the hand-built React mockup as a fallback. */
-const PSCREENS=[SCREENS[0],SHOT('pax-01-map'),SHOT('pax-02-results'),SCREENS[1],SHOT('pax-04-waiting'),SCREENS[2],SHOT('pax-06-sos'),SHOT('pax-07-rate'),SHOT('pax-08-schedule'),SHOT('pax-09-verification'),SHOT('pax-10-community'),SHOT('pax-11-cost'),SHOT('pax-ikorodu'),SHOT('pax-seat-select'),SHOT('pax-livetrip')];
+const PSCREENS=[SCREENS[0],SHOT('pax-01-map'),SHOT('pax-02-results'),SCREENS[1],SHOT('pax-04-waiting'),SCREENS[2],SHOT('pax-06-sos'),SHOT('pax-07-rate'),SHOT('pax-08-schedule'),SHOT('pax-09-verification'),SHOT('pax-10-community'),SHOT('pax-11-cost'),SHOT('pax-ikorodu'),SHOT('pax-seat-select'),SHOT('pax-livetrip'),SHOT('pax-wallet')];
 const DSCREENS=[SHOT('drv-00-create'),SHOT('drv-01-requests'),SHOT('drv-02-tripdetails'),SHOT('drv-03-paxprofile'),SHOT('drv-04-cockpit'),SHOT('drv-05-sos'),SHOT('drv-06-home'),SHOT('drv-07-profile'),SHOT('drv-08-community'),SHOT('drv-08-wallet'),SHOT('drv-09-manifest'),SHOT('drv-11-published'),SHOT('drv-12-earnings'),SHOT('drv-13-escrow'),SHOT('drv-14-landmark'),SHOT('pax-ikorodu'),SHOT('pax-01-map'),SHOT('drv-seat-manage')];
 Object.assign(window,{PSCREENS,DSCREENS,PScrVehicle,PScrRate,PScrMap,PScrRequestSent,PScrSOS,PScrProfile,PScrSchedule,PScrCommunity,
   DScrCreate,DScrRequests,DScrApproved,DScrRequestDetail,DScrOngoing,DScrSOS,DScrHome,DScrProfile,DScrCommunity,Tag,BackHead,RouteStack,Field});

@@ -3,7 +3,6 @@
    Do not edit here — edit the source and re-run design/port.cjs.
    Re-skinned to the app theme via app/design-css/theme-override.css. */
 import React from "react";
-import { createPortal } from "react-dom";
 const ReactDOM = { createRoot: () => ({ render() {} }) };
 
 
@@ -37,30 +36,8 @@ const APPLE='M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9
 const PLAY='M4.3 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l.1.1 9-9v-.2l-9-8.7ZM16.4 15.5l-3-3v-.2l3-3 .1.1 3.6 2c1 .6 1 1.5 0 2.1l-3.7 2ZM16.5 15.6 13.4 12.5l-9.1 9.1c.3.4.9.4 1.5.1l10.7-6.1';
 // Fire a GA4 event (no-op until NEXT_PUBLIC_GA_ID is set). Used for
 // site→app conversions: open_webapp, download_intent, store_click.
-// One place for all outbound analytics. Fires GA4, and maps high-intent
-// actions to standard Meta/TikTok conversion events so ad platforms can
-// optimise delivery. All calls are guarded — Meta/TikTok no-op until their
-// pixels are configured (NEXT_PUBLIC_*_PIXEL_ID), so this is always safe.
-const CONV_EVENTS={
-  // internal name : [Meta standard event, TikTok standard event]
-  open_webapp:['Lead','ClickButton'],
-  download_intent:['Lead','Download'],
-  store_click:['Lead','ClickButton'],
-  calc_estimate:['ViewContent','ViewContent'],
-};
 function track(name,params){
-  if(typeof window==='undefined')return;
-  const w=window;
-  if(typeof w.gtag==='function')w.gtag('event',name,params||{});
-  const std=CONV_EVENTS[name];
-  if(typeof w.fbq==='function'){
-    if(std)w.fbq('track',std[0],params||{});
-    w.fbq('trackCustom',name,params||{});
-  }
-  if(w.ttq&&typeof w.ttq.track==='function'){
-    if(std)w.ttq.track(std[1],params||{});
-    w.ttq.track(name,params||{});
-  }
+  if(typeof window!=='undefined'&&typeof window.gtag==='function')window.gtag('event',name,params||{});
 }
 const appOf=(s)=>/driver|owner|car/i.test(s||'')?'owner':'passenger';
 
@@ -101,14 +78,9 @@ function DownloadButton({ios,android,variant='dark',size='lg',label='Download th
       React.createElement('span',null,label),
       React.createElement(Icon,{name:'chevronD',size:15,style:{transition:'transform .2s',transform:open?'rotate(180deg)':'none'}})),
     open&&React.createElement('div',{className:'dlpop',role:'menu'},
-      React.createElement('p',{className:'dlpop__t'},'Scan or tap to download'),
-      React.createElement('div',{className:'dlpop__grid'},
-        React.createElement('div',{className:'dlpop__col'},
-          React.createElement('img',{className:'dlpop__qr',src:'/images/qr.googleplay.svg',alt:'Google Play QR code',width:120,height:120,loading:'lazy'}),
-          React.createElement(StoreBtn,{kind:'play',href:android,label:'app',loc:loc})),
-        React.createElement('div',{className:'dlpop__col'},
-          React.createElement('img',{className:'dlpop__qr',src:'/images/qr.appstore.svg',alt:'App Store QR code',width:120,height:120,loading:'lazy'}),
-          React.createElement(StoreBtn,{kind:'ios',href:ios,label:'app',loc:loc})))));
+      React.createElement('p',{className:'dlpop__t'},'Get the app'),
+      React.createElement(StoreBtn,{kind:'ios',href:ios,label:'app',loc:loc}),
+      React.createElement(StoreBtn,{kind:'play',href:android,label:'app',loc:loc})));
 }
 
 function useReveal(){
@@ -737,7 +709,7 @@ function DScrApproved(){
 
 /* Real v3 app screenshots (captured from design/backup/*.html). Community has no
    v3 design yet, so those two slots keep the hand-built React mockup as a fallback. */
-const PSCREENS=[SCREENS[0],SHOT('pax-01-map'),SHOT('pax-02-results'),SCREENS[1],SHOT('pax-04-waiting'),SCREENS[2],SHOT('pax-06-sos'),SHOT('pax-07-rate'),SHOT('pax-08-schedule'),SHOT('pax-09-verification'),SHOT('pax-10-community'),SHOT('pax-11-cost'),SHOT('pax-ikorodu'),SHOT('pax-seat-select'),SHOT('pax-livetrip')];
+const PSCREENS=[SCREENS[0],SHOT('pax-01-map'),SHOT('pax-02-results'),SCREENS[1],SHOT('pax-04-waiting'),SCREENS[2],SHOT('pax-06-sos'),SHOT('pax-07-rate'),SHOT('pax-08-schedule'),SHOT('pax-09-verification'),SHOT('pax-10-community'),SHOT('pax-11-cost'),SHOT('pax-ikorodu'),SHOT('pax-seat-select'),SHOT('pax-livetrip'),SHOT('pax-wallet')];
 const DSCREENS=[SHOT('drv-00-create'),SHOT('drv-01-requests'),SHOT('drv-02-tripdetails'),SHOT('drv-03-paxprofile'),SHOT('drv-04-cockpit'),SHOT('drv-05-sos'),SHOT('drv-06-home'),SHOT('drv-07-profile'),SHOT('drv-08-community'),SHOT('drv-08-wallet'),SHOT('drv-09-manifest'),SHOT('drv-11-published'),SHOT('drv-12-earnings'),SHOT('drv-13-escrow'),SHOT('drv-14-landmark'),SHOT('pax-ikorodu'),SHOT('pax-01-map'),SHOT('drv-seat-manage')];
 
 
@@ -875,7 +847,7 @@ function Carpool({role}){
 
 
 /* ============ Shell ============ */
-const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};
+const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del:'/delete-profile',careers:'/careers',press:'/press'};
 const NAVS={
   passenger:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]],
   owner:[['Home',P.home],['How it works',P.how],['Safety',P.safety],['About',P.about]]
@@ -950,7 +922,7 @@ function Faq({items,eyebrow='Questions',title}){
 }
 
 function Band({title,lede,mode='both'}){
-  const grp=(logo,cap,webHref,ios,android)=>React.createElement('div',{key:cap,className:'band__appgrp',style:{display:'flex',flexDirection:'column',alignItems:'center',gap:14,minWidth:0}},
+  const grp=(logo,cap,webHref,ios,android)=>React.createElement('div',{key:cap,style:{display:'flex',flexDirection:'column',alignItems:'center',gap:14}},
     React.createElement('img',{src:'/images/logos/'+logo+'.png',alt:cap,style:{height:86,width:'auto'}}),
     React.createElement('span',{className:'eyebrow',style:{color:'rgba(255,255,255,.8)',margin:0}},cap),
     React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:10,justifyContent:'center'}},
@@ -965,43 +937,22 @@ function Band({title,lede,mode='both'}){
         React.createElement('p',{className:'eyebrow',style:{color:'rgba(255,255,255,.8)',margin:0}},'Get started'),
         React.createElement('h2',{className:'h2'},title),
         React.createElement('p',{className:'lede',style:{color:'rgba(255,255,255,.88)'}},lede),
-        React.createElement('div',{className:'band__apps'},
+        React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:'clamp(24px,5vw,64px)',justifyContent:'center',marginTop:16}},
           mode==='owner'?[drvGrp]:mode==='passenger'?[paxGrp]:[paxGrp,drvGrp]))));
 }
 
-/* Social channels — single source for the footer + contact page. */
-const SOCIALS=[
-  ['Instagram','https://www.instagram.com/conductornaija','M12 2c2.7 0 3 0 4.1.1 1 .1 1.7.2 2.3.5.6.2 1.1.5 1.6 1 .5.5.8 1 1 1.6.3.6.4 1.3.5 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c-.1 1-.2 1.7-.5 2.3a4.4 4.4 0 0 1-1 1.6c-.5.5-1 .8-1.6 1-.6.3-1.3.4-2.3.5-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1-.1-1.7-.2-2.3-.5a4.4 4.4 0 0 1-1.6-1 4.4 4.4 0 0 1-1-1.6c-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c.1-1 .2-1.7.5-2.3.2-.6.5-1.1 1-1.6.5-.5 1-.8 1.6-1 .6-.3 1.3-.4 2.3-.5C9 2 9.3 2 12 2Zm0 1.8c-2.7 0-3 0-4 .1-.8 0-1.2.2-1.5.3-.4.1-.7.3-1 .6-.3.3-.5.6-.6 1-.1.3-.3.7-.3 1.5-.1 1-.1 1.3-.1 4s0 3 .1 4c0 .8.2 1.2.3 1.5.1.4.3.7.6 1 .3.3.6.5 1 .6.3.1.7.3 1.5.3 1 .1 1.3.1 4 .1s3 0 4-.1c.8 0 1.2-.2 1.5-.3.4-.1.7-.3 1-.6.3-.3.5-.6.6-1 .1-.3.3-.7.3-1.5.1-1 .1-1.3.1-4s0-3-.1-4c0-.8-.2-1.2-.3-1.5a2.7 2.7 0 0 0-.6-1 2.7 2.7 0 0 0-1-.6c-.3-.1-.7-.3-1.5-.3-1-.1-1.3-.1-4-.1Zm0 3.1a5.1 5.1 0 1 1 0 10.2 5.1 5.1 0 0 1 0-10.2Zm0 1.8a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6Zm5.3-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z'],
-  ['Facebook','https://www.facebook.com/conductornaija','M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z'],
-  ['X','https://x.com/conductorng_','M18.9 2H22l-7.3 8.3L23 22h-6.8l-5.3-6.9L4.8 22H1.7l7.8-8.9L1 2h7l4.8 6.4L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z'],
-  ['TikTok','https://www.tiktok.com/@conductorng','M16.2 3c.3 2 1.5 3.6 3.4 4 .4.1.8.1 1.2.1v3c-1.5 0-2.9-.5-4.1-1.3v6.5a5.8 5.8 0 1 1-5.8-5.8c.3 0 .6 0 .9.1v3.1c-.3-.1-.6-.2-.9-.2a2.8 2.8 0 1 0 2.8 2.8V3h2.6Z'],
-  ['LinkedIn','https://www.linkedin.com/company/conductor-nigeria/','M6.9 5a1.95 1.95 0 1 1-3.9 0 1.95 1.95 0 0 1 3.9 0ZM3.4 8.5h3v12h-3v-12Zm5 0h2.9v1.6h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7v7.3h-3v-6.5c0-1.5 0-3.5-2.1-3.5s-2.5 1.7-2.5 3.4v6.6h-3v-12Z'],
-];
-function SocialIcon({d,size=17}){
-  return React.createElement('svg',{width:size,height:size,viewBox:'0 0 24 24',fill:'currentColor','aria-hidden':true},
-    React.createElement('path',{d}));
-}
-function SocialRow({tone='light'}){
-  return React.createElement('div',{className:'socrow'},
-    SOCIALS.map(([label,href,d])=>React.createElement('a',{key:label,href,target:'_blank',rel:'noreferrer',className:'socrow__a','aria-label':label,title:label},
-      React.createElement(SocialIcon,{d}))));
-}
 function Footer(){
   const C=[['Ride',[['Open the web app',LINKS.pWeb],['For passengers',P.home],['For car owners',P.own],['How it works',P.how],['Safety',P.safety]]],
-    ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact us',P.contact]]],
+    ['Answers',[['FAQ',P.faq],['Routes',P.corr],['Request a route',P.corr+'#request'],['Contact','mailto:support@conductor.ng']]],
     ['Company',[['About',P.about],['Communities',P.how+'#walk'],['Careers',P.careers],['Press',P.press]]],
     ['Legal',[['Privacy policy',P.privacy],['Terms of service',P.terms],['Passenger policy',P.paxpol],['Car owner policy',P.ownpol],['Refund policy',P.refund],['Code of conduct',P.conduct],['Delete your profile',P.del]]]];
   return React.createElement('footer',{className:'ftr'},
     React.createElement('div',{className:'wrap'},
       React.createElement('div',{className:'ftr__grid',style:{gridTemplateColumns:'1.4fr repeat(4,1fr)'}},
-        React.createElement('div',{style:{display:'grid',gap:16,alignContent:'start',maxWidth:'32ch'}},
+        React.createElement('div',{style:{display:'grid',gap:16,alignContent:'start',maxWidth:'30ch'}},
           React.createElement('a',{href:P.home,className:'mark','aria-label':'Conductor.ng home'},React.createElement('img',{src:'/images/logos/logo2.png',alt:'Conductor.ng',style:{height:74,width:'auto',display:'block'}})),
           React.createElement('p',{className:'small'},'A carpooling scheduling platform. Publish the journey you are already making, or take a seat on one that is already happening.'),
-          React.createElement('p',{className:'small',style:{lineHeight:1.7}},
-            '8A Olayinka Balogun Crescent, Magodo Phase 2',React.createElement('br'),
-            React.createElement('a',{href:'mailto:support@conductor.ng'},'support@conductor.ng'),' · ',
-            React.createElement('a',{href:'tel:+2348131500124'},'+234 813 150 0124')),
-          React.createElement(SocialRow,null)),
+          React.createElement('p',{className:'small'},'8A Olayinka Balogun Crescent, Magodo Phase 2 · support@conductor.ng')),
         C.map(([t,ls])=>React.createElement('div',{key:t},React.createElement('h6',null,t),
           React.createElement('ul',null,ls.map(([l,h])=>React.createElement('li',{key:l},React.createElement('a',{href:h},l))))))),
       React.createElement('div',{className:'ftr__base'},
@@ -1142,6 +1093,108 @@ const CORRIDORS=[
 
 
 
+/* ============ Quote ============ */
+const FREQS=[['daily','Daily',1],['weekly','Weekly',5],['monthly','Monthly',20]];
+const ILLO={passenger:'public/images/campaign.passenger.car.user.svg',driver:'public/images/campaign.driver.coined.user.svg'};
+
+function FreqSlider({value,onChange}){
+  const idx=FREQS.findIndex(f=>f[0]===value);
+  return React.createElement('div',{className:'freq'},
+    React.createElement('input',{type:'range',min:0,max:2,step:1,value:idx,'aria-label':'How often you travel',
+      onChange:e=>onChange(FREQS[+e.target.value][0]),
+      style:{'--p':(idx/2*100)+'%'}}),
+    React.createElement('div',{className:'freq__lb'},FREQS.map(([k,l],i)=>
+      React.createElement('button',{key:k,type:'button','aria-pressed':value===k,onClick:()=>onChange(k)},l))));
+}
+
+function Quote({mode='passenger',compact}){
+  const [city,setCity]=React.useState('lagos');
+  const c=CITIES[city];
+  const [from,setFrom]=React.useState(c.popular[0][0]);
+  const [to,setTo]=React.useState(c.popular[0][1]);
+  const [seats,setSeats]=React.useState(2);
+  const [freq,setFreq]=React.useState('weekly');
+  const [trip,setTrip]=React.useState('one-way');
+  const [q,setQ]=React.useState(null);
+  const [asked,setAsked]=React.useState(false);
+  const km=distance(city,from,to);
+  const isP=mode==='passenger';
+  const reset=()=>{setQ(null);setAsked(false)};
+  const swap=nc=>{const n=CITIES[nc];setCity(nc);setFrom(n.popular[0][0]);setTo(n.popular[0][1]);reset()};
+  const pick=(f,t)=>{setFrom(f);setTo(t);reset()};
+  const mult=FREQS.find(f=>f[0]===freq)[2]*(trip==='round-trip'?2:1);
+  const legs=mult;
+  const ask=async()=>{setAsked(true);setQ(await fetchQuote({city,from,to,seats:isP?1:seats}))};
+  const mins=km?Math.round(km*2.6):null;
+  const freqLabel=FREQS.find(f=>f[0]===freq)[1].toLowerCase();
+  return React.createElement('div',{className:'quote'+(compact?' quote--compact':'')},
+    React.createElement('div',{className:'quote__l'},
+      React.createElement('div',{className:'quote__hd'},
+        React.createElement('span',{className:'tiny'},isP?'Your commute':'Your daily drive'),
+        React.createElement('div',{className:'seg seg--sm'},Object.keys(CITIES).map(k=>
+          React.createElement('button',{key:k,onClick:()=>swap(k),'aria-pressed':city===k,type:'button'},CITIES[k].label)))),
+      React.createElement('div',{className:'field'},
+        React.createElement('label',{htmlFor:'qf'},'From'),
+        React.createElement('select',{id:'qf',value:from,onChange:e=>pick(e.target.value,to)},
+          c.pickups.map(([id,n,a])=>React.createElement('option',{key:id,value:id},n+' · '+a)))),
+      React.createElement('div',{className:'field'},
+        React.createElement('label',{htmlFor:'qt'},'To'),
+        React.createElement('select',{id:'qt',value:to,onChange:e=>pick(from,e.target.value)},
+          c.dests.map(([id,n,a])=>React.createElement('option',{key:id,value:id},n+' · '+a)))),
+      React.createElement('div',{className:'quote__pop'},
+        React.createElement('span',{className:'tiny'},'Popular'),
+        React.createElement('div',{className:'chips'},c.popular.map(([f,t])=>
+          React.createElement('button',{key:f+t,className:'chip chip--sm',type:'button',onClick:()=>pick(f,t)},
+            shortName(city,f)+' → '+shortName(city,t))))),
+      React.createElement('div',{className:'quote__ctl'},
+        React.createElement('div',{className:'field'},
+          React.createElement('label',null,'Trip'),
+          React.createElement('div',{className:'seg'},[['one-way','One way'],['round-trip','Return']].map(([k,l])=>
+            React.createElement('button',{key:k,type:'button','aria-pressed':trip===k,onClick:()=>{setTrip(k);reset()}},l)))),
+        !isP&&React.createElement('div',{className:'field'},
+          React.createElement('label',null,'Seats you would share'),
+          React.createElement('div',{className:'chips'},[1,2,3].map(s=>
+            React.createElement('button',{key:s,className:'chip',type:'button','aria-pressed':seats===s,onClick:()=>{setSeats(s);reset()}},s+(s>1?' seats':' seat'))))),
+        React.createElement('div',{className:'field'},
+          React.createElement('label',null,'How often'),
+          React.createElement(FreqSlider,{value:freq,onChange:f=>{setFreq(f);reset()}})))),
+    React.createElement('div',{className:'quote__r'},
+      React.createElement('div',{className:'quote__route'},
+        React.createElement('span',{className:'quote__rn'},place(city,from).name),
+        React.createElement('span',{className:'dotline'},React.createElement('i'),React.createElement('u'),React.createElement('i',{style:{background:'var(--pink-base)'}})),
+        React.createElement('span',{className:'quote__rn'},place(city,to).name)),
+      React.createElement('div',{className:'quote__facts'},
+        React.createElement('div',null,React.createElement('dt',{className:'num'},km?km.toFixed(1):'—'),React.createElement('dd',null,'km each way')),
+        React.createElement('div',null,React.createElement('dt',{className:'num'},mins||'—'),React.createElement('dd',null,'minutes, typical')),
+        React.createElement('div',null,React.createElement('dt',{className:'num'},legs),React.createElement('dd',null,legs===1?'leg a day':'legs a '+freqLabel.replace('ly','')))),
+      React.createElement('div',{className:'quote__body'},
+        React.createElement('img',{className:'quote__ill',src:ILLO[isP?'passenger':'driver'],alt:'',loading:'lazy'}),
+        React.createElement('div',{className:'quote__fare'},
+          !asked&&React.createElement(React.Fragment,null,
+            React.createElement('span',{className:'tiny'},isP?'What a seat costs':'What the seats collect'),
+            React.createElement('p',{className:'quote__ph'},isP
+              ?'Fares are quoted live in the app, so what you see is what you pay — never a number that went stale on a web page.'
+              :'Your figure is quoted live in the app, against the seats you choose to share.'),
+            React.createElement('button',{className:'btn btn--primary',type:'button',onClick:ask,style:{height:48,justifySelf:'start'}},
+              isP?'Get today\u2019s fare':'Get today\u2019s figure',React.createElement(Icon,{name:'arrow',size:17}))),
+          asked&&q&&q.state==='ok'&&React.createElement(React.Fragment,null,
+            React.createElement('span',{className:'tiny'},freqLabel==='daily'?'Today, this route':'Per '+freqLabel.replace('ly','')+', this route'),
+            React.createElement('span',{className:'bigfig num'},naira(q.amount*mult*(isP?1:seats))),
+            React.createElement('p',{className:'small'},'Quoted by the app just now — the same figure you will see at booking.')),
+          asked&&q&&q.state!=='ok'&&React.createElement(React.Fragment,null,
+            React.createElement('span',{className:'tiny'},'Live fare'),
+            React.createElement('p',{className:'quote__ph'},'Open the app for today\u2019s figure on this route. Pricing is quoted there so it is never out of date here.'),
+            React.createElement('div',{className:'storerow'},
+              React.createElement(StoreBtn,{kind:'ios',href:isP?LINKS.pIos:LINKS.dIos,label:isP?'Passenger app':'Car owner app'}),
+              React.createElement(StoreBtn,{kind:'play',href:isP?LINKS.pAnd:LINKS.dAnd,label:isP?'Passenger app':'Car owner app',light:true}))))),
+      React.createElement('ul',{className:'checks checks--sm'},
+        (isP?['The fare is agreed before you get in','No surge, at any hour or in any weather','You choose the vehicle, and the car owner']
+            :['The app prices each seat for your route','You choose which passengers ride with you','Your share is released after each trip'])
+          .map(t=>React.createElement('li',{key:t},React.createElement(Icon,{name:'check',size:15}),t)))));
+}
+
+
+
 /* ============ Calculator ============ */
 const WEEKS=4.33, RUN_PER_KM=165;
 
@@ -1165,110 +1218,130 @@ function useCount(target,ms=700){
   return v;
 }
 
-/* Campaign calculator: illustration + route selects + CTA → estimate pop-up
-   (trip toggle + frequency slider) → register pop-up (web app + store downloads).
-   Recoloured to v2's brand. Priced with v2's routeKm + fareFromKm engine.
-   Passenger frequency is Daily·Weekly; car owner adds Monthly. */
-const CALC_OWNER_SEATS=3; // typical empty seats a car owner shares
-const CALC_COPY={
-  passenger:{ill:'/images/campaign.passenger.car.user.svg',
-    title:'Route Cost Calculator',sub:'Enter your route and see how much it costs',lede:'Estimate what you spend on your daily route',cta:'Estimated Cost',
-    mTitle:'Ride safe, spend less',mDesc:"We've priced your route. Turn your journey into a comfy, shared ride.",
-    estLabel:'Estimated cost',mCta:'Register',regTitle:'Join in and enjoy amazing trips',
-    regDesc:'Start on the web app right now, or grab it from your store.'},
-  owner:{ill:'/images/campaign.driver.coined.user.svg',
-    title:'Earnings Calculator',sub:'Enter your route and see how much you can earn',lede:'Estimate what you can earn on your daily route',cta:'Estimated Earning',
-    mTitle:'Unlock your daily capital',mDesc:"We've priced your route. Turn your empty seats into a steady paycheck.",
-    estLabel:'Estimated earning',mCta:'Claim my route',regTitle:'Your journey starts here',
-    regDesc:'Start on the web app right now, or grab it from your store.'},
-};
-const CALC_FREQ={passenger:[['daily','Daily',1],['weekly','Weekly',5]],
-  owner:[['daily','Daily',1],['weekly','Weekly',5],['monthly','Monthly',20]]};
-function CalcFreqSlider({list,freq,onChange}){
-  const n=list.length;
-  let idx=list.findIndex(f=>f[0]===freq); if(idx<0)idx=Math.min(1,n-1);
-  const pct=n>1?idx/(n-1)*100:0;
-  return React.createElement('div',{className:'cslider'},
-    React.createElement('div',{className:'cslider__track'},
-      React.createElement('div',{className:'cslider__bg'}),
-      React.createElement('div',{className:'cslider__fill',style:{width:'calc('+pct+'% - 4px)'}}),
-      list.map((f,i)=>{const pos=n>1?i/(n-1)*100:0;return React.createElement('span',{key:f[0],className:'cslider__dot'+(i<=idx?' on':''),style:{left:pos+'%'}});}),
-      React.createElement('div',{className:'cslider__thumb',style:{left:pct+'%'}},
-        React.createElement('svg',{width:14,height:10,viewBox:'0 0 14 10',fill:'none'},
-          React.createElement('path',{d:'M5 1L1.5 5L5 9',stroke:'#fff',strokeWidth:1.5,strokeLinecap:'round',strokeLinejoin:'round'}),
-          React.createElement('path',{d:'M9 1L12.5 5L9 9',stroke:'#fff',strokeWidth:1.5,strokeLinecap:'round',strokeLinejoin:'round'}))),
-      React.createElement('input',{type:'range',min:0,max:n-1,step:1,value:idx,'aria-label':'Frequency',
-        onChange:e=>onChange(list[+e.target.value][0])})),
-    React.createElement('div',{className:'cslider__labels'},
-      list.map(f=>React.createElement('span',{key:f[0],className:f[0]===freq?'on':''},f[1]))));
-}
 function Calculator({lock,start}){
   const [mode,setMode]=React.useState(lock||'passenger');
-  const [from,setFrom]=React.useState('');
-  const [to,setTo]=React.useState('');
-  const [trip,setTrip]=React.useState('one-way');
-  const [freq,setFreq]=React.useState('weekly');
-  const [modal,setModal]=React.useState(null);
+  const [from,setFrom]=React.useState('ikeja');
+  const [to,setTo]=React.useState('vi');
+  const [days,setDays]=React.useState(5);
+  const [seats,setSeats]=React.useState(2);
   const isP=mode==='passenger';
-  const cp=CALC_COPY[mode];
-  const freqList=CALC_FREQ[mode];
-  React.useEffect(()=>{if(!freqList.some(f=>f[0]===freq))setFreq('weekly');},[mode]); // eslint-disable-line react-hooks/exhaustive-deps
-  React.useEffect(()=>{const onKey=e=>{if(e.key==='Escape')setModal(null);};document.addEventListener('keydown',onKey);return()=>document.removeEventListener('keydown',onKey);},[]);
 
-  const km=(from&&to)?routeKm(from,to):null;
+  const km=routeKm(from,to);
   const overCap=km!=null&&km>MAX_KM;
   const priced=km!=null&&!overCap;
-  const perLeg=priced?(isP?fareFromKm(km).seat:fareFromKm(km).seat*CALC_OWNER_SEATS):0;
-  const fmul=(freqList.find(f=>f[0]===freq)||freqList[0])[2];
-  const estimate=Math.round(perLeg*fmul*(trip==='round-trip'?2:1)/100)*100; // nearest ₦100
-  const freqWord=(freqList.find(f=>f[0]===freq)||freqList[0])[1].toLowerCase();
+  const c=priced?fareFromKm(km):{km:0,seat:0,hail:0,mins:0};
 
-  const closeModal=()=>setModal(null);
-  // Portal to <body> so the fixed overlay isn't trapped by the reveal wrapper's transform.
-  const overlay=(inner)=>createPortal(
-    React.createElement('div',{className:'cov',onClick:e=>{if(e.target===e.currentTarget)closeModal();}},inner),document.body);
+  const legs=2*days*WEEKS;
+  const hailMonth=c.hail*legs, condMonth=c.seat*legs;
+  const runMonth=c.km*legs*RUN_PER_KM, earnMonth=c.seat*seats*legs;
+  const headline=useCount(priced?(isP?hailMonth-condMonth:earnMonth):0);
+  const pct=runMonth?Math.round(earnMonth/runMonth*100):0;
 
-  return React.createElement(React.Fragment,null,
-    React.createElement('div',{className:'calc2'},
-      React.createElement('div',{className:'calc2__ill'},
-        React.createElement('img',{src:cp.ill,alt:'',width:453,height:423})),
-      React.createElement('div',{className:'calc2__form'},
-        !lock&&React.createElement('div',{className:'seg',role:'group'},
-          [['passenger',"I'm a passenger"],['owner',"I'm a car owner"]].map(([k,l])=>
-            React.createElement('button',{key:k,onClick:()=>setMode(k),'aria-pressed':mode===k},l))),
-        React.createElement('div',null,
-          React.createElement('h2',{className:'calc2__h'},cp.title),
-          React.createElement('p',{className:'calc2__sub'},cp.sub),
-          React.createElement('p',{className:'calc2__lede'},cp.lede)),
-        React.createElement('div',{className:'calc__route2'},
-          React.createElement(PlaceSearch,{label:'Starting point',value:from||null,onChange:v=>setFrom(v||''),placeholder:'Select starting point route',exclude:to,accent:'var(--orange-base)'}),
-          React.createElement('button',{type:'button',className:'calc__swap','aria-label':'Swap starting point and destination',
-            onClick:()=>{const a=from;setFrom(to);setTo(a)}},React.createElement(Icon,{name:'route',size:16})),
-          React.createElement(PlaceSearch,{label:'Destination',value:to||null,onChange:v=>setTo(v||''),placeholder:'Select destination route',exclude:from,accent:'var(--pink-base)'})),
-        React.createElement('button',{type:'button',className:'btn btn--primary calc2__cta',onClick:()=>{if(priced){setTrip('one-way');setFreq('daily');setModal('calc');track('calc_estimate',{mode,from,to,location:'calculator'});}},disabled:!priced},cp.cta),
-        overCap&&React.createElement('p',{className:'small',style:{margin:'2px 0 0'}},'That route is beyond the '+MAX_KM+' km a shared commute covers — pick two points closer together.'))),
-
-    modal==='calc'&&overlay(
-      React.createElement('div',{className:'cmodal',role:'dialog','aria-modal':true},
-        React.createElement('div',{className:'cmodal__head'},
-          React.createElement('img',{className:'cmodal__headbg',src:'/images/campaign-modal-header-bg.svg',alt:''}),
-          React.createElement('div',{className:'cmodal__htext'},
-            React.createElement('h3',null,cp.mTitle),
-            React.createElement('p',null,cp.mDesc)),
-          React.createElement('button',{type:'button',className:'cmodal__x',onClick:closeModal,'aria-label':'Close'},React.createElement(Icon,{name:'x',size:16}))),
-        React.createElement('div',{className:'cmodal__body'},
-          React.createElement('div',{className:'ctt'},
-            React.createElement('div',{className:'ctt__in'},
-              [['one-way','One way'],['round-trip','Round trip']].map(([k,l])=>
-                React.createElement('button',{key:k,type:'button',onClick:()=>setTrip(k),'aria-pressed':trip===k},l)))),
-          React.createElement('p',{className:'cest-l'},cp.estLabel),
-          React.createElement('p',{className:'cest-v num'},naira(estimate)),
-          React.createElement('p',{className:'cest-f'},freqWord),
-          React.createElement(CalcFreqSlider,{list:freqList,freq:freq,onChange:setFreq}),
-          React.createElement('div',{className:'cmodal__dl'},
-            React.createElement(OpenAppBtn,{href:isP?LINKS.pWeb:LINKS.dWeb,label:'Open the web app',loc:'calculator'}),
-            React.createElement(DownloadButton,{ios:isP?LINKS.pIos:LINKS.dIos,android:isP?LINKS.pAnd:LINKS.dAnd,variant:'dark',loc:'calculator'}))))));
+  return React.createElement('div',{className:'calc'},
+    React.createElement('div',{className:'calc__l'},
+      !lock&&React.createElement('div',{className:'seg',role:'group'},
+        [['passenger',"I'm a passenger"],['owner',"I'm a car owner"]].map(([k,l])=>
+          React.createElement('button',{key:k,onClick:()=>setMode(k),'aria-pressed':mode===k},l))),
+      React.createElement('div',{className:'calc__route2'},
+        React.createElement(PlaceSearch,{label:'Pick-up',value:from,onChange:v=>setFrom(v),placeholder:'Where you start',exclude:to,accent:'var(--orange-base)'}),
+        React.createElement('button',{type:'button',className:'calc__swap','aria-label':'Swap pick-up and drop-off',
+          onClick:()=>{const a=from;setFrom(to);setTo(a)}},React.createElement(Icon,{name:'route',size:16})),
+        React.createElement(PlaceSearch,{label:'Drop-off',value:to,onChange:v=>setTo(v),placeholder:'Where you are headed',exclude:from,accent:'var(--pink-base)'})),
+      React.createElement('div',{className:'field'},
+        React.createElement('label',null,'Days you commute'),
+        React.createElement('div',{className:'chips'},[3,4,5,6].map(d=>
+          React.createElement('button',{key:d,className:'chip',onClick:()=>setDays(d),'aria-pressed':days===d},d+' days')))),
+      !isP&&React.createElement('div',{className:'field'},
+        React.createElement('label',null,'Empty seats you share'),
+        React.createElement('div',{className:'chips'},[1,2,3].map(s=>
+          React.createElement('button',{key:s,className:'chip',onClick:()=>setSeats(s),'aria-pressed':seats===s},s+(s>1?' seats':' seat'))))),
+      React.createElement('div',{style:{display:'grid',gap:10,paddingTop:4}},
+        priced&&React.createElement(Row,{style:{gap:8}},React.createElement(Icon,{name:'route',size:16,color:'var(--fg-3)'}),
+          React.createElement(T,{s:13.5},c.km.toFixed(1)+' km · '+c.mins+' min average, both ways · '+Math.round(legs)+' legs a month')),
+        !isP&&priced&&React.createElement(Row,{style:{gap:8}},React.createElement(Icon,{name:'car',size:16,color:'var(--fg-3)'}),
+          React.createElement(T,{s:13.5},'Running cost reckoned at ₦165 a km — fuel, wear and servicing.')),
+        React.createElement(Row,{style:{gap:8}},React.createElement(Icon,{name:'shield',size:16,color:'var(--fg-3)'}),
+          React.createElement(T,{s:13.5},'Fare agreed up front, locked at booking. No surge.')))),
+    React.createElement('div',{className:'calc__r'},
+      overCap
+        ?React.createElement('div',{className:'calc__cap'},
+            React.createElement(Icon,{name:'pin',size:22,color:'var(--orange-base)'}),
+            React.createElement('div',{className:'bigfig num',style:{fontSize:'clamp(30px,4vw,44px)'}},Math.round(km)+' km'),
+            React.createElement('p',{className:'small',style:{maxWidth:'32ch'}},'That is beyond the '+MAX_KM+' km a shared commute covers. Pick two points closer together — Conductor is built for the daily run across the city, not intercity trips.'))
+        :!priced
+        ?React.createElement('div',{className:'calc__cap'},
+            React.createElement(Icon,{name:'route',size:22,color:'var(--fg-3)'}),
+            React.createElement('p',{className:'small',style:{maxWidth:'30ch'}},'Search a pick-up and a drop-off to see what the route costs.'))
+        :React.createElement(React.Fragment,null,
+      React.createElement('div',{className:'tiny'},isP?'You keep, every month':'You collect, every month'),
+      React.createElement('div',{className:'bigfig num'},naira(headline)),
+      React.createElement(T,{s:14,style:{marginTop:-6}},isP
+        ?'against '+naira(hailMonth)+' on a hailing app for the same '+Math.round(legs)+' legs'
+        :'from '+seats+(seats>1?' seats':' seat')+' on trips you already make, against '+naira(runMonth)+' of fuel and wear'),
+      isP
+        ?React.createElement('div',{className:'bars'},
+            React.createElement(Bar,{label:'Ride-hailing',val:hailMonth,max:hailMonth,color:'var(--cream-80)'}),
+            React.createElement(Bar,{label:'Conductor seat',val:condMonth,max:hailMonth,color:'var(--orange-base)'}))
+        :React.createElement('div',{className:'bars'},
+            React.createElement(Bar,{label:'Your fuel, wear & servicing',val:runMonth,max:Math.max(runMonth,earnMonth),color:'var(--cream-80)'}),
+            React.createElement(Bar,{label:'Covered by passengers',val:earnMonth,max:Math.max(runMonth,earnMonth),color:'var(--success-base)'})),
+      React.createElement('div',{className:'ledger'},
+        isP
+          ?[['Per leg',naira(c.hail)+' → '+naira(c.seat)],['Every week',naira((c.hail-c.seat)*2*days)],['Over a year',naira((hailMonth-condMonth)*12)]]
+              .map(([a,b])=>React.createElement('div',{key:a},a,React.createElement('b',{className:'num'},b)))
+          :[['Per leg, per seat',naira(c.seat)],['Every week',naira(c.seat*seats*2*days)],['Running cost covered',pct+'%'],[pct>=100?'Left over each month':'Still on you each month',naira(Math.abs(earnMonth-runMonth))]]
+              .map(([a,b])=>React.createElement('div',{key:a},a,React.createElement('b',{className:'num'},b)))),
+      React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:10,marginTop:4}},
+        React.createElement(OpenAppBtn,{href:isP?LINKS.pWeb:LINKS.dWeb,label:'Open the web app',size:'sm',loc:'calculator'}),
+        React.createElement(DownloadButton,{ios:isP?LINKS.pIos:LINKS.dIos,android:isP?LINKS.pAnd:LINKS.dAnd,variant:'dark',size:'sm',loc:'calculator'})),
+      React.createElement(T,{s:11.5,c:'var(--fg-3)'},'Estimate from typical 2026 Lagos fares. Your exact figure is priced live in the app at booking.'))));
 }
+function Bar({label,val,max,color}){
+  return React.createElement('div',{className:'bar'},
+    React.createElement('div',{className:'bar__t'},React.createElement('span',null,label),React.createElement('b',{className:'num'},naira(val))),
+    React.createElement('div',{className:'bar__r'},React.createElement('div',{className:'bar__f',style:{width:Math.max(4,val/max*100)+'%',background:color}})));
+}
+
+
+
+/* ============ Routes ============ */
+const CITIES={
+  lagos:{
+    label:'Mainland ↔ Island',
+    pickups:[['6','Abule Egba Bus Stop','Abule Egba'],['7','Super Bus Stop','Abule Egba'],['8','U-Turn Bus Stop','Abule Egba'],['9','Ahmadiyya Bus Stop','Abule Egba'],['10','Pleasure Bus Stop','Abule Egba'],['11','Ikorodu Garage','Ikorodu'],['12','Agric Bus Stop','Ikorodu'],['13','Ogolonto Bus Stop','Ikorodu'],['14','Sabo Market','Ikorodu'],['15','Benson Bus Stop','Ikorodu'],['16','Majidun Bus Stop','Ikorodu'],['17','Ajah Under Bridge','Ajah'],['18','Abraham Adesanya Roundabout','Ajah'],['19','Sangotedo, Novare Mall','Ajah'],['20','VGC Bus Stop','Lekki-Ajah'],['21','Ilaje Bus Stop','Ajah'],['22','Business School Roundabout','Ajah']],
+    dests:[['101','CMS Bus Stop','Island'],['102','Obalende Bus Stop','Island'],['103','Marina Bus Stop','Island'],['104','Tafawa Balewa Square','Island'],['105','Sandgrouse Market','Island'],['106','Broad Street','Island'],['107','Outer Marina','Island'],['108','Simpson Bus Stop','Island'],['109','Idumota','Island'],['110','Sura Bus Stop','Island'],['111','Adetokunbo Ademola','Victoria Island'],['112','Maroko, Sandfill','VI / Lekki'],['113','Falomo Roundabout','Ikoyi'],['114','Admiralty Gate','Lekki Phase 1']],
+    km:{6:[29,30.2,29.3,29.8,30.5,29.5,29.4,30.3,30.5,30.8,32.5,33.8,31,35.2],7:[27.5,28.7,27.8,28.3,29,28,27.9,28.8,29,29.3,31,32.3,29.5,33.7],8:[29.8,31,30.1,30.6,31.3,30.3,30.2,31.1,31.3,31.6,33.3,34.6,31.8,36],9:[31.6,32.8,31.9,32.4,33.1,32.1,32,32.9,33.1,33.4,35.1,36.4,33.6,37.8],10:[25.5,26.7,25.8,26.3,27,26,25.9,26.8,27,27.3,29,30.3,27.5,31.7],11:[36,37.2,36.3,36.8,37.5,36.5,36.4,37.3,37.5,37.8,39.5,40.8,37,42.2],12:[35,36.2,35.3,35.8,36.5,35.5,35.4,36.3,36.5,36.8,38.5,39.8,36,41.2],13:[32.5,33.7,32.8,33.3,34,33,32.9,33.8,34,34.3,36,37.3,33.5,38.7],14:[36.5,37.7,36.8,37.3,38,37,36.9,37.8,38,38.3,40,41.3,37.5,42.7],15:[35.8,37,36.1,36.6,37.3,36.3,36.2,37.1,37.3,37.6,39.3,40.6,36.8,42],16:[30.3,31.5,30.6,31.1,31.8,30.8,30.7,31.6,31.8,32.1,33.8,35.1,31.3,36.5],17:[24.5,25.7,24.8,25.3,26,25,24.9,25.8,26,26.3,18,16,20,14],18:[29,30.2,29.3,29.8,30.5,29.5,29.4,30.3,30.5,30.8,22.5,20.5,24.5,18.5],19:[38.7,39.9,39,39.5,40.2,39.2,39.1,40,40.2,40.5,32.2,30.2,34.2,28.2],20:[20.5,21.7,20.8,21.3,22,21,20.9,21.8,22,22.3,14,12,16,10],21:[23,24.2,23.3,23.8,24.5,23.5,23.4,24.3,24.5,24.8,16.5,14.5,18.5,12.5],22:[32,33.2,32.3,32.8,33.5,32.5,32.4,33.3,33.5,33.8,25.5,23.5,27.5,21.5]},
+    popular:[['6','101'],['11','103'],['17','111']]
+  },
+  abuja:{
+    label:'Suburbs ↔ Central',
+    pickups:[['30','Kubwa NNPC Junction','Kubwa'],['31','Kubwa FHA','Kubwa'],['32','Lugbe FHA','Lugbe'],['33','Berger Junction','Lugbe'],['34','Gwarimpa 1st Avenue','Gwarimpa'],['35','Gwarimpa 3rd Avenue','Gwarimpa']],
+    dests:[['201','Federal Secretariat','Central Business District'],['202','NNPC Towers','Central Business District'],['203','Wuse Market','Wuse Zone 5'],['204','Aminu Kano Crescent','Wuse II']],
+    km:{30:[28.5,27.2,25,23.5],31:[26,24.5,22.5,21],32:[20.5,18.5,19,22],33:[23,21,21.5,24.5],34:[16.5,15,13.5,11.5],35:[18,16.5,15,13]},
+    popular:[['34','203'],['32','201'],['30','204']]
+  }
+};
+const place=(city,id)=>{const c=CITIES[city];const r=c.pickups.concat(c.dests).find(x=>x[0]===id);return r?{name:r[1],area:r[2]}:null};
+const shortName=(city,id)=>{const p=place(city,id);return p?(p.area==='Island'||p.area==='Central Business District'?p.name.replace(' Bus Stop',''):p.area):id};
+function distance(city,from,to){
+  const c=CITIES[city],row=c.km[from];if(!row)return null;
+  const i=c.dests.findIndex(d=>d[0]===to);return i<0?null:row[i];
+}
+/* Fares are never stored here. The app's pricing service is the only source.
+   Set QUOTE_ENDPOINT once it exists: it should accept from/to/seats and return { amount, currency }. */
+const QUOTE_ENDPOINT=null;
+async function fetchQuote({city,from,to,seats}){
+  if(!QUOTE_ENDPOINT)return{state:'unwired'};
+  try{
+    const r=await fetch(`${QUOTE_ENDPOINT}?city=${city}&from=${from}&to=${to}&seats=${seats}`);
+    if(!r.ok)return{state:'error'};
+    const d=await r.json();
+    return typeof d.amount==='number'?{state:'ok',amount:d.amount}:{state:'error'};
+  }catch(e){return{state:'error'}}
+}
+
+
+
 /* ============ PaxHome ============ */
 const PAX_STEPS=[
   {n:'Step one',t:'Find the trips going your way',b:'Enter where you travel from and to, and see every car owner already driving that route — real journeys scheduled in advance, laid out on the map around you, not a car summoned in the rain.',screen:1},
@@ -1297,9 +1370,7 @@ function PaxHome(){
 
       <Carpool role="passenger"/>
 
-      <section className="sec" style={{position:'relative',overflow:'hidden'}}>
-        <img src="/images/art/eko-bridge-line.png" alt="" aria-hidden="true" style={{position:'absolute',left:0,right:0,bottom:0,width:'100%',height:'auto',maxHeight:'62%',objectFit:'contain',objectPosition:'center bottom',opacity:0.4,pointerEvents:'none'}}/>
-        <div className="wrap" style={{position:'relative'}}>
+      <section className="sec"><div className="wrap">
         <div className="illusplit">
           <Rv cls="rv--sc illusplit__art">
             <img src="/images/art/passengers.png" alt="Four commuters sharing a car through Lagos" loading="lazy"/>
@@ -1316,6 +1387,29 @@ function PaxHome(){
         title={<>Four steps, and you have <em>a seat</em>.</>}
         lede="Every step below is a real screen from the passenger app — this is the whole journey, not a simplified version of it."/>
 
+      {/* Three screens, in the order a rider meets them: the route they
+          travel, the seats going their way, and the money that stays put
+          until each day is done. The fan and the connecting line are CSS,
+          so the screenshots underneath stay swappable and stay sharp. */}
+      <section className="sec sec--cream"><div className="wrap">
+        <SHead eyebrow="The whole thing, in three screens"
+          title={<>Your route, the seats on it, and <em>where the money sits</em>.</>}
+          lede="Real screens from the passenger app. Search the journey you already make, take a seat in a car that was going anyway, and watch the fare release one day at a time."/>
+        <Rv cls="rv--sc threeph">
+          <svg className="threeph__lines" viewBox="0 0 1200 560" fill="none" preserveAspectRatio="none" aria-hidden="true"
+            stroke="var(--orange-40)" strokeOpacity=".55" strokeWidth="3" strokeLinecap="round">
+            <path d="M20 300 C 240 210, 430 360, 620 262 S 980 170, 1180 235"/>
+            <path d="M60 400 C 300 330, 500 430, 720 372 S 1040 292, 1190 348" strokeOpacity=".18"/>
+            <g fill="var(--pink-base)" stroke="none" fillOpacity=".85">
+              <circle cx="20" cy="300" r="6"/><circle cx="1180" cy="235" r="6"/>
+            </g>
+          </svg>
+          <Phone single={1} w={278} set={PSCREENS}/>
+          <Phone single={2} w={306} set={PSCREENS}/>
+          <Phone single={15} w={278} set={PSCREENS}/>
+        </Rv>
+      </div></section>
+
       <SafetyRow items={[
         ['shield','Verified before the first trip','Car owners clear identity, licence and vehicle checks. Passengers verify identity too, so the trust runs both ways.'],
         ['share','Share the ride as it happens','Send your route, your car owner and your arrival time to anyone you trust. They follow along without installing anything.'],
@@ -1324,7 +1418,7 @@ function PaxHome(){
       <section className="sec" id="cost"><div className="wrap">
         <SHead eyebrow="What it costs" title={<>Now put your <em>own route</em> in.</>}
           lede="Pick where you travel from and to, and how often you make the journey. Distance and journey time are ours; the fare comes live from the app, so what you read here is what you pay at booking."/>
-        <Rv cls="rv--sc"><Calculator lock="passenger"/></Rv>
+        <Rv cls="rv--sc"><Quote mode="passenger"/></Rv>
         <Rv d={90}><p className="small" style={{marginTop:18,maxWidth:'74ch'}}>Not seeing where you travel? <a href={P.corr}>Ask us to open your route</a> and we will tell you when a car owner publishes it.</p></Rv>
       </div></section>
 
@@ -1383,10 +1477,7 @@ function OwnerPage(){
             <Rv d={110}><p className="lede" style={{marginTop:24}}>Conductor doesn't send you anywhere new. You publish the route you already drive, approve the people going your way, and the seats that were travelling empty start covering what the trip costs you to run.</p></Rv>
           </div>
           <Rv cls="rv--sc illusplit__art">
-            <video autoPlay muted loop playsInline preload="none" poster="/images/art/driver-poster.jpg" aria-label="A car owner sharing the drive with passengers through Lagos">
-              <source src="/images/art/driver.webm" type="video/webm"/>
-              <source src="/images/art/driver.mp4" type="video/mp4"/>
-            </video>
+            <img src="/images/art/driver.png" alt="A car owner driving through Lagos" loading="lazy"/>
           </Rv>
         </div>
       </div></section>
@@ -1398,7 +1489,7 @@ function OwnerPage(){
       <section className="sec sec--cream"><div className="wrap">
         <SHead eyebrow="The part car owners ask about first" title={<>You decide <em>who</em> gets in.</>}
           lede="A request is an ask, not a booking. You see who they are, what other car owners rated them and where they are going — then you approve or decline."/>
-        <div className="grid2" style={{alignItems:'center',gap:'clamp(24px,3vw,52px)'}}>
+        <div className="grid2" style={{alignItems:'start',gap:'clamp(24px,3vw,52px)'}}>
           <div>
             <ul className="checks" style={{gap:16}}>
               {['Every request carries a verified identity and a rating earned from previous trips',
@@ -1411,7 +1502,7 @@ function OwnerPage(){
             <a className="linkarrow" href={P.how} style={{marginTop:28,display:'inline-flex'}}>See both apps side by side<Icon name="arrow" size={15}/></a>
           </div>
           <Rv d={120} cls="rv--sc twoph">
-            <Phone single={10} w={288} set={DSCREENS}/><Phone single={3} w={288} set={DSCREENS}/>
+            <Phone single={10} w={268} set={DSCREENS}/><Phone single={3} w={268} set={DSCREENS}/>
           </Rv>
         </div>
       </div></section>
@@ -1424,7 +1515,7 @@ function OwnerPage(){
       <section className="sec" id="cost"><div className="wrap">
         <SHead eyebrow="What the seats are worth" title={<>Now put your <em>own drive</em> in.</>}
           lede="Pick your route, how many seats you would share and how often you make the journey. Distance and journey time are ours; the figure comes live from the app’s own pricing, so it is never a stale number on a web page."/>
-        <Rv cls="rv--sc"><Calculator lock="owner"/></Rv>
+        <Rv cls="rv--sc"><Quote mode="owner"/></Rv>
       </div></section>
 
       <Promo eyebrow="On now, for car owners"
@@ -1627,11 +1718,11 @@ function HowItWorks(){
 const SAFE_STEPS=[
   {n:'Before a first trip',t:'Verified before you ever meet',b:'Identity is checked on both sides before a first trip — passengers clear NIN, phone and a liveness selfie; car owners add licence, vehicle papers and roadworthiness. You see the other’s verification and rating before any money is committed.',screen:0},
   {n:'Meeting up',t:'A named place to meet, never a dropped pin',b:'You meet at a known, categorised landmark on the route the car was already taking — a filling station, a mall, a familiar junction — colour-coded for how safe and public it is, never an unmarked spot down a side street.',screen:1},
-  {n:'On the road',t:'Track the whole trip, and share it live',b:'Follow the journey on a live map — the car’s progress and your destination in view the whole way. Add the people you trust as emergency contacts and they’re sent a live link automatically: they watch you get home from any browser, no app or login needed — your name, who else is in the car, and your live location, only while the trip is on. SOS sits on the same screen.',screen:2},
+  {n:'On the road',t:'Track the whole trip, and share it live',b:'Follow the journey on a live map, your destination and the car’s progress in view the whole way, and send a live link to anyone you trust — they follow along without the app. SOS sits on the same screen.',screen:2},
   {n:'If anything goes wrong',t:'SOS on every screen, for both people',b:'Hold SOS and your live location goes to emergency services, your trusted contacts and our safety team at once. Short of an emergency, either side can suspend the trip — it ends there, and the fare is resolved afterwards, never at the roadside.',screen:3},
   {n:'Afterwards',t:'Rated, and it sticks to you',b:'Every passenger and car owner is rated after each trip, and either side can flag a problem — raise it and your money is protected until it is put right. A name here cannot be discarded and remade after a bad trip, which is exactly what makes every rating mean something.',screen:4}
 ];
-const SAFE_SET=[SHOT('pax-09-verification'),SHOT('drv-14-landmark'),SHOT('pax-tripshare-v2'),SHOT('drv-05-sos'),SHOT('pax-07-rate')];
+const SAFE_SET=[SHOT('pax-09-verification'),SHOT('drv-14-landmark'),SHOT('pax-livetrip'),SHOT('drv-05-sos'),SHOT('pax-07-rate')];
 
 const SAFE_ALL=[
   ['Before you travel','shield','Identity & trust',[
@@ -2201,9 +2292,6 @@ const QGROUPS={
     ['What if the car owner cancels?','Your money never leaves escrow until the trip is complete, so a cancellation returns it in full. You can also see the other trips published on your route for that morning without starting a new search.'],
     ['What does it cost to join?','Nothing. Creating an account, browsing trips, filtering by vehicle and messaging a car owner are all free. Everything up to booking a seat is free.']]},
   owner:{label:'Car owners',items:[
-    ['How do I get started as a car owner?','Verify your identity, add your car and its papers, and submit them for a quick review. Once you are approved you can publish your first trip straight away — set your route, your days and your seats, and passengers on that route can start requesting.'],
-    ['Who creates a trip, and who chooses the route and days?','You do. As a car owner you create the trip — you set the pickup and drop-off, the days of the week you will run it, the pickup time and how many seats. Conductor prices the seat for that route. Passengers then find your trip and book the days they need.'],
-    ['Do I have to run more than one day a week?','Yes — a trip runs on at least three days a week, and passengers book at least three. Conductor is built for the commute people plan their week around, not the one-off journey, so the minimum keeps a trip worth relying on. You choose which three or more.'],
     ['Is this a taxi service? Do I need a hackney permit?','No. You are not for hire — you are sharing the cost of a journey you were already making, with people going the same way. Seat prices are held at cost-sharing level precisely so the trip remains a shared commute rather than commercial carriage.'],
     ['What does Conductor take?','Conductor earns through a service charge built into the fare, and it falls as you complete more trips — the more you share, the less it costs you to share.'],
     ['Can I select who rides with me?','Every time. Requests arrive with a verified profile and a rating earned from previous car owners, and you approve or decline each one. You can also restrict your seats to a community, so only its members can even ask.'],
@@ -2214,7 +2302,6 @@ const QGROUPS={
     ['How does paying for a week of trips work?','When you add trips to your schedule you pay for all of them together, so the commute is settled in advance rather than transacted every morning. The full amount goes into escrow, not to any car owner.'],
     ['When does a car owner actually receive the money?','After their own trip is completed — per trip, not per week. Monday’s journey releases Monday’s fare; Friday’s is still held until Friday has happened.'],
     ['What happens if a trip does not go ahead?','It is refunded to you in full. That applies whether you cancelled, the car owner cancelled, or the trip was suspended part-way. Nothing that did not happen stays paid for.'],
-    ['If a passenger cancels, does the car owner still get paid?','It depends on when. A passenger who suspends or cancels in good time is refunded, and the car owner is not paid for that seat that day. One who cancels too late, or simply does not show, still pays — the seat was held and the journey ran. The cut-off protects whoever plans ahead, on either side.'],
     ['How is the fare worked out?','A journey has one cost, and it is divided between the seats travelling in it. Three seats sharing means roughly a third each of what that trip would cost one person alone. The app prices each seat for the route when a trip is published.'],
     ['Why are fares not listed on this website?','Because a price written into a web page goes stale the day it is published. Fares are quoted live by the app, so the figure you are shown is the figure you actually pay.'],
     ['Is there a service fee on top for passengers?','No. Passengers pay the seat fare and nothing else.'],
@@ -2231,14 +2318,6 @@ const QGROUPS={
     ['How do I report a problem after a trip?','Leave a review of the other party, and if something went wrong, raise a complaint from the trip. A complaint can name a single person or several parties in the same car, and disputes are resolved against the trip’s real GPS record rather than just who argues hardest. While it is open, any money involved stays protected in escrow.'],
     ['Who sees my live location when I share a trip?','Only the people you send the link to, and only for the duration of that trip. They do not need an account or the app, and the link stops working when you arrive.'],
     ['How do I delete my account?','From the app, or via the deletion guide on our site. Trip records are retained only as long as the law requires, and your profile stops being visible immediately.']]},
-  agreement:{label:'The agreement',items:[
-    ['What does a car owner agree to?','Six things, and each is about a commute people can rely on: show up on time every day the route runs; treat passengers with respect; give reasonable notice before suspending a day; keep all payment in the app; consent to a basic background check; and follow the Car Owner Agreement and Code of Conduct.'],
-    ['What does a passenger agree to?','The mirror image, so each side can see exactly what the other has committed to: be ready at the meeting point on time; treat the car owner and fellow riders with respect; give notice before dropping a day rather than leaving a seat empty at the last minute; pay through the app; verify their identity; and book the days they actually intend to travel. Nobody is signing something the other side cannot read.'],
-    ['Why does showing up on time matter so much?','Because a booked commute only works if both the car and the passenger are where they said they would be. A car that does not come strands its riders; a passenger who is not ready holds up everyone in the seats behind them. On time, both ways, is the thing the whole system is built on.'],
-    ['Why the notice before dropping a day?','So the other side can adjust — a car owner can offer the seat to someone else, and a passenger can find another way in. It also sets the money rule fairly: whoever gives notice is protected. A passenger who suspends in good time is refunded; one who drops out too late, or does not show, still pays the car owner. The same courtesy is asked of a car owner suspending a trip.'],
-    ['Why does every payment go through the app?','So both sides are protected. A car owner’s earnings are guaranteed and held in escrow until the trip is done — they cannot be dodged in cash — and a passenger keeps refund and dispute cover if something goes wrong. Cash at the roadside has none of that.'],
-    ['Why the checks on both sides?','Because a passenger is trusting a car owner with their daily safety, and a car owner is trusting who gets into their vehicle. Verifying identity on both sides, and a basic background check on the car owner, is what makes that trust reasonable rather than a leap.'],
-    ['Where do I read the full agreement?','The commitments each side accepts in the app are the binding ones. You can read the full Car Owner Agreement, the Passenger Code and the Code of Conduct any time from your profile, or on this site.']]},
   promos:{label:'Offers',items:[
     ['What is the passenger offer running now?','Passengers can get up to 100% off every trip taken within the promotional week. Add your trips to your schedule as normal — the discount is applied at checkout, and anything still payable is held in escrow and released per trip in the usual way.'],
     ['What is the car owner offer running now?','Your service charge falls as you complete more trips. The more journeys you share, the cheaper each subsequent one is to run — so consistent weekday sharing is rewarded rather than one-off trips.'],
@@ -2250,17 +2329,6 @@ function FAQPage(){
   useReveal();
   const [tab,setTab]=React.useState('passenger');
   const keys=Object.keys(QGROUPS);
-  // Open the tab named in the URL hash (e.g. /faq#agreement from the apps'
-  // "Learn more" link), and follow later hash changes.
-  React.useEffect(()=>{
-    const applyHash=()=>{
-      const h=(typeof window!=='undefined'?window.location.hash:'').replace('#','');
-      if(h && QGROUPS[h]) setTab(h);
-    };
-    applyHash();
-    window.addEventListener('hashchange',applyHash);
-    return ()=>window.removeEventListener('hashchange',applyHash);
-  },[]);
   const g=QGROUPS[tab];
   return (<>
     <Header role="passenger" page="faq"/>
@@ -2323,7 +2391,7 @@ function FAQPage(){
 function LegalBody({blocks}){
   return blocks.map((b,i)=>{
     const [t,v]=b;
-    if(t==='h2') return <h2 key={i} className="legal__h2" id={b[2]||('s'+i)}>{v}</h2>;
+    if(t==='h2') return <h2 key={i} className="legal__h2" id={'s'+i}>{v}</h2>;
     if(t==='h3') return <h3 key={i} className="legal__h3">{v}</h3>;
     if(t==='p')  return <p  key={i} className="legal__p">{v}</p>;
     if(t==='ol') return <ol key={i} className="legal__list">{v.map((x,j)=><li key={j}>{x}</li>)}</ol>;
@@ -2334,10 +2402,7 @@ function LegalBody({blocks}){
 
 function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
   useReveal();
-  // An h2 may supply an explicit anchor as its third element — index-based
-  // ids shift whenever a clause is inserted, so anything linked from another
-  // page (e.g. /legal/privacy#refund) needs a stable one.
-  const toc=blocks.map((b,i)=>b[0]==='h2'?[b[2]||('s'+i),b[1]]:null).filter(Boolean);
+  const toc=blocks.map((b,i)=>b[0]==='h2'?[i,b[1]]:null).filter(Boolean);
   return (<>
     <Header role="passenger"/>
     <main>
@@ -2349,7 +2414,7 @@ function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
           <aside className="legal__toc">
             {updated&&<p className="legal__updated">Last updated · {updated}</p>}
             <p className="eyebrow" style={{margin:'0 0 12px'}}>On this page</p>
-            <nav>{toc.map(([id,t])=><a key={id} href={'#'+id}>{t}</a>)}</nav>
+            <nav>{toc.map(([i,t])=><a key={i} href={'#s'+i}>{t}</a>)}</nav>
           </aside>
           <article className="legal__body">
             <LegalBody blocks={blocks}/>
@@ -2369,7 +2434,7 @@ function LegalDoc({crumb,eyebrow,title,updated,intro,blocks}){
 /* ---------------- Privacy ---------------- */
 function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   title={<>Privacy <em>policy</em>.</>}
-  intro="Conductor takes your privacy seriously. This Privacy Policy explains what personal information we collect, why we collect it, who we share it with, how long we keep it, and the rights you have under Nigerian data-protection law — including the Nigeria Data Protection Act 2023 (NDPA) and, where applicable, the Nigeria Data Protection Regulation (NDPR). Our Refund Policy forms clause 14 of this document."
+  intro="Conductor takes your privacy seriously. This Privacy Policy explains what personal information we collect, why we collect it, who we share it with, how long we keep it, and the rights you have under Nigerian data-protection law — including the Nigeria Data Protection Act 2023 (NDPA) and, where applicable, the Nigeria Data Protection Regulation (NDPR)."
   blocks={[
   ['h2','1 · Scope & roles'],
   ['p','This Policy applies to personal information we collect when you access or use the Platform, communicate with us, or otherwise interact with our services. For the purposes of the NDPA, Conductor is the Data Controller in respect of your personal information, save where a specific processing activity involves us acting as processor on behalf of another controller (for example, certain identity-verification activities where the controller is a licensed identity provider).'],
@@ -2380,7 +2445,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
     <><b>Identity-verification data:</b> NIN and NIN-verification records; for Car Owners, driver’s licence number, licence photograph, and licence verification records; vehicle registration papers, insurance certificate, and other supporting documents.</>,
     <><b>Trip &amp; usage data:</b> Bookings, Trips published, Trip-Days completed, cancellations, ratings, chat messages, service-recovery credits and referrals.</>,
     <><b>Location data:</b> pickup and drop-off coordinates, live GPS during a Trip, and area-level home / work coordinates captured during onboarding (see clause 6).</>,
-    <><b>Financial data:</b> Wallet balances, transaction history, refund requests and their outcomes, bank-account details submitted for withdrawals, and tokenised card details as held by our payment processor.</>,
+    <><b>Financial data:</b> Wallet balances, transaction history, bank-account details submitted for withdrawals, and tokenised card details as held by our payment processor.</>,
     <><b>Device &amp; technical data:</b> device model, operating system, app version, IP address, session identifiers, telemetry (battery, network kind, GPS accuracy), and analytics events.</>,
     <><b>Safety data:</b> SOS activations, emergency contacts you nominate, incident reports, safety-relevant photos or recordings (e.g. vehicle photographs), and dispute records.</>,
     <><b>Communications:</b> messages exchanged in the in-app chat, support tickets, and notifications delivered via our providers.</>,
@@ -2388,9 +2453,8 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['h2','3 · How we use it'],
   ['p','We use personal information to:'],
   ['ul',[
-    'operate the Platform — register your account, verify your identity, publish or book Trips, calculate fares, process payments and refunds, and settle earnings;',
+    'operate the Platform — register your account, verify your identity, publish or book Trips, calculate fares, process payments, and settle earnings;',
     'keep the Platform safe — run our Trust & Safety systems, detect fraud, prevent abuse, investigate incidents, and respond to disputes;',
-    <>assess refund requests — where you report an issue with a Trip-Day, we review the records relevant to that claim, which may include GPS traces, in-app chat logs, and attendance flags, in order to decide the request and to detect refund fraud or abuse (see <a href="/legal/privacy#refund">clause 14</a>);</>,
     'improve the Platform — understand how features are used, prioritise product decisions, calibrate pricing, and develop new features;',
     'communicate with you — send Trip notifications, service messages, safety alerts, receipts, and (where you have opted in or the law permits) promotional messages;',
     'meet legal, tax, and regulatory obligations — including obligations arising under the NDPA, NDPR, FCCPA, Federal Inland Revenue Service (FIRS) requirements, and any lawful requests by competent authorities;',
@@ -2434,7 +2498,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['ul',[
     <><b>Account &amp; profile data</b> — while the account is active, and thereafter for a reasonable period to satisfy legal obligations, resolve disputes, and enforce our agreements.</>,
     <><b>Identity-verification records (including NIN, licences, vehicle documents)</b> — for the duration of the account and thereafter for such period as is required by anti-fraud, safety, tax, or regulatory obligations.</>,
-    <><b>Trip, payment, refund, and settlement records</b> — for a minimum of seven (7) years, or such longer period as required for accounting, tax, or audit purposes.</>,
+    <><b>Trip, payment, and settlement records</b> — for a minimum of seven (7) years, or such longer period as required for accounting, tax, or audit purposes.</>,
     <><b>Search history &amp; usage telemetry</b> — up to 365 days by default (admin-tunable), used for personalisation and product research.</>,
     <><b>Chat and support communications</b> — for such period as is required to service tickets, respond to disputes, and comply with law.</>,
     <><b>Anonymised / aggregated data</b> — may be retained indefinitely.</>]],
@@ -2459,66 +2523,7 @@ function PrivacyPage(){return <LegalDoc crumb="Privacy" eyebrow="Legal"
   ['h2','12 · Cross-border transfers'],
   ['p','Some of our service providers process personal information outside Nigeria. Where personal information is transferred outside Nigeria, we do so in accordance with the NDPA, including by relying on adequacy decisions, standard contractual clauses, binding corporate rules, or one of the other lawful transfer mechanisms recognised under Nigerian law.'],
   ['h2','13 · Contact & Data Protection Officer (DPO)'],
-  ['p','Questions, requests, or complaints about your privacy or personal information: privacy@conductor.ng.'],
-  ['h2','14 · Refund Policy','refund'],
-  ['p','This Refund Policy sets out when refunds are and are not payable, the process for requesting one, and how long refunds take to reach you. It is incorporated by reference into the Terms of Service.'],
-  ['h3','14.1 · General principles'],
-  ['ol',[
-    'Refunds are decided on the facts of each Trip-Day, in accordance with this Policy.',
-    'Approved refunds are, in the first instance, credited to your Wallet spendable balance. Where you have withdrawn, refunds may be routed to the original payment method or another payment channel we designate, subject to operational, legal, and regulatory requirements.',
-    'We reserve the right to investigate every refund request, including by reviewing GPS data, chat logs, car owner / passenger attendance flags, and any other Trip records, in order to prevent fraud, abuse, or misuse.',
-    'Refunds are processed on a per-Trip-Day basis. A multi-day Booking is not refunded on a whole-Trip basis simply because one Trip-Day was disputed — each affected Trip-Day is evaluated on its own facts.',
-    'Where the Service Charge has been earned, we may deduct it from a refund. Where a refund arises from Car Owner fault or a service failure attributable to us, the full amount paid is refunded.']],
-  ['h3','14.2 · Passenger-initiated cancellations'],
-  ['ol',[
-    <><b>Before Car Owner acceptance.</b> Any amount pre-authorised, held, or paid is refunded in full.</>,
-    <><b>Early cancellation (before the daily cut-off).</b> Where you cancel a Trip-Day sufficiently in advance of the Car Owner’s pickup time (as defined by the in-app cancellation window for that Trip), the fare is refunded in full, less any small administrative processing fee expressly disclosed at cancellation.</>,
-    <><b>Late cancellation.</b> Where you cancel a Trip-Day inside the cut-off window — sufficiently close to pickup that the Car Owner cannot reasonably re-sell the seat — the fare for that Trip-Day is not refundable. This is because the seat has effectively been consumed against the Car Owner’s capacity.</>,
-    <><b>No-show.</b> If the Car Owner arrives at the pickup point and waits the applicable grace period (published in-app) and you neither arrive nor cancel in-app, you are treated as a no-show and no refund is due.</>,
-    <><b>Ride refused after boarding for behaviour.</b> Where a Car Owner ends a Trip early due to your prohibited conduct (clause 11 of the Terms), you are not entitled to a refund of the affected Trip-Day.</>]],
-  ['h3','14.3 · Car owner-initiated cancellations & service failures'],
-  ['ol',[
-    <><b>Car Owner cancels a Trip-Day after accepting the Booking.</b> You receive a full refund of the fare paid for that Trip-Day. Where the pattern is repeated by the same Car Owner, we may sanction the Car Owner under clause 12 of the Terms.</>,
-    <><b>Car Owner marks the Trip-Day as suspended</b> (e.g. vehicle unavailable, personal emergency). You are not charged for that Trip-Day and any pre-held amount is released back.</>,
-    <><b>Car Owner no-show</b> (Car Owner did not arrive within a reasonable time and did not update the Trip-Day status). You are refunded in full.</>,
-    <><b>Vehicle unroadworthy or safety-inadequate at pickup.</b> You may decline to board; the Trip-Day is refunded in full and reported to our Trust &amp; Safety team.</>,
-    <><b>Substantial route deviation.</b> Where the Car Owner, without lawful reason, materially departs from the agreed route in a way that substantially harms the value of the Trip to you, a partial or full refund may be granted upon investigation.</>]],
-  ['h3','14.4 · Payment failures, duplicates, and technical errors'],
-  ['ol',[
-    'Duplicate charges are refunded in full upon confirmation.',
-    'Where a payment is deducted without a corresponding successful Booking, the amount is refunded in full.',
-    'Where an incorrect fare has been charged due to a technical error, we will refund the difference.']],
-  ['h3','14.5 · Wallet balances & withdrawals'],
-  ['ol',[
-    'Spendable Wallet funds may be withdrawn to a verified bank account. Withdrawals may take between one (1) and five (5) business days after approval, depending on the banking rails.',
-    'Withdrawal requests may be delayed or declined where fraud, abuse, suspicious activity, sanctions-list matching, or a lawful hold is present.',
-    'Referral rewards and promotional credits are not directly withdrawable. Referral rewards may be transferred to the spendable Wallet subject to programme-specific minimums and PIN authentication.']],
-  ['h3','14.6 · Promotional credits, bonuses, and coupons'],
-  ['p','Promotional credits, referral rewards, discount codes, and other incentives are:'],
-  ['ul',[
-    'non-transferable;',
-    'not redeemable for cash;',
-    'not refundable when a related Trip is cancelled — only the eligible monetary amount, if any, may be refunded;',
-    'expire in accordance with the terms of the specific promotion.']],
-  ['h3','14.7 · Circumstances where refunds may be declined'],
-  ['ul',[
-    'failure of the Passenger to appear within the permitted waiting time;',
-    'provision of inaccurate pickup or drop-off information;',
-    'violations of these Terms;',
-    'fraudulent, deceptive, or abusive refund practices, or repeated misuse of the refund process;',
-    'circumstances beyond the Company’s reasonable control (see clause 15 of the Terms);',
-    'where the service has substantially been rendered.']],
-  ['h3','14.8 · Processing time'],
-  ['ol',[
-    <><b>To the in-app Wallet:</b> generally immediate or within 24 hours of approval.</>,
-    <><b>To a bank account or card:</b> generally within 5 to 15 business days, depending on the financial institution, payment processor, and applicable regulations.</>,
-    'We are not liable for delays caused by third-party payment providers or financial institutions.']],
-  ['h3','14.9 · How to request a refund'],
-  ['p','Open the affected Trip-Day in the app and tap “Report an issue”. Describe the problem and attach any photographs or screenshots you have. Our support team will acknowledge within seven (7) business days and confirm the outcome within a reasonable time thereafter. You may also email support@conductor.ng.'],
-  ['h3','14.10 · Fraud prevention & abuse'],
-  ['p','We maintain fraud-detection measures for refund requests. Users who engage in fraudulent, deceptive, or abusive refund practices may have their accounts suspended, restricted, or terminated, and forfeit outstanding Wallet balances derived from the abusive activity, without prejudice to any other legal remedy available to the Company.'],
-  ['h3','14.11 · Changes to this Policy'],
-  ['p','We may amend this Policy from time to time. Changes take effect on publication and continued use of the Platform constitutes acceptance.']
+  ['p','Questions, requests, or complaints about your privacy or personal information: privacy@conductor.ng.']
   ]}/>;}
 /* ---------------- Terms ---------------- */
 function TermsPage(){return <LegalDoc crumb="Terms" eyebrow="Legal"
@@ -2868,6 +2873,97 @@ function CarOwnerPolicyPage(){return <LegalDoc crumb="Car owner policy" eyebrow=
   ]}/>;}
 
 /* ---------------- Refund policy ---------------- */
+function RefundPolicyPage(){return <LegalDoc crumb="Refund policy" eyebrow="Legal"
+  title={<>Refund <em>policy</em>.</>}
+  intro="This Refund Policy sets out when refunds are and are not payable, the process for requesting one, and how long refunds take to reach you. It is incorporated by reference into the Terms of Service."
+  blocks={[
+  ['h2','1 · General principles'],
+  ['ol',[
+    'Refunds are decided on the facts of each Trip-Day, in accordance with this Policy.',
+    'Approved refunds are, in the first instance, credited to your Wallet spendable balance. Where you have withdrawn, refunds may be routed to the original payment method or another payment channel we designate, subject to operational, legal, and regulatory requirements.',
+    'We reserve the right to investigate every refund request, including by reviewing GPS data, chat logs, car owner / passenger attendance flags, and any other Trip records, in order to prevent fraud, abuse, or misuse.',
+    'Refunds are processed on a per-Trip-Day basis. A multi-day Booking is not refunded on a whole-Trip basis simply because one Trip-Day was disputed — each affected Trip-Day is evaluated on its own facts.',
+    'Where the Service Charge has been earned, we may deduct it from a refund. Where a refund arises from Car Owner fault or a service failure attributable to us, the full amount paid is refunded.']],
+  ['h2','2 · Passenger-initiated cancellations'],
+  ['ol',[
+    <><b>Before Car Owner acceptance.</b> Any amount pre-authorised, held, or paid is refunded in full.</>,
+    <><b>Early cancellation (before the daily cut-off).</b> Where you cancel a Trip-Day sufficiently in advance of the Car Owner’s pickup time (as defined by the in-app cancellation window for that Trip), the fare is refunded in full, less any small administrative processing fee expressly disclosed at cancellation.</>,
+    <><b>Late cancellation.</b> Where you cancel a Trip-Day inside the cut-off window — sufficiently close to pickup that the Car Owner cannot reasonably re-sell the seat — the fare for that Trip-Day is not refundable. This is because the seat has effectively been consumed against the Car Owner’s capacity.</>,
+    <><b>No-show.</b> If the Car Owner arrives at the pickup point and waits the applicable grace period (published in-app) and you neither arrive nor cancel in-app, you are treated as a no-show and no refund is due.</>,
+    <><b>Ride refused after boarding for behaviour.</b> Where a Car Owner ends a Trip early due to your prohibited conduct (clause 11 of the Terms), you are not entitled to a refund of the affected Trip-Day.</>]],
+  ['h2','3 · Car owner-initiated cancellations & service failures'],
+  ['ol',[
+    <><b>Car Owner cancels a Trip-Day after accepting the Booking.</b> You receive a full refund of the fare paid for that Trip-Day. Where the pattern is repeated by the same Car Owner, we may sanction the Car Owner under clause 12 of the Terms.</>,
+    <><b>Car Owner marks the Trip-Day as suspended</b> (e.g. vehicle unavailable, personal emergency). You are not charged for that Trip-Day and any pre-held amount is released back.</>,
+    <><b>Car Owner no-show</b> (Car Owner did not arrive within a reasonable time and did not update the Trip-Day status). You are refunded in full.</>,
+    <><b>Vehicle unroadworthy or safety-inadequate at pickup.</b> You may decline to board; the Trip-Day is refunded in full and reported to our Trust &amp; Safety team.</>,
+    <><b>Substantial route deviation.</b> Where the Car Owner, without lawful reason, materially departs from the agreed route in a way that substantially harms the value of the Trip to you, a partial or full refund may be granted upon investigation.</>]],
+  ['h2','4 · Payment failures, duplicates, and technical errors'],
+  ['ol',[
+    'Duplicate charges are refunded in full upon confirmation.',
+    'Where a payment is deducted without a corresponding successful Booking, the amount is refunded in full.',
+    'Where an incorrect fare has been charged due to a technical error, we will refund the difference.']],
+  ['h2','5 · Wallet balances & withdrawals'],
+  ['ol',[
+    'Spendable Wallet funds may be withdrawn to a verified bank account. Withdrawals may take between one (1) and five (5) business days after approval, depending on the banking rails.',
+    'Withdrawal requests may be delayed or declined where fraud, abuse, suspicious activity, sanctions-list matching, or a lawful hold is present.',
+    'Referral rewards and promotional credits are not directly withdrawable. Referral rewards may be transferred to the spendable Wallet subject to programme-specific minimums and PIN authentication.']],
+  ['h2','6 · Promotional credits, bonuses, and coupons'],
+  ['p','Promotional credits, referral rewards, discount codes, and other incentives are:'],
+  ['ul',[
+    'non-transferable;',
+    'not redeemable for cash;',
+    'not refundable when a related Trip is cancelled — only the eligible monetary amount, if any, may be refunded;',
+    'expire in accordance with the terms of the specific promotion.']],
+  ['h2','7 · Circumstances where refunds may be declined'],
+  ['ul',[
+    'failure of the Passenger to appear within the permitted waiting time;',
+    'provision of inaccurate pickup or drop-off information;',
+    'violations of these Terms;',
+    'fraudulent, deceptive, or abusive refund practices, or repeated misuse of the refund process;',
+    'circumstances beyond the Company’s reasonable control (see clause 15 of the Terms);',
+    'where the service has substantially been rendered.']],
+  ['h2','8 · Processing time'],
+  ['ol',[
+    <><b>To the in-app Wallet:</b> generally immediate or within 24 hours of approval.</>,
+    <><b>To a bank account or card:</b> generally within 5 to 15 business days, depending on the financial institution, payment processor, and applicable regulations.</>,
+    'We are not liable for delays caused by third-party payment providers or financial institutions.']],
+  ['h2','9 · How to request a refund'],
+  ['p','Open the affected Trip-Day in the app and tap “Report an issue”. Describe the problem and attach any photographs or screenshots you have. Our support team will acknowledge within seven (7) business days and confirm the outcome within a reasonable time thereafter. You may also email support@conductor.ng.'],
+  ['h2','10 · Fraud prevention & abuse'],
+  ['p','We maintain fraud-detection measures for refund requests. Users who engage in fraudulent, deceptive, or abusive refund practices may have their accounts suspended, restricted, or terminated, and forfeit outstanding Wallet balances derived from the abusive activity, without prejudice to any other legal remedy available to the Company.'],
+  ['h2','11 · Changes to this Policy'],
+  ['p','We may amend this Policy from time to time. Changes take effect on publication and continued use of the Platform constitutes acceptance.']
+  ]}/>;}
+
+/* ---------------- Account & data deletion ---------------- */
+function AccountDeletionPage(){return <LegalDoc crumb="Account & data deletion" eyebrow="Legal"
+  title={<>Account &amp; data <em>deletion</em>.</>}
+  intro="You control your account. This Policy explains how to request deletion, what happens during the 30-day grace period, and which categories of information we may lawfully retain after your account is closed."
+  blocks={[
+  ['h2','1 · How to request deletion'],
+  ['p','Open Account → Delete account in the app, or contact us at support@conductor.ng. Once we receive your request, your account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
+  ['h2','2 · Thirty (30) day grace period'],
+  ['ol',[
+    'Your account is deactivated but not permanently deleted for thirty (30) days.',
+    'If you log in or otherwise access the Platform using your credentials during that period, your deletion request is deemed withdrawn and your account is automatically reactivated. You may submit a new deletion request at any time.',
+    'Where you are owed money on your account (e.g. a Wallet balance), we will guide you through payout (typically to your verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
+  ['h2','3 · Timeline for deletion'],
+  ['p','After the 30-day grace period, we complete the deletion or anonymisation of your eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in our secure archives for the periods described below.'],
+  ['h2','4 · Information that may not be deleted'],
+  ['p','Notwithstanding a deletion request, we may retain certain categories of information where retention is necessary or permitted by law, including:'],
+  ['ol',[
+    <><b>Identity-verification records</b> — information used to verify User identity (including NIN records) may be retained where necessary to comply with legal, regulatory, security, fraud-prevention, or audit requirements.</>,
+    <><b>Transaction and Trip records</b> — records relating to completed Trips, payments, receipts, disputes, complaints, refunds, and other transactional activity may be retained for accounting, tax, auditing, and legal-compliance purposes.</>,
+    <><b>Safety and security information</b> — we may retain information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
+    <><b>Legal and regulatory requirements</b> — personal information subject to a legal-hold, court order, governmental directive, or valid regulatory request.</>,
+    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify you may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
+  ['h2','5 · Effect of permanent deletion'],
+  ['p','Once your account is permanently deleted, you may lose access to your profile, Trip history, saved preferences, referrals, and other information associated with the account. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
+  ['h2','6 · Your acknowledgement'],
+  ['p','By submitting a deletion request, you acknowledge and understand this Policy.']
+  ]}/>;}
+
 /* ---------------- Code of conduct ---------------- */
 function ConductPage(){return <LegalDoc crumb="Code of conduct" eyebrow="Legal" updated="10 August 2026"
   title={<>Code of <em>conduct</em>.</>}
@@ -2961,28 +3057,27 @@ function DeletePage(){return <LegalDoc crumb="Delete your profile" eyebrow="Your
     <><b>Step 4:</b> Optionally provide feedback about why you’re leaving the platform.</>,
     <><b>Step 5:</b> Confirm deletion by typing “DELETE” to schedule account deletion.</>]],
   ['p','The 30-day grace period begins immediately. Users can log back in before it ends to cancel the deletion request.'],
-  ['p','You control your account. This Policy explains how to request deletion, what happens during the 30-day grace period, and which categories of information we may lawfully retain after your account is closed.'],
   ['h2','1 · How to request deletion'],
-  ['p','Open Account → Delete account in the app, or contact us at support@conductor.ng. Once we receive your request, your account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
+  ['p','Open Account → Delete account in the app, or contact Conductor at support@conductor.ng. Once the request is received, the account is scheduled for deletion and enters a thirty (30) day deactivation period.'],
   ['h2','2 · Thirty (30) day grace period'],
   ['ol',[
-    'Your account is deactivated but not permanently deleted for thirty (30) days.',
-    'If you log in or otherwise access the Platform using your credentials during that period, your deletion request is deemed withdrawn and your account is automatically reactivated. You may submit a new deletion request at any time.',
-    'Where you are owed money on your account (e.g. a Wallet balance), we will guide you through payout (typically to your verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
+    'The account is deactivated but not permanently deleted for thirty (30) days.',
+    'If the user logs in or otherwise accesses the Platform using their credentials during that period, the deletion request is deemed withdrawn and the account is automatically reactivated. A new deletion request may be submitted at any time.',
+    'Where the user is owed money on the account (e.g. a Wallet balance), Conductor will guide them through payout (typically to the verified bank account) as part of the deletion flow. The account cannot be permanently deleted while funds are undischarged.']],
   ['h2','3 · Timeline for deletion'],
-  ['p','After the 30-day grace period, we complete the deletion or anonymisation of your eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in our secure archives for the periods described below.'],
+  ['p','After the 30-day grace period, Conductor completes the deletion or anonymisation of eligible personal data within a reasonable further period and, in any event, in accordance with applicable legal and regulatory requirements. Certain information may remain in secure archives for the periods described below.'],
   ['h2','4 · Information that may not be deleted'],
-  ['p','Notwithstanding a deletion request, we may retain certain categories of information where retention is necessary or permitted by law, including:'],
+  ['p','Notwithstanding a deletion request, certain categories of information may be retained where retention is necessary or permitted by law, including:'],
   ['ol',[
     <><b>Identity-verification records</b> — information used to verify User identity (including NIN records) may be retained where necessary to comply with legal, regulatory, security, fraud-prevention, or audit requirements.</>,
     <><b>Transaction and Trip records</b> — records relating to completed Trips, payments, receipts, disputes, complaints, refunds, and other transactional activity may be retained for accounting, tax, auditing, and legal-compliance purposes.</>,
-    <><b>Safety and security information</b> — we may retain information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
+    <><b>Safety and security information</b> — information necessary to investigate or prevent fraud, abuse, security incidents, violations of these Terms, or other unlawful activity, and to protect Users and the public.</>,
     <><b>Legal and regulatory requirements</b> — personal information subject to a legal-hold, court order, governmental directive, or valid regulatory request.</>,
-    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify you may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
+    <><b>Anonymised or aggregated data</b> — information that has been irreversibly anonymised so that it can no longer identify the user may be retained and used for statistical analysis, service improvement, business planning, and other lawful purposes.</>]],
   ['h2','5 · Effect of permanent deletion'],
-  ['p','Once your account is permanently deleted, you may lose access to your profile, Trip history, saved preferences, referrals, and other information associated with the account. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
+  ['p','Once an account is permanently deleted, access to the profile, Trip history, saved preferences, referrals, and other information associated with the account may be lost. Information retained under clause 4 will continue to be protected in accordance with the Privacy Policy and applicable law.'],
   ['h2','6 · Your acknowledgement'],
-  ['p','By submitting a deletion request, you acknowledge and understand this Policy.']
+  ['p','By submitting a deletion request, users acknowledge and understand this Policy.']
   ]}/>;}
 
 /* ---------------- Careers ---------------- */
@@ -3076,4 +3171,4 @@ function PressPage(){
 
 
 
-export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };
+export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Quote, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, RefundPolicyPage, AccountDeletionPage, ConductPage, DeletePage, CareersPage, PressPage };
