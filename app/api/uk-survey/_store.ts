@@ -33,8 +33,6 @@ export const TRIP_FREQUENCY = [
   "NONE",
 ] as const;
 
-export const TRAVEL_ROLE = ["PASSENGER", "DRIVER", "BOTH"] as const;
-
 // --- passenger --------------------------------------------------------------
 
 export const CURRENT_MODE = [
@@ -182,6 +180,33 @@ export const DRIVER_BARRIERS = [
 
 export const DRIVE_MORE = ["YES_MORE", "NO_CHANGE", "NOT_SURE"] as const;
 
+// --- who you are and where you live -----------------------------------------
+
+export const INDUSTRY = [
+  "HEALTH_CARE","EDUCATION","RETAIL_HOSPITALITY","MANUFACTURING","CONSTRUCTION",
+  "TRANSPORT_LOGISTICS","PROFESSIONAL_FINANCE","TECH","PUBLIC_SECTOR","CREATIVE",
+  "AGRICULTURE","STUDENT","NOT_WORKING","OTHER",
+] as const;
+
+export const WORK_PATTERN = ["ONSITE_FULL","ONSITE_MOST","HYBRID","MOSTLY_HOME","SHIFTS","NA"] as const;
+
+export const AREA_TYPE = ["CITY_CENTRE","CITY_SUBURB","LARGE_TOWN","SMALL_TOWN","VILLAGE_RURAL"] as const;
+
+/** Weekday service where they live. */
+export const PT_WEEKDAY = ["FREQUENT","USABLE","POOR","NONE"] as const;
+
+/**
+ * Weekend service, asked separately on purpose. A place with a decent
+ * weekday bus and nothing on a Sunday is a different market from one with
+ * neither, and the two are invisible if you only ask once.
+ */
+export const PT_WEEKEND = ["SAME","REDUCED","MUCH_WORSE","NONE","NOT_SURE"] as const;
+
+/** Drives the routing: no car means the driver half is never shown. */
+export const CAR_ACCESS = ["YES_OWN","YES_SHARED","NO"] as const;
+
+export const DRIVES_FOR_JOURNEY = ["YES_MOST","YES_SOME","NO"] as const;
+
 // --- demographics -----------------------------------------------------------
 
 export const AGE_BANDS = [
@@ -214,10 +239,28 @@ export type SurveyResponse = {
 
   // screening (both)
   tripFrequency: (typeof TRIP_FREQUENCY)[number];
-  role: (typeof TRAVEL_ROLE)[number];
+
+  /**
+   * Car access decides the route through the survey, not a self-description.
+   * Someone without a car cannot supply seats, so they never see the driver
+   * half; someone with one answers both sides, because the supply question is
+   * the one a marketplace actually lives or dies on.
+   */
+  carAccess: (typeof CAR_ACCESS)[number];
+  drivesForJourney?: (typeof DRIVES_FOR_JOURNEY)[number];
+
+  // who they are and where they live — asked early, because a village with no
+  // Sunday bus and a zone-2 flat are different markets
+  industry?: (typeof INDUSTRY)[number];
+  industryOther?: string;
+  workPattern?: (typeof WORK_PATTERN)[number];
+  areaType?: (typeof AREA_TYPE)[number];
+  ptWeekday?: (typeof PT_WEEKDAY)[number];
+  ptWeekend?: (typeof PT_WEEKEND)[number];
 
   // passenger
-  currentMode?: (typeof CURRENT_MODE)[number];
+  /** Plural: people mix modes across a week, and forcing one hid that. */
+  currentModes?: string[];
   currentModeOther?: string;
   journeyLength?: (typeof JOURNEY_LENGTH)[number];
   weeklySpendGbp?: number | null;
@@ -245,7 +288,6 @@ export type SurveyResponse = {
   useCases?: string[];
   useCasesOther?: string;
   recommend?: (typeof LIKELIHOOD)[number];
-  hasCarAccess?: (typeof YES_NO)[number];
 
   // car owner
   spareSeats?: (typeof SPARE_SEATS)[number];

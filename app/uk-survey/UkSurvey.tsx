@@ -16,13 +16,21 @@ import * as Q from "./questions";
  * asking the question, and the resulting numbers would deserve the scepticism
  * they would get.
  *
- * Two instruments share this component. The screener routes to one; someone
- * who both drives and rides is offered the second at the end, after their
- * first set is safely submitted.
+ * Who you are and where you live come early, before the travel questions.
+ * Demographics usually go last to protect the completion rate, and that is a
+ * fair worry, but it loses to a bigger one: without knowing who answered and
+ * what transport their area actually has, a positive result is a national
+ * average describing nobody. Weekday and weekend service are separate
+ * questions, because a town with a decent weekday bus and nothing on a Sunday
+ * is a different opportunity from one with neither.
  *
- * Nothing is required except consent and the three screeners. Every other
- * blank is recorded as a blank: a forced field is a drop-off, and a partial
- * response is still evidence.
+ * Having a car decides the route. Without one you cannot offer a seat, so the
+ * driver half never appears; with one you answer both halves in a single run,
+ * because supply is the side a marketplace actually fails on.
+ *
+ * Nothing is required except consent, the two screeners and the car question.
+ * Every other blank is recorded as a blank: a forced field is a drop-off, and
+ * a partial response is still evidence.
  */
 
 type Answers = Record<string, unknown>;
@@ -104,7 +112,7 @@ const CONSENT: Step = {
 const SCREENING: Step = {
   id: "screening",
   legend: "A few questions first",
-  hint: "So we know whose answers these are. Three questions.",
+  hint: "So we know whose answers these are.",
   render: ({ a, set }) => (
     <>
       <Question number="1" title="Do you live in the UK?">
@@ -127,22 +135,22 @@ const SCREENING: Step = {
           value={a.tripFrequency as string}
         />
       </Question>
-      <Question number="3" title="Which best describes you?">
-        <Radio
-          name="role"
-          onChange={(v) => set("role", v)}
-          options={Q.TRAVEL_ROLE}
-          value={a.role as string}
-        />
-      </Question>
     </>
   ),
-  blocked: (a) =>
-    a.livesInUk && a.tripFrequency && a.role ? undefined : "Please answer all three.",
+  blocked: (a) => (a.livesInUk && a.tripFrequency ? undefined : "Please answer both."),
 };
 
-const ABOUT_YOU: Step = {
-  id: "about",
+/**
+ * Who is answering. Asked early on purpose.
+ *
+ * Standard practice puts demographics last to protect the completion rate,
+ * and that is a fair worry. It loses to a bigger one here: without knowing
+ * who answered and what their area is like, a positive result is a national
+ * average that describes nobody. Every question on this page and the next is
+ * optional, and the sensitive ones offer "prefer not to say".
+ */
+const ABOUT_PERSON: Step = {
+  id: "about-person",
   legend: "About you",
   hint: "All optional. It lets us see whether answers differ between groups.",
   render: ({ a, set, text }) => (
@@ -163,16 +171,108 @@ const ABOUT_YOU: Step = {
           value={a.gender as string}
         />
       </Question>
+      <Question number="" title="What kind of work do you do?">
+        <Radio
+          name="industry"
+          onChange={(v) => set("industry", v)}
+          options={Q.INDUSTRY}
+          value={a.industry as string}
+        />
+        {a.industry === "OTHER" ? (
+          <OtherBox
+            id="industryOther"
+            onChange={(v) => set("industryOther", v)}
+            value={text("industryOther")}
+          />
+        ) : null}
+      </Question>
+      <Question
+        number=""
+        title="How often are you somewhere other than home for work or study?"
+        hint="Hybrid and shift patterns change what a regular journey even means."
+      >
+        <Radio
+          name="workPattern"
+          onChange={(v) => set("workPattern", v)}
+          options={Q.WORK_PATTERN}
+          value={a.workPattern as string}
+        />
+      </Question>
+    </>
+  ),
+};
+
+/**
+ * Where they live, what transport exists there, and whether they have a car.
+ *
+ * The car question is the fork. Someone without one cannot offer seats, so
+ * they never see the driver half; someone with one answers both, because
+ * supply is the side a marketplace actually fails on.
+ *
+ * Weekday and weekend transport are asked separately because they differ so
+ * sharply in much of the UK. A town with a decent weekday bus and nothing on
+ * a Sunday is a different opportunity from one with neither, and a single
+ * "how good is public transport" question cannot tell them apart.
+ */
+const ABOUT_PLACE: Step = {
+  id: "about-place",
+  legend: "Where you live",
+  render: ({ a, set, text }) => (
+    <>
       <Text
         id="postcodeDistrict"
         label="First part of your postcode"
         maxLength={8}
         onChange={(v) => set("postcodeDistrict", v)}
-        placeholder="e.g. SM1, ST17"
+        placeholder="e.g. SM1, ST17, CF24"
         value={text("postcodeDistrict")}
       />
+      <Question number="" title="How would you describe where you live?">
+        <Radio
+          name="areaType"
+          onChange={(v) => set("areaType", v)}
+          options={Q.AREA_TYPE}
+          value={a.areaType as string}
+        />
+      </Question>
+      <Question number="" title="On a weekday, what is public transport like where you live?">
+        <Radio
+          name="ptWeekday"
+          onChange={(v) => set("ptWeekday", v)}
+          options={Q.PT_WEEKDAY}
+          value={a.ptWeekday as string}
+        />
+      </Question>
+      <Question number="" title="And at weekends?">
+        <Radio
+          name="ptWeekend"
+          onChange={(v) => set("ptWeekend", v)}
+          options={Q.PT_WEEKEND}
+          value={a.ptWeekend as string}
+        />
+      </Question>
+      <Question number="" title="Do you have a car you can drive?">
+        <Radio
+          name="carAccess"
+          onChange={(v) => set("carAccess", v)}
+          options={Q.CAR_ACCESS}
+          value={a.carAccess as string}
+        />
+      </Question>
+      {a.carAccess && a.carAccess !== "NO" ? (
+        <Question number="" title="Do you drive yourself for your regular journey?">
+          <Radio
+            name="drivesForJourney"
+            onChange={(v) => set("drivesForJourney", v)}
+            options={Q.DRIVES_FOR_JOURNEY}
+            value={a.drivesForJourney as string}
+          />
+        </Question>
+      ) : null}
     </>
   ),
+  blocked: (a) =>
+    a.carAccess ? undefined : "Tell us whether you have a car — it decides what we ask next.",
 };
 
 const PILOT: Step = {
@@ -220,16 +320,20 @@ const PASSENGER_STEPS: Step[] = [
   {
     id: "pax-now",
     legend: "How you travel now",
-    render: ({ a, set, text }) => (
+    render: ({ a, set, many, text }) => (
       <>
-        <Question number="1" title="How do you usually make your regular journey?">
-          <Radio
-            name="currentMode"
-            onChange={(v) => set("currentMode", v)}
+        <Question
+          number="1"
+          title="How do you usually make your regular journey?"
+          hint="Tick everything you use — most people mix more than one across a week."
+        >
+          <CheckGroup
+            name="currentModes"
+            onChange={(v) => set("currentModes", v)}
             options={Q.CURRENT_MODE}
-            value={a.currentMode as string}
+            values={many("currentModes")}
           />
-          {a.currentMode === "OTHER" ? (
+          {many("currentModes").includes("OTHER") ? (
             <OtherBox
               id="currentModeOther"
               onChange={(v) => set("currentModeOther", v)}
@@ -504,30 +608,21 @@ const PASSENGER_STEPS: Step[] = [
             value={a.recommend as string}
           />
         </Question>
-        <Question number="" title="Do you have access to a car as a driver?">
-          <Radio
-            name="hasCarAccess"
-            onChange={(v) => set("hasCarAccess", v)}
-            options={Q.YES_NO}
-            value={a.hasCarAccess as string}
-          />
-        </Question>
       </>
     ),
   },
-  ABOUT_YOU,
-  PILOT,
 ];
 
-// --- car-owner path ---------------------------------------------------------
+// --- car-owner path, shown to anyone with a car -----------------------------
 
 const DRIVER_STEPS: Step[] = [
   {
     id: "drv-seats",
-    legend: "Your journeys now",
+    legend: "Now the other side — your car",
+    hint: "You said you drive. These questions are about offering your spare seats rather than taking one.",
     render: ({ a, set, text }) => (
       <>
-        <Question number="1" title="On those journeys, how many seats are usually empty?">
+        <Question number="1" title="On your regular journey, how many seats are usually empty?">
           <Radio
             name="spareSeats"
             onChange={(v) => set("spareSeats", v)}
@@ -687,8 +782,6 @@ const DRIVER_STEPS: Step[] = [
       </>
     ),
   },
-  ABOUT_YOU,
-  PILOT,
 ];
 
 // --- the flow ---------------------------------------------------------------
@@ -699,7 +792,15 @@ export function UkSurvey() {
   const [phase, setPhase] = useState<Phase>("survey");
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
-  const [instrument, setInstrument] = useState<"PASSENGER" | "CAR_OWNER">("PASSENGER");
+  /**
+   * Whether the driver half is in this run.
+   *
+   * Derived from the answer rather than stored, so the step list and the
+   * routing can never disagree with what the respondent actually said.
+   */
+  const hasCar = answers.carAccess !== undefined && answers.carAccess !== "NO";
+  /** Which halves this row contains: passenger only, or passenger + driver. */
+  const instrument = hasCar ? "CAR_OWNER" : "PASSENGER";
   const topRef = useRef<HTMLDivElement>(null);
 
   const set = useCallback((key: string, value: unknown) => {
@@ -719,10 +820,21 @@ export function UkSurvey() {
 
   // The driver path is chosen at the screener, so the step list is derived
   // rather than stored — there is no state to get out of step with itself.
-  const steps = useMemo(() => {
-    const tail = instrument === "CAR_OWNER" ? DRIVER_STEPS : PASSENGER_STEPS;
-    return [CONSENT, SCREENING, ...tail];
-  }, [instrument]);
+  const steps = useMemo(
+    () => [
+      CONSENT,
+      SCREENING,
+      ABOUT_PERSON,
+      ABOUT_PLACE,
+      ...PASSENGER_STEPS,
+      // Anyone with a car answers the supply side too, in the same run.
+      // They are the only people who can offer a seat, and a marketplace
+      // with demand and no supply is the failure worth finding early.
+      ...(hasCar ? DRIVER_STEPS : []),
+      PILOT,
+    ],
+    [hasCar],
+  );
 
   const step = steps[Math.min(index, steps.length - 1)];
 
@@ -752,7 +864,6 @@ export function UkSurvey() {
         setPhase("screened-out");
         return;
       }
-      setInstrument(answers.role === "DRIVER" ? "CAR_OWNER" : "PASSENGER");
     }
     if (index === steps.length - 1) {
       void submit();
@@ -787,25 +898,6 @@ export function UkSurvey() {
     }
   }
 
-  /** The second instrument, for someone who said they both drive and ride. */
-  function startDriverSurvey() {
-    setAnswers((cur) => ({
-      // Keep what does not change between the two, so they are not asked twice.
-      consent: true,
-      livesInUk: cur.livesInUk,
-      tripFrequency: cur.tripFrequency,
-      role: cur.role,
-      ageBand: cur.ageBand,
-      gender: cur.gender,
-      postcodeDistrict: cur.postcodeDistrict,
-      email: cur.email,
-      pilotOptIn: cur.pilotOptIn ?? false,
-    }));
-    setInstrument("CAR_OWNER");
-    setIndex(2); // straight past consent and the screener
-    setPhase("survey");
-    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 
   if (phase === "screened-out") {
     return (
@@ -817,7 +909,6 @@ export function UkSurvey() {
   }
 
   if (phase === "done") {
-    const alsoDrives = answers.role === "BOTH" && instrument === "PASSENGER";
     return (
       <div className="uks-end" ref={topRef} role="status">
         <h2>Thank you — that's exactly what we needed.</h2>
@@ -828,23 +919,10 @@ export function UkSurvey() {
             ? " We'll email you when early access reaches your area."
             : ""}
         </p>
-        {alsoDrives ? (
-          <div className="uks-again">
-            <p>
-              You said you also drive these journeys yourself. The questions for
-              car owners are different, and that side matters just as much — a
-              service with passengers and no drivers doesn't work.
-            </p>
-            <button className="btn btn--primary" onClick={startDriverSurvey} type="button">
-              Answer the car-owner questions
-            </button>
-          </div>
-        ) : (
-          <p>
-            Know someone with the same journey? Send them this page — every
-            extra answer sharpens the picture.
-          </p>
-        )}
+        <p>
+          Know someone with the same journey? Send them this page — every extra
+          answer sharpens the picture.
+        </p>
       </div>
     );
   }

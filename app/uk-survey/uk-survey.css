@@ -1,7 +1,7 @@
 /* UK validation survey — one section per page.
    Uses the site tokens throughout; nothing here defines a colour of its own. */
 
-.uks { display: grid; gap: 26px; max-width: 760px; }
+.uks { display: grid; gap: 26px; max-width: 720px; margin-inline: auto; }
 
 /* --- progress ------------------------------------------------------------ */
 
@@ -107,9 +107,6 @@
 .uks-end { display: grid; gap: 14px; max-width: 58ch; padding: 8px 0 12px; }
 .uks-end h2 { font: 700 clamp(22px, 2.2vw, 28px)/1.2 var(--font-body); letter-spacing: -.015em; color: var(--fg-1); margin: 0; }
 .uks-end p { font: var(--type-body-md); color: var(--fg-2); line-height: 1.6; margin: 0; }
-.uks-again { margin-top: 10px; padding: 18px 20px; border: 1px solid var(--outline); border-radius: var(--radius-lg); display: grid; gap: 14px; background: #fff; }
-.uks-again p { margin: 0; }
-.uks-again .btn { justify-self: start; }
 
 @media (max-width: 560px) {
   .uks-nav { flex-wrap: wrap; }
@@ -118,6 +115,6 @@
 
 /* --- page shell ---------------------------------------------------------- */
 
-.uks-page__eyebrow { font: var(--type-label-md); letter-spacing: .14em; text-transform: uppercase; color: var(--pink-base); margin: 0 0 10px; }
-.uks-page__h1 { font: 700 clamp(28px, 3.4vw, 40px)/1.15 var(--font-body); letter-spacing: -.02em; color: var(--fg-1); margin: 0 0 12px; text-wrap: balance; max-width: 18ch; }
-.uks-page__lede { font: var(--type-body-lg, var(--type-body-md)); color: var(--fg-2); line-height: 1.6; margin: 0 0 34px; max-width: 58ch; }
+.uks-page__eyebrow { font: var(--type-label-md); letter-spacing: .14em; text-transform: uppercase; color: var(--pink-base); margin: 0 0 10px; text-align: center; }
+.uks-page__h1 { font: 700 clamp(28px, 3.4vw, 40px)/1.15 var(--font-body); letter-spacing: -.02em; color: var(--fg-1); margin: 0 auto 12px; text-wrap: balance; max-width: 20ch; text-align: center; }
+.uks-page__lede { font: var(--type-body-lg, var(--type-body-md)); color: var(--fg-2); line-height: 1.6; margin: 0 auto 38px; max-width: 54ch; text-align: center; }

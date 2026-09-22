@@ -38,9 +38,17 @@ export async function GET(req: Request) {
     "instrument",
     "source",
     "tripFrequency",
-    "role",
+    "carAccess",
+    "drivesForJourney",
+    // context
+    "industry",
+    "industryOther",
+    "workPattern",
+    "areaType",
+    "ptWeekday",
+    "ptWeekend",
     // passenger
-    "currentMode",
+    "currentModes",
     "currentModeOther",
     "journeyLength",
     "weeklySpendGbp",
@@ -65,7 +73,6 @@ export async function GET(req: Request) {
     "useCases",
     "useCasesOther",
     "recommend",
-    "hasCarAccess",
     // car owner
     "spareSeats",
     "route",

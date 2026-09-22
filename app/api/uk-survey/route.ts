@@ -4,19 +4,25 @@ import { Resend } from "resend";
 import {
   AGE_BANDS,
   APPEALS,
+  AREA_TYPE,
   BARRIERS,
+  CAR_ACCESS,
   COMFORT,
   CURRENT_MODE,
+  DRIVES_FOR_JOURNEY,
   DRIVE_MORE,
   DRIVER_BARRIERS,
   DRIVER_COMFORT_FACTORS,
   GAVE_LIFTS,
   GENDERS,
   HEARD_OF,
+  INDUSTRY,
   INSTRUMENTS,
   JOURNEY_LENGTH,
   LIKELIHOOD,
   MET_NEEDS,
+  PT_WEEKDAY,
+  PT_WEEKEND,
   SATISFACTION,
   saveResponse,
   SCHEDULED_VS_ONDEMAND,
@@ -24,14 +30,13 @@ import {
   SPARE_SEATS,
   storeEnabled,
   type SurveyResponse,
-  TRAVEL_ROLE,
   TRIP_FREQUENCY,
   TRUST_FACTORS,
   TRUST_SCALE,
   type TrustFactor,
   USE_CASES,
   USE_DAYS,
-  YES_NO,
+  WORK_PATTERN,
 } from "./_store";
 
 export const runtime = "nodejs";
@@ -122,8 +127,8 @@ export async function POST(req: Request) {
   if (!instrument) return bad("We couldn't tell which survey this was.");
   const tripFrequency = oneOf(TRIP_FREQUENCY, data.tripFrequency);
   if (!tripFrequency) return bad("Tell us how often you make that journey.");
-  const role = oneOf(TRAVEL_ROLE, data.role);
-  if (!role) return bad("Tell us whether you travel as a passenger or a driver.");
+  const carAccess = oneOf(CAR_ACCESS, data.carAccess);
+  if (!carAccess) return bad("Tell us whether you have a car you can drive.");
 
   const email = str(data.email, 254);
   const pilotOptIn = data.pilotOptIn === true;
@@ -149,9 +154,17 @@ export async function POST(req: Request) {
     source: str(data.source, 80) || "uk-survey",
     consent: true,
     tripFrequency,
-    role,
+    carAccess,
+    drivesForJourney: oneOf(DRIVES_FOR_JOURNEY, data.drivesForJourney),
 
-    currentMode: oneOf(CURRENT_MODE, data.currentMode),
+    industry: oneOf(INDUSTRY, data.industry),
+    industryOther: str(data.industryOther, 120),
+    workPattern: oneOf(WORK_PATTERN, data.workPattern),
+    areaType: oneOf(AREA_TYPE, data.areaType),
+    ptWeekday: oneOf(PT_WEEKDAY, data.ptWeekday),
+    ptWeekend: oneOf(PT_WEEKEND, data.ptWeekend),
+
+    currentModes: manyOf(CURRENT_MODE, data.currentModes, CURRENT_MODE.length),
     currentModeOther: str(data.currentModeOther, 120),
     journeyLength: oneOf(JOURNEY_LENGTH, data.journeyLength),
     weeklySpendGbp: money(data.weeklySpendGbp),
@@ -177,7 +190,6 @@ export async function POST(req: Request) {
     useCases: manyOf(USE_CASES, data.useCases, USE_CASES.length),
     useCasesOther: str(data.useCasesOther, 120),
     recommend: oneOf(LIKELIHOOD, data.recommend),
-    hasCarAccess: oneOf(YES_NO, data.hasCarAccess),
 
     spareSeats: oneOf(SPARE_SEATS, data.spareSeats),
     route: str(data.route, 120),
@@ -243,7 +255,7 @@ async function notify(key: string, r: SurveyResponse) {
   const pax = r.instrument === "PASSENGER";
   const lines = pax
     ? [
-        `Travels by: ${r.currentMode ?? "—"} · ${r.journeyLength ?? "—"}`,
+        `Travels by: ${(r.currentModes ?? []).join(", ") || "—"} · ${r.journeyLength ?? "—"}`,
         `Spends: £${r.weeklySpendGbp ?? "—"}/week · satisfaction ${r.satisfaction ?? "—"}`,
         `Would use: ${r.useLikelihood ?? "—"} · ${r.useDays ?? "—"} days`,
         `Scheduled vs on-demand: ${r.scheduledVsOnDemand ?? "—"}`,
@@ -260,7 +272,9 @@ async function notify(key: string, r: SurveyResponse) {
       ];
   const body = [
     `Instrument: ${r.instrument}`,
-    `Frequency: ${r.tripFrequency} · role ${r.role}`,
+    `Frequency: ${r.tripFrequency} · car ${r.carAccess}`,
+    `Area: ${r.areaType ?? "—"} · transport ${r.ptWeekday ?? "—"} weekdays, ${r.ptWeekend ?? "—"} weekends`,
+    `Industry: ${r.industry ?? "—"} · pattern ${r.workPattern ?? "—"}`,
     "",
     ...lines,
     "",

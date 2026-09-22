@@ -28,8 +28,12 @@ export default function UkSurveyPage() {
     <>
       <Header />
       <main className="uks-page">
-        <section className="section">
-          <div className="container">
+        {/* `sec` + `wrap` are the site's own section and centred-container
+            classes. An earlier draft used `section`/`container`, which this
+            codebase does not define — so the survey sat hard against the left
+            edge with the right half of the screen empty. */}
+        <section className="sec">
+          <div className="wrap wrap--tight">
             <p className="uks-page__eyebrow">Conductor · research</p>
             <h1 className="uks-page__h1">How do you make your regular journey?</h1>
             <p className="uks-page__lede">

@@ -244,3 +244,71 @@ export const CONCEPT_PASSENGER =
 
 export const CONCEPT_DRIVER =
   "Conductor lets you publish a journey you're already making and offer your spare seats to verified passengers going the same way. They pay a share of the trip cost, held securely and released to you after the trip. You approve who rides with you, see their rating, and can decline anyone without giving a reason.";
+
+// --- who you are and where you live -----------------------------------------
+//
+// Asked early, and deliberately. Where someone lives and what transport
+// actually exists there shapes every answer that follows: a village with no
+// Sunday bus and a zone-2 flat are different markets, and a survey that
+// cannot tell them apart produces a national average nobody can act on.
+
+export const INDUSTRY: Opt[] = [
+  ["HEALTH_CARE", "Health and social care"],
+  ["EDUCATION", "Education"],
+  ["RETAIL_HOSPITALITY", "Retail, hospitality or leisure"],
+  ["MANUFACTURING", "Manufacturing or engineering"],
+  ["CONSTRUCTION", "Construction or the trades"],
+  ["TRANSPORT_LOGISTICS", "Transport, warehousing or logistics"],
+  ["PROFESSIONAL_FINANCE", "Finance, legal or professional services"],
+  ["TECH", "Technology or telecoms"],
+  ["PUBLIC_SECTOR", "Public sector or government"],
+  ["CREATIVE", "Creative, media or the arts"],
+  ["AGRICULTURE", "Agriculture or food production"],
+  ["STUDENT", "Studying"],
+  ["NOT_WORKING", "Not currently working"],
+  ["OTHER", "Something else"],
+];
+
+export const WORK_PATTERN: Opt[] = [
+  ["ONSITE_FULL", "On site five days a week"],
+  ["ONSITE_MOST", "On site most days"],
+  ["HYBRID", "Hybrid — some days at home"],
+  ["MOSTLY_HOME", "Mostly at home"],
+  ["SHIFTS", "Shift work, or it varies week to week"],
+  ["NA", "Doesn't apply to me"],
+];
+
+export const AREA_TYPE: Opt[] = [
+  ["CITY_CENTRE", "City centre"],
+  ["CITY_SUBURB", "Suburb of a city"],
+  ["LARGE_TOWN", "Large town"],
+  ["SMALL_TOWN", "Small town"],
+  ["VILLAGE_RURAL", "Village or rural area"],
+];
+
+export const PT_WEEKDAY: Opt[] = [
+  ["FREQUENT", "Frequent and reliable"],
+  ["USABLE", "Usable, but limited"],
+  ["POOR", "Poor — I'd rather not rely on it"],
+  ["NONE", "Effectively none"],
+];
+
+export const PT_WEEKEND: Opt[] = [
+  ["SAME", "About the same as weekdays"],
+  ["REDUCED", "Reduced, but still usable"],
+  ["MUCH_WORSE", "Much worse"],
+  ["NONE", "Nothing at weekends"],
+  ["NOT_SURE", "Not sure"],
+];
+
+export const CAR_ACCESS: Opt[] = [
+  ["YES_OWN", "Yes — my own car"],
+  ["YES_SHARED", "Yes — a household or shared car"],
+  ["NO", "No"],
+];
+
+export const DRIVES_FOR_JOURNEY: Opt[] = [
+  ["YES_MOST", "Yes, most of the time"],
+  ["YES_SOME", "Sometimes"],
+  ["NO", "No"],
+];
