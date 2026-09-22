@@ -1343,3 +1343,22 @@
   .twoph > :first-child { transform: rotate(-4deg) translateY(6px) scale(.93); margin-right: -78px; }
   .twoph > :last-child { transform: rotate(5deg) translateY(-10px) scale(.93); }
 }
+
+/* ============================================================
+   Footer: let the link columns collapse on a phone.
+
+   The grid is set inline — gridTemplateColumns: '1.4fr repeat(4,1fr)' —
+   so no media query could reach it, and five columns at their minimum
+   content width pushed the last two off the side of a 390px screen. That
+   made the whole DOCUMENT 578px wide, so every page on the site scrolled
+   sideways and rendered cut off, the survey included.
+
+   !important is not decoration here: an inline style outranks any
+   selector, and this is the layer that exists to correct the export.
+   ============================================================ */
+@media (max-width: 900px) {
+  .ftr__grid { grid-template-columns: 1fr 1fr !important; gap: 28px 20px; }
+}
+@media (max-width: 560px) {
+  .ftr__grid { grid-template-columns: 1fr !important; }
+}

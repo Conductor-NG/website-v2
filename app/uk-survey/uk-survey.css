@@ -118,3 +118,37 @@
 .uks-page__eyebrow { font: var(--type-label-md); letter-spacing: .14em; text-transform: uppercase; color: var(--pink-base); margin: 0 0 10px; text-align: center; }
 .uks-page__h1 { font: 700 clamp(28px, 3.4vw, 40px)/1.15 var(--font-body); letter-spacing: -.02em; color: var(--fg-1); margin: 0 auto 12px; text-wrap: balance; max-width: 20ch; text-align: center; }
 .uks-page__lede { font: var(--type-body-lg, var(--type-body-md)); color: var(--fg-2); line-height: 1.6; margin: 0 auto 38px; max-width: 54ch; text-align: center; }
+
+/* --- mobile ------------------------------------------------------------- */
+
+/* Each step scrolls itself to the top, and the site header is fixed over
+   that top — so on a phone every new page opened with its heading hidden
+   behind the header. Reserve the header's height for the scroll. */
+.uks { scroll-margin-top: 92px; }
+
+/* The honeypot. Hidden from people and from assistive tech, without the
+   -9999px offset it used to use: that is a left overflow, and an overflow
+   audit has to stop and rule it out every time. */
+.uks-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .uks { gap: 22px; }
+  .uks-step { gap: 22px; }
+  .uks-q__t { font-size: 16.5px; }
+  .uks-opt { padding: 13px 14px; }
+  /* Thumb-sized targets: a radio you have to aim at costs answers. */
+  .uks-opt input { width: 20px; height: 20px; }
+  .uks-nav { position: sticky; bottom: 0; background: var(--bg, #fdfaf6); padding: 12px 0 14px; margin-top: 4px; z-index: 5; border-top: 1px solid var(--line, var(--outline)); }
+  .uks-money__in { max-width: 100%; }
+  .uks-other { max-width: 100%; }
+}
