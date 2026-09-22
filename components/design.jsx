@@ -1269,6 +1269,9 @@ function Calculator({lock,start}){
             React.createElement(OpenAppBtn,{href:isP?LINKS.pWeb:LINKS.dWeb,label:'Open the web app',loc:'calculator'}),
             React.createElement(DownloadButton,{ios:isP?LINKS.pIos:LINKS.dIos,android:isP?LINKS.pAnd:LINKS.dAnd,variant:'dark',loc:'calculator'}))))));
 }
+
+
+
 /* ============ PaxHome ============ */
 const PAX_STEPS=[
   {n:'Step one',t:'Find the trips going your way',b:'Enter where you travel from and to, and see every car owner already driving that route — real journeys scheduled in advance, laid out on the map around you, not a car summoned in the rain.',screen:1},
@@ -1363,7 +1366,6 @@ function PaxHome(){
     <Footer/>
   </>);
 }
-
 
 
 /* ============ Owner ============ */
@@ -1462,7 +1464,6 @@ function OwnerPage(){
     <Footer/>
   </>);
 }
-
 
 
 /* ============ HowItWorks ============ */
@@ -1760,7 +1761,6 @@ function SafetyNew(){
     <Footer/>
   </>);
 }
-
 
 
 /* ============ FaresPage ============ */
@@ -2327,7 +2327,6 @@ function FAQPage(){
     <Footer/>
   </>);
 }
-
 
 
 /* ============ Legal ============ */
@@ -3092,7 +3091,6 @@ function PressPage(){
     <Footer/>
   </>);
 }
-
 
 
 export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };

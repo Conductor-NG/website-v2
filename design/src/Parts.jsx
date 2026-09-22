@@ -27,8 +27,30 @@ const APPLE='M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9
 const PLAY='M4.3 2.6c-.3.3-.5.8-.5 1.4v16c0 .6.2 1.1.5 1.4l.1.1 9-9v-.2l-9-8.7ZM16.4 15.5l-3-3v-.2l3-3 .1.1 3.6 2c1 .6 1 1.5 0 2.1l-3.7 2ZM16.5 15.6 13.4 12.5l-9.1 9.1c.3.4.9.4 1.5.1l10.7-6.1';
 // Fire a GA4 event (no-op until NEXT_PUBLIC_GA_ID is set). Used for
 // site→app conversions: open_webapp, download_intent, store_click.
+// One place for all outbound analytics. Fires GA4, and maps high-intent
+// actions to standard Meta/TikTok conversion events so ad platforms can
+// optimise delivery. All calls are guarded — Meta/TikTok no-op until their
+// pixels are configured (NEXT_PUBLIC_*_PIXEL_ID), so this is always safe.
+const CONV_EVENTS={
+  // internal name : [Meta standard event, TikTok standard event]
+  open_webapp:['Lead','ClickButton'],
+  download_intent:['Lead','Download'],
+  store_click:['Lead','ClickButton'],
+  calc_estimate:['ViewContent','ViewContent'],
+};
 function track(name,params){
-  if(typeof window!=='undefined'&&typeof window.gtag==='function')window.gtag('event',name,params||{});
+  if(typeof window==='undefined')return;
+  const w=window;
+  if(typeof w.gtag==='function')w.gtag('event',name,params||{});
+  const std=CONV_EVENTS[name];
+  if(typeof w.fbq==='function'){
+    if(std)w.fbq('track',std[0],params||{});
+    w.fbq('trackCustom',name,params||{});
+  }
+  if(w.ttq&&typeof w.ttq.track==='function'){
+    if(std)w.ttq.track(std[1],params||{});
+    w.ttq.track(name,params||{});
+  }
 }
 const appOf=(s)=>/driver|owner|car/i.test(s||'')?'owner':'passenger';
 
@@ -69,9 +91,14 @@ function DownloadButton({ios,android,variant='dark',size='lg',label='Download th
       React.createElement('span',null,label),
       React.createElement(Icon,{name:'chevronD',size:15,style:{transition:'transform .2s',transform:open?'rotate(180deg)':'none'}})),
     open&&React.createElement('div',{className:'dlpop',role:'menu'},
-      React.createElement('p',{className:'dlpop__t'},'Get the app'),
-      React.createElement(StoreBtn,{kind:'ios',href:ios,label:'app',loc:loc}),
-      React.createElement(StoreBtn,{kind:'play',href:android,label:'app',loc:loc})));
+      React.createElement('p',{className:'dlpop__t'},'Scan or tap to download'),
+      React.createElement('div',{className:'dlpop__grid'},
+        React.createElement('div',{className:'dlpop__col'},
+          React.createElement('img',{className:'dlpop__qr',src:'/images/qr.googleplay.svg',alt:'Google Play QR code',width:120,height:120,loading:'lazy'}),
+          React.createElement(StoreBtn,{kind:'play',href:android,label:'app',loc:loc})),
+        React.createElement('div',{className:'dlpop__col'},
+          React.createElement('img',{className:'dlpop__qr',src:'/images/qr.appstore.svg',alt:'App Store QR code',width:120,height:120,loading:'lazy'}),
+          React.createElement(StoreBtn,{kind:'ios',href:ios,label:'app',loc:loc})))));
 }
 
 function useReveal(){
@@ -105,7 +132,7 @@ function Stars({v=4.9,n}){return React.createElement('span',{style:{display:'inl
   React.createElement('span',{className:'num'},v),n?' · '+n:'')}
 
 /* ---------------- phone + app screens ---------------- */
-const DSB=(window.ConductorDesignSystem_31cc6b||{}).Button||(({variant,size,block,className,...p})=>React.createElement('button',{...p,className:'btn btn--'+(variant||'primary')+(size?' btn--'+size:'')+(block?' btn--block':'')+(className?' '+className:'')}));
+const DSB=((typeof window!=='undefined'?window:{}).ConductorDesignSystem_31cc6b||{}).Button||(({variant,size,block,className,...p})=>React.createElement('button',{...p,className:'btn btn--'+(variant||'primary')+(size?' btn--'+size:'')+(block?' btn--block':'')+(className?' '+className:'')}));
 function StatusBar(){return React.createElement('div',{className:'sbar'},React.createElement('span',{className:'num'},'9:41'),
   React.createElement('em',null,React.createElement('svg',{width:34,height:11,viewBox:'0 0 34 11',fill:'currentColor'},
     React.createElement('path',{d:'M0 7h2v4H0zM4 5h2v6H4zM8 3h2v8H8zM12 1h2v10h-2z'}),

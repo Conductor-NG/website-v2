@@ -25,7 +25,9 @@ function PaxHome(){
 
       <Carpool role="passenger"/>
 
-      <section className="sec"><div className="wrap">
+      <section className="sec" style={{position:'relative',overflow:'hidden'}}>
+        <img src="/images/art/eko-bridge-line.png" alt="" aria-hidden="true" style={{position:'absolute',left:0,right:0,bottom:0,width:'100%',height:'auto',maxHeight:'62%',objectFit:'contain',objectPosition:'center bottom',opacity:0.4,pointerEvents:'none'}}/>
+        <div className="wrap" style={{position:'relative'}}>
         <div className="illusplit">
           <Rv cls="rv--sc illusplit__art">
             <img src="/images/art/passengers.png" alt="Four commuters sharing a car through Lagos" loading="lazy"/>
@@ -42,10 +44,6 @@ function PaxHome(){
         title={<>Four steps, and you have <em>a seat</em>.</>}
         lede="Every step below is a real screen from the passenger app — this is the whole journey, not a simplified version of it."/>
 
-      {/* Three screens, in the order a rider meets them: the route they
-          travel, the seats going their way, and the money that stays put
-          until each day is done. The fan and the connecting line are CSS,
-          so the screenshots underneath stay swappable and stay sharp. */}
       <section className="sec sec--cream"><div className="wrap">
         <SHead eyebrow="The whole thing, in three screens"
           title={<>Your route, the seats on it, and <em>where the money sits</em>.</>}
@@ -73,7 +71,7 @@ function PaxHome(){
       <section className="sec" id="cost"><div className="wrap">
         <SHead eyebrow="What it costs" title={<>Now put your <em>own route</em> in.</>}
           lede="Pick where you travel from and to, and how often you make the journey. Distance and journey time are ours; the fare comes live from the app, so what you read here is what you pay at booking."/>
-        <Rv cls="rv--sc"><Quote mode="passenger"/></Rv>
+        <Rv cls="rv--sc"><Calculator lock="passenger"/></Rv>
         <Rv d={90}><p className="small" style={{marginTop:18,maxWidth:'74ch'}}>Not seeing where you travel? <a href={P.corr}>Ask us to open your route</a> and we will tell you when a car owner publishes it.</p></Rv>
       </div></section>
 
@@ -93,4 +91,3 @@ function PaxHome(){
     <Footer/>
   </>);
 }
-ReactDOM.createRoot(document.getElementById('root')).render(<PaxHome/>);

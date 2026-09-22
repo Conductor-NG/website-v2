@@ -1,9 +1,14 @@
 const fs = require("fs");
 const dir = "design/src";
-// dependency order: primitives → screens → section HOCs → shell → pages
+// Dependency order: primitives → screens → section HOCs → shell → pages.
+//
+// Quote and Routes are deliberately absent. Both were superseded by Places
+// + Calculator and removed from the bundle, but they stayed in this list and
+// in design/src, so every port re-added ~140 lines of dead components that
+// production had not carried for months.
 const order = [
   "Parts", "AppScreens", "Film", "Steps", "Shell", "Places",
-  "Quote", "Calculator", "Routes",
+  "Calculator",
   "PaxHome", "Owner", "HowItWorks", "SafetyNew", "FaresPage",
   "Corridors", "CorridorDetail", "About", "FAQ", "Legal",
 ];
@@ -12,6 +17,10 @@ let out =
   '   Do not edit here — edit the source and re-run design/port.cjs.\n' +
   '   Re-skinned to the app theme via app/design-css/theme-override.css. */\n' +
   'import React from "react";\n' +
+  // The fare calculator's modal portals out of its section. This import only
+  // ever existed in the generated bundle, so a port dropped it and the page
+  // threw the moment anyone opened the modal.
+  'import { createPortal } from "react-dom";\n' +
   "const ReactDOM = { createRoot: () => ({ render() {} }) };\n\n";
 
 for (const name of order) {
@@ -29,11 +38,15 @@ out = out.replace(/window.ConductorDesignSystem_31cc6b/g, "(typeof window!=='und
 
 out = out.replace(
   /const P=\{[^}]*\};/,
-  "const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del:'/delete-profile',careers:'/careers',press:'/press'};"
+  "const P={home:'/',pass:'/',own:'/car-owners',how:'/how-it-works',about:'/about',safety:'/safety',faq:'/faq',corr:'/corridors',cdet:'/corridors/agege-ikeja',fares:'/fares',privacy:'/legal/privacy',terms:'/legal/terms',conduct:'/legal/code-of-conduct',paxpol:'/legal/passenger-policy',ownpol:'/legal/car-owner-policy',refund:'/legal/privacy#refund',del:'/delete-profile',careers:'/careers',press:'/press',contact:'/contact'};"
 );
 
 out +=
-  "\nexport { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Quote, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, RefundPolicyPage, AccountDeletionPage, ConductPage, DeletePage, CareersPage, PressPage };\n";
+  // RefundPolicyPage and AccountDeletionPage are gone: the refund policy was
+  // folded into the privacy policy as clause 14, and the two deletion
+  // documents were merged into /delete-profile. They are declared nowhere,
+  // so this list was exporting two bindings that do not exist.
+  "\nexport { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };\n";
 
 /**
  * Refuse to write if the bundle on disk declares things this port would not.
