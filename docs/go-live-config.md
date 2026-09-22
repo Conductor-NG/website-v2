@@ -160,20 +160,42 @@ streets, estates, bus stops and every city in Nigeria.
 The site keeps working either way — with no key the input silently falls back
 to the built-in list.
 
-### 4a. Create the key
+### 4a. Which key
 
-1. <https://console.cloud.google.com/> → pick (or create) a project.
-2. **APIs & Services → Library** → enable **Places API**.
-   (The legacy `maps/api/place/*` endpoints, not "Places API (New)".)
+It must be a **server** key. Not `EXPO_PUBLIC_MAPS_BROWSER_KEY` (browser keys
+are referrer-restricted and already public), and **not a Map ID** —
+`EXPO_PUBLIC_MAPS_MAP_ID` identifies a cloud-based *map style*, carries no
+credentials and cannot authenticate anything.
+
+The Conductor server's own `GOOGLE_MAPS_SERVER_KEY` works and is already
+proven against these exact endpoints (see
+`apps/server/src/maps/maps.service.ts` in conductor-greenfield). This route
+accepts it under that name, so it can be pasted in as-is.
+
+A dedicated key for the website is still better: it keeps this site's quota
+and blast radius separate, so a marketing-site incident never forces rotating
+a key the app depends on. To mint one:
+
+1. <https://console.cloud.google.com/> → the same project as the app
+   (`conductor-ng-dev`), so billing and enabled APIs carry over.
+2. **APIs & Services → Library** → enable **Places API (New)**. Enable the
+   legacy **Places API** as well if it is offered — the route tries New
+   first and falls back, so either one alone is enough, but projects created
+   after early 2025 can only enable New.
 3. **APIs & Services → Credentials → Create credentials → API key**.
-4. **Restrict the key:**
+4. **Restrict it:**
    - *Application restrictions:* **IP addresses**, not HTTP referrers. The
-     calls come from the server, so there is no referrer to match. If you
-     cannot pin Vercel's egress IPs, leave it as None rather than setting
-     referrers — referrer restrictions would block every call.
-   - *API restrictions:* **Restrict key → Places API** only.
-5. **Billing** must be enabled on the project, and set a budget alert —
-   Places is billed per request.
+     calls come from the server, so there is no referrer to match — referrer
+     restrictions would block every call. If you cannot pin Vercel's egress
+     IPs, leave this as None.
+   - *API restrictions:* **Restrict key → Places API (New)** (+ Places API).
+5. **Billing** must be enabled on the project. Set a budget alert — Places is
+   billed per request.
+
+> If you reuse `GOOGLE_MAPS_SERVER_KEY`, check its *Application restrictions*
+> first. It was provisioned for Cloud Run; if it has since been IP-restricted
+> to Cloud Run's egress, calls from Vercel are rejected and you will see
+> `REQUEST_DENIED` in the logs.
 
 ### 4b. Set it on Vercel
 
@@ -181,7 +203,11 @@ Vercel → the website project → **Settings → Environment Variables**:
 
 | Variable | Value | Environments |
 | --- | --- | --- |
-| `GOOGLE_PLACES_API_KEY` | the key from step 3 | Production, Preview, Development |
+| `GOOGLE_PLACES_API_KEY` | the key from 4a | Production, Preview, Development |
+
+`GOOGLE_MAPS_SERVER_KEY` is accepted as a fallback name, so the app's existing
+server key can be set under the name it already has. If both are present,
+`GOOGLE_PLACES_API_KEY` wins.
 
 There is **no `NEXT_PUBLIC_` prefix** on purpose. A `NEXT_PUBLIC_` key is
 compiled into the page and anyone can read it out of the HTML and spend the
@@ -198,9 +224,17 @@ build time; an existing deployment will not pick it up.
 - `{"ok":false,"reason":"no_key"}` — the variable isn't on that deployment,
   or it hasn't been redeployed since.
 - `{"ok":false,"reason":"upstream"}` — Google rejected it. The real reason is
-  in the Vercel function logs as `[places] REQUEST_DENIED: …`; usually the
-  Places API isn't enabled, billing is off, or the key has referrer
-  restrictions on it.
+  in the Vercel function logs; usually the Places API isn't enabled, billing
+  is off, or the key has referrer/IP restrictions that exclude Vercel.
+
+Two log lines matter, and they mean different things:
+
+- `[places] New autocomplete 403: …` — Places API (New) refused, and the
+  route fell back to the legacy API for 5 minutes. If the legacy call then
+  succeeded the visitor saw results and nothing is broken, but enabling
+  Places API (New) on the key removes a wasted call per search.
+- `[places] REQUEST_DENIED: …` — the legacy API refused too. Nothing is
+  working; the key is wrong, restricted, or has neither API enabled.
 
 ### 4d. What it costs
 
@@ -211,6 +245,8 @@ Two things keep the bill down:
   Details call per completed search, not one per letter.
 - **Caching.** Repeated queries are answered from an in-process cache for 10
   minutes, so the same few dozen area names aren't billed over and over.
+- **Field masks.** Both APIs are asked for only the fields the calculator
+  uses, which keeps each call in a cheaper billing tier.
 
 Routes over 50 km still aren't priced — Conductor is a daily-commute product.
 Search reaches the whole country; the estimate covers a commute.
