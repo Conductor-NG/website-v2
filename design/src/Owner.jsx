@@ -33,7 +33,10 @@ function OwnerPage(){
             <Rv d={110}><p className="lede" style={{marginTop:24}}>Conductor doesn't send you anywhere new. You publish the route you already drive, approve the people going your way, and the seats that were travelling empty start covering what the trip costs you to run.</p></Rv>
           </div>
           <Rv cls="rv--sc illusplit__art">
-            <img src="/images/art/driver.png" alt="A car owner driving through Lagos" loading="lazy"/>
+            <video autoPlay muted loop playsInline preload="none" poster="/images/art/driver-poster.jpg" aria-label="A car owner sharing the drive with passengers through Lagos">
+              <source src="/images/art/driver.webm" type="video/webm"/>
+              <source src="/images/art/driver.mp4" type="video/mp4"/>
+            </video>
           </Rv>
         </div>
       </div></section>
@@ -71,7 +74,7 @@ function OwnerPage(){
       <section className="sec" id="cost"><div className="wrap">
         <SHead eyebrow="What the seats are worth" title={<>Now put your <em>own drive</em> in.</>}
           lede="Pick your route, how many seats you would share and how often you make the journey. Distance and journey time are ours; the figure comes live from the app’s own pricing, so it is never a stale number on a web page."/>
-        <Rv cls="rv--sc"><Quote mode="owner"/></Rv>
+        <Rv cls="rv--sc"><Calculator lock="owner"/></Rv>
       </div></section>
 
       <Promo eyebrow="On now, for car owners"
@@ -90,4 +93,3 @@ function OwnerPage(){
     <Footer/>
   </>);
 }
-ReactDOM.createRoot(document.getElementById('root')).render(<OwnerPage/>);

@@ -4,11 +4,11 @@
 const SAFE_STEPS=[
   {n:'Before a first trip',t:'Verified before you ever meet',b:'Identity is checked on both sides before a first trip — passengers clear NIN, phone and a liveness selfie; car owners add licence, vehicle papers and roadworthiness. You see the other’s verification and rating before any money is committed.',screen:0},
   {n:'Meeting up',t:'A named place to meet, never a dropped pin',b:'You meet at a known, categorised landmark on the route the car was already taking — a filling station, a mall, a familiar junction — colour-coded for how safe and public it is, never an unmarked spot down a side street.',screen:1},
-  {n:'On the road',t:'Track the whole trip, and share it live',b:'Follow the journey on a live map, your destination and the car’s progress in view the whole way, and send a live link to anyone you trust — they follow along without the app. SOS sits on the same screen.',screen:2},
+  {n:'On the road',t:'Track the whole trip, and share it live',b:'Follow the journey on a live map — the car’s progress and your destination in view the whole way. Add the people you trust as emergency contacts and they’re sent a live link automatically: they watch you get home from any browser, no app or login needed — your name, who else is in the car, and your live location, only while the trip is on. SOS sits on the same screen.',screen:2},
   {n:'If anything goes wrong',t:'SOS on every screen, for both people',b:'Hold SOS and your live location goes to emergency services, your trusted contacts and our safety team at once. Short of an emergency, either side can suspend the trip — it ends there, and the fare is resolved afterwards, never at the roadside.',screen:3},
   {n:'Afterwards',t:'Rated, and it sticks to you',b:'Every passenger and car owner is rated after each trip, and either side can flag a problem — raise it and your money is protected until it is put right. A name here cannot be discarded and remade after a bad trip, which is exactly what makes every rating mean something.',screen:4}
 ];
-const SAFE_SET=[SHOT('pax-09-verification'),SHOT('drv-14-landmark'),SHOT('pax-livetrip'),SHOT('drv-05-sos'),SHOT('pax-07-rate')];
+const SAFE_SET=[SHOT('pax-09-verification'),SHOT('drv-14-landmark'),SHOT('pax-tripshare-v2'),SHOT('drv-05-sos'),SHOT('pax-07-rate')];
 
 const SAFE_ALL=[
   ['Before you travel','shield','Identity & trust',[
@@ -118,4 +118,3 @@ function SafetyNew(){
     <Footer/>
   </>);
 }
-ReactDOM.createRoot(document.getElementById('root')).render(<SafetyNew/>);
