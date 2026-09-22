@@ -979,7 +979,7 @@ export function UkSurvey() {
         autoComplete="off"
         name="company"
         onChange={(e) => set("company", e.target.value)}
-        style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
+        className="uks-hp"
         tabIndex={-1}
         type="text"
       />

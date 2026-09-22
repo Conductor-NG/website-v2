@@ -8,7 +8,12 @@ const WIDGET_ID = process.env.NEXT_PUBLIC_TAWK_WIDGET_ID || "default";
 
 // The investor deck is confidential material shown in meetings — a support
 // bubble has no business floating over it (and /deck/print renders to PDF).
-const HIDDEN_ON = ["/deck"];
+//
+// The UK survey is a research instrument, not a product page. There is no
+// support relationship with a respondent, an offer to chat is a distraction
+// mid-questionnaire, and on a phone the bubble sits directly on top of the
+// Back button.
+const HIDDEN_ON = ["/deck", "/uk-survey"];
 
 /**
  * tawk.to live chat.
