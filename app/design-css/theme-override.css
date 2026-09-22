@@ -578,7 +578,7 @@
   width: var(--pw);
   /* height flows from status bar + screen so the screenshot never crops */
   border-radius: 14% / 6.8%;
-  padding: 1.3%; /* titanium rail thickness (slimmed) */
+  padding: 0.85%; /* titanium rail — thinner, closer to the real phone */
   background: linear-gradient(
     145deg,
     #e6e6ea 0%,
@@ -599,7 +599,7 @@
   flex-direction: column;
   border-radius: 12% / 5.9%;
   background: #05050a;
-  padding: 1.5%; /* black bezel thickness (slimmed) */
+  padding: 1%; /* black bezel — thinner, closer to the real phone */
   /* clip the status strip + screenshot to the bezel's rounded shape so the
      app never pokes past the corners at the top */
   overflow: hidden;

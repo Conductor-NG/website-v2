@@ -1489,7 +1489,7 @@ function OwnerPage(){
       <section className="sec sec--cream"><div className="wrap">
         <SHead eyebrow="The part car owners ask about first" title={<>You decide <em>who</em> gets in.</>}
           lede="A request is an ask, not a booking. You see who they are, what other car owners rated them and where they are going — then you approve or decline."/>
-        <div className="grid2" style={{alignItems:'center',gap:'clamp(24px,3vw,52px)'}}>
+        <div className="grid2" style={{alignItems:'start',gap:'clamp(24px,3vw,52px)'}}>
           <div>
             <ul className="checks" style={{gap:16}}>
               {['Every request carries a verified identity and a rating earned from previous trips',
@@ -1502,7 +1502,7 @@ function OwnerPage(){
             <a className="linkarrow" href={P.how} style={{marginTop:28,display:'inline-flex'}}>See both apps side by side<Icon name="arrow" size={15}/></a>
           </div>
           <Rv d={120} cls="rv--sc twoph">
-            <Phone single={10} w={288} set={DSCREENS}/><Phone single={3} w={288} set={DSCREENS}/>
+            <Phone single={10} w={268} set={DSCREENS}/><Phone single={3} w={268} set={DSCREENS}/>
           </Rv>
         </div>
       </div></section>
