@@ -81,9 +81,9 @@ const CONSENT: Step = {
           To analyse travel needs and demand. If you leave an email we may
           contact you about an early-access pilot, and you can opt out at any
           time. We will not sell your data or share it with third parties for
-          marketing. Responses are stored securely and anonymised for analysis.
-          We keep contact details no longer than 12 months unless you ask us to
-          remove them sooner.
+          marketing. Responses are stored securely, and analysed separately
+          from any contact details you give. We keep contact details no longer
+          than 12 months unless you ask us to remove them sooner.
         </dd>
         <dt>Your rights</dt>
         <dd>
@@ -135,9 +135,34 @@ const SCREENING: Step = {
           value={a.tripFrequency as string}
         />
       </Question>
+      {/* The fork, asked here rather than three pages later. It decides
+          whether this run includes the driver half, and until it is answered
+          the counter has to guess — so the sooner it lands, the fewer people
+          are shown a length that is not theirs. */}
+      <Question number="3" title="Do you have a car you can drive?">
+        <Radio
+          name="carAccess"
+          onChange={(v) => set("carAccess", v)}
+          options={Q.CAR_ACCESS}
+          value={a.carAccess as string}
+        />
+      </Question>
+      {a.carAccess && a.carAccess !== "NO" ? (
+        <Question number="4" title="Do you drive yourself for your regular journey?">
+          <Radio
+            name="drivesForJourney"
+            onChange={(v) => set("drivesForJourney", v)}
+            options={Q.DRIVES_FOR_JOURNEY}
+            value={a.drivesForJourney as string}
+          />
+        </Question>
+      ) : null}
     </>
   ),
-  blocked: (a) => (a.livesInUk && a.tripFrequency ? undefined : "Please answer both."),
+  blocked: (a) =>
+    a.livesInUk && a.tripFrequency && a.carAccess
+      ? undefined
+      : "Please answer all the questions on this page.",
 };
 
 /**
@@ -203,11 +228,12 @@ const ABOUT_PERSON: Step = {
 };
 
 /**
- * Where they live, what transport exists there, and whether they have a car.
+ * Where they live and what transport exists there.
  *
- * The car question is the fork. Someone without one cannot offer seats, so
- * they never see the driver half; someone with one answers both, because
- * supply is the side a marketplace actually fails on.
+ * The car question used to sit here and now sits in the screener: it is the
+ * fork that decides whether this run includes the driver half, and a fork
+ * answered on page four means four pages of telling people a length that may
+ * not be theirs.
  *
  * Weekday and weekend transport are asked separately because they differ so
  * sharply in much of the UK. A town with a decent weekday bus and nothing on
@@ -251,28 +277,8 @@ const ABOUT_PLACE: Step = {
           value={a.ptWeekend as string}
         />
       </Question>
-      <Question number="" title="Do you have a car you can drive?">
-        <Radio
-          name="carAccess"
-          onChange={(v) => set("carAccess", v)}
-          options={Q.CAR_ACCESS}
-          value={a.carAccess as string}
-        />
-      </Question>
-      {a.carAccess && a.carAccess !== "NO" ? (
-        <Question number="" title="Do you drive yourself for your regular journey?">
-          <Radio
-            name="drivesForJourney"
-            onChange={(v) => set("drivesForJourney", v)}
-            options={Q.DRIVES_FOR_JOURNEY}
-            value={a.drivesForJourney as string}
-          />
-        </Question>
-      ) : null}
     </>
   ),
-  blocked: (a) =>
-    a.carAccess ? undefined : "Tell us whether you have a car — it decides what we ask next.",
 };
 
 const PILOT: Step = {
@@ -784,6 +790,17 @@ const DRIVER_STEPS: Step[] = [
   },
 ];
 
+/**
+ * Longest possible run — both halves — which is what the counter shows until
+ * the car question settles which route this respondent is on.
+ *
+ * Derived, not typed out: the four fixed pages up front (consent, screening,
+ * about you, where you live) and the pilot page at the end, plus whichever
+ * question pages exist. A step added to either array moves this with it.
+ */
+const FIXED_STEPS = 5;
+const MAX_STEPS = FIXED_STEPS + PASSENGER_STEPS.length + DRIVER_STEPS.length;
+
 // --- the flow ---------------------------------------------------------------
 
 export function UkSurvey() {
@@ -795,12 +812,21 @@ export function UkSurvey() {
   /**
    * Whether the driver half is in this run.
    *
-   * Derived from the answer rather than stored, so the step list and the
+   * Derived from the answers rather than stored, so the step list and the
    * routing can never disagree with what the respondent actually said.
+   *
+   * Having a car is not enough. The driver pages open with "You said you
+   * drive" and ask how many seats are empty on your regular journey — put
+   * those to someone who ticked a household car and then said they do NOT
+   * drive that journey, and the survey is contradicting them and asking
+   * about a trip they do not make. Only an explicit "no" excludes them:
+   * the question is optional, and when it is blank the seats are worth
+   * asking about.
    */
   const hasCar = answers.carAccess !== undefined && answers.carAccess !== "NO";
+  const offersSeats = hasCar && answers.drivesForJourney !== "NO";
   /** Which halves this row contains: passenger only, or passenger + driver. */
-  const instrument = hasCar ? "CAR_OWNER" : "PASSENGER";
+  const instrument = offersSeats ? "CAR_OWNER" : "PASSENGER";
   const topRef = useRef<HTMLDivElement>(null);
 
   const set = useCallback((key: string, value: unknown) => {
@@ -827,13 +853,14 @@ export function UkSurvey() {
       ABOUT_PERSON,
       ABOUT_PLACE,
       ...PASSENGER_STEPS,
-      // Anyone with a car answers the supply side too, in the same run.
-      // They are the only people who can offer a seat, and a marketplace
-      // with demand and no supply is the failure worth finding early.
-      ...(hasCar ? DRIVER_STEPS : []),
+      // Anyone who actually drives the journey answers the supply side too,
+      // in the same run. They are the only people who can offer a seat, and
+      // a marketplace with demand and no supply is the failure worth finding
+      // early.
+      ...(offersSeats ? DRIVER_STEPS : []),
       PILOT,
     ],
-    [hasCar],
+    [offersSeats],
   );
 
   const step = steps[Math.min(index, steps.length - 1)];
@@ -927,9 +954,22 @@ export function UkSurvey() {
     );
   }
 
-  const total = steps.length;
+  /**
+   * What the counter says, which is NOT always how many steps are left.
+   *
+   * The route is not known until the car question on page 4, and before that
+   * the derived list is the short one. Counting it directly meant a car owner
+   * read "Step 4 of 11", answered honestly, and was shown "Step 5 of 16" —
+   * the survey growing by half, sprung on exactly the people whose answers
+   * matter most. A progress bar that grows is a well-known way to lose them.
+   *
+   * So until the route is settled the counter assumes the LONGEST path. It
+   * can then only ever shrink, and finding out it is shorter than you thought
+   * costs nobody anything.
+   */
+  const total = answers.carAccess === undefined ? MAX_STEPS : steps.length;
   const pct = Math.round(((index + 1) / total) * 100);
-  const last = index === total - 1;
+  const last = index === steps.length - 1;
 
   return (
     <div className="uks" ref={topRef}>

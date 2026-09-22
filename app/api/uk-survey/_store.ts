@@ -236,6 +236,13 @@ export type SurveyResponse = {
   instrument: Instrument;
   source: string;
   consent: true;
+  /**
+   * Salted hash of the submitting IP — never the IP. Two rows sharing this
+   * came from the same place, which is all the analysis needs and all the
+   * consent notice can support. Present so anything the rate limit let past
+   * (it fails open) can still be de-duplicated after the fact.
+   */
+  sourceHash?: string;
 
   // screening (both)
   tripFrequency: (typeof TRIP_FREQUENCY)[number];
@@ -321,6 +328,60 @@ export async function saveResponse(r: SurveyResponse): Promise<boolean> {
   await client.rpush(LIST, JSON.stringify(r));
   await client.incr(COUNT);
   return true;
+}
+
+/**
+ * How many submissions one source may make in a day, and over what window.
+ *
+ * The survey's entire output is counts and a price distribution, and both are
+ * skewed by one determined person submitting repeatedly — which is a cheaper
+ * attack than it sounds when the result is meant to support a business case.
+ * A cap this loose stops that without touching a household or an office
+ * sharing an address, which is the failure mode to avoid: a real respondent
+ * turned away is worse than a duplicate kept.
+ */
+const RL_MAX = 5;
+const RL_WINDOW_SECONDS = 24 * 60 * 60;
+
+/**
+ * Per-source submission count, as a decision and a fingerprint.
+ *
+ * The source is identified by a SALTED HASH of the IP, never the IP itself.
+ * An IP is personal data, the consent notice does not mention collecting one,
+ * and nothing downstream needs the address — only whether two rows came from
+ * the same place. Without `UK_SURVEY_RL_SALT` set, the hash is still stable
+ * within a deployment but not reversible by rainbow table alone.
+ *
+ * FAILS OPEN. If Redis is unreachable this returns `{ allowed: true }`: a
+ * store outage silently discarding genuine responses would cost more than the
+ * duplicates it prevents, and the count is kept on the row so anything that
+ * slipped through can still be de-duplicated at analysis time.
+ */
+export async function checkRate(
+  ip: string
+): Promise<{ allowed: boolean; sourceHash: string; seen: number }> {
+  const sourceHash = await hashSource(ip);
+  if (!client) return { allowed: true, sourceHash, seen: 0 };
+  try {
+    const key = `survey:uk:rl:${sourceHash}`;
+    const seen = await client.incr(key);
+    // Set the window on the first hit only, so a flood cannot keep pushing
+    // the expiry out and hold the key alive indefinitely.
+    if (seen === 1) await client.expire(key, RL_WINDOW_SECONDS);
+    return { allowed: seen <= RL_MAX, sourceHash, seen };
+  } catch {
+    return { allowed: true, sourceHash, seen: 0 };
+  }
+}
+
+async function hashSource(ip: string): Promise<string> {
+  const salt = process.env.UK_SURVEY_RL_SALT ?? "uk-survey";
+  const data = new TextEncoder().encode(`${salt}:${ip}`);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(digest))
+    .slice(0, 12)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 export async function listResponses(): Promise<SurveyResponse[]> {
