@@ -150,6 +150,73 @@ connected for that, this picks it up automatically.
 
 ---
 
+## 4. Fare-calculator place search (Google Places)
+
+The calculator on `/fares` and the home page prices a route from two searched
+points. Without a key it searches a built-in list of ~80 Lagos areas, so
+anyone who types their street gets nothing back. With a key it searches
+streets, estates, bus stops and every city in Nigeria.
+
+The site keeps working either way — with no key the input silently falls back
+to the built-in list.
+
+### 4a. Create the key
+
+1. <https://console.cloud.google.com/> → pick (or create) a project.
+2. **APIs & Services → Library** → enable **Places API**.
+   (The legacy `maps/api/place/*` endpoints, not "Places API (New)".)
+3. **APIs & Services → Credentials → Create credentials → API key**.
+4. **Restrict the key:**
+   - *Application restrictions:* **IP addresses**, not HTTP referrers. The
+     calls come from the server, so there is no referrer to match. If you
+     cannot pin Vercel's egress IPs, leave it as None rather than setting
+     referrers — referrer restrictions would block every call.
+   - *API restrictions:* **Restrict key → Places API** only.
+5. **Billing** must be enabled on the project, and set a budget alert —
+   Places is billed per request.
+
+### 4b. Set it on Vercel
+
+Vercel → the website project → **Settings → Environment Variables**:
+
+| Variable | Value | Environments |
+| --- | --- | --- |
+| `GOOGLE_PLACES_API_KEY` | the key from step 3 | Production, Preview, Development |
+
+There is **no `NEXT_PUBLIC_` prefix** on purpose. A `NEXT_PUBLIC_` key is
+compiled into the page and anyone can read it out of the HTML and spend the
+quota. This one is read only by `/api/places` on the server.
+
+Then **Deployments → ⋯ → Redeploy**. Environment variables are baked in at
+build time; an existing deployment will not pick it up.
+
+### 4c. Test it
+
+    curl "https://conductor.ng/api/places?q=allen%20avenue&token=test"
+
+- `{"ok":true,"places":[...]}` — working.
+- `{"ok":false,"reason":"no_key"}` — the variable isn't on that deployment,
+  or it hasn't been redeployed since.
+- `{"ok":false,"reason":"upstream"}` — Google rejected it. The real reason is
+  in the Vercel function logs as `[places] REQUEST_DENIED: …`; usually the
+  Places API isn't enabled, billing is off, or the key has referrer
+  restrictions on it.
+
+### 4d. What it costs
+
+Two things keep the bill down:
+
+- **Session tokens.** Keystrokes are grouped into one autocomplete session,
+  and coordinates are fetched only for the result actually picked — one
+  Details call per completed search, not one per letter.
+- **Caching.** Repeated queries are answered from an in-process cache for 10
+  minutes, so the same few dozen area names aren't billed over and over.
+
+Routes over 50 km still aren't priced — Conductor is a daily-commute product.
+Search reaches the whole country; the estimate covers a commute.
+
+---
+
 ## Quick checklist
 - [ ] Resend: domain verified + `RESEND_API_KEY` (+ `CONTACT_*`) set  — **or** `CONTACT_WEBHOOK_URL` set
 - [ ] Vercel Analytics enabled (dashboard)
@@ -165,3 +232,4 @@ connected for that, this picks it up automatically.
 - [ ] tawk.to webhook pointed at `https://conductor.ng/api/tawk` (Chat Start, Ticket Create, Chat Transcript Created) + `TAWK_WEBHOOK_SECRET` set
 - [ ] `CLICKUP_API_TOKEN`, `CLICKUP_SUPPORT_LIST_ID`, `CLICKUP_ASSIGNEE_IDS` set
 - [ ] Sent a test chat message and confirmed the ClickUp ticket appeared
+- [ ] Places API enabled + `GOOGLE_PLACES_API_KEY` set (server-side, no `NEXT_PUBLIC_`), redeployed, and `/api/places?q=allen%20avenue` returns results

@@ -1,7 +1,8 @@
-/* Curated Lagos locations for the fare estimator's place-search inputs.
-   The website has no live Places key, so search runs over this list; the
-   app itself uses Google Places. Coords are approximate — enough for a
-   haversine estimate and the 50 km coverage cap. */
+/* Lagos locations the fare estimator can answer instantly, without a
+   round-trip. Search itself is nationwide via /api/places — this list just
+   covers the areas people type most, so the common case costs nothing and
+   never waits. Coords are approximate — enough for a haversine estimate and
+   the 50 km coverage cap. */
 const LAGOS_PLACES=[
   ['ikeja','Ikeja GRA','Mainland',6.5833,3.3500],
   ['ikeja-cm','Ikeja City Mall','Mainland',6.6120,3.3580],
@@ -85,8 +86,17 @@ const LAGOS_PLACES=[
 const ROAD_FACTOR=1.4;   // straight-line → road distance (matches app default)
 const MAX_KM=50;         // coverage cap — routes beyond this aren't priced
 
+/* Places resolved from the Google proxy during this session, held in the
+   same [id,name,area,lat,lng] shape as the built-in list.
+
+   Search is nationwide now, so the two ends of a route are no longer
+   guaranteed to be in LAGOS_PLACES — but routeKm still has to find their
+   coordinates. A picked result is registered here before onChange fires, so
+   by the time anything asks for a distance the coordinates are in hand. */
+const REMOTE_PLACES={};
 const PLACE_BY_ID=Object.fromEntries(LAGOS_PLACES.map(p=>[p[0],p]));
-function placeById(id){return PLACE_BY_ID[id]||null;}
+function placeById(id){return PLACE_BY_ID[id]||REMOTE_PLACES[id]||null;}
+function rememberPlace(p){REMOTE_PLACES[p[0]]=p;return p;}
 
 function haversineKm(a,b){
   if(!a||!b) return null;
@@ -105,25 +115,112 @@ function searchPlaces(query,excludeId){
   return LAGOS_PLACES.filter(p=>p[0]!==excludeId&&(!q||p[1].toLowerCase().includes(q)||p[2].toLowerCase().includes(q))).slice(0,7);
 }
 
-/* Searchable place input — text field + filtered dropdown (no external API). */
+/* Google Places, proxied through /api/places so the key stays on the server.
+
+   The built-in list answers instantly on every keystroke and covers the
+   areas most people type. Google fills in everything it cannot: streets,
+   estates, bus stops, and every city outside Lagos. If the proxy has no key
+   or is having a bad day it answers ok:false and the input degrades to
+   list-only rather than showing the visitor a failure. */
+const PLACES_ENDPOINT='/api/places';
+let placesUsable=true;   // flipped off for the session once the proxy says no_key
+
+/** Fresh token per search session — Google bills the keystrokes as one. */
+function newSessionToken(){
+  return 'cs-'+Math.random().toString(36).slice(2)+Date.now().toString(36);
+}
+
+async function remoteSearch(query,token,signal){
+  if(!placesUsable) return [];
+  try{
+    const r=await fetch(PLACES_ENDPOINT+'?q='+encodeURIComponent(query)+'&token='+encodeURIComponent(token),{signal});
+    const j=await r.json();
+    if(!j.ok){
+      // No key configured: stop asking for the rest of the session.
+      if(j.reason==='no_key') placesUsable=false;
+      return [];
+    }
+    return (j.places||[]).map(p=>[p.id,p.name,p.area,null,null]);
+  }catch(err){
+    return [];   // includes the abort when a newer keystroke supersedes this
+  }
+}
+
+/** Resolve a prediction to coordinates and register it. Null if it fails. */
+async function remoteDetails(id,token){
+  try{
+    const r=await fetch(PLACES_ENDPOINT+'?id='+encodeURIComponent(id)+'&token='+encodeURIComponent(token));
+    const j=await r.json();
+    if(!j.ok||!j.place) return null;
+    const p=j.place;
+    return rememberPlace([p.id,p.name,p.area,p.lat,p.lng]);
+  }catch(err){return null}
+}
+
+/* Searchable place input — text field + dropdown, built-in list then Google. */
 function PlaceSearch({value,onChange,label,placeholder,exclude,accent}){
   const [q,setQ]=React.useState('');
   const [open,setOpen]=React.useState(false);
   const [hi,setHi]=React.useState(0);
+  const [remote,setRemote]=React.useState([]);
+  const [busy,setBusy]=React.useState(false);
   const wrapRef=React.useRef(null);
+  const tokenRef=React.useRef(null);
+  if(tokenRef.current===null) tokenRef.current=newSessionToken();
   const sel=value?placeById(value):null;
   React.useEffect(()=>{
     const onDoc=e=>{if(wrapRef.current&&!wrapRef.current.contains(e.target))setOpen(false)};
     document.addEventListener('mousedown',onDoc);return()=>document.removeEventListener('mousedown',onDoc);
   },[]);
-  const matches=searchPlaces(open?q:'',exclude);
+
+  const local=searchPlaces(open?q:'',exclude);
+
+  /* Ask Google for what the built-in list could not answer.
+     Debounced, so a typed word is one request rather than one per letter,
+     and aborted when the next keystroke lands so a slow early reply cannot
+     overwrite the results for what is now on screen. */
+  React.useEffect(()=>{
+    const term=q.trim();
+    if(!open||term.length<3||!placesUsable){setRemote([]);setBusy(false);return}
+    const ctl=new AbortController();
+    setBusy(true);
+    const t=setTimeout(async()=>{
+      const found=await remoteSearch(term,tokenRef.current,ctl.signal);
+      if(ctl.signal.aborted) return;
+      setRemote(found);
+      setBusy(false);
+    },250);
+    return()=>{clearTimeout(t);ctl.abort()};
+  },[q,open]);
+
+  /* Built-in first, then anything Google adds that is not already shown and
+     is not the other end of the route — picking one place twice would price
+     a zero-km trip. */
+  const seenNames=new Set(local.map(p=>p[1].toLowerCase()));
+  const matches=local.concat(
+    remote.filter(p=>p[0]!==exclude&&!seenNames.has((p[1]||'').toLowerCase()))
+  ).slice(0,8);
   const shown=sel&&!open?sel[1]:q;
-  const choose=p=>{onChange(p[0]);setQ('');setOpen(false)};
+
+  const choose=async p=>{
+    setOpen(false);
+    if(p[3]!=null){onChange(p[0]);setQ('');return}
+    // A Google prediction carries no coordinates. Fetch them before handing
+    // the id up, so the calculator never sees a place it cannot measure.
+    setBusy(true);
+    const full=await remoteDetails(p[0],tokenRef.current);
+    setBusy(false);
+    tokenRef.current=newSessionToken();   // that billing session is spent
+    if(full){onChange(full[0]);setQ('')}
+    else{setOpen(true)}                   // lookup failed — leave them on the list
+  };
+
+  const empty=open&&q.trim().length>=3&&matches.length===0;
   return React.createElement('div',{className:'field psearch',ref:wrapRef},
     React.createElement('label',null,label),
     React.createElement('div',{className:'psearch__in'},
       React.createElement(Icon,{name:'pin',size:16,color:accent||'var(--fg-3)'}),
-      React.createElement('input',{type:'text',value:shown,placeholder:placeholder||'Search a place',
+      React.createElement('input',{type:'text',value:shown,placeholder:placeholder||'Search any address',
         'aria-label':label,autoComplete:'off',
         onFocus:()=>{setOpen(true);setQ('')},
         onChange:e=>{setQ(e.target.value);setOpen(true);setHi(0)},
@@ -140,7 +237,9 @@ function PlaceSearch({value,onChange,label,placeholder,exclude,accent}){
         onMouseEnter:()=>setHi(i),onMouseDown:e=>{e.preventDefault();choose(p)}},
         React.createElement(Icon,{name:'pin',size:14,color:'var(--fg-3)'}),
         React.createElement('span',null,React.createElement('b',null,p[1]),React.createElement('em',null,p[2]))))),
-    open&&q&&matches.length===0&&React.createElement('div',{className:'psearch__none'},'No match. This searches areas rather than street addresses — try the neighbourhood, like Ikotun, Ikeja or Lekki.'));
+    empty&&busy&&React.createElement('div',{className:'psearch__none'},'Searching…'),
+    empty&&!busy&&React.createElement('div',{className:'psearch__none'},
+      'Nothing found for that. Try adding the town or city — "Allen Avenue, Ikeja".'));
 }
 /* Corridor marketing data — used by the /corridors pages (the calculator no
    longer needs it; it prices from searched pick-up/drop-off distance). */
@@ -154,4 +253,4 @@ const CORRIDORS=[
   {id:'berger-ikeja',from:'Berger',to:'Ikeja',km:10,hail:4100,seat:1200,mins:32,riders:88,zone:'Mainland',peak:[3,6,9,7,4,2,3,5,6,3]},
   {id:'festac-apapa',from:'Festac',to:'Apapa',km:14,hail:5400,seat:1600,mins:42,riders:64,zone:'Mainland',peak:[4,7,8,5,3,2,2,4,6,4]}
 ];
-Object.assign(window,{LAGOS_PLACES,ROAD_FACTOR,MAX_KM,placeById,haversineKm,routeKm,searchPlaces,PlaceSearch,CORRIDORS});
+Object.assign(window,{LAGOS_PLACES,ROAD_FACTOR,MAX_KM,placeById,rememberPlace,haversineKm,routeKm,searchPlaces,PlaceSearch,CORRIDORS});
