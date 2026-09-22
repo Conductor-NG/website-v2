@@ -50,6 +50,35 @@ const LAGOS_PLACES=[
   ['sangotedo','Sangotedo','Lekki',6.4700,3.5850],
   ['awoyaya','Awoyaya','Lekki',6.4850,3.6100],
   ['epe','Epe','Outskirts',6.5900,3.9800],
+  ['ikotun','Ikotun','Mainland',6.5450,3.2650],
+  ['alimosho','Alimosho','Mainland',6.6050,3.2950],
+  ['akowonjo','Akowonjo','Mainland',6.6050,3.3050],
+  ['dopemu','Dopemu','Mainland',6.6150,3.3100],
+  ['ipaja','Ipaja','Mainland',6.6130,3.2680],
+  ['meiran','Meiran','Mainland',6.6600,3.2900],
+  ['alagbado','Alagbado','Mainland',6.6800,3.2700],
+  ['iju','Iju Ishaga','Mainland',6.6500,3.3200],
+  ['ifako','Ifako','Mainland',6.6300,3.3300],
+  ['magodo','Magodo','Mainland',6.6200,3.3700],
+  ['omole','Omole','Mainland',6.6330,3.3620],
+  ['shomolu','Shomolu','Mainland',6.5400,3.3830],
+  ['ogudu','Ogudu','Mainland',6.5750,3.3950],
+  ['alapere','Alapere','Mainland',6.5950,3.3980],
+  ['ebute-metta','Ebute Metta','Mainland',6.4850,3.3850],
+  ['lagos-island','Lagos Island','Island',6.4550,3.3950],
+  ['ijesha','Ijesha','Mainland',6.4950,3.3300],
+  ['orile','Orile','Mainland',6.4750,3.3400],
+  ['mile2','Mile 2','Mainland',6.4650,3.3100],
+  ['satellite','Satellite Town','Mainland',6.4600,3.2500],
+  ['ojo','Ojo','Mainland',6.4600,3.1900],
+  ['okokomaiko','Okokomaiko','Mainland',6.4700,3.1750],
+  ['vgc','Victoria Garden City','Island',6.4600,3.5600],
+  ['ibeju','Ibeju Lekki','Island',6.4400,3.8500],
+  ['akute','Akute','Commuter belt',6.6700,3.3400],
+  ['arepo','Arepo','Commuter belt',6.7000,3.3900],
+  ['magboro','Magboro','Commuter belt',6.7200,3.4000],
+  ['ibafo','Ibafo','Commuter belt',6.7500,3.4100],
+  ['mowe','Mowe','Commuter belt',6.8100,3.4400],
   ['badagry','Badagry','Outskirts',6.4150,2.8880]
 ];
 
@@ -111,7 +140,7 @@ function PlaceSearch({value,onChange,label,placeholder,exclude,accent}){
         onMouseEnter:()=>setHi(i),onMouseDown:e=>{e.preventDefault();choose(p)}},
         React.createElement(Icon,{name:'pin',size:14,color:'var(--fg-3)'}),
         React.createElement('span',null,React.createElement('b',null,p[1]),React.createElement('em',null,p[2]))))),
-    open&&q&&matches.length===0&&React.createElement('div',{className:'psearch__none'},'No match — try an area like Ikeja or Lekki'));
+    open&&q&&matches.length===0&&React.createElement('div',{className:'psearch__none'},'No match. This searches areas rather than street addresses — try the neighbourhood, like Ikotun, Ikeja or Lekki.'));
 }
 /* Corridor marketing data — used by the /corridors pages (the calculator no
    longer needs it; it prices from searched pick-up/drop-off distance). */
