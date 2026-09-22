@@ -578,7 +578,12 @@
   width: var(--pw);
   /* height flows from status bar + screen so the screenshot never crops */
   border-radius: 14% / 6.8%;
-  padding: 0.85%; /* titanium rail — thinner, closer to the real phone */
+  /* Titanium rail, measured against the PHONE and not its container.
+     A percentage padding resolves against the containing block's width, so
+     the old percentage made the rail grow with whatever section the phone
+     sat in — 16px inside a wide fan, a few pixels inside a narrow column,
+     and never the same device twice. --pw is the phone, so this is stable. */
+  padding: calc(var(--pw) * 0.011);
   background: linear-gradient(
     145deg,
     #e6e6ea 0%,
@@ -599,7 +604,7 @@
   flex-direction: column;
   border-radius: 12% / 5.9%;
   background: #05050a;
-  padding: 1%; /* black bezel — thinner, closer to the real phone */
+  padding: calc(var(--pw) * 0.012); /* black bezel — same, relative to the phone */
   /* clip the status strip + screenshot to the bezel's rounded shape so the
      app never pokes past the corners at the top */
   overflow: hidden;
