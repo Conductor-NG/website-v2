@@ -23,11 +23,11 @@ export const TRIP_FREQUENCY: Opt[] = [
   ["NONE", "I don't make regular journeys"],
 ];
 
-export const TRAVEL_ROLE: Opt[] = [
-  ["PASSENGER", "I mostly travel as a passenger, or don't drive for these trips"],
-  ["DRIVER", "I drive myself for these trips and often have spare seats"],
-  ["BOTH", "Both, depending on the day"],
-];
+// TRAVEL_ROLE was written here and never asked. It duplicated, less
+// precisely, what CAR_ACCESS and DRIVES_FOR_JOURNEY already establish
+// together — and those two are what the driver route is now keyed off.
+// Removed rather than wired in: a redundant question costs a page of a
+// survey people are volunteering five minutes to.
 
 // --- passenger: how you travel now -----------------------------------------
 

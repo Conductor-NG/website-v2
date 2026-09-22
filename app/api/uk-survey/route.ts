@@ -24,6 +24,7 @@ import {
   PT_WEEKDAY,
   PT_WEEKEND,
   SATISFACTION,
+  checkRate,
   saveResponse,
   SCHEDULED_VS_ONDEMAND,
   SHARED_BEFORE,
@@ -120,6 +121,22 @@ export async function POST(req: Request) {
   // Honeypot — bots fill this hidden field; drop them silently.
   if (data.company) return NextResponse.json({ ok: true });
 
+  // One source may submit a handful of times a day. The whole output of this
+  // survey is counts and a price distribution, and both bend to one person
+  // submitting over and over. Identified by a salted hash, never the address
+  // itself, and the check FAILS OPEN — losing real answers to a store outage
+  // would cost more than the duplicates it prevents.
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+  const rate = await checkRate(ip);
+  if (!rate.allowed) {
+    return bad(
+      "We already have several responses from this connection today. If that wasn't you, email support@conductor.ng."
+    );
+  }
+
   if (data.consent !== true) {
     return bad("Please confirm the consent statement before sending your answers.");
   }
@@ -153,6 +170,7 @@ export async function POST(req: Request) {
     instrument,
     source: str(data.source, 80) || "uk-survey",
     consent: true,
+    sourceHash: rate.sourceHash,
     tripFrequency,
     carAccess,
     drivesForJourney: oneOf(DRIVES_FOR_JOURNEY, data.drivesForJourney),
