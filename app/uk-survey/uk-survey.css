@@ -1,0 +1,120 @@
+/* UK validation survey — one section per page.
+   Uses the site tokens throughout; nothing here defines a colour of its own. */
+
+.uks { display: grid; gap: 26px; max-width: 720px; margin-inline: auto; }
+
+/* --- progress ------------------------------------------------------------ */
+
+.uks-prog { display: grid; gap: 8px; }
+.uks-prog__bar { height: 4px; border-radius: 99px; background: var(--surface-gray); overflow: hidden; }
+.uks-prog__bar i { display: block; height: 100%; background: var(--orange-base); border-radius: 99px; transition: width .25s ease; }
+.uks-prog span { font: var(--type-label-md); letter-spacing: .05em; text-transform: uppercase; color: var(--fg-3); }
+
+/* --- the page ------------------------------------------------------------ */
+
+.uks-step { display: grid; gap: 26px; }
+.uks-step__legend { font: 700 clamp(21px, 2vw, 26px)/1.2 var(--font-body); letter-spacing: -.015em; color: var(--fg-1); margin: 0; }
+.uks-step__hint { font: var(--type-body-md); color: var(--fg-3); margin: -18px 0 0; }
+
+.uks-p { font: var(--type-body-md); color: var(--fg-2); line-height: 1.6; margin: 0; max-width: 62ch; }
+
+/* The concept block. Set apart so it reads as a thing being described rather
+   than as the page talking, and so nobody scrolls past it to the questions. */
+.uks-concept {
+  font: var(--type-body-md); line-height: 1.65; color: var(--fg-1); margin: 0; max-width: 62ch;
+  padding: 18px 20px; border-left: 3px solid var(--orange-base);
+  background: var(--surface-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.uks-dl { display: grid; gap: 14px; margin: 0; max-width: 62ch; }
+.uks-dl dt { font: var(--type-label-md); letter-spacing: .05em; text-transform: uppercase; color: var(--fg-3); }
+.uks-dl dd { margin: 4px 0 0; font: var(--type-body-md); color: var(--fg-2); line-height: 1.6; }
+.uks-dl a { color: var(--fg-1); text-decoration: underline; text-underline-offset: 3px; }
+
+/* --- a question ---------------------------------------------------------- */
+
+.uks-q { display: grid; gap: 12px; }
+.uks-q__t { display: flex; gap: 10px; align-items: baseline; margin: 0; font: 600 17px/1.4 var(--font-body); color: var(--fg-1); letter-spacing: -.01em; max-width: 58ch; }
+.uks-q__t b { font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: 1.25em; color: var(--pink-base); line-height: 1; flex: none; }
+.uks-q__hint { margin: -6px 0 0; font: var(--type-body-sm); color: var(--fg-3); }
+
+.uks-opts { display: grid; gap: 8px; }
+.uks-opt {
+  display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
+  padding: 12px 14px; border: 1px solid var(--outline); border-radius: var(--radius-md);
+  font: var(--type-body-md); color: var(--fg-1); line-height: 1.45; background: #fff;
+  transition: border-color .12s ease, background .12s ease;
+}
+.uks-opt:hover { border-color: var(--fg-3); }
+.uks-opt[data-on="true"] { border-color: var(--orange-base); background: var(--orange-10, var(--surface-gray)); }
+.uks-opt[data-off="true"] { opacity: .45; cursor: not-allowed; }
+.uks-opt input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--orange-base); flex: none; }
+
+/* --- matrix -------------------------------------------------------------- */
+
+.uks-matrix { display: grid; gap: 10px; }
+.uks-matrix__head { display: none; }
+.uks-matrix__row { border: 1px solid var(--outline); border-radius: var(--radius-md); padding: 12px 14px; margin: 0; display: grid; gap: 8px; background: #fff; }
+.uks-matrix__row legend { font: 600 15.5px/1.4 var(--font-body); color: var(--fg-1); padding: 0; }
+.uks-matrix__row label { display: flex; gap: 10px; align-items: center; cursor: pointer; font: var(--type-body-sm); color: var(--fg-2); }
+.uks-matrix__row label[data-on="true"] { color: var(--fg-1); font-weight: 600; }
+.uks-matrix__row input { width: 17px; height: 17px; accent-color: var(--orange-base); flex: none; }
+
+/* Grid form once there is room for one. Below this the stacked version above
+   is what shows, because a five-column matrix on a phone loses responses. */
+@media (min-width: 860px) {
+  .uks-matrix__head { display: grid; grid-template-columns: 1.6fr repeat(5, 1fr); gap: 6px; padding: 0 14px; }
+  .uks-matrix__head span { font: var(--type-body-sm); color: var(--fg-3); text-align: center; line-height: 1.25; }
+  .uks-matrix__head span:first-child { text-align: left; }
+  .uks-matrix__row { grid-template-columns: 1.6fr repeat(5, 1fr); align-items: center; gap: 6px; }
+  .uks-matrix__row legend { float: left; width: 100%; margin-bottom: 0; }
+  .uks-matrix__row label { flex-direction: column; gap: 4px; justify-content: center; text-align: center; }
+  .uks-matrix__row label span { display: none; }
+}
+
+/* --- money + text -------------------------------------------------------- */
+
+.uks-vw { display: grid; gap: 14px; }
+.uks-money { display: grid; gap: 6px; }
+.uks-money > span { font: var(--type-body-md); color: var(--fg-2); line-height: 1.45; max-width: 52ch; }
+.uks-money__in { display: flex; align-items: center; gap: 0; max-width: 200px; border: 1px solid var(--outline); border-radius: var(--radius-md); background: var(--surface-gray); overflow: hidden; }
+.uks-money__in:focus-within { border-color: var(--orange-base); background: #fff; }
+.uks-money__in i { font-style: normal; padding: 0 4px 0 12px; color: var(--fg-3); font: var(--type-body-md); }
+.uks-money__in input { border: 0; background: transparent; outline: none; padding: 11px 12px 11px 2px; width: 100%; font: var(--type-body-md); color: var(--fg-1); }
+
+.uks-text { display: grid; gap: 6px; }
+.uks-text > span { font: var(--type-label-md); letter-spacing: .05em; text-transform: uppercase; color: var(--fg-3); }
+.uks-text input.input { width: 100%; box-sizing: border-box; }
+.uks-text textarea {
+  font-family: var(--font-body); font-size: 15.5px; line-height: 1.55; color: var(--fg-1);
+  background: var(--surface-gray); border: 1px solid transparent; border-radius: var(--radius-md);
+  padding: 12px 14px; resize: vertical; width: 100%; box-sizing: border-box;
+}
+.uks-text textarea:focus { outline: none; border-color: var(--orange-base); background: #fff; }
+.uks-other { margin-top: 4px; max-width: 420px; }
+
+.uks-consent { display: flex; gap: 12px; align-items: flex-start; font: var(--type-body-md); color: var(--fg-1); line-height: 1.5; cursor: pointer; max-width: 62ch; }
+.uks-consent input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--orange-base); flex: none; }
+
+/* --- navigation ---------------------------------------------------------- */
+
+.uks-nav { display: flex; gap: 12px; align-items: center; padding-top: 4px; }
+.uks-nav .btn:first-child { margin-right: auto; }
+.uks-skip { margin: -14px 0 0; font: var(--type-body-sm); color: var(--fg-3); }
+
+/* --- ends ---------------------------------------------------------------- */
+
+.uks-end { display: grid; gap: 14px; max-width: 58ch; padding: 8px 0 12px; }
+.uks-end h2 { font: 700 clamp(22px, 2.2vw, 28px)/1.2 var(--font-body); letter-spacing: -.015em; color: var(--fg-1); margin: 0; }
+.uks-end p { font: var(--type-body-md); color: var(--fg-2); line-height: 1.6; margin: 0; }
+
+@media (max-width: 560px) {
+  .uks-nav { flex-wrap: wrap; }
+  .uks-nav .btn { flex: 1 1 auto; justify-content: center; }
+}
+
+/* --- page shell ---------------------------------------------------------- */
+
+.uks-page__eyebrow { font: var(--type-label-md); letter-spacing: .14em; text-transform: uppercase; color: var(--pink-base); margin: 0 0 10px; text-align: center; }
+.uks-page__h1 { font: 700 clamp(28px, 3.4vw, 40px)/1.15 var(--font-body); letter-spacing: -.02em; color: var(--fg-1); margin: 0 auto 12px; text-wrap: balance; max-width: 20ch; text-align: center; }
+.uks-page__lede { font: var(--type-body-lg, var(--type-body-md)); color: var(--fg-2); line-height: 1.6; margin: 0 auto 38px; max-width: 54ch; text-align: center; }
