@@ -42,6 +42,29 @@ function PaxHome(){
         title={<>Four steps, and you have <em>a seat</em>.</>}
         lede="Every step below is a real screen from the passenger app — this is the whole journey, not a simplified version of it."/>
 
+      {/* Three screens, in the order a rider meets them: the route they
+          travel, the seats going their way, and the money that stays put
+          until each day is done. The fan and the connecting line are CSS,
+          so the screenshots underneath stay swappable and stay sharp. */}
+      <section className="sec sec--cream"><div className="wrap">
+        <SHead eyebrow="The whole thing, in three screens"
+          title={<>Your route, the seats on it, and <em>where the money sits</em>.</>}
+          lede="Real screens from the passenger app. Search the journey you already make, take a seat in a car that was going anyway, and watch the fare release one day at a time."/>
+        <Rv cls="rv--sc threeph">
+          <svg className="threeph__lines" viewBox="0 0 1200 560" fill="none" preserveAspectRatio="none" aria-hidden="true"
+            stroke="var(--orange-40)" strokeOpacity=".55" strokeWidth="3" strokeLinecap="round">
+            <path d="M20 300 C 240 210, 430 360, 620 262 S 980 170, 1180 235"/>
+            <path d="M60 400 C 300 330, 500 430, 720 372 S 1040 292, 1190 348" strokeOpacity=".18"/>
+            <g fill="var(--pink-base)" stroke="none" fillOpacity=".85">
+              <circle cx="20" cy="300" r="6"/><circle cx="1180" cy="235" r="6"/>
+            </g>
+          </svg>
+          <Phone single={1} w={278} set={PSCREENS}/>
+          <Phone single={2} w={306} set={PSCREENS}/>
+          <Phone single={15} w={278} set={PSCREENS}/>
+        </Rv>
+      </div></section>
+
       <SafetyRow items={[
         ['shield','Verified before the first trip','Car owners clear identity, licence and vehicle checks. Passengers verify identity too, so the trust runs both ways.'],
         ['share','Share the ride as it happens','Send your route, your car owner and your arrival time to anyone you trust. They follow along without installing anything.'],
