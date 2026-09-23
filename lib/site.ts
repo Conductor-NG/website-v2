@@ -6,8 +6,8 @@ export const SITE = {
   url: "https://conductor.ng",
   tagline: "Share the ride. Split the cost.",
   email: "support@conductor.ng",
-  phone: "+2348131500124",
-  phoneDisplay: "+234 813 150 0124",
+  phone: "+2348145523940",
+  phoneDisplay: "+234 814 552 3940",
 } as const;
 
 /** Real app-store listings (verified from the live site). */
