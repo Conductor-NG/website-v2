@@ -1000,7 +1000,7 @@ function Footer(){
           React.createElement('p',{className:'small',style:{lineHeight:1.7}},
             '8A Olayinka Balogun Crescent, Magodo Phase 2',React.createElement('br'),
             React.createElement('a',{href:'mailto:support@conductor.ng'},'support@conductor.ng'),' · ',
-            React.createElement('a',{href:'tel:+2348131500124'},'+234 813 150 0124')),
+            React.createElement('a',{href:'tel:+2348145523940'},'+234 814 552 3940')),
           React.createElement(SocialRow,null)),
         C.map(([t,ls])=>React.createElement('div',{key:t},React.createElement('h6',null,t),
           React.createElement('ul',null,ls.map(([l,h])=>React.createElement('li',{key:l},React.createElement('a',{href:h},l))))))),
