@@ -23,6 +23,7 @@ export const TermsPage: AnyProps;
 export const PassengerPolicyPage: AnyProps;
 export const CarOwnerPolicyPage: AnyProps;
 export const ConductPage: AnyProps;
+export const PromotionalTermsPage: AnyProps;
 export const DeletePage: AnyProps;
 export const CareersPage: AnyProps;
 export const PressPage: AnyProps;
