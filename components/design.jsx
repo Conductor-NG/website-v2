@@ -3221,4 +3221,115 @@ function PressPage(){
 }
 
 
-export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, DeletePage, CareersPage, PressPage };
+/* ---------------- Promotional terms ---------------- */
+/* The blanket rules that sit under every offer. Deliberately holds NO
+   amounts, thresholds or deadlines: those differ per offer, they are what
+   someone actually decides on, and they must be stated where the offer is
+   made. Keeping them here too would be a second place for a figure to drift
+   out of step with Configuration — which has already happened once across
+   four surfaces. */
+function PromotionalTermsPage(){return <LegalDoc crumb="Promotional terms" eyebrow="Legal"
+  title={<>Promotional <em>terms</em>.</>}
+  updated="25 September 2026"
+  intro="These Promotional Terms govern every offer Conductor makes — discounts, referral rewards, cash bonuses, wallet credits and any other benefit offered on or through the Platform. They sit alongside our Terms of Service, and they apply in addition to the specific terms published with each individual offer."
+  blocks={[
+  ['h2','1 · What these terms cover','scope'],
+  ['p','Conductor runs a number of different offers. Some reduce what a Passenger pays for a ride. Some pay a Car Owner a cash bonus for reaching a milestone. Some pay you for introducing someone else to the Platform. These terms are the rules common to all of them.'],
+  ['p','In these terms, an “Offer” means any promotion, discount, referral reward, commission, bonus, credit, prize or other benefit made available by Conductor. A “Reward” means whatever an Offer gives you if you qualify. Words defined in our Terms of Service carry the same meaning here.'],
+  ['p','Where these terms conflict with the specific terms of an individual Offer, the Offer’s own terms apply to that Offer.'],
+
+  ['h2','2 · Where the details of an Offer live','specifics'],
+  ['p','This page does not state how much any Offer pays, what you must do to qualify, or by when. Those details differ from one Offer to the next and they change over time, so they are published with the Offer itself — on the screen where the Offer is made, in the message that told you about it, or on the page you were sent to.'],
+  ['p','For every Offer you will be told, before you take part:'],
+  ['ul',[
+    'what the Reward is — the amount, the percentage, or what the benefit does;',
+    'what you have to do to qualify;',
+    'the deadline, if there is one, and how long the Reward lasts once earned;',
+    'who the Offer is open to.']],
+  ['p','If any of those four things is not stated where an Offer is made, the Offer is not one you can be held to — and we would rather you told us at support@conductor.ng than guessed.'],
+
+  ['h2','3 · Who can take part','eligibility'],
+  ['ol',[
+    'You must be at least 18 years old and have a Conductor account in good standing.',
+    'Your account must be verified to the standard the Offer requires. Where a Reward is paid in money, this always includes a verified NIN, because we cannot pay a person we cannot identify.',
+    'Your account must not be suspended, restricted or subject to an unresolved investigation at the moment a Reward would otherwise be granted or paid.',
+    'Some Offers are open only to Passengers, only to Car Owners, only to new Users, or only to Users in a particular area. Where that is the case, the Offer says so.',
+    <>One person may hold one account. Rewards are calculated per person, not per account, per device, per phone number or per vehicle. Where we find that one person is operating more than one account, we may treat them as a single account and withhold or reverse any Reward that only arose because they were counted twice — see clause 8.</>]],
+
+  ['h2','4 · Taking part costs nothing','entry'],
+  ['p','You never have to pay, buy anything, or make a booking in order to become eligible for an Offer. Some Offers are opened to you automatically when you sign up, and some allocate Users to different tiers of the same Offer automatically, which may include allocation at random. Being allocated a smaller benefit than someone else is not an error and does not entitle you to the larger one.'],
+  ['p','You may decline any Offer. Declining an Offer never affects the price you pay for a ride or your standing on the Platform.'],
+
+  ['h2','5 · Qualifying','qualifying'],
+  ['ol',[
+    <>Unless an Offer says otherwise, a trip counts towards qualifying only if it was <b>booked and paid for through the Platform</b>, actually took place, and was not cancelled, refunded in full, or found to be a no-show on the Passenger’s part.</>,
+    'Trips that are reversed, charged back, or later found to be fraudulent do not count, even if they counted at the time.',
+    'Where an Offer requires trips by someone you introduced, their trips count on the same basis — and they must be a genuine, separate person using the Platform for its intended purpose.',
+    'We assess qualification using our own records. Where an Offer depends on a period — a week, a cycle, a window — that period is measured in Lagos time (West Africa Time, UTC+1).',
+    'Qualification is assessed when the Offer says it is. Where a Reward depends on completing something within a window, the clock runs from the moment the Offer states, not from when you first saw it.']],
+
+  ['h2','6 · How a Reward is paid','payment'],
+  ['ol',[
+    <><b>Discounts</b> reduce the amount you pay at the time you pay it. A discount has no cash value, cannot be exchanged for money, and cannot be refunded to you as money if the ride is later cancelled — if a discounted booking is refunded, you are refunded what you actually paid.</>,
+    <><b>Cash bonuses and referral rewards</b> are paid into your Conductor Wallet. From there they are subject to the ordinary Wallet and withdrawal rules in our Terms of Service, including any minimum withdrawal amount and identity checks.</>,
+    <><b>Held Rewards.</b> Some Rewards are recorded as earned but held until a further condition is met. A held Reward is not yet yours to withdraw, and we will tell you what is still outstanding.</>,
+    'Where a Reward is stated as a percentage, we apply it to the amount the Offer names — not to the whole of your bill unless it says so.',
+    'Where more than one Offer could apply to the same booking, we apply whichever combination our systems permit. Offers do not automatically combine, and an Offer may say that it cannot be combined with others.',
+    'We may set a maximum value on a Reward, per ride, per day, per week, or overall. Where a cap applies it is stated with the Offer.']],
+
+  ['h2','7 · How long a Reward lasts','expiry'],
+  ['p','An Offer may be open for a limited period, and a Reward may expire if it is not used or claimed within a stated time. Both are stated with the Offer. Once an Offer closes or a Reward expires, it cannot be reinstated except where clause 12 applies.'],
+  ['p','If your account is closed, deleted or terminated, any unclaimed Reward and any unused discount ends at the same time. Money already paid into your Wallet is dealt with under the Terms of Service.'],
+
+  ['h2','8 · Abuse, and losing a Reward','abuse'],
+  ['p','Offers exist to get people using Conductor for real journeys. Where an Offer is used for something else, we may withhold the Reward, reverse it, remove it from your Wallet, or close the account.'],
+  ['p','The following are treated as abuse:'],
+  ['ul',[
+    'creating more than one account, or using another person’s identity, phone number or bank details, in order to qualify more than once;',
+    'referring yourself, or arranging for someone to refer you, through a second account you control;',
+    'trips that did not really happen — including arrangements between a Passenger and a Car Owner to book and settle a ride that neither intended to take;',
+    'bookings made and cancelled, or repeated, principally in order to trigger a Reward rather than to travel;',
+    'using automated means, scripts or exploits to obtain a Reward;',
+    'selling, buying or publicly posting a referral code in a way the Offer prohibits;',
+    'giving false information in order to qualify.']],
+  ['p','Where we withhold or reverse a Reward on these grounds, we will tell you which ground applies, and you may contest that decision under clause 12. We do not withhold a Reward simply because the pattern of your use is unusual — we look at whether the trips were real.'],
+  ['p','Where an Offer proceeds in steps, and the Offer says that failing a step forfeits the Offer, that consequence is stated with the Offer before you begin.'],
+
+  ['h2','9 · People who cannot take part','excluded'],
+  ['p','Offers are not open to employees, directors, contractors or agents of Conductor, nor to members of their immediate household, unless an Offer is expressly made for them and says so. Accounts we maintain for testing, demonstration or internal operations are excluded from every Offer and from every count an Offer depends on.'],
+  ['p','This exclusion is not a judgement about anyone’s honesty. It exists because the people who design and operate an Offer should not also be paid by it.'],
+
+  ['h2','10 · Tax','tax'],
+  ['p','Rewards may be taxable in your hands. You are responsible for declaring and paying any tax due on a Reward you receive, and for any filing that follows from it. Where Nigerian law requires Conductor to withhold tax from a payment, deduct it at source, or report a payment to a tax authority, we will do so, and what you receive will be the amount net of that deduction.'],
+  ['p','Nothing on this page is tax advice. If a Reward is large enough to matter to you, take your own advice.'],
+
+  ['h2','11 · Changing, pausing or ending an Offer','changes'],
+  ['p','We may change, pause, or withdraw any Offer, and we may change these Promotional Terms. We do this when an Offer is being abused, when it is not doing what it was meant to do, when its budget is exhausted, or when the law requires it.'],
+  ['p','Two commitments limit that:'],
+  ['ol',[
+    <><b>Changes apply forwards, not backwards.</b> If you have already met the conditions of an Offer, we honour the terms that applied when you met them. A change to an Offer or to this page does not reach back into a Reward you have already qualified for.</>,
+    <><b>If you are part-way through, we tell you.</b> Where an Offer runs in steps or over a period and we change or end it while you are part-way through, we will notify you, and we will not treat progress you have already made as lost solely because we made the change.</>]],
+  ['p','Where an Offer is withdrawn because of abuse under clause 8, the commitments above do not protect a Reward that arose from that abuse.'],
+
+  ['h2','12 · If you disagree with a decision','disputes'],
+  ['p','If you believe you qualified for a Reward and did not receive it, or that a Reward was wrongly withheld or reversed, write to support@conductor.ng with your account details and what you expected. You do not need to use any particular form of words.'],
+  ['ol',[
+    'We acknowledge within seven (7) business days.',
+    'We review the records the decision was based on, and we tell you what they showed.',
+    'Where we got it wrong, we put it right — by granting the Reward, restoring it, or paying it — and we say so plainly.',
+    'Where we maintain the decision, we give you the reason, not merely the outcome.']],
+  ['p','Nothing here removes any right you have under Nigerian law, including under the Federal Competition and Consumer Protection Act, or your right to complain to a regulator.'],
+
+  ['h2','13 · Your information','data'],
+  ['p','To run an Offer we use the account, trip, payment and device information described in our Privacy Policy, including for the purpose of detecting abuse of an Offer. Where an Offer involves someone you introduced, we tell each of you only what the Offer requires — the person you referred is not shown your Wallet, and you are not shown theirs.'],
+  ['p','Where a Reward is paid in money, we keep the records of that payment for as long as Nigerian financial and tax law requires, even if you later delete your account.'],
+
+  ['h2','14 · General','general'],
+  ['ol',[
+    'These terms are governed by the laws of the Federal Republic of Nigeria, and the Nigerian courts have jurisdiction.',
+    'If any part of these terms is found to be unenforceable, the rest continues to apply.',
+    'If we do not enforce a term on one occasion, that does not prevent us enforcing it later.',
+    <>An Offer is made by Conductor Technology International Services Limited. Questions about these terms: <a href="mailto:support@conductor.ng">support@conductor.ng</a>.</>]]
+  ]}/>;}
+
+export { PaxHome, OwnerPage, HowItWorks, SafetyNew, FaresPage, Corridors, CorridorDetail, FAQPage, About, Calculator, Header, Footer, PrivacyPage, TermsPage, PassengerPolicyPage, CarOwnerPolicyPage, ConductPage, PromotionalTermsPage, DeletePage, CareersPage, PressPage };
