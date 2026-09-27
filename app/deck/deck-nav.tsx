@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-/** The 9 deck sections, in order. slug "" === /deck (Overview). */
+/** The 10 deck sections, in order. slug "" === /deck (Overview). */
 export const DECK_SECTIONS = [
   { slug: "", label: "Overview" },
   { slug: "product", label: "Product" },
@@ -14,6 +14,7 @@ export const DECK_SECTIONS = [
   { slug: "team", label: "Team" },
   { slug: "financials", label: "Financials" },
   { slug: "ask", label: "The ask" },
+  { slug: "next-round", label: "Next round" },
 ] as const;
 
 /** Build an internal deck href that preserves the per-recipient token. */

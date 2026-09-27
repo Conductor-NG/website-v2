@@ -30,25 +30,6 @@ export const TEAM = `
     </div>
   </div>
 </section>
-
-<section style="max-width:1200px;margin:0 auto;padding:56px 32px 72px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
-  <div style="font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6B5D4E">The wider team</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px">
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Enger</div><div style="font-size:13px;color:#6B5D4E">Senior Software Developer</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Victor</div><div style="font-size:13px;color:#6B5D4E">Marketing Manager</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Daniel</div><div style="font-size:13px;color:#6B5D4E">Operations Manager</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Folashade</div><div style="font-size:13px;color:#6B5D4E">Project Manager</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Oluwatoba</div><div style="font-size:13px;color:#6B5D4E">Product Designer</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Nnena</div><div style="font-size:13px;color:#6B5D4E">Project Manager</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Oluwatosin</div><div style="font-size:13px;color:#6B5D4E">Technical Project Manager</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Nyore</div><div style="font-size:13px;color:#6B5D4E">Designer</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Oyinlola</div><div style="font-size:13px;color:#6B5D4E">Communications</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">AbdulMalik</div><div style="font-size:13px;color:#6B5D4E">Product Design Lead</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Ridwan</div><div style="font-size:13px;color:#6B5D4E">Head, Business Development</div></div></div>
-    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:12px;padding:16px;display:flex;align-items:center;gap:12px"><div style="width:44px;height:44px;border-radius:50%;background:#ECDFCE;flex:none"></div><div><div style="font-size:15px;font-weight:700">Sanusi</div><div style="font-size:13px;color:#6B5D4E">Product Development Lead</div></div></div>
-  </div>
-  <p style="font-size:14px;color:#8A7A6B;margin:0">Friends, and friends of friends — most of them here since the beginning.</p>
-</section>
 `;
 
 export default function DeckTeam() {

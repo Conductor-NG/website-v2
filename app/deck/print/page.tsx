@@ -1242,18 +1242,18 @@ export default function DeckPrint() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: MUTED }}>Where the $200k goes</div>
             <div style={{ display: "flex", height: 18, borderRadius: 8, overflow: "hidden" }}>
-              {[["30%", RED], ["32.5%", "#E98B20"], ["15%", INK], ["10%", "#9F6010"], ["7.5%", MUTED], ["5%", DIV]].map(([w, c], i) => (
+              {[["40%", "#E98B20"], ["25%", RED], ["10%", INK], ["10%", "#9F6010"], ["7.5%", MUTED], ["7.5%", DIV]].map(([w, c], i) => (
                 <div key={i} style={{ width: w, background: c }} />
               ))}
             </div>
             <div style={{ border: `1px solid ${DIV}`, borderRadius: 12, overflow: "hidden", fontSize: 13, background: "#fff" }}>
               {[
-                [RED, "Team salaries (12 months)", "$60k", "30%", "Cash salaries for the people running the app & company — eng, CS/onboarding, ops, marketing, finance. Market-rate balance deferred to equity"],
-                ["#E98B20", "Marketing and acquisition", "$65k", "32.5%", "Google, Meta & other ad platforms on the proven CPI; social influencers; passenger-side; Nigeria-wide roll-out; incl. advisory retainer"],
-                [INK, "Product and infrastructure", "$30k", "15%", "V1 Stabilization features, safety infra, admin tools, servers, Conductor Deliveries launch"],
+                ["#E98B20", "Marketing and acquisition", "$80k", "40%", "Google, Meta & other ad platforms on the proven CPI; social influencers; passenger-side; Nigeria-wide roll-out; incl. advisory retainer"],
+                [RED, "Team salaries (12 months)", "$50k", "25%", "Cash salaries for the people running the app & company — eng, CS/onboarding, ops, marketing, finance. Market-rate balance deferred to equity"],
+                [INK, "Product and infrastructure", "$20k", "10%", "V1 Stabilization features, safety infra, admin tools, servers, Conductor Deliveries launch"],
                 ["#9F6010", "Ops and car owner liquidity", "$20k", "10%", "Corridor launch team, car owner incentives, onboarding follow-up"],
                 [MUTED, "Legal, compliance, licensing", "$15k", "7.5%", "LASTMA, LAGRA and regulatory footings"],
-                [DIV, "Runway buffer", "$10k", "5%", "Contingency"],
+                [DIV, "Runway buffer", "$15k", "7.5%", "Contingency"],
               ].map(([c, cat, amt, pct, what], i, arr) => (
                 <div key={cat as string} style={{ display: "grid", gridTemplateColumns: "16px 1.1fr 56px 46px 1.7fr", gap: 12, padding: "9px 16px", borderBottom: i < arr.length - 1 ? `1px solid ${DIV}` : "none", alignItems: "center" }}>
                   <span style={{ width: 14, height: 14, borderRadius: 4, background: c as string }} />
