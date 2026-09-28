@@ -56,6 +56,32 @@ export const ASK = `
   </div>
 </section>
 
+<section style="max-width:1200px;margin:0 auto;padding:72px 32px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:880px">
+    <div style="font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#EE4643">What comes after this round</div>
+    <h2 style="font-size:36px;font-weight:700;line-height:1.1;letter-spacing:-0.01em;margin:0">This $200k is what makes the next raise possible</h2>
+    <p style="font-size:17px;line-height:1.55;color:#514336;margin:0">It is not the money that scales Conductor — it is the money that makes Conductor fundable at a real price. Hit the second checkpoint above and we go to institutional investors for <strong style="color:#211A14">$1–2M at a $20M valuation</strong>. Three states, two revenue lines and a first enterprise contract is the shape they underwrite. You come in at a $5M cap; they come in at $20M.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px">
+    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E">You invest now</div>
+      <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1;color:#211A14">$200k</div>
+      <div style="font-size:15px;line-height:1.45;color:#514336">On a $5M post-money SAFE cap.</div>
+    </div>
+    <div style="background:#fff;border:1px solid #ECDFCE;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6B5D4E">Which converts to</div>
+      <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1;color:#211A14">~4%</div>
+      <div style="font-size:15px;line-height:1.45;color:#514336">The cap beats the 20% discount at any price above $6.25M, so the cap applies.</div>
+    </div>
+    <div style="background:#211A14;color:#FFF8F0;border:1px solid #211A14;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#D6C3B3">Priced at $20M, that is</div>
+      <div style="font-family:'Instrument Serif','Roboto Flex',Georgia,serif;font-style:italic;font-size:40px;line-height:1;color:#E98B20">~$800k</div>
+      <div style="font-size:15px;line-height:1.45;color:#D6C3B3">A 4× mark on paper — if the round clears at $20M.</div>
+    </div>
+  </div>
+  <p style="font-size:14px;line-height:1.55;color:#8A7A6B;margin:0;max-width:880px">Said plainly, because it matters: a 4× paper mark is not a return. It is what the next investor's price does to your entry price, it becomes real at an exit or a secondary, and it becomes nothing if the milestones above are missed and the round prices lower. We are not asking you to accept $20M today — we are telling you what this money is meant to make defensible, and what has to be true first.</p>
+</section>
+
 <section style="background:#211A14;color:#FFF8F0">
   <div style="max-width:1200px;margin:0 auto;padding:88px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center">
     <div style="display:flex;flex-direction:column;gap:24px">
@@ -87,7 +113,7 @@ export default function DeckAsk() {
       {/* biome-ignore lint/security/noDangerouslySetInnerHtml: first-party ported deck markup, no user input */}
       <main dangerouslySetInnerHTML={{ __html: ASK }} />
       <div style={{ flex: 1 }} />
-      <DeckPager prev={{ slug: "financials", label: "Financials" }} next={{ slug: "next-round", label: "Next round" }} />
+      <DeckPager prev={{ slug: "financials", label: "Financials" }} />
     </>
   );
 }
